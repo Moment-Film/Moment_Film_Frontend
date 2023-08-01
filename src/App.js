@@ -1,4 +1,5 @@
 import './App.css';
+import PageLayout from './layout/PageLayout';
 import Home from './pages/HomePage';
 import Login from './pages/LoginPage'
 import MyPage from './pages/MyPage'
@@ -10,12 +11,11 @@ import SignUpPage from './pages/SignUpPage'
 import CameraPage from './pages/CameraPage';
 import CameraOptionPage from './pages/CameraOptionPage';
 import { Route, Routes } from 'react-router-dom';
-import Header from './components/common/Header';
 
 function App() {
   return (
     <Routes>
-      <Route path='/' element={<Header />}>
+      <Route path='/' element={<PageLayout />}>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path='/post' element={<CustomPostPage />} />
