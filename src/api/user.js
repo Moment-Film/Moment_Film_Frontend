@@ -1,12 +1,13 @@
-import axios from './ourAxios';
+import ourAxios from './ourAxios';
+// import axios from "axios";
 
-export const register = async (userName, passWord, email, phoneNum) => {
+export const register = async ({username, password, email, phone}) => {
     try {
-        const res = await axios.post("api/users/signup", {
-            userName,
+        const res = await ourAxios.post('/user', {
+            username,
             email,
-            passWord,
-            phoneNum,
+            password,
+            phone,
         });
         console.log(res);
         return res.data;

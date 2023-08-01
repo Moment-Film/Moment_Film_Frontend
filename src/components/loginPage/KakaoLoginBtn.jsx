@@ -27,7 +27,7 @@ const KakaoLoginBtn = ({width, height}) => {
         onError: (error)=>{
             console.log("에러")
         }
-      })
+    })
 
 
     const handleLogin =()=>{
