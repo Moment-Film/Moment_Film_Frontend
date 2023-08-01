@@ -4,22 +4,39 @@ import { SetAccessToken } from '../../redux/modules/AccessToken';
 import { useDispatch } from 'react-redux';
 import { ELogin } from '../../api/snsUser';
 import useInputValidation from '../../hooks/useInputValidation';
+import { useMutation } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 
 const EmailLogin = () => {
-    
+    const navigate=useNavigate();
     const dispatch = useDispatch();
 
-    const{email, password,emailError,passwordError,handleEmailChange,handlePasswordChange}=useInputValidation()
+    const
+    {
+        email, 
+        password,
+        emailError,
+        passwordError,
+        handleEmailChange,
+        handlePasswordChange
+    } = useInputValidation()
+
+    const mutation = useMutation(ELogin,{
+        onSuccess:async(response)=>{
+            if(response.status===201){
+                await dispatch(SetAccessToken(response.data.token))
+                navigate('/');
+            }
+        },
+        onError: (error)=>{
+            alert('에러입니다');
+        }
+    })
 
     //로그인 버튼 클릭 시  동작 
     const LoginHandler = async(e) => {
         e.preventDefault()
-/*         const response = await ELogin({email,password})
-        //이부분 수정하자 너무 막해놨음 
-        //로그인 성공시 페이지 이동 추가할 것 
-        console.log(response)
-         if(response!=undefined)
-            dispatch(SetAccessToken(response.data.token)) */
+       /*  mutation.mutate({email,password}) */
     };
 
     return (
