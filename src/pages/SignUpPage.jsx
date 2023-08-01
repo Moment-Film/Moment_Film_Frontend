@@ -98,7 +98,8 @@ function SignUpPage() {
 export default SignUpPage;
 
 const FormWrap = styled.div`
-  margin-top: 200px;
+  margin-top: 150px;
+  margin-bottom: 200px;
   width: 100%;
   display: flex;
   justify-content: center;
