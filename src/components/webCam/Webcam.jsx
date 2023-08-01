@@ -1,8 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import {CapturedPhotos} from './style'
-import base64 from "base-64"
+
+import {WebcamBody, CapturedPhotos} from './style'
+import { useNavigate } from 'react-router-dom';
+
 
 function Webcam() {
+  const navigate = useNavigate();
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const [capturedImages, setCapturedImages] = useState([]);
@@ -32,10 +35,9 @@ function Webcam() {
   };
 
   return (
-    <div>
-      <video ref={videoRef} autoPlay style={{ borderRadius: '6px' }}></video>
-      <button onClick={handleCapture}>사진 찍기</button>
-          <h2>찍은 사진들:</h2>
+    <WebcamBody>
+      <video ref={videoRef} autoPlay />
+      <button onClick={handleCapture}>찰 칵</button>
       {capturedImages.length > 0 && (
         <CapturedPhotos>
           {capturedImages.map((image, index) => (
@@ -52,7 +54,8 @@ function Webcam() {
       )}
       {/* 비디오 화면을 그리기 위한 캔버스 */}
       <canvas ref={canvasRef} style={{ display: 'none' }} width="640" height="480"></canvas>
-    </div>
+      <button onClick={()=>navigate(`option`)}>다음</button>
+    </WebcamBody>
   );
 }
 

@@ -2,8 +2,8 @@ import React from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-// import { register } from '../api/user';
-// import { useMutation } from 'react-query';
+import { register } from '../api/user';
+import { useMutation } from 'react-query';
 
 
 function SignUpPage() {
@@ -17,16 +17,18 @@ function SignUpPage() {
 
   const navigate = useNavigate();
 
-  // const mutation = useMutation( register, {
-  //   onSuccess: (data) => {
-  //     if (data) {
-  //       alert("회원가입 성공!");
-  //     }
-  //   },
-  //   onError: (error) => {
-  //     alert("회원가입 오류입니다.", error);
-  //   },
-  // });
+  const mutation = useMutation( register, {
+    onSuccess: (data) => {
+      if (data) {
+        alert("회원가입 성공!");
+        navigate('/login');
+      }
+    },
+    onError: (error) => {
+      alert("회원가입 오류입니다.");
+      console.log(error)
+    },
+  });
 
 
   const handleUserNameChange = (event) => {
@@ -59,14 +61,14 @@ function SignUpPage() {
   };
   
   const submitBtnHandler = async () => {
-    // const registerData = {
-    //   userName,
-    //   email,
-    //   passWord,
-    //   phoneNum,
-    // };
+    const registerData = {
+      username : userName,
+      email,
+      password : passWord,
+      phone : phoneNum,
+    };
 
-    // mutation.mutate(registerData);
+    mutation.mutate(registerData);
     alert('가입이 완료되었습니다!')
     navigate('/login')
   }
@@ -86,7 +88,6 @@ function SignUpPage() {
           <InputForm value={phoneNum} onChange={handlePhoneNumChange} placeholder='(-) 를 제외한 핸드폰번호를 입력하세요.' />
           {phoneNumWarning && <WarningMessage>핸드폰번호는 11자리 이상이어야 합니다.</WarningMessage>}
 
-
           <SubmitBtn onClick={submitBtnHandler}>가입하기</SubmitBtn>
         </FormBox>
       </FormWrap>
@@ -97,7 +98,8 @@ function SignUpPage() {
 export default SignUpPage;
 
 const FormWrap = styled.div`
-  margin-top: 200px;
+  margin-top: 150px;
+  margin-bottom: 200px;
   width: 100%;
   display: flex;
   justify-content: center;
