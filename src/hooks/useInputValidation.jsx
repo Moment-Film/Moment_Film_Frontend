@@ -20,9 +20,11 @@ const useInputValidation=()=>{
         const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
         if (!input) {
           setEmailError('이메일을 입력해주세요.');
-        } else if (!emailPattern.test(input)) {
+        } 
+        else if (!emailPattern.test(input)) {
           setEmailError('유효한 이메일 주소를 입력해주세요.');
-        } else {
+        } 
+        else {
           setEmailError('');
         }
       };
@@ -31,9 +33,11 @@ const useInputValidation=()=>{
       const validatePassword = (input) => {
         if (!input) {
           setPasswordError('비밀번호를 입력해주세요.');
-        } else if (input.length < 5) {
+        } 
+        else if (input.length < 5) {
           setPasswordError('비밀번호는 최소 5자 이상이어야 합니다.');
-        } else {
+        } 
+        else {
           setPasswordError('');
         }
       };

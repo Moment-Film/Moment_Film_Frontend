@@ -13,20 +13,29 @@ const GoogleLoginBtn = ({width , height}) => {
     const navigate = useNavigate();
     const [cookie,setCookie] = useCookies(['refresh']);
 
-    const mutation = useMutation(socialLogin, {
-        onSuccess: (response) => {
 
+    const mutation = useMutation(socialLogin,{
+        onSuccess:async(response)=>{
+/*             if(response.status===201){
+    //엑세스 토큰 리프레쉬 토큰을 전달받을거임 
+    //그때 아래 리프레시토큰저장하는 로직을 여기로 옮김 
+                await dispatch(SetAccessToken(response.data.accessToken))
+                navigate('/');
+            } */
         },
-      })
-
+        onError: (error)=>{
+            alert('에러입니다');
+        }
+    })
 
     const handleOnSuccess = async({ credential }) => {
         // 아직 리프레쉬 토큰이랑 받는게 없어서 이렇게 둠 
         console.log(credential)
+        //확인용임 추후 위로 올릴것
         await setCookie('refresh',credential);
         console.log(cookie.refresh);
         const social='google';
- /*        mutation.mutate({credential,social}); */
+        mutation.mutate({credential,social});
     }
 
     return (

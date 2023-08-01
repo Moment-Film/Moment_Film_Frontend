@@ -6,8 +6,6 @@ import styled from 'styled-components';
 import useInputValidation from '../../hooks/useInputValidation';
 
 const Login = () => {
-    const{email, password,emailError,passwordError,handleEmailChange,handlePasswordChange,handleSubmit}=useInputValidation()
-
     return (
         <LoginSection>
             <Wrap>

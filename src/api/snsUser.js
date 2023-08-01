@@ -22,7 +22,7 @@ export const socialLogin = async ({credential,social}) => {
 export const ELogin = async ({email,password}) => {
   // 아직 주소 안정해짐 
   console.log(email,password)
-  const response = await axios.post(//주소 채울것 ,
+  const response = await axios.post(//주소 추후에 ,
   {
     id:email,
     password:password
