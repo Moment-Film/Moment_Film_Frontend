@@ -11,6 +11,7 @@ function Header() {
       <button onClick={()=>navigate(`/post`)}>Post</button>
       <button onClick={()=>navigate(`/post/1`)}>PostDetail</button>
       <button onClick={()=>navigate(`/camera`)}>📸⚠️</button>
+      <button onClick={()=>navigate(`/search`)}>🔍</button>
     </HeaderBox>
   )
 }
