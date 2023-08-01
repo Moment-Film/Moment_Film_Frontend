@@ -3,6 +3,7 @@ import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { socialLogin } from '../../api/snsUser';
+import { useCookies } from 'react-cookie';
 
 // 보안이 되는 폴더??? 그런게 있다면 옮겨보자 
 const clientId = '130079254258-jg9vkidldjsvjg5u1fkncj66hs5iep9v.apps.googleusercontent.com'
@@ -10,20 +11,22 @@ const clientId = '130079254258-jg9vkidldjsvjg5u1fkncj66hs5iep9v.apps.googleuserc
 const GoogleLoginBtn = ({width , height}) => {
 
     const navigate = useNavigate();
+    const [cookie,setCookie] = useCookies(['refresh']);
 
     const mutation = useMutation(socialLogin, {
         onSuccess: (response) => {
-            navigate('/')
+
         },
-        onError: (error)=>{
-            console.log("에러")
-        }
       })
 
 
-    const handleOnSuccess = ({ credential }) => {
+    const handleOnSuccess = async({ credential }) => {
+        // 아직 리프레쉬 토큰이랑 받는게 없어서 이렇게 둠 
+        console.log(credential)
+        await setCookie('refresh',credential);
+        console.log(cookie.refresh);
         const social='google';
-        mutation.mutate({credential,social});
+ /*        mutation.mutate({credential,social}); */
     }
 
     return (

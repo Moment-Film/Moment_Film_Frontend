@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {CapturedPhotos} from './style'
+import base64 from "base-64"
 
 function Webcam() {
   const videoRef = useRef(null);
@@ -39,6 +40,11 @@ function Webcam() {
         <CapturedPhotos>
           {capturedImages.map((image, index) => (
             <div key={index}>
+              
+              {
+                 console.log(image.split(',')[1]) 
+         /*        console.log(JSON.parse(base64.decode(image.split(',')[1]))) */
+}
               <img src={image} alt={`Captured ${index}`} />
             </div>
           ))}
