@@ -1,6 +1,13 @@
+import { useEffect, useState } from 'react';
+import CaptureGuide from '../components/webCam/CaptureGuide'
+import SetCount from "../components/webCam/SetCount";
+
 function CameraOptionPage() {
   return (
-    <div>CameraOptionPage</div>
+    <>
+      <CaptureGuide />
+      <SetCount />
+    </>
   )
 }
 export default CameraOptionPage;

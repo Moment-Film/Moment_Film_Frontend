@@ -28,6 +28,8 @@ function Webcam() {
     // 비디오 화면을 캔버스에 그립니다.
     context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
 
+    localStorage.setItem(`image${capturedImages.length}`, canvas.toDataURL('image/png'))
+
     // 캡처된 이미지 데이터를 배열에 추가합니다.
     setCapturedImages(prevImages => [...prevImages, canvas.toDataURL('image/png')]);
   };
@@ -35,7 +37,7 @@ function Webcam() {
   return (
     <WebcamBody>
       <video ref={videoRef} autoPlay />
-      <button onClick={handleCapture}>찰 칵</button>
+      {capturedImages.length<8 &&  <button onClick={handleCapture}>찰 칵</button>}
       {capturedImages.length > 0 && (
         <CapturedPhotos>
           {capturedImages.map((image, index) => (
