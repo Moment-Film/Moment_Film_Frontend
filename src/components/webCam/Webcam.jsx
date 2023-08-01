@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
+
 import {WebcamBody, CapturedPhotos} from './style'
 import { useNavigate } from 'react-router-dom';
+
 
 function Webcam() {
   const navigate = useNavigate();
@@ -42,6 +44,11 @@ function Webcam() {
         <CapturedPhotos>
           {capturedImages.map((image, index) => (
             <div key={index}>
+              
+              {
+                 console.log(image.split(',')[1]) 
+         /*        console.log(JSON.parse(base64.decode(image.split(',')[1]))) */
+}
               <img src={image} alt={`Captured ${index}`} />
             </div>
           ))}
