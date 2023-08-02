@@ -89,7 +89,6 @@ const SetCount = () => {
             <PuzzleBoard
               key={index}
               onDrop={(imgSrc) => handleDrop(imgSrc, index)}
-              onClick={()=>handleDrop(null,index)}
               imageSrc={imageSrc} />
           ))}
         </div>
