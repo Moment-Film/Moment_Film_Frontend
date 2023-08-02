@@ -4,13 +4,16 @@ import styled from "styled-components";
 function Header() {
   const navigate = useNavigate();
   return(
-    <HeaderBox>Header
-      <button onClick={()=>navigate(`/`)}>Home</button>
-      <button onClick={()=>navigate(`/signup`)}>Sign Up</button>
-      <button onClick={()=>navigate(`/login`)}>Log In</button>
-      <button onClick={()=>navigate(`/post`)}>Post</button>
-      <button onClick={()=>navigate(`/post/1`)}>PostDetail</button>
-      <button onClick={()=>navigate(`/camera`)}>📸⚠️</button>
+    <HeaderBox>
+      <Btn onClick={()=>navigate(`/`)}>Home</Btn>
+      <Btn onClick={()=>navigate(`/signup`)}>Sign Up</Btn>
+      <Btn onClick={()=>navigate(`/login`)}>Log In</Btn>
+      <Btn onClick={()=>navigate(`/post`)}>Post</Btn>
+      <Btn onClick={()=>navigate(`/post/1`)}>PostDetail</Btn>
+      <Btn onClick={()=>navigate(`/camera`)}>⚠️📸⚠️</Btn>
+      
+      <Btn onClick={()=>navigate(`/search`)} style={{marginLeft:'550px'}}>🔍</Btn>
+      <Btn onClick={()=>navigate(`/mypage`)}>ᕙ༼◕ ᴥ ◕༽ᕗ</Btn>
     </HeaderBox>
   )
 }
@@ -20,4 +23,18 @@ const HeaderBox = styled.header`
   height: 80px;
   width: 100%;
   background-color: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+`
+
+const Btn = styled.button`
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+  &:hover {
+    background-color: grey;
+  }
 `
