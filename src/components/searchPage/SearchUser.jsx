@@ -113,6 +113,7 @@ const TagBox = styled.div`
 const Tag = styled.div`
   padding: 5px;
   background-color: grey;
+  cursor: pointer;
 `;
 
 const ImgBox = styled.div`
@@ -124,5 +125,6 @@ const ImgBox = styled.div`
 `
 
 const Img = styled.img`
-  width: 48%;
+  width: 48%;  
+  cursor: pointer;
 `
