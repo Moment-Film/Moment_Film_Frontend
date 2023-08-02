@@ -1,9 +1,9 @@
 import React from 'react'
-import Mypage from '../components/myPage/mypage'
-
+import MyPageCompo from '../components/myPage/MyPageCompo'
 function MyPage() {
   return (
-    <Mypage />
+    <MyPageCompo></MyPageCompo>
+
   )
 }
 

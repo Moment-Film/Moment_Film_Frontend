@@ -4,7 +4,7 @@ import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { socialLogin } from '../../api/snsUser';
 import { useCookies } from 'react-cookie';
-
+import styled from 'styled-components';
 // 보안이 되는 폴더??? 그런게 있다면 옮겨보자 
 const clientId = '130079254258-jg9vkidldjsvjg5u1fkncj66hs5iep9v.apps.googleusercontent.com'
 
@@ -39,10 +39,17 @@ const GoogleLoginBtn = ({width , height}) => {
     }
 
     return (
+ 
         <GoogleOAuthProvider clientId={clientId}>
             <GoogleLogin onSuccess={handleOnSuccess} width={width} height={height} />
         </GoogleOAuthProvider>
+
     );
 };
 
 export default GoogleLoginBtn;
+
+const StyledDiv = styled.div`
+    display:flex;
+
+`
