@@ -6,58 +6,72 @@ import { ELogin } from '../../api/snsUser';
 import useInputValidation from '../../hooks/useInputValidation';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import StyledButton from '../common/StyledButton';
 
 const EmailLogin = () => {
-    const navigate=useNavigate();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const
-    {
-        email, 
-        password,
-        emailError,
-        passwordError,
-        handleEmailChange,
-        handlePasswordChange
-    } = useInputValidation()
+        {
+            email,
+            password,
+            emailError,
+            passwordError,
+            handleEmailChange,
+            handlePasswordChange
+        } = useInputValidation()
 
-    const mutation = useMutation(ELogin,{
-        onSuccess:async(response)=>{
-            if(response.status===201){
+    const mutation = useMutation(ELogin, {
+        onSuccess: async (response) => {
+            if (response.status === 201) {
                 await dispatch(SetAccessToken(response.data.token))
                 navigate('/');
             }
         },
-        onError: (error)=>{
+        onError: (error) => {
             alert('에러입니다');
         }
     })
 
     //로그인 버튼 클릭 시  동작 
-    const LoginHandler = async(e) => {
+    const LoginHandler = async (e) => {
         e.preventDefault()
-       /*  mutation.mutate({email,password}) */
+        console.log("qwe")
+         mutation.mutate({email,password})
     };
 
     return (
         <StyledForm>
-            <input
-                placeholder='Email'
-                type='email'
-                value={email}
-                onChange={handleEmailChange}
-            />
-            <div>{emailError}</div>
+            <InputSection>
+                <StyledInput
+                    placeholder='   Email'
+                    type='email'
+                    value={email}
+                    onChange={handleEmailChange}
+                />
+                <span>{emailError}</span>
 
-            <input
-                placeholder='password'
-                type='password'
-                value={password}
-                onChange={handlePasswordChange}
-            />
-            <div>{passwordError}</div>
+                <StyledInput
+                    placeholder='   password'
+                    type='password'
+                    value={password}
+                    onChange={handlePasswordChange}
+                />
+                <span>{passwordError}</span>
+            </InputSection>
 
-            <button onClick={LoginHandler}>{'로그인 하기'}</button>
+            <StyledButton func={LoginHandler} title={"로그인하기"} width={"70vw"}/>
+
+        <FindInfoSection>
+            <StyledLink>
+                {'아이디를 잊으셨나요?'}
+            </StyledLink>
+            <StyledLink>
+                {'비밀번호를 잊으셨나요?'}
+            </StyledLink>
+        </FindInfoSection>
         </StyledForm>
     );
 };
@@ -67,4 +81,37 @@ export default EmailLogin;
 const StyledForm = styled.form`
     display:flex;
     flex-direction:column;
+    align-items:center;
+    width:100%;
+    gap:20px;
+`
+const InputSection = styled.section`
+    width:100%;
+
+`
+
+const StyledInput = styled.input`
+    width:100%;
+    height:8vh;
+    font-size: 30px;
+    background-color:rgba(238, 238, 238, 1);
+    border:none;
+    border-bottom:2px solid black;
+    outline:none;
+
+
+`
+
+const StyledLink = styled(Link)`
+    text-align:center;
+    text-decoration:none;
+    font-size: min(1vw,15px);
+    font-weight:bold;
+`
+
+const FindInfoSection = styled.section`
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+    padding-bottom:20px;
 `

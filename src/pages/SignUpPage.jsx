@@ -105,7 +105,7 @@ const FormWrap = styled.div`
   justify-content: center;
 `
 
-const FormBox = styled.div`
+const FormBox = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
