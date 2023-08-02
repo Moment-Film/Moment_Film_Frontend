@@ -3,18 +3,22 @@ import { useState } from "react";
 // 이메일 형식의 검사
 // 비밀번호가 5자리 이상인지 검사 
 // 각 이메일과 패스워드의 useState 존재 
-// 유효성검사의 결과가 들어갈( emailError , passwordError ) useState존재 
+// 유효성검사의 결과가 들어갈( userNameError, phoneNumError, emailError , passwordError ) useState존재 
 
-const useInputValidation=()=>{
+const useInputValidation = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
-    
+    const [userName, setUserName] = useState('');
+    const [phoneNum, setPhoneNum] = useState('');
+    const [userNameError, setUserNameError] = useState('');
+    const [phoneNumError, setPhoneNumError] = useState('');
+
     ////////////////// 유효성 검사////////////////////// 
 
-    //이메일 유효성검사
+    // 이메일 유효성검사
     const validateEmail = (input) => {
         
         const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
@@ -29,7 +33,7 @@ const useInputValidation=()=>{
         }
       };
 
-    //패스워드 유효성 검사
+    // 패스워드 유효성 검사
       const validatePassword = (input) => {
         if (!input) {
           setPasswordError('비밀번호를 입력해주세요.');
@@ -41,7 +45,31 @@ const useInputValidation=()=>{
           setPasswordError('');
         }
       };
-    
+      
+      const validateUserName = (input) => {
+        const userNamePattern = /^[a-zA-Z]{2,10}$/;
+        if (!input) {
+          setUserNameError('이름을 입력해주세요.');
+        } 
+        else if (!userNamePattern.test(input)) {
+          setUserNameError('이름은 2-10자리 알파벳 문자만 가능합니다.');
+        } 
+        else {
+          setUserNameError('');
+        }
+      };
+
+      const validatePhoneNum = (input) => {
+        if (!input) {
+          setPhoneNumError('전화번호를 입력해주세요.');
+        } 
+        else if (input.length !== 11) {
+          setPhoneNumError('전화번호는 11자리 숫자여야 합니다.');
+        } 
+        else {
+          setPhoneNumError('');
+        }
+      };
       ////////////////// 변경 함수////////////////////// 
 
       const handleEmailChange = (e) => {
@@ -55,14 +83,29 @@ const useInputValidation=()=>{
         validatePassword(e.target.value);
       };
     
-    
+      const handleUserNameChange = (e) => {
+        setUserName(e.target.value);
+        validateUserName(e.target.value);
+      };
+
+      const handlePhoneNumChange = (e) => {
+          setPhoneNum(e.target.value);
+          validatePhoneNum(e.target.value);
+      };
+
       return {
+        userName,
+        phoneNum,
         email,
         password,
+        userNameError,
+        phoneNumError,
         emailError,
         passwordError,
         handleEmailChange,
-        handlePasswordChange
+        handlePasswordChange,
+        handleUserNameChange,
+        handlePhoneNumChange,
       };
 }
 
