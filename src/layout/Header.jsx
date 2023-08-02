@@ -10,7 +10,7 @@ function Header() {
       <Btn onClick={()=>navigate(`/login`)}>Log In</Btn>
       <Btn onClick={()=>navigate(`/post`)}>Post</Btn>
       <Btn onClick={()=>navigate(`/post/1`)}>PostDetail</Btn>
-      <Btn onClick={()=>navigate(`/camera`)}>⚠️📸⚠️</Btn>
+      <Btn onClick={()=>navigate(`/camera/guide`)}>⚠️📸⚠️</Btn>
       
       <Btn onClick={()=>navigate(`/search`)} style={{marginLeft:'550px'}}>🔍</Btn>
       <Btn onClick={()=>navigate(`/mypage`)}>ᕙ༼◕ ᴥ ◕༽ᕗ</Btn>

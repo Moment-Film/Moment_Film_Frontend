@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { DndProvider, useDrop, useDrag } from 'react-dnd';
+import {TouchBackend} from 'react-dnd-touch-backend';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+
 
 const ImagePiece = ({ imageSrc, onDrop, isPlaced }) => {
   const [{ isDragging }, dragRef] = useDrag({
@@ -17,6 +19,7 @@ const ImagePiece = ({ imageSrc, onDrop, isPlaced }) => {
       src={imageSrc}
       alt="Puzzle Piece"
       style={{
+        cursor: "pointer",
         width: '100px',
         margin: "10px",
         opacity: isDragging ? 0.5 : 1,
@@ -57,6 +60,7 @@ const PuzzleBoard = ({ onDrop, imageSrc }) => {
 };
 
 const SetCount = () => {
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
   const [images, setImages] = useState([
     { id: 1, src: localStorage.getItem(`image0`) },
     { id: 2, src: localStorage.getItem(`image1`)  },
@@ -77,12 +81,16 @@ const SetCount = () => {
   };
 
   return (
-    <DndProvider backend={HTML5Backend}>
+    <DndProvider backend={isTouchDevice ? TouchBackend : HTML5Backend}>
       <div style={{display:"flex", width:"100%", flexDirection: "column", alignItems:" center", marginTop: "100px"}}>
       <div>
         <div style={{ display: 'flex', width:"830px", justifyContent: "center",flexWrap:"wrap", backgroundColor:"gray", padding: "50px 0 70px 0"}}>
           {boardImages.map((imageSrc, index) => (
-            <PuzzleBoard key={index} onDrop={(imgSrc) => handleDrop(imgSrc, index)} imageSrc={imageSrc} />
+            <PuzzleBoard
+              key={index}
+              onDrop={(imgSrc) => handleDrop(imgSrc, index)}
+              onClick={()=>handleDrop(null,index)}
+              imageSrc={imageSrc} />
           ))}
         </div>
       </div>
