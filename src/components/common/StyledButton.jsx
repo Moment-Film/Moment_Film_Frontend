@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-//display : flex에서 쓰세요
 const StyledButton = ({func,title,width}) => {
     return (
         <Outline>
@@ -16,6 +15,7 @@ const StyledButton = ({func,title,width}) => {
 export default StyledButton;
 
 const Outline = styled.div`
+    display:flex;
     margin-bottom:10px;
 `
 const WhiteBox = styled.div`

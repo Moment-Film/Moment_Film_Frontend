@@ -6,11 +6,8 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Provider } from 'react-redux';
-<<<<<<< HEAD
 import store from './redux/config/ConfigStore'
-=======
-import store from './redux/config/ConfigStore';
->>>>>>> 271b950091cc4fc3e1694508caee2ec7ac0bf53e
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
