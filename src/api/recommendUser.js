@@ -1,10 +1,8 @@
 import ourAxios from "./ourAxios";
 
-export const searchUser = async ({username}) => {
+export const recommendUser = async () => {
   try {
-    const res = await ourAxios.get('/api/search-user', {
-      username,
-    })
+    const res = await ourAxios.get('/api/recommend-user')
     console.log(res);
     return res.data;
   } catch (error) {
