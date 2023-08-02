@@ -38,7 +38,7 @@ function CaptureGuide() {
           { guideNum<guides.length-1 && <button onClick={()=>setGuideNum(guideNum+1)}> ▶ </button>}
         </FlexGuide>
       </GuideBox>
-      <button onClick={()=>navigate(`../camera/capture`)}>알겠어요</button>
+      <button onClick={()=>navigate(`../camera/frameSelect`)}>알겠어요</button>
     </div>
   )
 }
