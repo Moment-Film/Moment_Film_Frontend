@@ -9,6 +9,6 @@ export const searchUser = async ({username}) => {
     return res.data;
   } catch (error) {
     console.error("searchUser api error", error);
-        throw error;
+    throw error;
   }
 }

@@ -2,29 +2,53 @@ import React from "react";
 import { styled } from "styled-components";
 import { posts } from "../../api/mockData";
 import { useNavigate } from "react-router";
+import { useQuery } from "react-query";
+import { useState } from "react";
+import { searchUser } from "../../api/searchUser";
 
 const SearchUser = () => {
 
+  const [searchTerm, setSearchTerm] = useState('');
+
   const navigate = useNavigate();
 
-  const searchBtnHandler = () => {
-    navigate('/searchreseult');
+  const searchTermHandler = (event) => {
+    setSearchTerm(event.target.value);
   }
+
+  const { data, isLoading, isError, error } = useQuery(['searchUser', searchTerm], () => searchUser({ username: searchTerm }), {
+    enabled: searchTerm !== '', // searchTerm이 비어있지 않을 때만 쿼리를 수행합니다.
+  });
+
+  const searchBtnHandler = () => {
+    if (isLoading) {
+      alert('검색중입니다, 잠시만 기다려 주세요!');
+    } else if (isError) {
+      alert(`에러가 발생했습니다 : ${error.message}`);
+    } else {
+      console.log(data); 
+      navigate('/searchresult');
+    }
+  }
+
   return (
     <>
       <ContentWrap>
         <Align>
           <What>무엇을 도와드릴까요?</What>
+
           <SearchWrap>
-            <Search placeholder="검색어를 입력해 주세요."></Search>
+            <Search onChange={searchTermHandler} placeholder="검색어를 입력해 주세요."></Search>
             <SearchBtn onClick={searchBtnHandler}>🔍</SearchBtn>
           </SearchWrap>
+
           <div>추천 검색어</div>
           <TagBox>
             {posts.map((item) => {
               return <Tag>{item.id}</Tag>;
             })}
           </TagBox>
+
           <div>나에게 맞는 크리에이터 보기</div>
           <ImgBox>
             {posts.map((item) => {
@@ -33,6 +57,7 @@ const SearchUser = () => {
               );
             })}
           </ImgBox>
+
         </Align>
       </ContentWrap>
     </>
