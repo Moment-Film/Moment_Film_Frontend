@@ -29,13 +29,13 @@ function CaptureGuide() {
       <h3>촬영가이드</h3>
       <GuideBox>
           <FlexGuide>
-          <GuideButton hide={guideNum===0} onClick={()=>setGuideNum(guideNum-1)}> ◀ </GuideButton>
+          <GuideButton $hide={guideNum===0} onClick={()=>setGuideNum(guideNum-1)}> ◀ </GuideButton>
         <GuideContent>
             <h4>촬영 가이드</h4>
             <img src={guides[guideNum].img} alt='Guide Image' />
             <section><p>{guides[guideNum].content}</p></section>
         </GuideContent>
-          <GuideButton hide={guideNum===guides.length-1} onClick={()=>setGuideNum(guideNum+1)}> ▶ </GuideButton>
+          <GuideButton $hide={guideNum===guides.length-1} onClick={()=>setGuideNum(guideNum+1)}> ▶ </GuideButton>
           </FlexGuide>
       </GuideBox>
       <button onClick={()=>navigate(`../camera/capture`)}>알겠어요</button>
@@ -67,7 +67,7 @@ const GuideButton = styled.button`
   line-height: 40px;
   background-color: #d9d9d9;
   color: white;
-  visibility: ${props => props.hide ? "hidden" : "visible"};
+  visibility: ${props => props.$hide ? "hidden" : "visible"};
 `
 const GuideContent = styled.div`
   display: flex;
