@@ -54,11 +54,15 @@ function SignUpPage() {
       <FormWrap>
         <FormBox>
           <SignUp>회원가입</SignUp>
-          <InputForm name="username" value={userName} onChange={handleUserNameChange} placeholder='이름을 입력하세요.' />
+          <InputForm name="username" value={userName} onChange={handleUserNameChange} placeholder='이름을 입력하세요.'  style={{marginTop: '40px'}}/>
           <InputForm name="email" value={email} onChange={handleEmailChange} placeholder='이메일을 입력하세요.' />
           <InputForm name="password" type='password' value={password} onChange={handlePasswordChange} placeholder='비밀번호를 입력하세요. ( 5자리 이상 )' />
-          <InputForm name="phone" value={phoneNum} onChange={handlePhoneNumChange} placeholder='(-) 를 제외한 핸드폰번호를 입력하세요.' />
-          <SubmitBtn onClick={submitBtnHandler}>가입하기</SubmitBtn>
+          <InputForm name="phone" value={phoneNum} onChange={handlePhoneNumChange} placeholder='(-) 를 제외한 핸드폰번호를 입력하세요.' style={{marginBottom: '40px'}}/>
+          <div>
+            <Square />
+            <SquareBtn onClick={submitBtnHandler}>가입하기</SquareBtn>
+          </div>
+          
         </FormBox>
       </FormWrap>
     </>
@@ -82,32 +86,41 @@ const FormBox = styled.form`
 `
 
 const SignUp = styled.div`
-  font-size: 50px;
-  font-weight: bold;
+  font-size: 25px;
+  /* font-weight: bold; */
   text-align: center;
   padding: 15px;
 `
 
 const InputForm = styled.input`
-  width: 300px;
+  width: 320px;
   height: 50px;
-  margin-bottom: 20px;
-  border-radius: 10px;
-  padding: 5px;
+  border: none;
+  border-bottom: 2px solid black;
+  background-color: #F8F8F8;
+  padding-left: 25px;
+  outline: none;
 `
 
-// const WarningMessage = styled.div`
-//   color: red;
-//   font-size: 12px;
-//   margin-bottom: 20px;
-// `
+const Square = styled.div`
+  width: 335px;
+  height: 50px;
+  background-color: white;
+  position: relative;
+  top: -5px;
+  left: 10px;
+  border: 2px solid black;
+`
 
-const SubmitBtn = styled.div`
-  width: 276px;
+const SquareBtn = styled.div`
+  width: 305px;
   height: 25px;
-  border: 1px solid green;
-  border-radius: 10px;
+  position: relative;
+  border: 2px solid black;
+  background-color: #C2F87E;
   padding: 15px;
+  top: -47px;
+  left: 0px;
   text-align: center;
   cursor: pointer;
 `
