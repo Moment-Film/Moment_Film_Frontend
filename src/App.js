@@ -12,9 +12,12 @@ import CaptureGuidePage from './pages/CaptureGuidePage'
 import CameraPage from './pages/CameraPage';
 import CameraOptionPage from './pages/CameraOptionPage';
 import { Route, Routes } from 'react-router-dom';
+import Globalstyles from './globalStyle/GlobalStyle';
 
 function App() {
   return (
+    <>
+    <Globalstyles/>
     <Routes>
       <Route path='/' element={<PageLayout />}>
         <Route path="/" element={<Home />} />
@@ -30,6 +33,7 @@ function App() {
         <Route path="/signup" element={<SignUpPage />} />
       </Route>
     </Routes>
+    </>
   );
 }
 

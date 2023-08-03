@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-
-const StyledButton = ({func,title,width}) => {
+const StyledButton = ({func,title,width,height}) => {
     return (
         <Outline>
-            <WhiteBox width={width}/>
-            <MainBox onClick={func} width={width}>
+            <WhiteBox width={width} height={height}/>
+            <MainBox onClick={func} width={width} height={height}>
                 {title}
             </MainBox>
         </Outline>
@@ -22,7 +21,7 @@ const WhiteBox = styled.div`
     margin-left: 10px;
   
     width:${props => (props.width)};
-    height:55px;
+    height:${props => (props.height)};
     border:2px solid black;
     position:absolute;
     z-index:-1;
@@ -37,9 +36,9 @@ const MainBox = styled.button`
     margin-top:10px;
 
     width:${props => (props.width)};
-    height:55px;
+    height:${props => (props.height)};
     border:2px solid black;
-    background-color:rgba(194, 248, 126, 1);
+    background-color:var(--lightGreen);
 
     max-width:470px;
     
