@@ -44,11 +44,6 @@ function Webcam() {
         <CapturedPhotos>
           {capturedImages.map((image, index) => (
             <div key={index}>
-              
-              {
-                 console.log(image.split(',')[1]) 
-         /*        console.log(JSON.parse(base64.decode(image.split(',')[1]))) */
-}
               <img src={image} alt={`Captured ${index}`} />
             </div>
           ))}
