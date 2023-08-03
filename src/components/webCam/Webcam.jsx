@@ -8,6 +8,7 @@ function Webcam() {
   const navigate = useNavigate();
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
+  const streamRef = useRef(null);
   const [capturedImages, setCapturedImages] = useState([]);
 
   useEffect(() => {
@@ -15,12 +16,19 @@ function Webcam() {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ video: true });
         videoRef.current.srcObject = stream;
+        streamRef.current = stream;
       } catch (error) {
         console.error('웹캠을 사용할 수 없습니다:', error);
       }
     };
-
     enableWebcam();
+    return () => {
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach(track => {
+          track.stop();
+        });
+      }
+    };
   }, []);
 
   const handleCapture = () => {
