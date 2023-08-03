@@ -51,7 +51,7 @@ const EmailLogin = () => {
                     value={email}
                     onChange={handleEmailChange}
                 />
-                <span>{emailError}</span>
+                <ValidateResult>{emailError===''? <br/> : emailError}</ValidateResult>
 
                 <StyledInput
                     placeholder='   password'
@@ -59,10 +59,10 @@ const EmailLogin = () => {
                     value={password}
                     onChange={handlePasswordChange}
                 />
-                <span>{passwordError}</span>
+                <ValidateResult>{passwordError===''? <br/> : passwordError}</ValidateResult>
             </InputSection>
 
-            <StyledButton func={LoginHandler} title={"로그인하기"} width={"70vw"}/>
+            <StyledButton func={LoginHandler} title={"로그인하기"} width={"369.9px"} height={'45px'}/>
 
         <FindInfoSection>
             <StyledLink>
@@ -92,9 +92,9 @@ const InputSection = styled.section`
 
 const StyledInput = styled.input`
     width:100%;
-    height:8vh;
-    font-size: 30px;
-    background-color:rgba(238, 238, 238, 1);
+    height:60px;
+    font-size: 20px;
+    background-color:rgba(248, 248, 248, 1);
     border:none;
     border-bottom:2px solid black;
     outline:none;
@@ -105,7 +105,7 @@ const StyledInput = styled.input`
 const StyledLink = styled(Link)`
     text-align:center;
     text-decoration:none;
-    font-size: min(1vw,15px);
+    font-size: 16px;
     font-weight:bold;
 `
 
@@ -114,4 +114,12 @@ const FindInfoSection = styled.section`
     flex-direction:column;
     gap:5px;
     padding-bottom:20px;
+`
+
+const ValidateResult = styled.span`
+    font-size:16px;
+    padding:5px 0 5px 10px;
+    margin-bottom:5px;
+    color:rgba(252, 91, 112, 1);
+    
 `

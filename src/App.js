@@ -10,10 +10,15 @@ import SearchReseultpage from './pages/SearchReseultpage'
 import SignUpPage from './pages/SignUpPage'
 import CameraPage from './pages/CameraPage';
 import CameraOptionPage from './pages/CameraOptionPage';
+import FrameSelectPage from './pages/FrameSelectPage';
+
 import { Route, Routes } from 'react-router-dom';
+import Globalstyles from './globalStyle/GlobalStyle';
 
 function App() {
   return (
+    <>
+    <Globalstyles/>
     <Routes>
       <Route path='/' element={<PageLayout />}>
         <Route path="/" element={<Home />} />
@@ -21,13 +26,15 @@ function App() {
         <Route path='/post' element={<CustomPostPage />} />
         <Route path='/post/:id' element={<CustomDetail />} />
         <Route path="/mypage" element={<MyPage />} />
-        <Route path='/camera' element={<CameraPage />} />
-        <Route path='/camera/option' element={<CameraOptionPage />} />
+        <Route path='/camera/frameSelect' element={<FrameSelectPage />} />
+        <Route path='/camera/capture' element={<CameraPage />} />
+        <Route path='/camera/capture/option' element={<CameraOptionPage />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/searchreseult" element={<SearchReseultpage />} />
         <Route path="/signup" element={<SignUpPage />} />
       </Route>
     </Routes>
+    </>
   );
 }
 
