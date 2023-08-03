@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { SetAccessToken } from '../../redux/modules/AccessToken';
 import { useDispatch } from 'react-redux';
@@ -7,7 +7,9 @@ import useInputValidation from '../../hooks/useInputValidation';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import StyledButton from '../common/StyledButton';
+import StyledButton from '../common/component/StyledButton';
+import { StyledInput } from '../common/styles/StyledInput';
+import * as L from '../common/styles/StyledLink';
 
 const EmailLogin = () => {
     const navigate = useNavigate();
@@ -39,39 +41,41 @@ const EmailLogin = () => {
     const LoginHandler = async (e) => {
         e.preventDefault()
         console.log("qwe")
-         mutation.mutate({email,password})
+        mutation.mutate({ email, password })
     };
 
     return (
         <StyledForm>
             <InputSection>
-                <StyledInput
-                    placeholder='   Email'
-                    type='email'
+                <StyledInput 
+                    placeholder={'Email'}
                     value={email}
                     onChange={handleEmailChange}
+                    type={'email'}
+                    width={'100%'}
                 />
-                <ValidateResult>{emailError===''? <br/> : emailError}</ValidateResult>
+                <ValidateResult>{emailError === '' ? <br /> : emailError}</ValidateResult>
 
                 <StyledInput
-                    placeholder='   password'
-                    type='password'
+                    placeholder={'password'}
                     value={password}
                     onChange={handlePasswordChange}
+                    type={'password'}
+                    width={'100%'}
                 />
-                <ValidateResult>{passwordError===''? <br/> : passwordError}</ValidateResult>
+                <ValidateResult>{passwordError === '' ? <br /> : passwordError}</ValidateResult>
             </InputSection>
 
-            <StyledButton func={LoginHandler} title={"로그인하기"} width={"369.9px"} height={'45px'}/>
+            <StyledButton func={LoginHandler} title={"로그인하기"} width={"369.9px"} height={'45px'} />
 
-        <FindInfoSection>
-            <StyledLink>
-                {'아이디를 잊으셨나요?'}
-            </StyledLink>
-            <StyledLink>
-                {'비밀번호를 잊으셨나요?'}
-            </StyledLink>
-        </FindInfoSection>
+            <FindInfoSection>
+                <L.StyledBoldLink16>
+                    {'아이디를 잊으셨나요?'}
+                </L.StyledBoldLink16>
+                <L.StyledBoldLink16>
+                    {'비밀번호를 잊으셨나요?'}
+                </L.StyledBoldLink16>
+            </FindInfoSection>
         </StyledForm>
     );
 };
@@ -88,25 +92,6 @@ const StyledForm = styled.form`
 const InputSection = styled.section`
     width:100%;
 
-`
-
-const StyledInput = styled.input`
-    width:100%;
-    height:60px;
-    font-size: 20px;
-    background-color:rgba(248, 248, 248, 1);
-    border:none;
-    border-bottom:2px solid black;
-    outline:none;
-
-
-`
-
-const StyledLink = styled(Link)`
-    text-align:center;
-    text-decoration:none;
-    font-size: 16px;
-    font-weight:bold;
 `
 
 const FindInfoSection = styled.section`

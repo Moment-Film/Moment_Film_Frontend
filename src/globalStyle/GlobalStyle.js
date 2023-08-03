@@ -10,6 +10,9 @@ body{
     
 }
 
+
+
 `;
 
 export default Globalstyles
+

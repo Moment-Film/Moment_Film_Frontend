@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 import { useQuery } from "react-query";
 import { useState } from "react";
 import { searchUser } from "../../api/searchUser";
+import ContentBox from "../common/component/ContentBox";
 
 const SearchUser = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -61,6 +62,8 @@ const SearchUser = () => {
               return <Img src={item.images} alt="" />;
             })}
           </ImgBox>
+
+          <ContentBox data={posts}></ContentBox>
         </Align>
       </ContentWrap>
     </>

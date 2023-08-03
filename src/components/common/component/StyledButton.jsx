@@ -1,10 +1,11 @@
 
 import React from 'react';
 import styled from 'styled-components';
-const StyledButton = ({func,title,width,height}) => {
+
+const StyledButton = ({ func, title, width, height }) => {
     return (
         <Outline>
-            <WhiteBox width={width} height={height}/>
+            <WhiteBox width={width} height={height} />
             <MainBox onClick={func} width={width} height={height}>
                 {title}
             </MainBox>
@@ -18,7 +19,6 @@ export default StyledButton;
 const Outline = styled.div`
   display: flex;
   margin-bottom: 10px;
-  cursor: pointer;
 `;
 const WhiteBox = styled.div`
     margin-left: 10px;
@@ -44,6 +44,6 @@ const MainBox = styled.button`
     background-color:var(--lightGreen);
 
     max-width:470px;
-    
+    cursor: pointer;
     
 `

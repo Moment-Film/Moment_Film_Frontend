@@ -53,6 +53,8 @@ const ContentsItem = styled.div`
     justify-content:center;
     flex-direction:column;
 
+    width:100%;
+    
     @media only screen and (min-width: 500px) {
         width:50%;
 

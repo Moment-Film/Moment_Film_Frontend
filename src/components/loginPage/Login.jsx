@@ -7,22 +7,24 @@ import { Link } from 'react-router-dom';
 import right_arrow from '../../images/right_arrow.png'
 import line  from '../../images/line.png'
 
+import * as S from '../common/styles/StyledSpan';
+import * as L from '../common/styles/StyledLink'
 const Login = () => {
     return (
         <LoginSection>
             <Wrap>
-                <StyledSpan size={'20pt'}>{'로그인'}</StyledSpan>
+                <S.StyledSpan20>{'로그인'}</S.StyledSpan20>
             <LinkBox>
-            <StyledLink to={'/signup'}>
-                <StyledSpan size ={'14pt'}>{'회원가입하기'}</StyledSpan>
+            <L.StyledLink14 to={'/signup'}>
+                {'회원가입하기'}
                 <img src={right_arrow}></img>
-            </StyledLink>
+            </L.StyledLink14>
             </LinkBox>
        
             <EmailLogin />
 
             <BoundaryLine>
-           <Img src={line}/> <StyledSpan>또는</StyledSpan>  <Img src={line}/> 
+           <Img src={line}/> <S.StyledSpan16>또는</S.StyledSpan16>  <Img src={line}/> 
             </BoundaryLine>
 
             <GoogleLoginBtn width='380px' height='60px'/>
@@ -38,7 +40,7 @@ export default Login;
 const LoginSection = styled.section`
     display:flex;
     justify-content:center;
-    padding-top:60px;
+    padding-top:100px;
     padding-bottom:50px;
     height:80vh; 
 `
@@ -62,9 +64,6 @@ const LinkBox=styled.div`
     margin-left:auto;
 `
 
-const StyledSpan=styled.span`
-    font-size:14px;
-`
 const BoundaryLine=styled.div`
     display:flex;
     width:100%;

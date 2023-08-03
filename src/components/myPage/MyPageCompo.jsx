@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import ContentBox from '../common/ContentBox';
+import ContentBox from '../common/component/ContentBox';
 import MyPageNav from './MyPageNav';
 import MyPageUserData from './MyPageUserData';
 

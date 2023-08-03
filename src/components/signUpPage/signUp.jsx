@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { register } from "../../api/user";
 import { useMutation } from "react-query";
 import useInputValidation from "../../hooks/useInputValidation";
-import StyledButton from "../common/StyledButton";
+import StyledButton from "../common/component/StyledButton";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -121,6 +121,7 @@ function SignUp() {
             func={submitBtnHandler}
             title={"가입하기"}
             width={"334px"}
+            height={'52px'}
           />
         </div>
       </FormWrap>

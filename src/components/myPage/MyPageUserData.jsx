@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import StyledButton from '../common/StyledButton';
+import StyledButton from '../common/component/StyledButton';
 
 const MyPageUserData = () => {
     return (
@@ -15,7 +15,7 @@ const MyPageUserData = () => {
                 <UserProfileSection>
                     <Circle></Circle>
                     <Span>{'김헛둘님asdsd'}</Span>
-                    <StyledButton title={'프로필 수정'} width={'200px'} />
+                    <StyledButton title={'프로필 수정'} width={'200px'} height={'52px'}/>
                 </UserProfileSection>
 
                 <UserDataSection>
