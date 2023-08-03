@@ -120,8 +120,9 @@ function SignUp() {
           <StyledButton
             func={submitBtnHandler}
             title={"가입하기"}
-            width={"334px"}
+            width={"172px"}
             height={'52px'}
+            fontWeight={'500'}
           />
         </div>
       </FormWrap>
@@ -146,8 +147,8 @@ const FormBox = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-top: 2px solid #333;
-  border-bottom: 2px solid #333;
+  border-top: 2px solid var(--black);
+  border-bottom: 2px solid var(--black);
   padding-top: 69px;
   padding-bottom: 77px;
   gap: 20px;
@@ -182,7 +183,7 @@ const InputForm = styled.input`
   height: 50px;
   border: none;
   border-bottom: 2px solid black;
-  background-color: #f8f8f8;
+  background-color: var(--whiteGray);
   padding-left: 20px;
   outline: none;
   margin-right: 30px;
@@ -194,7 +195,7 @@ const CheckBtn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid #333;
+  border: 1px solid var(--black);
   background-color: rgb(217, 217, 217);
   cursor: pointer;
 `;

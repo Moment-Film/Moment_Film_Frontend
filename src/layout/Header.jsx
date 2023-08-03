@@ -16,7 +16,7 @@ function Header() {
         <Btn onClick={() => navigate(`/login`)}>Log In</Btn>
         <Btn onClick={() => navigate(`/post`)}>Post</Btn>
         <Btn onClick={() => navigate(`/post/1`)}>PostDetail</Btn>
-        <Btn onClick={() => navigate(`/camera/guide`)}>⚠️📸⚠️</Btn>
+        <Btn onClick={() => navigate(`/camera/frameSelect`)}>⚠️📸⚠️</Btn>
       </LinkBox>
 
       <LinkBox>

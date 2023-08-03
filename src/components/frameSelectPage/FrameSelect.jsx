@@ -22,17 +22,20 @@ const FrameSelect = () => {
   const moveBtnHandler = () => {
     navigate('/camera/capture')
   }
+  const modalHideHandler = () => {
+    setShowGuide(!showGuide);
+  }
   return (
     <Wrap>
       <Slider>
-        { showGuide && <GuideModal onClick={()=>setShowGuide(false)}><CaptureGuidePage /></GuideModal>}
+        { showGuide && <GuideModal><CaptureGuidePage onClose={modalHideHandler} /></GuideModal>}
         <OptionWrap>
           <Cards>
             {cards.map((card, index) => (
-            <div style={{ display:'flex', flexDirection: 'column', alignItems:'center', fontSize: '20px', }}>
+            <div key={index} style={{ display:'flex', flexDirection: 'column', alignItems:'center', fontSize: '20px', }}>
               {card}
-              <Card onClick={()=>{setActiveCard(index)}} key={index} zIndex={index === activeCard ? 3 : 1} height={index === activeCard ? '300px' : '200px'}
-              backgroundColor={index === activeCard ? 'lightgrey' : '#333'}>
+              <Card onClick={()=>{setActiveCard(index)}} key={index} $zIndex={index === activeCard ? 3 : 1} height={index === activeCard ? '300px' : '200px'}
+              $backgroundColor={index === activeCard ? 'lightgrey' : '#333'}>
               </Card>
             </div>
           ))}
@@ -41,7 +44,7 @@ const FrameSelect = () => {
             <Arrow onClick={rotateLeft}>{'<'}</Arrow>
             <Arrow onClick={rotateRight}>{'>'}</Arrow>
           </ArrowWrap>
-          <StyledButton func={moveBtnHandler} title={'촬영하러 가기'} width={'350px'} />
+          <StyledButton func={moveBtnHandler} title={'촬영하러 가기'} width={'350px'} height={'52px'} />
         </OptionWrap>
       </Slider>
     </Wrap>
@@ -54,7 +57,7 @@ const GuideModal = styled.div`
   position: fixed;
   width: 100%;
   top: 176px;
-  z-index: 10;
+  z-index: 100;
 `
 const Wrap = styled.div`
   display: flex;
@@ -92,9 +95,9 @@ const Card = styled.div`
   align-items: center;
   margin: 20px;
   background-color: #333;
-  z-index: ${props => props.zIndex};
+  z-index: ${props => props.$zIndex};
   height: ${props => props.height};
-  background-color: ${props => props.backgroundColor};
+  background-color: ${props => props.$backgroundColor};
 `;
 
 const ArrowWrap = styled.div`
