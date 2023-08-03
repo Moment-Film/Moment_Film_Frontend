@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import CaptureGuidePage from '../webCam/CaptureGuidePage';
 import styled from 'styled-components';
 import StyledButton from '../common/StyledButton';
 
 const cards = ['1컷', '2컷', '4컷'];
 
 const FrameSelect = () => {
-
+  const [showGuide, setShowGuide] = useState(true);
   const [activeCard, setActiveCard] = useState(2);
   const navigate = useNavigate();
-
 
   const rotateRight = () => {
     setActiveCard((activeCard + 1) % 3);
@@ -25,6 +25,7 @@ const FrameSelect = () => {
   return (
     <Wrap>
       <Slider>
+        { showGuide && <GuideModal onClick={()=>setShowGuide(false)}><CaptureGuidePage /></GuideModal>}
         <OptionWrap>
           <Cards>
             {cards.map((card, index) => (
@@ -49,6 +50,12 @@ const FrameSelect = () => {
 
 export default FrameSelect;
 
+const GuideModal = styled.div`
+  position: fixed;
+  width: 100%;
+  top: 176px;
+  z-index: 10;
+`
 const Wrap = styled.div`
   display: flex;
   justify-content: center;
