@@ -49,7 +49,3 @@ const GoogleLoginBtn = ({width , height}) => {
 
 export default GoogleLoginBtn;
 
-const StyledDiv = styled.div`
-    display:flex;
-
-`

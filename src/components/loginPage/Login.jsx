@@ -11,10 +11,10 @@ const Login = () => {
     return (
         <LoginSection>
             <Wrap>
-                <StyledSpan size={'5vw'}>{'로그인'}</StyledSpan>
+                <StyledSpan size={'20pt'}>{'로그인'}</StyledSpan>
             <LinkBox>
             <StyledLink to={'/signup'}>
-                <StyledSpan size ={'1vw'}>{'회원가입하기'}</StyledSpan>
+                <StyledSpan size ={'14pt'}>{'회원가입하기'}</StyledSpan>
                 <img src={right_arrow}></img>
             </StyledLink>
             </LinkBox>
@@ -22,11 +22,11 @@ const Login = () => {
             <EmailLogin />
 
             <BoundaryLine>
-           <Img src={line}/> <Span>또는</Span>  <Img src={line}/> 
+           <Img src={line}/> <StyledSpan>또는</StyledSpan>  <Img src={line}/> 
             </BoundaryLine>
 
-            <GoogleLoginBtn width='350px' height='50px'/>
-            <KakaoLoginBtn width='100%' height='50px'/>
+            <GoogleLoginBtn width='380px' height='60px'/>
+            <KakaoLoginBtn width='380px' height='60px'/>
             </Wrap>
         </LoginSection>
         
@@ -47,10 +47,10 @@ const Wrap = styled.div`
     display:flex;
     flex-direction:column;
     align-items:center;
-    width:80%;
+    width:380px;
     gap:10px;
 
-    max-width:500px;
+   /*  max-width:350px; */
 
 `
 const StyledLink=styled(Link)`
@@ -63,8 +63,7 @@ const LinkBox=styled.div`
 `
 
 const StyledSpan=styled.span`
-    font-size: min(${props=>(props.size)},30px);
-    
+    font-size:14px;
 `
 const BoundaryLine=styled.div`
     display:flex;
@@ -78,7 +77,3 @@ const Img=styled.img`
     flex-grow:1;
 `
 
-const Span = styled.span`
-    width:20%;
-    text-align:center;
-`
