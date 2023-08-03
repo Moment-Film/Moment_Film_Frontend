@@ -20,11 +20,14 @@ const guides = [
   },
 ]
 
-function CaptureGuidePage() {
+function CaptureGuidePage({ onClose }) {
+  const closeModal = () => {
+    onClose();
+  }
   const [guideNum, setGuideNum] = useState(0);
   return (
     <GuideBox>
-      <CloseButton>X</CloseButton>
+      <CloseButton onClick={closeModal}>X</CloseButton>
       <FlexGuide>
         <GuideButton $hide={guideNum===0} onClick={()=>setGuideNum(guideNum-1)}> ◀ </GuideButton>
         <GuideContent>
@@ -42,6 +45,7 @@ export default CaptureGuidePage;
 
 const CloseButton = styled.button`
   float: right;
+  z-index: 10;
   margin-top: 20px;
   margin-right: 20px;
   width: 40px;
@@ -51,6 +55,7 @@ const CloseButton = styled.button`
   background-color: #d9d9d9;
   color: white;
   font-size: 20px;
+  cursor: pointer;
 `
 const GuideBox = styled.div` 
   display: flex;
