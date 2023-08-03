@@ -7,7 +7,7 @@ const Homepage = () => {
   const navigate = useNavigate();
 
   const camBtnClickHandler = () => {
-    navigate('/camera');
+    navigate('/camera/guide');
   }
   return (
     <>

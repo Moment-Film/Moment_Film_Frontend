@@ -20,7 +20,6 @@ const Outline = styled.div`
 `
 const WhiteBox = styled.div`
     margin-left: 10px;
-  
     width:${props => (props.width)};
     height:55px;
     border:2px solid black;
