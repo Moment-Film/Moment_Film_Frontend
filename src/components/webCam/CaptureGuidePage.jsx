@@ -20,7 +20,7 @@ const guides = [
   },
 ]
 
-function CaptureGuide() {
+function CaptureGuidePage() {
   const [guideNum, setGuideNum] = useState(0);
   return (
     <GuideBox>
@@ -38,7 +38,7 @@ function CaptureGuide() {
   )
 }
 
-export default CaptureGuide
+export default CaptureGuidePage;
 
 const CloseButton = styled.button`
   float: right;
