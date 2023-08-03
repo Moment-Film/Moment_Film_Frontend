@@ -15,7 +15,7 @@ const MyPageUserData = () => {
                 <UserProfileSection>
                     <Circle></Circle>
                     <Span>{'김헛둘님asdsd'}</Span>
-                    <StyledButton title={'프로필 수정'} width={'200px'} />
+                    <StyledButton title={'프로필 수정'} width={'200px'} height={'52px'} />
                 </UserProfileSection>
 
                 <UserDataSection>
@@ -122,7 +122,7 @@ const UserItemResult =styled.div`
     align-items:center;
     border-bottom:1px solid black;
 
-    background-color:rgba(231, 231, 231, 1);
+    background-color:var(--whiteGray);
 `
 
 const NavSection = styled.section`
