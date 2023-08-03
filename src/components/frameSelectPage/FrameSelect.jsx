@@ -41,7 +41,7 @@ const FrameSelect = () => {
             <Arrow onClick={rotateLeft}>{'<'}</Arrow>
             <Arrow onClick={rotateRight}>{'>'}</Arrow>
           </ArrowWrap>
-          <StyledButton func={moveBtnHandler} title={'촬영하러 가기'} width={'350px'} />
+          <StyledButton func={moveBtnHandler} title={'촬영하러 가기'} width={'350px'} height={'52px'} />
         </OptionWrap>
       </Slider>
     </Wrap>
