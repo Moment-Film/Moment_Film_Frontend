@@ -1,3 +1,4 @@
+
 import React from 'react';
 import styled from 'styled-components';
 const StyledButton = ({func,title,width,height}) => {
@@ -9,14 +10,16 @@ const StyledButton = ({func,title,width,height}) => {
             </MainBox>
         </Outline>
     );
+
 };
 
 export default StyledButton;
 
 const Outline = styled.div`
-    display:flex;
-    margin-bottom:10px;
-`
+  display: flex;
+  margin-bottom: 10px;
+  cursor: pointer;
+`;
 const WhiteBox = styled.div`
     margin-left: 10px;
   

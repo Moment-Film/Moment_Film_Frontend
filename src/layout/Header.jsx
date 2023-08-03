@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 function Header() {
   const navigate = useNavigate();
+
   return (
     <HeaderSection>
       <HeaderTitle>
@@ -23,6 +24,7 @@ function Header() {
         <Btn onClick={() => navigate(`/mypage`)}>ᕙ༼◕ ᴥ ◕༽ᕗ</Btn>
       </LinkBox>
     </HeaderSection>
+
   )
 }
 export default Header;

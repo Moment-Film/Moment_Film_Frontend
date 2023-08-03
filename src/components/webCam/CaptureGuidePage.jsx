@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
-import { styled, css } from 'styled-components'
+import { styled } from 'styled-components'
 
 const guides = [
   {
@@ -21,80 +20,97 @@ const guides = [
   },
 ]
 
-function CaptureGuide() {
-  const navigate = useNavigate();
+function CaptureGuidePage() {
   const [guideNum, setGuideNum] = useState(0);
   return (
-    <div style={{display:"flex", width:"100%", flexDirection:"column", alignItems:"center", textAlign:"center"}}>
-      <h3>촬영가이드</h3>
-      <GuideBox>
-          <FlexGuide>
-          <GuideButton hide={guideNum===0} onClick={()=>setGuideNum(guideNum-1)}> ◀ </GuideButton>
+    <GuideBox>
+      <CloseButton>X</CloseButton>
+      <FlexGuide>
+        <GuideButton $hide={guideNum===0} onClick={()=>setGuideNum(guideNum-1)}> ◀ </GuideButton>
         <GuideContent>
             <h4>촬영 가이드</h4>
-            <img src={guides[guideNum].img} alt='Guide Image' />
+            <div><img src={guides[guideNum].img} alt='Guide Image' /></div>
             <section><p>{guides[guideNum].content}</p></section>
         </GuideContent>
-          <GuideButton hide={guideNum===guides.length-1} onClick={()=>setGuideNum(guideNum+1)}> ▶ </GuideButton>
-          </FlexGuide>
-      </GuideBox>
-      <button onClick={()=>navigate(`../camera/capture`)}>알겠어요</button>
-    </div>
+        <GuideButton $hide={guideNum===guides.length-1} onClick={()=>setGuideNum(guideNum+1)}> ▶ </GuideButton>
+      </FlexGuide>
+    </GuideBox>
   )
 }
 
-export default CaptureGuide
+export default CaptureGuidePage;
 
+const CloseButton = styled.button`
+  float: right;
+  margin-top: 20px;
+  margin-right: 20px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 40px;
+  background-color: #d9d9d9;
+  color: white;
+  font-size: 20px;
+`
 const GuideBox = styled.div` 
   display: flex;
-  min-width: 50%;
+  align-items: flex-end;
   flex-direction: column;
-  background-color: #B1B1B1;
-  padding: 0 20px;
+  justify-content: center;
+  max-width: 1000px;
+  background-color: #f8f8f8;
+  border-radius: 10px;
+  overflow: hidden;
+
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
 `
 const FlexGuide = styled.div`
   display: flex;
   width: 100%;
   align-items: center;
-  justify-content: space-between;
-  border: 1px solid blue;
+  justify-content: center;
+  margin-top: -60px;
 `
 const GuideButton = styled.button`
   border-radius: 100%;
   border: none;
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
   background-color: #d9d9d9;
   color: white;
-  visibility: ${props => props.hide ? "hidden" : "visible"};
+  visibility: ${props => props.$hide ? "hidden" : "visible"};
 `
 const GuideContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  border: 1px solid green;
-  max-width: 60%;
-  margin: 0 1%;
+  align-items: center;
+  max-width: 750px;
+  margin: 0 27px;
   overflow: hidden;
   text-align: center;
   
   h4  {
     font-size: 18px;
     line-height: 20px;
-    padding: 20px 0;
+  }
+  div{
+    width: 585px;
+    height: 340px;
+    background-color: #EBEBEB;
   }
   img {
-    height: 350px;
+    height: 340px;
   }
   section {
+    width: 100%;
     padding-top: 50px;
     height: 120px;
 
     p {
       font-size: 16px;
       line-height: 22.4pt;
-      color: white;
     }
   }
 `
