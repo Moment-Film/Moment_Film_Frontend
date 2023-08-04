@@ -4,8 +4,8 @@ import KakaoLoginBtn from './KakaoLoginBtn';
 import EmailLogin from './EmailLogin';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import right_arrow from '../../images/right_arrow.png'
-import line  from '../../images/line.png'
+import right_arrow from '../assets/images/right_arrow.png'
+import line  from '../assets/images/line.png'
 
 const Login = () => {
     return (
@@ -15,14 +15,14 @@ const Login = () => {
             <LinkBox>
             <StyledLink to={'/signup'}>
                 <StyledSpan size ={'14pt'}>{'회원가입하기'}</StyledSpan>
-                <img src={right_arrow}></img>
+                <img src={right_arrow} alt='right_arrow'></img>
             </StyledLink>
             </LinkBox>
-       
+        
             <EmailLogin />
 
             <BoundaryLine>
-           <Img src={line}/> <StyledSpan>또는</StyledSpan>  <Img src={line}/> 
+            <Img src={line}/> <StyledSpan>또는</StyledSpan>  <Img src={line}/> 
             </BoundaryLine>
 
             <GoogleLoginBtn width='380px' height='60px'/>

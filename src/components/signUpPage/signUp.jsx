@@ -50,6 +50,7 @@ function SignUp() {
   return (
     <>
       <FormWrap>
+        <img src="" alt="" />
         <SignUpTxt>회원가입</SignUpTxt>
         <FormBox>
           <ValueWrap>

@@ -22,9 +22,11 @@ const FrameSelect = () => {
   const moveBtnHandler = () => {
     navigate('/camera/capture')
   }
+
   const modalHideHandler = () => {
     setShowGuide(!showGuide);
   }
+  
   return (
     <Wrap>
       <Slider>
