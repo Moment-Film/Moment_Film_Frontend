@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CaptureGuidePage from '../webCam/CaptureGuidePage';
 import styled from 'styled-components';
-import StyledButton from '../common/StyledButton';
+import StyledButton from '../common/component/StyledButton';
 
 const cards = ['1컷', '2컷', '4컷'];
 
@@ -55,6 +55,7 @@ export default FrameSelect;
 
 const GuideModal = styled.div`
   position: fixed;
+
   top: 176px;
   z-index: 100;
 `
