@@ -1,8 +1,13 @@
 import { useNavigate } from "react-router";
 import styled from "styled-components";
+import { useSelector,useDispatch } from "react-redux";
+import { SetLanguage } from "../redux/modules/Language";
 
 function Header() {
   const navigate = useNavigate();
+
+  const language = useSelector((state)=>state.Language.language)
+  const dispatch = useDispatch();
 
   return (
     <HeaderSection>
@@ -17,6 +22,8 @@ function Header() {
         <Btn onClick={() => navigate(`/post`)}>Post</Btn>
         <Btn onClick={() => navigate(`/post/1`)}>PostDetail</Btn>
         <Btn onClick={() => navigate(`/camera/frameSelect`)}>⚠️📸⚠️</Btn>
+        <Btn onClick={() =>dispatch(SetLanguage(`${language==='ko' ? 'en' : 'ko'}`))}>Language</Btn>
+
       </LinkBox>
 
       <LinkBox>

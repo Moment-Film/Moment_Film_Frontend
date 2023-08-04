@@ -1,35 +1,35 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import StyledButton from '../common/StyledButton';
+import StyledButton from '../common/component/StyledButton';
 
-const MyPageUserData = () => {
+const MyPageUserData = ({lang}) => {
     return (
         <div>
             <HeaderSection>
                 <span>{'Mypage'}</span>
-                <span>{'김헛둘님 반갑습니다!'}</span>
+                <span>{lang.greeting}</span>
             </HeaderSection>
             <UserInfoSection>
 
                 <UserProfileSection>
                     <Circle></Circle>
                     <Span>{'김헛둘님asdsd'}</Span>
-                    <StyledButton title={'프로필 수정'} width={'200px'} height={'52px'} />
+                    <StyledButton title={lang["Modify_Profile"]} width={'200px'} height={'52px'} />
                 </UserProfileSection>
 
                 <UserDataSection>
-                    <UserItem>등록한 디자인</UserItem>
+                    <UserItem>{lang.Registered_Designs}</UserItem>
                     <UserItemResult></UserItemResult>
-                    <UserItem>이름</UserItem>
+                    <UserItem>{lang.Name}</UserItem>
                     <UserItemResult></UserItemResult>
-                    <UserItem>받은 좋아요</UserItem>
+                    <UserItem>{lang.Received_likes}</UserItem>
                     <UserItemResult></UserItemResult>
-                    <UserItem>생년월일</UserItem>
+                    <UserItem>{lang.Date_of_birth}</UserItem>
                     <UserItemResult></UserItemResult>
-                    <UserItem>소개</UserItem>
+                    <UserItem>{lang.introduction}</UserItem>
                     <UserItemResult></UserItemResult>
-                    <UserItem>포인트확인 </UserItem>
+                    <UserItem>{lang.Points} </UserItem>
                     <UserItemResult></UserItemResult>
                 </UserDataSection>
             </UserInfoSection>

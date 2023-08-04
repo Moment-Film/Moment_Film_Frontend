@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 import { useQuery } from "react-query";
 import { useState } from "react";
 import { searchUser } from "../../api/searchUser";
+import * as S from '../common/styles/StyledSpan'
 
 const SearchUser = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -35,99 +36,105 @@ const SearchUser = () => {
   };
 
   return (
-    <>
-      <ContentWrap>
-        <Align>
-          <What>무엇을 도와드릴까요?</What>
+    <SearchSection>
+      <Wrap>
+        <S.StyledBoldSpan26>무엇을 도와드릴까요?</S.StyledBoldSpan26>
 
-          <SearchWrap>
-            <Search
-              onChange={searchTermHandler}
-              placeholder="검색어를 입력해 주세요."
-            ></Search>
-            <SearchBtn onClick={searchBtnHandler}>🔍</SearchBtn>
-          </SearchWrap>
+        <SearchInputDiv>
+          <SearchInput
+            onChange={searchTermHandler}
+            placeholder="검색어를 입력해 주세요."
+          ></SearchInput>
+          <div onClick={searchBtnHandler}>🔍</div>
+        </SearchInputDiv>
 
-          <div>추천 검색어</div>
-          <TagBox>
-            {posts.map((item) => {
-              return <Tag>{item.id}</Tag>;
-            })}
-          </TagBox>
+        <S.StyledBoldSpan20>추천 검색어</S.StyledBoldSpan20>
+        <RecommendSection>
+          {posts.map((item) => {
+            return <RecommendItem>{item.id}</RecommendItem>;
+          })}
+        </RecommendSection>
 
-          <div>나에게 맞는 크리에이터 보기</div>
-          <ImgBox>
-            {posts.map((item) => {
-              return <Img src={item.images} alt="" />;
-            })}
-          </ImgBox>
-        </Align>
-      </ContentWrap>
-    </>
+        <S.StyledBoldSpan20>나에게 맞는 크리에이터 보기</S.StyledBoldSpan20>
+        <RecommendSection>
+          {posts.map((item) => {
+            return <Img src={item.images} alt="" />;
+          })}
+        </RecommendSection>
+      </Wrap>
+    </SearchSection>
   );
 };
 
 export default SearchUser;
 
-const ContentWrap = styled.div`
-  width: 100%;
+const SearchSection = styled.div`
+  
   display: flex;
-  justify-content: center;
-  margin: 100px 0 100px 0;
+  flex-direction:column;
+  align-items:center;
+
+  padding-top:6.3%;
 `;
 
-const Align = styled.div`
-  width: 40%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 30px;
+const Wrap = styled.div`
+  display:flex;
+  flex-direction:column;
+  width:790px;
+
+  gap:42pt;
+
+  @media only screen and (max-width: 900px) {
+        width:80%;
+  }
 `;
 
-const What = styled.div`
-  font-size: 30px;
-  font-weight: bold;
+const SearchInputDiv = styled.div`
+  display:flex;
+  align-items:center;
+  
+  border:1px solid var(--black);
+  width:100%;
+  height:54px;
+
+  padding:0 15px 0 10px;
 `;
 
-const SearchWrap = styled.div`
-  display: flex;
+const SearchInput = styled.input`
+  width:100%;
+  border:none;
+  outline:none;
+  font-size:16px;
 `;
 
-const Search = styled.input`
-  width: 98%;
-  padding: 10px;
-  background-color: #ececec;
-  border: none;
-  border-bottom: 3px solid grey;
-  outline: none;
+const RecommendSection = styled.div`
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+
+  justify-content:center;
 `;
 
-const SearchBtn = styled.div`
-  box-sizing: border-box;
-  padding: 10px;
-  cursor: pointer;
-`;
-
-const TagBox = styled.div`
-  display: flex;
-  gap: 5px;
-`;
-
-const Tag = styled.div`
-  padding: 5px;
-  background-color: grey;
-  cursor: pointer;
-`;
-
-const ImgBox = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 4%;
+const RecommendItem = styled.div`
+ /*  flex:auto; */
+  text-align:center;
+  border: 1px solid black;
+  padding:2px;
+  font-size:18px;
+  min-width:36px;
+  padding:8px 21px 8px 21px;
 `;
 
 const Img = styled.img`
-  width: 48%;
-  cursor: pointer;
+  width:32.4%;
+  min-width:256.6px;
+
+
+
+  @media only screen and (max-width: 900px) {
+        width:49%;
+  }
+  @media only screen and (max-width: 700px) {
+        width:100%;
+  }
 `;
