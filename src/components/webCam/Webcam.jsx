@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-
-import {WebcamBody, CapturedPhotos} from './style'
+import * as S from '../common/styles/StyledSpan'
+import {WebcamBody, WebcamHeader, WebcamVideo, WindowUI, WindowHeader, CapturedPhotos} from './style'
 import { useNavigate } from 'react-router-dom';
 
 
@@ -34,20 +34,25 @@ function Webcam() {
   const handleCapture = () => {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
-
-    // 비디오 화면을 캔버스에 그립니다.
     context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
-
     localStorage.setItem(`image${capturedImages.length}`, canvas.toDataURL('image/png'))
-
-    // 캡처된 이미지 데이터를 배열에 추가합니다.
     setCapturedImages(prevImages => [...prevImages, canvas.toDataURL('image/png')]);
   };
 
   return (
     <WebcamBody>
-      <video ref={videoRef} autoPlay />
-      {capturedImages.length<8 &&  <button onClick={handleCapture}>찰 칵</button>}
+      <WebcamHeader><h3>사진 촬영</h3></WebcamHeader>
+      <WebcamVideo>
+        <WindowUI>
+          <WindowHeader><div><S.StyledSpan14>{capturedImages.length}/8컷</S.StyledSpan14></div></WindowHeader>
+          <video ref={videoRef} autoPlay />
+          <div>
+            {capturedImages.length<8 &&  <button onClick={handleCapture}>찰 칵</button>}
+            <button>다시 찍기</button>
+          </div>
+        </WindowUI>
+      </WebcamVideo>
+      
       {capturedImages.length > 0 && (
         <CapturedPhotos>
           {capturedImages.map((image, index) => (
