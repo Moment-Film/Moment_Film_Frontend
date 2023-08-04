@@ -55,7 +55,7 @@ export default FrameSelect;
 
 const GuideModal = styled.div`
   position: fixed;
-  width: 100%;
+
   top: 176px;
   z-index: 100;
 `

@@ -6,9 +6,7 @@ import { ELogin } from '../../api/snsUser';
 import useInputValidation from '../../hooks/useInputValidation';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import StyledButton from '../common/component/StyledButton';
-import { StyledInput } from '../common/styles/StyledInput';
 import * as L from '../common/styles/StyledLink';
 
 const EmailLogin = () => {
@@ -92,6 +90,16 @@ const StyledForm = styled.form`
 const InputSection = styled.section`
     width:100%;
 
+`
+
+const StyledInput = styled.input`
+    width:380px;
+    height:60px;
+    font-size: 20px;
+    background-color:rgba(248, 248, 248, 1);
+    border:none;
+    border-bottom:2px solid black;
+    outline:none;
 `
 
 const FindInfoSection = styled.section`
