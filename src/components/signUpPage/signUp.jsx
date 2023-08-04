@@ -112,7 +112,7 @@ function SignUp() {
               name="username"
               value={userName}
               onChange={handleUserNameChange}
-              placeholder="이름을 입력하세요."
+              placeholder="닉네임을 입력하세요."
             />
             <CheckBtn>중복확인</CheckBtn>
           </ValueWrap>
