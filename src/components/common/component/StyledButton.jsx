@@ -32,7 +32,7 @@ const WhiteBox = styled.div`
     max-width:470px;
 
 `
-const MainBox = styled.button`
+const MainBox = styled.div`
     display:flex;
     justify-content:center;
     align-items:center;

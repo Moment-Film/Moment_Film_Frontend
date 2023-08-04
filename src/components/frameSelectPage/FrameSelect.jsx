@@ -1,51 +1,73 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import CaptureGuidePage from '../webCam/CaptureGuidePage';
-import styled from 'styled-components';
-import StyledButton from '../common/component/StyledButton';
-
-const cards = ['1컷', '2컷', '4컷'];
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import CaptureGuidePage from "../webCam/CaptureGuidePage";
+import styled from "styled-components";
+import StyledButton from "../common/component/StyledButton";
+import info from "../assets/icons/info.png";
+import down from "../assets/images/double_down.png";
+import up from "../assets/images/double_up.png";
+import narrow from "../assets/images/mono_narrow.png";
+import wide from "../assets/images/mono_wide.png";
 
 const FrameSelect = () => {
   const [showGuide, setShowGuide] = useState(true);
-  const [activeCard, setActiveCard] = useState(2);
   const navigate = useNavigate();
 
-  const rotateRight = () => {
-    setActiveCard((activeCard + 1) % 3);
-  };
-
-  const rotateLeft = () => {
-    setActiveCard((activeCard + 3 - 1) % 3);
-  };
-
   const moveBtnHandler = () => {
-    navigate('/camera/capture')
-  }
+    navigate("/camera/capture");
+  };
+
   const modalHideHandler = () => {
     setShowGuide(!showGuide);
-  }
+  };
+
   return (
     <Wrap>
         { showGuide && <GuideModal><CaptureGuidePage onClose={modalHideHandler} /></GuideModal>}
         { showGuide && <ModalBG onClick={modalHideHandler}/>}
       <Slider>
         <OptionWrap>
-          <Cards>
-            {cards.map((card, index) => (
-            <div key={index} style={{ display:'flex', flexDirection: 'column', alignItems:'center', fontSize: '20px', }}>
-              {card}
-              <Card onClick={()=>{setActiveCard(index)}} key={index} $zIndex={index === activeCard ? 3 : 1} height={index === activeCard ? '300px' : '200px'}
-              $backgroundColor={index === activeCard ? 'lightgrey' : '#333'}>
-              </Card>
+          <div>
+            <div>
+              <div>
+                
+              </div>
+              <div>
+                
+              </div>
+              <div>
+                
+              </div>
             </div>
-          ))}
-          </Cards>
+            <div
+              onClick={moveBtnHandler}
+              style={{
+                display: "flex",
+                gap: "7px",
+                marginBottom: "18px",
+                cursor: "pointer",
+              }}
+            >
+              촬영가이드
+              <img src={info} alt="info" />
+            </div>
+          </div>
+
           <ArrowWrap>
-            <Arrow onClick={rotateLeft}>{'<'}</Arrow>
-            <Arrow onClick={rotateRight}>{'>'}</Arrow>
+            <FrameWrap>
+              <FrameImg src={down} alt="" />
+              <FrameImg src={up} alt="" />
+              <FrameImg src={narrow} alt="" />
+              <FrameImg src={wide} alt="" />
+            </FrameWrap>
           </ArrowWrap>
-          <StyledButton func={moveBtnHandler} title={'촬영하러 가기'} width={'350px'} height={'52px'} />
+
+          <StyledButton
+            func={moveBtnHandler}
+            title={"촬영하러 가기"}
+            width={"174px"}
+            height={"52px"}
+          />
         </OptionWrap>
       </Slider>
     </Wrap>
@@ -70,58 +92,50 @@ const Wrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--whiteGray);
-`
+`;
 
 const Slider = styled.div`
   width: 1200px;
   background-color: white;
   display: flex;
   justify-content: center;
+  z-index: 0;
 `;
 
 const OptionWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 100px;
+  margin-top: 137px;
   margin-bottom: 50px;
-  gap: 20px;
-`
-
-const Cards = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin: 20px;
-  gap: 20px;
-`
-
-const Card = styled.div`
-  width: 200px;
-  height: 200px;
-  border: 1px solid none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 20px;
-  background-color: #333;
-  z-index: ${props => props.$zIndex};
-  height: ${props => props.height};
-  background-color: ${props => props.$backgroundColor};
 `;
 
 const ArrowWrap = styled.div`
+  height: 480px;
+  border-top: 2px solid var(--black);
+  border-bottom: 2px solid var(--black);
+  background-color: #f0f0f0;
   display: flex;
+  align-items: center;
+  padding: 0 103px 0 100px;
+  margin-top: 28px;
+  margin-bottom: 43px;
   gap: 10px;
-`
+`;
 
-const Arrow = styled.button`
-  width: 30px;
-  height: 30px;
-  border: none;
-  border-radius: 50%;
-  background-color: rgb(240, 240, 240);
-  font-size: 16px;
-  line-height: 30px;
+const FrameWrap = styled.div`
+  display: flex;
+  gap: 27px;
+`;
+
+const FrameImg = styled.img`
+  display: flex;
+  height: 270px;
+  transition: transform 0.4s ease-in-out;
+  transform: scale(1);
+  transform-origin: bottom;
+
+  &:hover {
+    transform: scale(1.15);
+  }
 `;

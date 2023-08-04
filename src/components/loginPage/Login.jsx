@@ -4,8 +4,8 @@ import KakaoLoginBtn from './KakaoLoginBtn';
 import EmailLogin from './EmailLogin';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import right_arrow from '../../images/right_arrow.png'
-import line  from '../../images/line.png'
+import right_arrow from '../assets/images/right_arrow.png'
+import line  from '../assets/images/line.png'
 
 import * as S from '../common/styles/StyledSpan';
 import * as L from '../common/styles/StyledLink'
@@ -20,7 +20,7 @@ const Login = () => {
                 <img src={right_arrow}></img>
             </L.StyledLink14>
             </LinkBox>
-       
+        
             <EmailLogin />
 
             <BoundaryLine>
