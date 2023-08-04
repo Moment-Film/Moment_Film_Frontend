@@ -62,7 +62,7 @@ const GuideBox = styled.div`
   align-items: flex-end;
   flex-direction: column;
   justify-content: center;
-  max-width: 1000px;
+  width: 1000px;
   background-color: #f8f8f8;
   border-radius: 10px;
   overflow: hidden;
