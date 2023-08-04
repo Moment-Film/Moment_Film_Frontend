@@ -27,8 +27,8 @@ const FrameSelect = () => {
   }
   return (
     <Wrap>
-      <Slider>
         { showGuide && <GuideModal><CaptureGuidePage onClose={modalHideHandler} /></GuideModal>}
+      <Slider>
         <OptionWrap>
           <Cards>
             {cards.map((card, index) => (
@@ -55,7 +55,6 @@ export default FrameSelect;
 
 const GuideModal = styled.div`
   position: fixed;
-  width: 100%;
   top: 176px;
   z-index: 100;
 `
@@ -63,10 +62,14 @@ const Wrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: var(--whiteGray);
 `
 
 const Slider = styled.div`
+  width: 1200px;
+  background-color: white;
   display: flex;
+  justify-content: center;
 `;
 
 const OptionWrap = styled.div`
