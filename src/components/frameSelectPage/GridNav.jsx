@@ -120,10 +120,12 @@ const ModalBG = styled.div`
 `
 
 const StepWrap = styled.div`
-  width: 1230px;
+  width: 970px;
   border-bottom: 1px solid var(--lightGray);
+  padding: 0 115px;
+    margin: 0 100px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   padding-bottom: 15.5px;
 `;
 
