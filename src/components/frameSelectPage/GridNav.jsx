@@ -14,6 +14,15 @@ const GridNav = ({ data }) => {
     setShowGuide(!showGuide);
   };
 
+  const steps = [
+    { name: "gridSelect", text: "Grid Setting" },
+    { name: "photoGraphy", text: "Photography" },
+    { name: "filter", text: "Filter" },
+    { name: "photoSelect", text: "Photo Select" },
+    { name: "frameSetting", text: "Frame Setting" },
+    { name: "finish", text: "Finish" },
+  ];
+
   return (
     <>
       {showGuide && (
@@ -25,78 +34,20 @@ const GridNav = ({ data }) => {
 
       <StepWrap>
         <SelectStep>
-          {data === "gridSelect" ? (
-            <div style={{ height: "45px" }}>
-              <span>Grid Setting</span>
-              <StepTitle
-                src={mini_flower}
-                alt="mini_flower"
-                style={{ paddingBottom: "10px" }}
-              />
-            </div>
-          ) : (
-            <span style={{ opacity: "0.3" }}>Grid Setting</span>
-          )}
-          {data === "photoGraphy" ? (
-            <div style={{ height: "45px" }}>
-              <span>Photography</span>{" "}
-              <StepTitle
-                src={mini_flower}
-                alt="mini_flower"
-                style={{ paddingBottom: "10px" }}
-              />
-            </div>
-          ) : (
-            <span style={{ opacity: "0.3" }}>Photography</span>
-          )}
-          {data === "filter" ? (
-            <div style={{ height: "45px" }}>
-              <span>Filter</span>{" "}
-              <StepTitle
-                src={mini_flower}
-                alt="mini_flower"
-                style={{ paddingBottom: "10px" }}
-              />
-            </div>
-          ) : (
-            <span style={{ opacity: "0.3" }}>Filter</span>
-          )}
-          {data === "photoSelect" ? (
-            <div style={{ height: "45px" }}>
-              <span>Photo Select</span>{" "}
-              <StepTitle
-                src={mini_flower}
-                alt="mini_flower"
-                style={{ paddingBottom: "10px" }}
-              />
-            </div>
-          ) : (
-            <span style={{ opacity: "0.3" }}>Photo Select</span>
-          )}
-          {data === "frameSetting" ? (
-            <div style={{ height: "45px" }}>
-              <span>Frame Setting</span>{" "}
-              <StepTitle
-                src={mini_flower}
-                alt="mini_flower"
-                style={{ paddingBottom: "10px" }}
-              />
-            </div>
-          ) : (
-            <span style={{ opacity: "0.3" }}>Frame Setting</span>
-          )}
-          {data === "finish" ? (
-            <div style={{ height: "45px" }}>
-              <span>Finish</span>{" "}
-              <StepTitle
-                src={mini_flower}
-                alt="mini_flower"
-                style={{ paddingBottom: "10px" }}
-              />
-            </div>
-          ) : (
-            <span style={{ opacity: "0.3" }}>Finish</span>
-          )}
+        {steps.map((step) => {
+            return data === step.name ? (
+              <div style={{ height: "45px" }} key={step.name}>
+                <span>{step.text}</span>
+                <StepTitle
+                  src={mini_flower}
+                  alt="mini_flower"
+                  style={{ paddingBottom: "10px" }}
+                />
+              </div>
+            ) : (
+              <span style={{ opacity: "0.3" }} key={step.name}>{step.text}</span>
+            );
+          })}
         </SelectStep>
         <div
           onClick={modalHideHandler}
