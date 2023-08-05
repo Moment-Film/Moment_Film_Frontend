@@ -5,6 +5,7 @@ import { register } from "../../api/user";
 import { useMutation } from "react-query";
 import useInputValidation from "../../hooks/useInputValidation";
 import StyledButton from "../common/component/StyledButton";
+import * as I from '../common/styles/StyledInput';
 
 function SignUp() {
   const navigate = useNavigate();
@@ -56,7 +57,7 @@ function SignUp() {
             <ValueBox>
               이메일<span style={{ color: "red" }}>*</span>
             </ValueBox>
-            <InputForm
+            <I.StyledMiddleInput
               name="email"
               value={email}
               onChange={handleEmailChange}
@@ -70,7 +71,7 @@ function SignUp() {
               비밀번호<span style={{ color: "red" }}>*</span>
             </ValueBox>
             <div style={{ display: "flex", flexDirection: "column" }}>
-              <InputForm
+              <I.StyledMiddleInput
                 name="password"
                 type="password"
                 value={password}
@@ -94,7 +95,7 @@ function SignUp() {
             <ValueBox>
               휴대폰<span style={{ color: "red" }}>*</span>
             </ValueBox>
-            <InputForm
+            <I.StyledMiddleInput
               name="phone"
               value={phoneNum}
               onChange={handlePhoneNumChange}
@@ -107,7 +108,7 @@ function SignUp() {
             <ValueBox>
               닉네임<span style={{ color: "red" }}>*</span>
             </ValueBox>
-            <InputForm
+            <I.StyledMiddleInput
               name="username"
               value={userName}
               onChange={handleUserNameChange}
@@ -158,10 +159,11 @@ const FormBox = styled.form`
 const ValueWrap = styled.div`
   display: flex;
   align-items: center;
+  gap:30px;
 `;
 
 const ValueBox = styled.div`
-  width: 103px;
+  width: 77px;
   height: 52px;
   font-size: 16px;
   border: none;
@@ -178,7 +180,7 @@ const SignUpTxt = styled.div`
   margin-top: 112px;
 `;
 
-const InputForm = styled.input`
+/* const InputForm = styled.input`
   width: 470px;
   height: 50px;
   border: none;
@@ -188,7 +190,7 @@ const InputForm = styled.input`
   outline: none;
   margin-right: 30px;
 `;
-
+ */
 const CheckBtn = styled.div`
   width: 175px;
   height: 52px;

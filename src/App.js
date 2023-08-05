@@ -11,7 +11,7 @@ import SignUpPage from './pages/SignUpPage'
 import CameraPage from './pages/CameraPage';
 import CameraOptionPage from './pages/CameraOptionPage';
 import FrameSelectPage from './pages/FrameSelectPage';
-
+import CamPageLayout from './layout/CamPageLayout';
 import { Route, Routes } from 'react-router-dom';
 import Globalstyles from './globalStyle/GlobalStyle';
 
@@ -20,6 +20,7 @@ function App() {
     <>
     <Globalstyles/>
     <Routes>
+      {/* 안스르륵 */}
       <Route path='/' element={<PageLayout />}>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -27,12 +28,17 @@ function App() {
         <Route path='/post/:id' element={<CustomDetail />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path='/camera/frameSelect' element={<FrameSelectPage />} />
-        <Route path='/camera/capture' element={<CameraPage />} />
         <Route path='/camera/capture/option' element={<CameraOptionPage />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/searchreseult" element={<SearchReseultpage />} />
         <Route path="/signup" element={<SignUpPage />} />
       </Route>
+
+    {/* 스르륵 */}
+      <Route path='/camera' element={<CamPageLayout />}>
+        <Route path='/camera/capture' element={<CameraPage />} />
+      </Route>
+      
     </Routes>
     </>
   );
