@@ -139,6 +139,7 @@ const StepWrap = styled.div`
   display: flex;
   justify-content: space-between;
   padding-bottom: 15.5px;
+  padding-top: 50px;
 `;
 
 const SelectStep = styled.div`
