@@ -8,6 +8,7 @@ import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import StyledButton from '../common/component/StyledButton';
 import * as L from '../common/styles/StyledLink';
+import * as I from '../common/styles/StyledInput';
 
 const EmailLogin = () => {
     const navigate = useNavigate();
@@ -45,7 +46,7 @@ const EmailLogin = () => {
     return (
         <StyledForm>
             <InputSection>
-                <StyledInput 
+                <I.StyledShortInput 
                     placeholder={'Email'}
                     value={email}
                     onChange={handleEmailChange}
@@ -54,7 +55,7 @@ const EmailLogin = () => {
                 />
                 <ValidateResult>{emailError === '' ? <br /> : emailError}</ValidateResult>
 
-                <StyledInput
+                <I.StyledShortInput 
                     placeholder={'password'}
                     value={password}
                     onChange={handlePasswordChange}

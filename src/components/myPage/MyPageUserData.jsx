@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import StyledButton from '../common/component/StyledButton';
 
+
 const MyPageUserData = ({lang}) => {
     return (
         <div>
@@ -33,6 +34,8 @@ const MyPageUserData = ({lang}) => {
                     <UserItemResult></UserItemResult>
                 </UserDataSection>
             </UserInfoSection>
+
+ 
             
         </div>
     );

@@ -5,7 +5,8 @@ import { useNavigate } from "react-router";
 import { useQuery } from "react-query";
 import { useState } from "react";
 import { searchUser } from "../../api/searchUser";
-import * as S from '../common/styles/StyledSpan'
+import * as S from '../common/styles/StyledSpan';
+import * as I from '../common/styles/StyledInput';
 
 const SearchUser = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -41,10 +42,10 @@ const SearchUser = () => {
         <S.StyledBoldSpan26>무엇을 도와드릴까요?</S.StyledBoldSpan26>
 
         <SearchInputDiv>
-          <SearchInput
+          <I.StyledLongInput
             onChange={searchTermHandler}
             placeholder="검색어를 입력해 주세요."
-          ></SearchInput>
+          />
           <div onClick={searchBtnHandler}>🔍</div>
         </SearchInputDiv>
 
@@ -98,13 +99,6 @@ const SearchInputDiv = styled.div`
   height:54px;
 
   padding:0 15px 0 10px;
-`;
-
-const SearchInput = styled.input`
-  width:100%;
-  border:none;
-  outline:none;
-  font-size:16px;
 `;
 
 const RecommendSection = styled.div`
