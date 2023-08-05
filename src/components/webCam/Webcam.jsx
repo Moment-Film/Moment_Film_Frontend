@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as S from '../common/styles/StyledSpan'
-import {WebcamBody, WebcamHeader, WebcamVideo, WindowUI, WindowHeader, CapturedPhotos} from './style'
+import right_arrow from '../assets/images/right_arrow.png'
+import StyledButton from '../common/component/StyledButton';
+import {WebcamBody, WebcamHeader, WebcamVideo, WindowUI, WindowHeader, PreviewPhotos, PreviewTxt, ImageSlider, CapturedPhotos} from './style'
 import { useNavigate } from 'react-router-dom';
 
 
@@ -46,25 +48,35 @@ function Webcam() {
         <WindowUI>
           <WindowHeader><div><S.StyledSpan14>{capturedImages.length}/8컷</S.StyledSpan14></div></WindowHeader>
           <video ref={videoRef} autoPlay />
-          <div>
-            {capturedImages.length<8 &&  <button onClick={handleCapture}>찰 칵</button>}
-            <button>다시 찍기</button>
-          </div>
+          
         </WindowUI>
+            {capturedImages.length<8 &&  <button onClick={handleCapture}><S.StyledSpan16>사진찍기</S.StyledSpan16></button>}
+      <StyledButton width="360px" height="50px" title="완료하기" func={()=>navigate(`option`)} />
       </WebcamVideo>
       
+      <PreviewPhotos>
+        <PreviewTxt>
+          <S.StyledBoldSpan16>PREVIEW</S.StyledBoldSpan16>
+          <div>
+            <S.StyledSpan16>전체 다시찍기</S.StyledSpan16>
+          </div>
+        </PreviewTxt>
       {capturedImages.length > 0 && (
         <CapturedPhotos>
+          <button><img src={right_arrow} style={{transform:"scale(-1)"}}/></button>
+        <ImageSlider>
           {capturedImages.map((image, index) => (
             <div key={index}>
+              <div><S.StyledSpan14>{index+1}컷</S.StyledSpan14></div>
               <img src={image} alt={`Captured ${index}`} />
             </div>
           ))}
-        </CapturedPhotos>
+      </ImageSlider>
+      <button><img src={right_arrow}/></button>
+      </CapturedPhotos>
       )}
-      {/* 비디오 화면을 그리기 위한 캔버스 */}
+      </PreviewPhotos>
       <canvas ref={canvasRef} style={{ display: 'none' }} width="640" height="480"></canvas>
-      <button onClick={()=>navigate(`option`)}>다음</button>
     </WebcamBody>
   );
 }
