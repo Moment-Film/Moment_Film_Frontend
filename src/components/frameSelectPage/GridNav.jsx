@@ -16,12 +16,12 @@ const GridNav = ({ data }) => {
 
   return (
     <>
-
-{showGuide && (
+      {showGuide && (
         <GuideModal>
           <CaptureGuidePage onClose={modalHideHandler} />
         </GuideModal>
       )}
+      {showGuide && <ModalBG onClick={modalHideHandler} />}
 
       <StepWrap>
         <SelectStep>
@@ -35,7 +35,7 @@ const GridNav = ({ data }) => {
               />
             </div>
           ) : (
-            <span style={{ opacity: '0.3' }}>Grid Setting</span>
+            <span style={{ opacity: "0.3" }}>Grid Setting</span>
           )}
           {data === "photoGraphy" ? (
             <div style={{ height: "45px" }}>
@@ -47,7 +47,7 @@ const GridNav = ({ data }) => {
               />
             </div>
           ) : (
-            <span style={{ opacity: '0.3' }}>photoGraphy</span>
+            <span style={{ opacity: "0.3" }}>photoGraphy</span>
           )}
           {data === "filter" ? (
             <div style={{ height: "45px" }}>
@@ -59,7 +59,7 @@ const GridNav = ({ data }) => {
               />
             </div>
           ) : (
-            <span style={{ opacity: '0.3' }}>filter</span>
+            <span style={{ opacity: "0.3" }}>filter</span>
           )}
           {data === "frameSetting" ? (
             <div style={{ height: "45px" }}>
@@ -71,7 +71,7 @@ const GridNav = ({ data }) => {
               />
             </div>
           ) : (
-            <span style={{ opacity: '0.3' }}>frameSetting</span>
+            <span style={{ opacity: "0.3" }}>frameSetting</span>
           )}
           {data === "finish" ? (
             <div style={{ height: "45px" }}>
@@ -83,25 +83,22 @@ const GridNav = ({ data }) => {
               />
             </div>
           ) : (
-            <span style={{ opacity: '0.3' }}>finish</span>
+            <span style={{ opacity: "0.3" }}>finish</span>
           )}
-          
         </SelectStep>
         <div
-        onClick={modalHideHandler}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          cursor: "pointer",
-          gap: "11px",
-        }}
-      >
-        촬영가이드
-        <img src={info} alt="info" />
-      </div>
+          onClick={modalHideHandler}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            cursor: "pointer",
+            gap: "11px",
+          }}
+        >
+          촬영가이드
+          <img src={info} alt="info" />
+        </div>
       </StepWrap>
-
-      
     </>
   );
 };
@@ -113,6 +110,14 @@ const GuideModal = styled.div`
   top: 176px;
   z-index: 100;
 `;
+
+const ModalBG = styled.div`
+  position: fixed;
+  z-index: 99;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.15);
+`
 
 const StepWrap = styled.div`
   width: 1230px;

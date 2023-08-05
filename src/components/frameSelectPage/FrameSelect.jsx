@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import CaptureGuidePage from "../webCam/CaptureGuidePage";
 import styled from "styled-components";
 import StyledButton from "../common/component/StyledButton";
 
@@ -49,8 +48,6 @@ const FrameSelect = () => {
 
   return (
     <Wrap>
-        { showGuide && <GuideModal><CaptureGuidePage onClose={modalHideHandler} /></GuideModal>}
-        { showGuide && <ModalBG onClick={modalHideHandler}/>}
       <Slider>
         <OptionWrap>
         <GridNav data={'gridSelect'} />
@@ -105,18 +102,6 @@ const FrameSelect = () => {
 
 export default FrameSelect;
 
-const GuideModal = styled.div`
-  position: fixed;
-  top: 176px;
-  z-index: 100;
-`
-const ModalBG = styled.div`
-  position: fixed;
-  z-index: 99;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0,0,0,0.15);
-`
 const Wrap = styled.div`
   background-color: var(--whiteGray);
   display: flex;
@@ -147,8 +132,7 @@ const ArrowWrap = styled.div`
   border-top: 2px solid var(--black);
   border-bottom: 2px solid var(--black);
   background-color: #f0f0f0;
-    box-shadow: 0px 0px 40px -5px rgba(0, 0, 0, 0.3);
-
+  box-shadow: 0px 0px 40px -5px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
   align-items: center;
