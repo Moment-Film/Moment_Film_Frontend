@@ -39,7 +39,7 @@ const GridNav = ({ data }) => {
           )}
           {data === "photoGraphy" ? (
             <div style={{ height: "45px" }}>
-              <span>photoGraphy</span>{" "}
+              <span>Photography</span>{" "}
               <StepTitle
                 src={mini_flower}
                 alt="mini_flower"
@@ -47,11 +47,11 @@ const GridNav = ({ data }) => {
               />
             </div>
           ) : (
-            <span style={{ opacity: "0.3" }}>photoGraphy</span>
+            <span style={{ opacity: "0.3" }}>Photography</span>
           )}
           {data === "filter" ? (
             <div style={{ height: "45px" }}>
-              <span>filter</span>{" "}
+              <span>Filter</span>{" "}
               <StepTitle
                 src={mini_flower}
                 alt="mini_flower"
@@ -59,11 +59,23 @@ const GridNav = ({ data }) => {
               />
             </div>
           ) : (
-            <span style={{ opacity: "0.3" }}>filter</span>
+            <span style={{ opacity: "0.3" }}>Filter</span>
+          )}
+          {data === "photoSelect" ? (
+            <div style={{ height: "45px" }}>
+              <span>Photo Select</span>{" "}
+              <StepTitle
+                src={mini_flower}
+                alt="mini_flower"
+                style={{ paddingBottom: "10px" }}
+              />
+            </div>
+          ) : (
+            <span style={{ opacity: "0.3" }}>Photo Select</span>
           )}
           {data === "frameSetting" ? (
             <div style={{ height: "45px" }}>
-              <span>frameSetting</span>{" "}
+              <span>Frame Setting</span>{" "}
               <StepTitle
                 src={mini_flower}
                 alt="mini_flower"
@@ -71,11 +83,11 @@ const GridNav = ({ data }) => {
               />
             </div>
           ) : (
-            <span style={{ opacity: "0.3" }}>frameSetting</span>
+            <span style={{ opacity: "0.3" }}>Frame Setting</span>
           )}
           {data === "finish" ? (
             <div style={{ height: "45px" }}>
-              <span>finish</span>{" "}
+              <span>Finish</span>{" "}
               <StepTitle
                 src={mini_flower}
                 alt="mini_flower"
@@ -83,7 +95,7 @@ const GridNav = ({ data }) => {
               />
             </div>
           ) : (
-            <span style={{ opacity: "0.3" }}>finish</span>
+            <span style={{ opacity: "0.3" }}>Finish</span>
           )}
         </SelectStep>
         <div
@@ -116,14 +128,16 @@ const ModalBG = styled.div`
   z-index: 99;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0,0,0,0.15);
-`
+  background-color: rgba(0, 0, 0, 0.15);
+`;
 
 const StepWrap = styled.div`
-  width: 1230px;
+  width: 970px;
   border-bottom: 1px solid var(--lightGray);
+  padding: 0 115px;
+  margin: 0 100px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   padding-bottom: 15.5px;
 `;
 
