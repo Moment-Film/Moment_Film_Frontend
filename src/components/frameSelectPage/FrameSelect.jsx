@@ -25,7 +25,6 @@ const FrameSelect = () => {
   const [showGuide, setShowGuide] = useState(true);
   const [hoveredImageId, setHoveredImageId] = useState(null);
 
-
   const navigate = useNavigate();
 
   const moveBtnHandler = () => {
@@ -38,24 +37,24 @@ const FrameSelect = () => {
 
   const onMouseEnterGridHandler = (id) => {
     setHoveredImageId(id);
-  }
+  };
 
   const onMouseLeaveGridHandler = (id) => {
     if (hoveredImageId === id) {
       setHoveredImageId(null);
     }
-  }
+  };
 
   return (
     <Wrap>
       <Slider>
         <OptionWrap>
-        <GridNav data={'gridSelect'} />
-
+          <GridNav data={"gridSelect"} />
+          <div style={{ fontSize: "30px", marginTop: "50px" }}>Pick One!</div>
           <ArrowWrap>
             <DiaAlign>
-              <img src={bigDIA} alt="top_bigDIA" style={{ height: "100px" }} />
-              <img src={miniDIA} alt="top_miniDIA" style={{ height: "65px" }} />
+              <img src={bigDIA} alt="top_bigDIA" />
+              <img src={miniDIA} alt="top_miniDIA" />
             </DiaAlign>
 
             <FrameWrap>
@@ -137,7 +136,7 @@ const ArrowWrap = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 95px;
+  margin-top: 30px;
   margin-bottom: 90px;
   gap: 10px;
 `;
@@ -147,8 +146,8 @@ const DiaAlign = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 46px;
-  margin-bottom: 54px;
+  margin-top: 45px;
+  margin-bottom: 53px;
 `;
 
 const FrameWrap = styled.div`

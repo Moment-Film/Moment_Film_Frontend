@@ -128,14 +128,14 @@ const ModalBG = styled.div`
   z-index: 99;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0,0,0,0.15);
-`
+  background-color: rgba(0, 0, 0, 0.15);
+`;
 
 const StepWrap = styled.div`
   width: 970px;
   border-bottom: 1px solid var(--lightGray);
   padding: 0 115px;
-    margin: 0 100px;
+  margin: 0 100px;
   display: flex;
   justify-content: space-between;
   padding-bottom: 15.5px;
