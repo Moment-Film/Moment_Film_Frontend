@@ -49,12 +49,8 @@ const FrameSelect = () => {
 
   return (
     <Wrap>
-      {showGuide && (
-        <GuideModal>
-          <CaptureGuidePage onClose={modalHideHandler} />
-        </GuideModal>
-      )}
-
+        { showGuide && <GuideModal><CaptureGuidePage onClose={modalHideHandler} /></GuideModal>}
+        { showGuide && <ModalBG onClick={modalHideHandler}/>}
       <Slider>
         <OptionWrap>
         <GridNav data={'gridSelect'} />
@@ -113,7 +109,14 @@ const GuideModal = styled.div`
   position: fixed;
   top: 176px;
   z-index: 100;
-`;
+`
+const ModalBG = styled.div`
+  position: fixed;
+  z-index: 99;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.15);
+`
 const Wrap = styled.div`
   background-color: var(--whiteGray);
   display: flex;

@@ -2,8 +2,12 @@ import Webcam from '../components/webCam/Webcam'
 
 function CameraPage() {
   return(
-    <div style={{textAlign:"center"}}>
-        <h3>사진 촬영</h3>
+    <div style={{
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: "var(--whiteGray)",
+    }}>
       <Webcam />
     </div>
   )

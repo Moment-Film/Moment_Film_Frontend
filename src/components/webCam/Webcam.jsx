@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-
-import {WebcamBody, CapturedPhotos} from './style'
+import * as S from '../common/styles/StyledSpan'
+import right_arrow from '../assets/images/right_arrow.png'
+import StyledButton from '../common/component/StyledButton';
+import {WebcamBody, WebcamHeader, WebcamVideo, WindowUI, WindowHeader, PreviewPhotos, PreviewTxt, ImageSlider, CapturedPhotos} from './style'
 import { useNavigate } from 'react-router-dom';
 
 
@@ -34,32 +36,47 @@ function Webcam() {
   const handleCapture = () => {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
-
-    // 비디오 화면을 캔버스에 그립니다.
     context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
-
     localStorage.setItem(`image${capturedImages.length}`, canvas.toDataURL('image/png'))
-
-    // 캡처된 이미지 데이터를 배열에 추가합니다.
     setCapturedImages(prevImages => [...prevImages, canvas.toDataURL('image/png')]);
   };
 
   return (
     <WebcamBody>
-      <video ref={videoRef} autoPlay />
-      {capturedImages.length<8 &&  <button onClick={handleCapture}>찰 칵</button>}
+      <WebcamHeader><h3>사진 촬영</h3></WebcamHeader>
+      <WebcamVideo>
+        <WindowUI>
+          <WindowHeader><div><S.StyledSpan14>{capturedImages.length}/8컷</S.StyledSpan14></div></WindowHeader>
+          <video ref={videoRef} autoPlay />
+          
+        </WindowUI>
+            {capturedImages.length<8 &&  <button onClick={handleCapture}><S.StyledSpan16>사진찍기</S.StyledSpan16></button>}
+      <StyledButton width="360px" height="50px" title="완료하기" func={()=>navigate(`option`)} />
+      </WebcamVideo>
+      
+      <PreviewPhotos>
+        <PreviewTxt>
+          <S.StyledBoldSpan16>PREVIEW</S.StyledBoldSpan16>
+          <div>
+            <S.StyledSpan16>전체 다시찍기</S.StyledSpan16>
+          </div>
+        </PreviewTxt>
       {capturedImages.length > 0 && (
         <CapturedPhotos>
+          <button><img src={right_arrow} style={{transform:"scale(-1)"}}/></button>
+        <ImageSlider>
           {capturedImages.map((image, index) => (
             <div key={index}>
+              <div><S.StyledSpan14>{index+1}컷</S.StyledSpan14></div>
               <img src={image} alt={`Captured ${index}`} />
             </div>
           ))}
-        </CapturedPhotos>
+      </ImageSlider>
+      <button><img src={right_arrow}/></button>
+      </CapturedPhotos>
       )}
-      {/* 비디오 화면을 그리기 위한 캔버스 */}
+      </PreviewPhotos>
       <canvas ref={canvasRef} style={{ display: 'none' }} width="640" height="480"></canvas>
-      <button onClick={()=>navigate(`option`)}>다음</button>
     </WebcamBody>
   );
 }
