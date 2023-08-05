@@ -4,12 +4,10 @@ import CaptureGuidePage from "../webCam/CaptureGuidePage";
 import styled from "styled-components";
 import StyledButton from "../common/component/StyledButton";
 import info from "../assets/icons/info.png";
-
 import down from "../assets/images/double_down.png";
 import up from "../assets/images/double_up.png";
 import narrow from "../assets/images/mono_narrow.png";
 import wide from "../assets/images/mono_wide.png";
-
 import frame_setting from "../assets/images/frame_setting.png";
 import mini_flower from "../assets/icons/mini_flower.png";
 
@@ -32,12 +30,8 @@ const FrameSelect = () => {
 
   return (
     <Wrap>
-      {showGuide && (
-        <GuideModal>
-          <CaptureGuidePage onClose={modalHideHandler} />
-        </GuideModal>
-      )}
-
+        { showGuide && <GuideModal><CaptureGuidePage onClose={modalHideHandler} /></GuideModal>}
+        { showGuide && <ModalBG onClick={modalHideHandler}/>}
       <Slider>
         <OptionWrap>
           <StepWrap>
@@ -117,7 +111,14 @@ const GuideModal = styled.div`
   position: fixed;
   top: 176px;
   z-index: 100;
-`;
+`
+const ModalBG = styled.div`
+  position: fixed;
+  z-index: 99;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.15);
+`
 const Wrap = styled.div`
   display: flex;
   justify-content: center;

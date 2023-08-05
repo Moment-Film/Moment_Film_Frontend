@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { styled } from 'styled-components'
+import * as S from '../common/styles/StyledSpan'
 
 const guides = [
   {
@@ -31,9 +32,9 @@ function CaptureGuidePage({ onClose }) {
       <FlexGuide>
         <GuideButton $hide={guideNum===0} onClick={()=>setGuideNum(guideNum-1)}> ◀ </GuideButton>
         <GuideContent>
-            <h4>촬영 가이드</h4>
-            <div><img src={guides[guideNum].img} alt='Guide Image' /></div>
-            <section><p>{guides[guideNum].content}</p></section>
+            <S.StyledBoldSpan24>촬영 가이드</S.StyledBoldSpan24>
+            <div style={{marginTop: "41px", borderRadius: "10px"}}><img src={guides[guideNum].img} alt='Guide Image' /></div>
+            <section><S.StyledSpan16>{guides[guideNum].content}</S.StyledSpan16></section>
         </GuideContent>
         <GuideButton $hide={guideNum===guides.length-1} onClick={()=>setGuideNum(guideNum+1)}> ▶ </GuideButton>
       </FlexGuide>
@@ -46,10 +47,10 @@ export default CaptureGuidePage;
 const CloseButton = styled.button`
   float: right;
   z-index: 10;
-  margin-top: 20px;
-  margin-right: 20px;
-  width: 40px;
-  height: 40px;
+  margin-top: 26px;
+  margin-right: 26px;
+  width: 30px;
+  height: 30px;
   border: none;
   border-radius: 40px;
   background-color: #d9d9d9;
@@ -95,10 +96,11 @@ const GuideContent = styled.div`
   margin: 0 27px;
   overflow: hidden;
   text-align: center;
+  padding-top: 28px;
   
   h4  {
     font-size: 18px;
-    line-height: 20px;
+    line-height: 18px;
   }
   div{
     width: 585px;
@@ -109,9 +111,11 @@ const GuideContent = styled.div`
     height: 340px;
   }
   section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
-    padding-top: 50px;
-    height: 120px;
+    height: 146px;
 
     p {
       font-size: 16px;
