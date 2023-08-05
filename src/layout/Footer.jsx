@@ -7,7 +7,7 @@ function Footer() {
 }
 
 export default Footer;
-const FooterBox = styled.header`
+const FooterBox = styled.footer`
   height: 100px;
   width: 100%;
   background-color: #eee;
