@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { DndProvider, useDrop, useDrag } from 'react-dnd';
 import {TouchBackend} from 'react-dnd-touch-backend';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { useNavigate } from 'react-router-dom';
 
 
 const ImagePiece = ({ imageSrc, onDrop, isPlaced }) => {
@@ -60,6 +61,7 @@ const PuzzleBoard = ({ onDrop, imageSrc }) => {
 };
 
 const SetCount = () => {
+  const navigate = useNavigate();
   const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
   const [images, setImages] = useState([
     { id: 1, src: localStorage.getItem(`image0`) },
@@ -107,6 +109,7 @@ const SetCount = () => {
         </div>
       </div>
       </div>
+      <button onClick={()=>navigate(`../camera/capture/filter`)}>다음으로</button>
     </DndProvider>
   );
 };
