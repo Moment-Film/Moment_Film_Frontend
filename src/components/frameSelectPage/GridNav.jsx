@@ -17,8 +17,8 @@ const GridNav = ({ data }) => {
   const steps = [
     { name: "gridSelect", text: "Grid Setting" },
     { name: "photoGraphy", text: "Photography" },
-    { name: "filter", text: "Filter" },
     { name: "photoSelect", text: "Photo Select" },
+    { name: "filter", text: "Filter" },
     { name: "frameSetting", text: "Frame Setting" },
     { name: "finish", text: "Finish" },
   ];

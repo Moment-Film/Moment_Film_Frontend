@@ -12,6 +12,7 @@ import CameraPage from './pages/CameraPage';
 import CameraOptionPage from './pages/CameraOptionPage';
 import FrameSelectPage from './pages/FrameSelectPage';
 import CamPageLayout from './layout/CamPageLayout';
+import FilterPage from './pages/FilterPage';
 import { Route, Routes } from 'react-router-dom';
 import Globalstyles from './globalStyle/GlobalStyle';
 
@@ -29,6 +30,7 @@ function App() {
         <Route path="/mypage" element={<MyPage />} />
         <Route path='/camera/frameSelect' element={<FrameSelectPage />} />
         <Route path='/camera/capture/option' element={<CameraOptionPage />} />
+        <Route path='/camera/capture/filter' element={<FilterPage />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/searchreseult" element={<SearchReseultpage />} />
         <Route path="/signup" element={<SignUpPage />} />

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as S from "../common/styles/StyledSpan";
+import GridNav from "../frameSelectPage/GridNav";
 import right_arrow from "../assets/images/right_arrow.png";
 import StyledButton from "../common/component/StyledButton";
 import {
@@ -61,9 +62,7 @@ function Webcam() {
   return (
     <>
       <WebcamBody>
-        <WebcamHeader>
-          <h3>사진 촬영</h3>
-        </WebcamHeader>
+        <GridNav data={"photoGraphy"}/>
         <WebcamVideo>
           <WindowUI>
             <WindowHeader>
