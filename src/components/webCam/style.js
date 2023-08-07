@@ -68,28 +68,32 @@ const PreviewPhotos = styled.div`
 `
 const ImageSlider = styled.div`
   display: flex;
-  padding: 0 10px;
+  width: 100%;
+  height:100%;
+
+   padding: 0 10px;
   gap: 5px;
   max-width: 880px;
-  overflow: hidden;
   background-color: var(--whiteGray);
-  border-top: 3px solid;
-  border-bottom: 3px solid;
+
 
   div{
-    display: flex;
+    display:flex;
+    position:relative;
     width: 168px;
     padding: 0;
+
     img{
-      width: 100%;
+      width:100%;
+      height:200px;
       border-right: 3px solid;
       border-left: 3px solid;
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
-    div{
-      display: flex;
+    span{
+
       position: absolute;
       width: 50px;
       height: 27px;
@@ -97,9 +101,13 @@ const ImageSlider = styled.div`
       color: white;
       justify-content: center;
       line-height: 27px;
+      z-index:100;
+      
     }
   }
 `
+
+
 const PreviewTxt = styled.div`
   display: flex;
   justify-content: space-between;

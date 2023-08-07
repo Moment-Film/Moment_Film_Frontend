@@ -65,6 +65,7 @@ export default PaginationComponent;
 
 const PageNationSection = styled.div`
     display:flex;
+    width:60%;
     flex-direction:column;
     align-items:center;
 `
@@ -77,7 +78,7 @@ text-decoration:none;
 const ContentsSection = styled.section`
     display:flex;
     flex-wrap:wrap;
-    border:1px solid black;
+    gap:2%;
 `
 
 const ContentsItem = styled.div`
@@ -88,31 +89,38 @@ const ContentsItem = styled.div`
     width:100%;
     
     @media only screen and (min-width: 500px) {
-        width:50%;
+        width:49%;
 
   }
     @media only screen and (min-width: 1000px) {
-        width:25%;
+        width:23.5%;
 
   }
 
   @media only screen and (min-width: 1600px) {
-        width:20%;
+        width:18.4%;
 
   }
+
+background-color:var(--whiteGray);
+margin-bottom:43px;
 
 
 
 `
 const Img = styled.img`
    width:100%;
+   height:286px;
 `
 
 const ItemInfo = styled.div`
     display:flex;
     align-items:center;
-    justify-content:space-between;
+    justify-content:space-around;
+    gap:20px;
     padding:10px;
+
+    height:84px;
 
 
 `

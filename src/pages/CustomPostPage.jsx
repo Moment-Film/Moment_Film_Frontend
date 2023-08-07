@@ -15,7 +15,7 @@ function CustomPostPage() {
     <PostWrapper>
       {
         getPost.map(item => {
-          return <Post key={item.id}
+          return (<Post key={item.id}
             id={item.id}
             images={item.images}
             filterId={item.filterId}
@@ -23,6 +23,8 @@ function CustomPostPage() {
             commentCnt={item.commentCnt}
             likeCnt={item.likeCnt}
             viewCnt={item.viewCnt}></Post>
+            
+            )
         })
       }
     </PostWrapper>
