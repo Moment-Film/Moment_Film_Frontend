@@ -42,7 +42,6 @@ text-decoration:none;
 const ContentsSection = styled.section`
     display:flex;
     flex-wrap:wrap;
-    border:1px solid black;
     gap:2%;
 `
 

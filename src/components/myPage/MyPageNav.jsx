@@ -5,9 +5,13 @@ import { Link } from 'react-router-dom';
 const MyPageNav = () => {
     return (
         <NavSection>
-            <StyledLink>등록된 디자인</StyledLink>
+            <NavWrap>
+            <hr/>
+            <StyledLink>등록한 디자인</StyledLink>
+            <hr/>
             <StyledLink>관심있는 디자인</StyledLink>
-            <StyledLink>내 게시글 확인</StyledLink>
+            <hr/>
+            </NavWrap>
         </NavSection>
     );
 };
@@ -22,14 +26,19 @@ const NavSection = styled.section`
     border-bottom: 1px solid black;
 
 `
+
+const NavWrap = styled.section`
+    display:flex;
+    width:40%;
+    align-items:center;
+    hr{
+        height:10px;
+    }
+
+
+`
 const StyledLink=styled(Link)`
-text-decoration:none;
-padding: 0 20px 0 20px;
-border-left:1px solid black;
-border-right:1px solid black;
-height: 15px;
-
-margin-bottom:20px;
-
+    text-decoration:none;
+    height: 15px;
     
 `

@@ -13,7 +13,7 @@ const MyPageUserData = ({ lang }) => {
             <UserInfoSection>
 
                 <UserProfileSection>
-        
+                    <Img src={'https://image.imnews.imbc.com/news/2022/enter/article/__icsFiles/afieldfile/2022/03/13/20220313215345_rwTp2delOQ6W637828051274144183.jpg'}></Img>
                 </UserProfileSection>
 
                 <UserDataSection>
@@ -94,7 +94,8 @@ const UserProfileSection = styled.section`
  width:170px;
  height:140px;
 
- padding : 43px 20px 43px 20px;
+ padding-bottom : 20px;
+
  background-color:var(--white);
 
 `
@@ -106,8 +107,6 @@ const Span = styled.span`
 const UserDataSection = styled.section`
     display:grid;
     width: 40%;
-    
-
     grid-template-columns: 48% 48%;
     grid-template-rows: 10% 35% 45%;
     grid-row-gap: 5%;
@@ -195,4 +194,9 @@ const StyledLink = styled(Link)`
 text-decoration:none;
 
     
+`
+
+const Img = styled.img`
+    width:100%;
+
 `
