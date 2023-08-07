@@ -13,6 +13,8 @@ import wide from "../assets/images/mono_wide.png";
 import miniDIA from "../assets/icons/10DIA.png";
 import middleDIA from "../assets/icons/9DIA.png";
 import bigDIA from "../assets/icons/4DIA.png";
+import { useDispatch } from "react-redux";
+import { selectImage } from "../../redux/modules/imageSlice";
 
 const FrameSelect = () => {
   const images = [
@@ -25,6 +27,7 @@ const FrameSelect = () => {
   const [hoveredImageId, setHoveredImageId] = useState(null);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const moveBtnHandler = () => {
     navigate("/camera/capture");
@@ -39,6 +42,14 @@ const FrameSelect = () => {
       setHoveredImageId(null);
     }
   };
+
+  // const onGridImgClickHandler = () => {
+  //   dispatch(selectImage(image.id))
+  // }
+
+  /*
+    그리드 선택 페이지에서 그리드 이미지를 선택하면 onClick 이벤트 함수가 실행되고 선택된 그리드 이미지를 사진 선택 페이지에서 불러올 수 있게 됨
+  */
 
   return (
     <s.Wrap>
@@ -59,6 +70,7 @@ const FrameSelect = () => {
                   src={image.src}
                   width={image.width}
                   isHovered={hoveredImageId === image.id}
+                  onClick={()=>{dispatch(selectImage(image.src))}}
                   onMouseEnter={() => onMouseEnterGridHandler(image.id)}
                   onMouseLeave={() => onMouseLeaveGridHandler(image.id)}
                 />
@@ -87,6 +99,7 @@ const FrameSelect = () => {
             title={"촬영하러 가기"}
             width={"174px"}
             height={"52px"}
+            fontSize={'18px'}
           />
         </s.OptionWrap>
       </s.Slider>

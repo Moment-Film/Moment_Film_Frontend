@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import SetCount from "../components/webCam/SetCount";
 
 function CameraOptionPage() {

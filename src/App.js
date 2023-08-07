@@ -15,6 +15,7 @@ import CamPageLayout from './layout/CamPageLayout';
 import FilterPage from './pages/FilterPage';
 import { Route, Routes } from 'react-router-dom';
 import Globalstyles from './globalStyle/GlobalStyle';
+import CustomMakePage from './pages/CustomMakePage';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route path='/camera/frameSelect' element={<FrameSelectPage />} />
         <Route path='/camera/capture/option' element={<CameraOptionPage />} />
         <Route path='/camera/capture/filter' element={<FilterPage />} />
+        <Route path='/camera/capture/frame' element={<CustomMakePage />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/searchreseult" element={<SearchReseultpage />} />
         <Route path="/signup" element={<SignUpPage />} />
