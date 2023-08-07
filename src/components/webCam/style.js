@@ -68,12 +68,9 @@ const ImageSlider = styled.div`
   display: flex;
   width: 100%;
   height:100%;
-
-   padding: 0 10px;
+  padding: 0 10px;
   gap: 5px;
   max-width: 880px;
-  background-color: var(--whiteGray);
-
 
   div{
     display:flex;
@@ -83,7 +80,6 @@ const ImageSlider = styled.div`
 
     img{
       width:100%;
-      height:200px;
       border-right: 3px solid;
       border-left: 3px solid;
       box-sizing: border-box;
@@ -91,7 +87,6 @@ const ImageSlider = styled.div`
       padding: 0;
     }
     span{
-
       position: absolute;
       width: 50px;
       height: 27px;
@@ -104,8 +99,6 @@ const ImageSlider = styled.div`
     }
   }
 `
-
-
 const PreviewTxt = styled.div`
   display: flex;
   justify-content: space-between;
@@ -120,17 +113,24 @@ const CapturedPhotos = styled.div`
   justify-content: center;
   align-items: center;
   gap: 15px;
-
-  button {
+`
+const MoveButton = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
+    visibility: ${props => props.$hide ? "hidden" : "visible"};
     width: 30px;
     height: 30px;
     border-radius: 30px;
     border: 2px solid var(--black);
     background: none;
-  }
+`
+const SlilderWrap = styled.div`
+  max-width: 880px;
+  overflow: hidden;
+  border-top: 3px solid;
+  border-bottom: 3px solid;
+  background-color: var(--whiteGray);
 `
 
 export {
@@ -139,7 +139,9 @@ export {
   WindowUI,
   WindowHeader,
   PreviewPhotos,
+  MoveButton,
   ImageSlider,
   PreviewTxt,
   CapturedPhotos,
+  SlilderWrap,
 }
