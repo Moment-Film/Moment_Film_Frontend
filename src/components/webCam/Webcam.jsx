@@ -16,6 +16,7 @@ import {
   CapturedPhotos,
 } from "./style";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
 
 function Webcam() {
@@ -23,9 +24,9 @@ function Webcam() {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const streamRef = useRef(null);
-  const slideRef = useRef(null);
+  const slideRef = useRef(null); //슬라이더의 돔을 참조하기위한 useRef
   const [capturedImages, setCapturedImages] = useState([]);
-  const [currentImgOrder, setcCurrentImgOrder] = useState(0);
+  const [currentImgOrder, setcCurrentImgOrder] = useState(0); // 페이지 구별을 위한 useState
 
 
   useEffect(() => {
@@ -64,14 +65,17 @@ function Webcam() {
     ]);
   };
 
+  //슬라이더 영역을 이동시키기위함 
   const MoveSlider = () => {
-    if (slideRef.current !== null) {
-      slideRef.current.style.transition = "all 0.5s ease-in-out";
-      const size = slideRef.current.getBoundingClientRect().width
-      slideRef.current.style.transform = `translateX(-${(size) * currentImgOrder}px)`;
+    if (slideRef.current !== null) { //즉시할당이 안될수있어서 그냥 옵셔널체이닝 느낌
+      slideRef.current.style.transition = "all 0.5s ease-in-out"; //부드럽게 이동 
+      const size = slideRef.current.getBoundingClientRect().width // 내부슬라이더 요소의 가로길이 얻기 
+      slideRef.current.style.transform = `translateX(-${(size) * currentImgOrder}px)`; //얻은 가로길이*페이지 로 x축 이동 
     }
   }
 
+  //페이지 이동 버튼시 페이지 변경함수들 
+  //페이지가 0,1 일때는 움직이지않음 이외에는 현재페이지 +-1로 움직임
   const moveToNextSlide = () => {
     if (currentImgOrder === 1) return;
     setcCurrentImgOrder(currentImgOrder + 1);
@@ -82,6 +86,7 @@ function Webcam() {
     setcCurrentImgOrder(currentImgOrder - 1);
   };
 
+  //페이지변경시마다 슬라이더 이동 동작 
   useEffect(() => {
     MoveSlider();
 
@@ -123,8 +128,8 @@ function Webcam() {
           {capturedImages.length > 0 && (
             <CapturedPhotos>
             <button onClick={moveToPrevSlide}><img src={right_arrow} style={{ transform: "scale(-1)" }} /></button>
-            <SlilderWrap>
-            <ImageSlider ref={slideRef}>
+            <SlilderWrap>{/* 전체 슬라이더 영역 범위 밖으로 넘어가면 안보여줄거임*/}
+            <ImageSlider ref={slideRef}> {/* 내부 슬라이더 영역 */}
               {capturedImages.map((image, index) => (
                 <div key={index}>
                  <S.StyledSpan14>{index + 1}컷</S.StyledSpan14>
