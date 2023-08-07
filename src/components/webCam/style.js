@@ -3,22 +3,20 @@ import styled from "styled-components";
 const WebcamBody = styled.div`
   display: flex;
   text-align: center;
+  align-items: center;
   justify-content: center;
   flex-direction: column;
   width: 1170px;
   background-color: white;
-`
-const WebcamHeader = styled.div`
-  width: 100%;
-  height: 98px;
+  overflow: hidden;
 `
 const WebcamVideo = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 100%;
   justify-content: center;
   align-items: center;
-  border-top: 1px solid var(--lightGray);
   border-bottom: 1px solid var(--lightGray);
   background-color: #fbfbfb;
   padding-top: 31px;
@@ -137,7 +135,6 @@ const CapturedPhotos = styled.div`
 
 export {
   WebcamBody,
-  WebcamHeader,
   WebcamVideo,
   WindowUI,
   WindowHeader,

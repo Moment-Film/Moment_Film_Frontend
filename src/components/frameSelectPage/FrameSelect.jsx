@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
 import StyledButton from "../common/component/StyledButton";
+import GridNav from "./GridNav";
+
+import * as s from "./style";
 
 import down from "../assets/images/double_down.png";
 import up from "../assets/images/double_up.png";
@@ -12,8 +14,6 @@ import miniDIA from "../assets/icons/10DIA.png";
 import middleDIA from "../assets/icons/9DIA.png";
 import bigDIA from "../assets/icons/4DIA.png";
 
-import GridNav from "./GridNav";
-
 const FrameSelect = () => {
   const images = [
     { id: "down", src: down, width: "182px" },
@@ -22,9 +22,7 @@ const FrameSelect = () => {
     { id: "narrow", src: narrow, width: "127px" },
   ];
 
-  const [showGuide, setShowGuide] = useState(true);
   const [hoveredImageId, setHoveredImageId] = useState(null);
-
 
   const navigate = useNavigate();
 
@@ -32,35 +30,31 @@ const FrameSelect = () => {
     navigate("/camera/capture");
   };
 
-  const modalHideHandler = () => {
-    setShowGuide(!showGuide);
-  };
-
   const onMouseEnterGridHandler = (id) => {
     setHoveredImageId(id);
-  }
+  };
 
   const onMouseLeaveGridHandler = (id) => {
     if (hoveredImageId === id) {
       setHoveredImageId(null);
     }
-  }
+  };
 
   return (
-    <Wrap>
-      <Slider>
-        <OptionWrap>
-        <GridNav data={'gridSelect'} />
+    <s.Wrap>
+      <s.Slider>
+        <s.OptionWrap>
+          <GridNav data={"gridSelect"} />
+          <div style={{ fontSize: "30px", marginTop: "50px" }}>Pick One!</div>
+          <s.ArrowWrap>
+            <s.DiaAlign>
+              <img src={bigDIA} alt="top_bigDIA" />
+              <img src={miniDIA} alt="top_miniDIA" />
+            </s.DiaAlign>
 
-          <ArrowWrap>
-            <DiaAlign>
-              <img src={bigDIA} alt="top_bigDIA" style={{ height: "100px" }} />
-              <img src={miniDIA} alt="top_miniDIA" style={{ height: "65px" }} />
-            </DiaAlign>
-
-            <FrameWrap>
+            <s.FrameWrap>
               {images.map((image) => (
-                <FrameImg
+                <s.FrameImg
                   key={image.id}
                   src={image.src}
                   width={image.width}
@@ -69,9 +63,9 @@ const FrameSelect = () => {
                   onMouseLeave={() => onMouseLeaveGridHandler(image.id)}
                 />
               ))}
-            </FrameWrap>
+            </s.FrameWrap>
 
-            <DiaAlign>
+            <s.DiaAlign>
               <img src={miniDIA} alt="bot_miniDIA" style={{ height: "65px" }} />
               <div style={{ display: "flex", alignItems: "center" }}>
                 <img
@@ -85,8 +79,8 @@ const FrameSelect = () => {
                   style={{ height: "65px" }}
                 />
               </div>
-            </DiaAlign>
-          </ArrowWrap>
+            </s.DiaAlign>
+          </s.ArrowWrap>
 
           <StyledButton
             func={moveBtnHandler}
@@ -94,82 +88,10 @@ const FrameSelect = () => {
             width={"174px"}
             height={"52px"}
           />
-        </OptionWrap>
-      </Slider>
-    </Wrap>
+        </s.OptionWrap>
+      </s.Slider>
+    </s.Wrap>
   );
 };
 
 export default FrameSelect;
-
-const Wrap = styled.div`
-  background-color: var(--whiteGray);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Slider = styled.div`
-  width: 1200px;
-  background-color: #ffffff;
-  display: flex;
-  justify-content: center;
-  z-index: 0;
-`;
-
-const OptionWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 50px;
-  margin-bottom: 50px;
-  position: relative;
-`;
-
-const ArrowWrap = styled.div`
-  min-width: 970px;
-  height: 480px;
-  border-top: 2px solid var(--black);
-  border-bottom: 2px solid var(--black);
-  background-color: #f0f0f0;
-  box-shadow: 0px 0px 40px -5px rgba(0, 0, 0, 0.3);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 95px;
-  margin-bottom: 90px;
-  gap: 10px;
-`;
-
-const DiaAlign = styled.div`
-  width: 970px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 46px;
-  margin-bottom: 54px;
-`;
-
-const FrameWrap = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 27px;
-`;
-
-const FrameImg = styled.img`
-  display: flex;
-  width: ${(props) => props.width};
-  height: 270px;
-  box-shadow: 0px 0px 40px -5px rgba(0, 0, 0, 0.1);
-  transition: transform 0.4s ease-in-out;
-  transform: scale(1);
-  transform-origin: bottom;
-  opacity: ${(props) => (props.isHovered ? "1" : "0.3")};
-
-  &:hover {
-    transform: scale(1.15);
-  }
-`;

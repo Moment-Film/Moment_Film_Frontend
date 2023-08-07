@@ -1,10 +1,22 @@
-import React, { useEffect, useRef, useState } from 'react';
-import * as S from '../common/styles/StyledSpan'
-import right_arrow from '../assets/images/right_arrow.png'
-import StyledButton from '../common/component/StyledButton';
-import { WebcamBody, WebcamHeader, WebcamVideo, WindowUI, WindowHeader, PreviewPhotos, PreviewTxt, ImageSlider, CapturedPhotos } from './style'
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+
+import React, { useEffect, useRef, useState } from "react";
+import * as S from "../common/styles/StyledSpan";
+import GridNav from "../frameSelectPage/GridNav";
+import right_arrow from "../assets/images/right_arrow.png";
+import StyledButton from "../common/component/StyledButton";
+import {
+  WebcamBody,
+  WebcamHeader,
+  WebcamVideo,
+  WindowUI,
+  WindowHeader,
+  PreviewPhotos,
+  PreviewTxt,
+  ImageSlider,
+  CapturedPhotos,
+} from "./style";
+import { useNavigate } from "react-router-dom";
+
 
 function Webcam() {
   const navigate = useNavigate();
@@ -19,17 +31,19 @@ function Webcam() {
   useEffect(() => {
     const enableWebcam = async () => {
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+        });
         videoRef.current.srcObject = stream;
         streamRef.current = stream;
       } catch (error) {
-        console.error('웹캠을 사용할 수 없습니다:', error);
+        console.error("웹캠을 사용할 수 없습니다:", error);
       }
     };
     enableWebcam();
     return () => {
       if (streamRef.current) {
-        streamRef.current.getTracks().forEach(track => {
+        streamRef.current.getTracks().forEach((track) => {
           track.stop();
         });
       }
@@ -38,10 +52,16 @@ function Webcam() {
 
   const handleCapture = () => {
     const canvas = canvasRef.current;
-    const context = canvas.getContext('2d');
+    const context = canvas.getContext("2d");
     context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
-    localStorage.setItem(`image${capturedImages.length}`, canvas.toDataURL('image/png'))
-    setCapturedImages(prevImages => [...prevImages, canvas.toDataURL('image/png')]);
+    localStorage.setItem(
+      `image${capturedImages.length}`,
+      canvas.toDataURL("image/png")
+    );
+    setCapturedImages((prevImages) => [
+      ...prevImages,
+      canvas.toDataURL("image/png"),
+    ]);
   };
 
   const MoveSlider = () => {
@@ -68,27 +88,40 @@ function Webcam() {
   }, [currentImgOrder]);
 
   return (
-    <WebcamBody>
-      <WebcamHeader><h3>사진 촬영</h3></WebcamHeader>
-      <WebcamVideo>
-        <WindowUI>
-          <WindowHeader><div><S.StyledSpan14>{capturedImages.length}/8컷</S.StyledSpan14></div></WindowHeader>
-          <video ref={videoRef} autoPlay />
+    <>
+      <WebcamBody>
+        <GridNav data={"photoGraphy"}/>
+        <WebcamVideo>
+          <WindowUI>
+            <WindowHeader>
+              <div>
+                <S.StyledSpan14>{capturedImages.length}/8컷</S.StyledSpan14>
+              </div>
+            </WindowHeader>
+            <video ref={videoRef} autoPlay />
+          </WindowUI>
+          {capturedImages.length < 8 && (
+            <button onClick={handleCapture}>
+              <S.StyledSpan16>사진찍기</S.StyledSpan16>
+            </button>
+          )}
+          <StyledButton
+            width="360px"
+            height="50px"
+            title="완료하기"
+            func={() => navigate(`option`)}
+          />
+        </WebcamVideo>
 
-        </WindowUI>
-        {capturedImages.length < 8 && <button onClick={handleCapture}><S.StyledSpan16>사진찍기</S.StyledSpan16></button>}
-        <StyledButton width="360px" height="50px" title="완료하기" func={() => navigate(`option`)} />
-      </WebcamVideo>
-
-      <PreviewPhotos>
-        <PreviewTxt>
-          <S.StyledBoldSpan16>PREVIEW</S.StyledBoldSpan16>
-          <div>
-            <S.StyledSpan16>전체 다시찍기</S.StyledSpan16>
-          </div>
-        </PreviewTxt>
-        {capturedImages.length > 0 && (
-          <CapturedPhotos>
+        <PreviewPhotos>
+          <PreviewTxt>
+            <S.StyledBoldSpan16>PREVIEW</S.StyledBoldSpan16>
+            <div>
+              <S.StyledSpan16>전체 다시찍기</S.StyledSpan16>
+            </div>
+          </PreviewTxt>
+          {capturedImages.length > 0 && (
+            <CapturedPhotos>
             <button onClick={moveToPrevSlide}><img src={right_arrow} style={{ transform: "scale(-1)" }} /></button>
             <SlilderWrap>
             <ImageSlider ref={slideRef}>
@@ -101,15 +134,22 @@ function Webcam() {
             </ImageSlider>
             </SlilderWrap>
             <button onClick={moveToNextSlide}><img src={right_arrow} /></button>
-          </CapturedPhotos>
-        )}
-      </PreviewPhotos>
-      <canvas ref={canvasRef} style={{ display: 'none' }} width="640" height="480"></canvas>
-    </WebcamBody>
+            </CapturedPhotos>
+          )}
+        </PreviewPhotos>
+        <canvas
+          ref={canvasRef}
+          style={{ display: "none" }}
+          width="640"
+          height="480"
+        ></canvas>
+      </WebcamBody>
+    </>
   );
 }
 
 export default Webcam;
+
 
 const SlilderWrap = styled.div`
   width: 85%;
@@ -118,3 +158,4 @@ const SlilderWrap = styled.div`
   border-top: 3px solid;
   border-bottom: 3px solid;
 `
+
