@@ -13,7 +13,7 @@ function FilterPage() {
     <div style={{
       display: "flex",
     }}>
-      <FilterImage src='https://mblogthumb-phinf.pstatic.net/MjAyMTEyMDhfMjM1/MDAxNjM4OTAyNjQ4Njkz.cwTAwBzLiOrJeiRNEc24q5viuqckc8yLsHDGWbOUSEYg.9KaEdomaY62Ni3WOCk6LvH0crk29VxJ8hYm09CCGb-sg.JPEG.xaintwine/1.jpeg?type=w800' alt='test-image'
+      <FilterImage src='https://file3.instiz.net/data/cached_img/upload/2021/10/18/17/09519b1b4720b2c740dfdb40be94a298.jpg' alt='test-image'
       blur={filterValue.blur}
       brightness={filterValue.brightness}
       saturate={filterValue.saturate}
@@ -28,6 +28,7 @@ function FilterPage() {
           <Slider style={{width:'250px'}}
             min={0}
             max={10}
+            step={0.1}
             value={filterValue.blur || 0}
             onChange={(value)=>filterValueHandler('blur', value)}
           />
