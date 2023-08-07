@@ -32,7 +32,7 @@ function App() {
         <Route path='/camera/frameSelect' element={<FrameSelectPage />} />
         <Route path='/camera/capture/option' element={<CameraOptionPage />} />
         <Route path='/camera/capture/filter' element={<FilterPage />} />
-        <Route path='/custom' element={<CustomMakePage />} />
+        <Route path='/camera/capture/frame' element={<CustomMakePage />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/searchreseult" element={<SearchReseultpage />} />
         <Route path="/signup" element={<SignUpPage />} />
