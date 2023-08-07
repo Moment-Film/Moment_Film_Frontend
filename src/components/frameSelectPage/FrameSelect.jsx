@@ -87,6 +87,7 @@ const FrameSelect = () => {
             title={"촬영하러 가기"}
             width={"174px"}
             height={"52px"}
+            fontSize={'18px'}
           />
         </s.OptionWrap>
       </s.Slider>
