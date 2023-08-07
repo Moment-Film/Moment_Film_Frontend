@@ -5,7 +5,7 @@ import { register } from "../../api/user";
 import { useMutation } from "react-query";
 import useInputValidation from "../../hooks/useInputValidation";
 import StyledButton from "../common/component/StyledButton";
-import * as I from '../common/styles/StyledInput';
+import InputField from "./InputField";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -51,80 +51,52 @@ function SignUp() {
   return (
     <>
       <FormWrap>
-        <img src="" alt="" />
         <SignUpTxt>회원가입</SignUpTxt>
         <FormBox>
-          <ValueWrap>
-            <ValueBox>
-              이메일<span style={{ color: "red" }}>*</span>
-            </ValueBox>
-            <I.StyledMiddleInput
-              name="email"
-              value={email}
-              onChange={handleEmailChange}
-              placeholder="이메일을 입력하세요."
-            />
-            <CheckBtn>중복확인</CheckBtn>
-          </ValueWrap>
+          <InputField
+            name="email"
+            value={email}
+            onChange={handleEmailChange}
+            placeholder="이메일을 입력하세요."
+            label="이메일"
+            checkBtn={true}
+          />
 
-          <ValueWrap>
-            <ValueBox>
-              비밀번호<span style={{ color: "red" }}>*</span>
-            </ValueBox>
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <I.StyledMiddleInput
-                name="password"
-                type="password"
-                value={password}
-                onChange={handlePasswordChange}
-                placeholder="비밀번호를 입력하세요. ( 5자리 이상 )"
-              />
-              <div
-                style={{
-                  fontSize: "14px",
-                  paddingLeft: "20px",
-                  marginTop: "5px",
-                }}
-              >
-                · 공백 없이 문자, 숫자 조합 필수 6 ~ 10자
-              </div>
-            </div>
-            <CheckBtn style={{ visibility: "hidden" }}>중복확인</CheckBtn>
-          </ValueWrap>
+          <InputField
+            name="password"
+            type="password"
+            value={password}
+            onChange={handlePasswordChange}
+            placeholder="비밀번호를 입력하세요. ( 5자리 이상 )"
+            label="비밀번호"
+            infoText="· 공백 없이 문자, 숫자 조합 필수 6 ~ 10자"
+          />
 
-          <ValueWrap>
-            <ValueBox>
-              휴대폰<span style={{ color: "red" }}>*</span>
-            </ValueBox>
-            <I.StyledMiddleInput
-              name="phone"
-              value={phoneNum}
-              onChange={handlePhoneNumChange}
-              placeholder="(-) 를 제외한 핸드폰번호를 입력하세요."
-            />
-            <CheckBtn style={{ visibility: "hidden" }}>중복확인</CheckBtn>
-          </ValueWrap>
+          <InputField
+            name="phone"
+            value={phoneNum}
+            onChange={handlePhoneNumChange}
+            placeholder="(-) 를 제외한 핸드폰번호를 입력하세요."
+            label="휴대폰"
+          />
 
-          <ValueWrap>
-            <ValueBox>
-              닉네임<span style={{ color: "red" }}>*</span>
-            </ValueBox>
-            <I.StyledMiddleInput
-              name="username"
-              value={userName}
-              onChange={handleUserNameChange}
-              placeholder="닉네임을 입력하세요."
-            />
-            <CheckBtn>중복확인</CheckBtn>
-          </ValueWrap>
+          <InputField
+            name="username"
+            value={userName}
+            onChange={handleUserNameChange}
+            placeholder="닉네임을 입력하세요."
+            label="닉네임"
+            checkBtn={true}
+          />
         </FormBox>
+
         <div style={{ margin: "0 auto", marginBottom: "138px" }}>
           <StyledButton
             func={submitBtnHandler}
             title={"가입하기"}
             width={"172px"}
-            height={'52px'}
-            fontWeight={'500'}
+            height={"52px"}
+            fontWeight={"500"}
           />
         </div>
       </FormWrap>
@@ -157,48 +129,9 @@ const FormBox = styled.form`
   margin-bottom: 50px;
 `;
 
-const ValueWrap = styled.div`
-  display: flex;
-  align-items: center;
-  gap:30px;
-`;
-
-const ValueBox = styled.div`
-  width: 77px;
-  height: 52px;
-  font-size: 16px;
-  border: none;
-  display: flex;
-  align-items: center;
-  align-content: center;
-  text-align: center;
-`;
-
 const SignUpTxt = styled.div`
   font-size: 24px;
   text-align: center;
   padding: 15px 15px 30px 15px;
   margin-top: 112px;
-`;
-
-/* const InputForm = styled.input`
-  width: 470px;
-  height: 50px;
-  border: none;
-  border-bottom: 2px solid black;
-  background-color: var(--whiteGray);
-  padding-left: 20px;
-  outline: none;
-  margin-right: 30px;
-`;
- */
-const CheckBtn = styled.div`
-  width: 175px;
-  height: 52px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid var(--black);
-  background-color: rgb(217, 217, 217);
-  cursor: pointer;
 `;

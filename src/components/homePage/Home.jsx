@@ -1,18 +1,25 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
+import StyledButton from "../common/component/StyledButton";
+
+import homeImg from "../assets/images/home_bgImg.png";
 
 const Homepage = () => {
   const navigate = useNavigate();
 
   const camBtnClickHandler = () => {
-    navigate("/camera/guide");
+    navigate("/camera/frameSelect");
+  };
+
+  const customBtnClickHandler = () => {
+    navigate("/custom");
   };
   return (
     <>
-      <ContentWrap>
+      <FirstContentWrap>
         <LeftContent>
-          <LeftH>dummy text 1dummy text 1dummy text 1</LeftH>
+          <LeftH minWidth={"347px"}>Take Your Moment at Best Time</LeftH>
           <LeftTxt>
             dummy text 2dummy text 2dummy text 2dummy text 2dummy text 2dummy
             text 2dummy text 2dummy text 2dummy text 2dummy text 2dummy text
@@ -20,44 +27,89 @@ const Homepage = () => {
             text 2dummy text 2dummy text 2dummy text 2
           </LeftTxt>
 
-          <div>
-            <Square />
-            <SquareBtn onClick={camBtnClickHandler}>촬영하러 가기</SquareBtn>
-          </div>
+          <StyledButton
+            func={camBtnClickHandler}
+            title={"촬영하러 가기"}
+            width={"228px"}
+            height={"72px"}
+            fontSize={"24px"}
+          />
         </LeftContent>
         <RightImg src="" />
-      </ContentWrap>
+      </FirstContentWrap>
+      <SecondContentWrap>
+        <div>
+          <LeftH maxWidth={"486px"}>Your own Custom Design</LeftH>
+          <BottomWrap>
+            <LeftContent>
+                <div style={{ width:'141px', height:'53px', fontSize:'24px', }}>Custom</div>
+                <LeftTxt>
+                  dummy text 2dummy text 2dummy text 2dummy text 2dummy text
+                  2dummy text 2dummy text 2dummy text 2dummy text 2dummy text
+                  2dummy text 2dummy text 2dummy text 2dummy text 2dummy text
+                  2dummy text 2dummy text 2dummy text 2dummy text 2dummy text 2
+                </LeftTxt>
+              <StyledButton
+                func={customBtnClickHandler}
+                title={"촬영하러 가기"}
+                width={"228px"}
+                height={"72px"}
+                fontSize={"24px"}
+              />
+            </LeftContent>
+            <CardWrap>
+              <Card>아무카드</Card>
+              <Card>아무카드</Card>
+              <Card>아무카드</Card>
+            </CardWrap>
+          </BottomWrap>
+        </div>
+      </SecondContentWrap>
     </>
   );
 };
 
 export default Homepage;
 
-const ContentWrap = styled.div`
+// const ContentContainor = styled.div`
+//   display: flex;
+//   flex-direction: column;
+// `
+
+const FirstContentWrap = styled.div`
+  background-image: url(${homeImg});
+  background-size: cover;
+  height: 100vh;
   width: 100%;
+  height: 20;
   display: flex;
   justify-content: center;
-  margin: 100px 0 100px 0;
+  padding: 100px 0;
   gap: 5%;
 `;
 
 const LeftContent = styled.div`
-  width: 20%;
+  width: 50%;
   display: flex;
   flex-direction: column;
   border: 1px solid lightgray;
   margin-bottom: 50px;
   padding: 50px;
-  gap: 50px;
 `;
 
 const LeftH = styled.div`
-  font-size: 50px;
+  min-width: ${(props) => props.minWidth};
+  max-width: ${(props) => props.maxWidth};
+  min-height: 267px;
+  font-size: 64px;
   font-weight: bold;
+  line-height: 89px;
 `;
 
 const LeftTxt = styled.div`
   width: 68%;
+  min-width: 243px;
+  min-height: 222px;
 `;
 
 const RightImg = styled.div`
@@ -66,36 +118,27 @@ const RightImg = styled.div`
   margin-bottom: 50px;
 `;
 
-const Square = styled.div`
-  width: 245px;
-  height: 50px;
-  background-color: white;
-  position: relative;
-  top: -5px;
-  left: 10px;
-  border: 2px solid black;
+const SecondContentWrap = styled.div`
+  box-sizing: border-box;
+  height: 100vh;
+  padding: 370px 20% 0 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #a3e784;
 `;
 
-const SquareBtn = styled.div`
-  width: 215px;
-  height: 25px;
-  position: relative;
-  border: 2px solid black;
-  background-color: #c2f87e;
-  padding: 15px;
-  top: -47px;
-  left: 0px;
-  text-align: center;
-  cursor: pointer;
-`;
+const BottomWrap = styled.div`
+  display: flex;
+`
 
-// const CamBtn = styled.div`
-//   width: 130px;
-//   height: 40px;
-//   border: 1px solid grey;
-//   background-color: yellowgreen;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   cursor: pointer;
-// `
+const CardWrap = styled.div`
+  display: flex;
+  gap: 30px;
+`
+
+const Card = styled.div`
+  width: 278px;
+  height: 449px;
+  background-color: var(--lightGray);
+`
