@@ -1,8 +1,9 @@
 import React from 'react'
+import InfiniteScroll from '../components/common/component/InfinityScroll'
 
 function SearchReseultpage() {
   return (
-    <div>SearchReseultpage</div>
+    <InfiniteScroll></InfiniteScroll>
   )
 }
 

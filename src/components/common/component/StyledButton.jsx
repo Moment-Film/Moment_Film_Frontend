@@ -27,7 +27,7 @@ const WhiteBox = styled.div`
     height:${props => (props.height)};
     border:2px solid black;
     position:absolute;
-    z-index:-1;
+    z-index: 0;
 
     max-width:470px;
 
@@ -46,4 +46,5 @@ const MainBox = styled.div`
     max-width:470px;
     cursor: pointer;
     
+    z-index:1;
 `

@@ -11,6 +11,8 @@ body{
 		
     --warningRed: #FC5B70;
     --lightGreen: #C2F87E;
+
+    --white:#FFFF;
 }
 
 

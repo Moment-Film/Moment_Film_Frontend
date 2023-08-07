@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from "react";
 import * as S from "../common/styles/StyledSpan";
 import GridNav from "../frameSelectPage/GridNav";
@@ -16,12 +17,16 @@ import {
 } from "./style";
 import { useNavigate } from "react-router-dom";
 
+
 function Webcam() {
   const navigate = useNavigate();
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const streamRef = useRef(null);
+  const slideRef = useRef(null);
   const [capturedImages, setCapturedImages] = useState([]);
+  const [currentImgOrder, setcCurrentImgOrder] = useState(0);
+
 
   useEffect(() => {
     const enableWebcam = async () => {
@@ -59,6 +64,29 @@ function Webcam() {
     ]);
   };
 
+  const MoveSlider = () => {
+    if (slideRef.current !== null) {
+      slideRef.current.style.transition = "all 0.5s ease-in-out";
+      const size = slideRef.current.getBoundingClientRect().width
+      slideRef.current.style.transform = `translateX(-${(size) * currentImgOrder}px)`;
+    }
+  }
+
+  const moveToNextSlide = () => {
+    if (currentImgOrder === 1) return;
+    setcCurrentImgOrder(currentImgOrder + 1);
+  };
+
+  const moveToPrevSlide = () => {
+    if (currentImgOrder === 0) return;
+    setcCurrentImgOrder(currentImgOrder - 1);
+  };
+
+  useEffect(() => {
+    MoveSlider();
+
+  }, [currentImgOrder]);
+
   return (
     <>
       <WebcamBody>
@@ -94,22 +122,18 @@ function Webcam() {
           </PreviewTxt>
           {capturedImages.length > 0 && (
             <CapturedPhotos>
-              <button>
-                <img src={right_arrow} style={{ transform: "scale(-1)" }} />
-              </button>
-              <ImageSlider>
-                {capturedImages.map((image, index) => (
-                  <div key={index}>
-                    <div>
-                      <S.StyledSpan14>{index + 1}컷</S.StyledSpan14>
-                    </div>
-                    <img src={image} alt={`Captured ${index}`} />
-                  </div>
-                ))}
-              </ImageSlider>
-              <button>
-                <img src={right_arrow} />
-              </button>
+            <button onClick={moveToPrevSlide}><img src={right_arrow} style={{ transform: "scale(-1)" }} /></button>
+            <SlilderWrap>
+            <ImageSlider ref={slideRef}>
+              {capturedImages.map((image, index) => (
+                <div key={index}>
+                 <S.StyledSpan14>{index + 1}컷</S.StyledSpan14>
+                  <div><img src={image} alt={`Captured ${index}`}/></div>
+                </div>
+              ))}
+            </ImageSlider>
+            </SlilderWrap>
+            <button onClick={moveToNextSlide}><img src={right_arrow} /></button>
             </CapturedPhotos>
           )}
         </PreviewPhotos>
@@ -125,3 +149,13 @@ function Webcam() {
 }
 
 export default Webcam;
+
+
+const SlilderWrap = styled.div`
+  width: 85%;
+  height: 200px;
+  overflow: hidden;
+  border-top: 3px solid;
+  border-bottom: 3px solid;
+`
+

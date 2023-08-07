@@ -19,9 +19,11 @@ const MyPageCompo = () => {
     return (
         <MyPageSection>
             <MyPageUserData lang={language==='ko'? koData : enData}></MyPageUserData>
+            <Contents>
             <MyPageNav></MyPageNav>
 {/*             <ContentBox data={a}></ContentBox> */}
             <PaginationComponent data={a} ItemNums={12}/>
+            </Contents>
         </MyPageSection>
     );
 };
@@ -30,8 +32,17 @@ export default MyPageCompo;
 
 const MyPageSection = styled.section`
  display:flex;
- flex-direction:column;   
+ flex-direction:column;
+ justify-content:center;
+ 
  gap:50px;
- padding:0 0 0 50px;
+
+`
+const Contents = styled.section`
+ display:flex;
+ flex-direction:column;
+ justify-content:center;
+ align-items:center;   
+ gap:50px;
 
 `

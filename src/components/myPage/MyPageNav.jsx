@@ -16,12 +16,20 @@ export default MyPageNav;
 
 const NavSection = styled.section`
     display:flex;
+    width:60%;
+    justify-content:center;
     gap:20px;
     border-bottom: 1px solid black;
 
 `
 const StyledLink=styled(Link)`
 text-decoration:none;
+padding: 0 20px 0 20px;
+border-left:1px solid black;
+border-right:1px solid black;
+height: 15px;
+
+margin-bottom:20px;
 
     
 `
