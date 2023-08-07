@@ -92,6 +92,13 @@ function Webcam() {
 
   }, [currentImgOrder]);
 
+/*   useEffect(() => {
+    if(capturedImages.length>5){ //사진이 5개 넘어가면 
+      moveToNextSlide()//다음페이지로 
+    }
+
+  }, [capturedImages]); */
+
   return (
     <>
       <WebcamBody>
