@@ -42,8 +42,6 @@ const MyPageUserData = ({ lang }) => {
                         </div>
                     </div>
 
-
-
                 </UserDataSection>
             </UserInfoSection>
 

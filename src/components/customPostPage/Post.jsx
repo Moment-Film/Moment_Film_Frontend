@@ -11,6 +11,7 @@ function Post() {
   useEffect(() => {
     // setGetPosts(getAllPosts());
   }, [])
+  
   const Card = ({ item }) => {
     return (
       <ContentsItem>
@@ -29,49 +30,48 @@ function Post() {
   }
 
   return (
-<>
-    <PostTitle>
-    <StyledBoldSpan42>How About</StyledBoldSpan42>
-    <span>인기 크리에이터의 작품과 모먼트 필름의 그리드 방향을 추천합니다</span>
-  </PostTitle>
-    <PostPage>
+    <>
+      <PostTitle>
+        <StyledBoldSpan42>How About</StyledBoldSpan42>
+        <span>인기 크리에이터의 작품과 모먼트 필름의 그리드 방향을 추천합니다</span>
+      </PostTitle>
+      <PostPage>
 
+        <PostHeaderSection>
+          <PostHeader>
+            <SImg src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmJcGGiZhQYnrTUPV1Wpcxp04QT-XnCMq2a1N43NouznMPcJeFp0IMLUZPShxbUSOQHqA&usqp=CAU' />
+            <PostTop5>
+              {
+                a.map((item) => {
+                  return (<Card>asd</Card>)
+                })
+              }
+            </PostTop5>
+          </PostHeader>
+        </PostHeaderSection>
+        <PostNav>
+          <div>게시글</div>
+          <SortItem>
+            <div>
+              정렬방식
+            </div>
+            <div>
+              인기순
+            </div>
+            <div>
+              최신순
+            </div>
+            <div>
+              댓글순
+            </div>
+          </SortItem>
+        </PostNav>
 
-      <PostHeaderSection>
-        <PostHeader>
-          <SImg src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmJcGGiZhQYnrTUPV1Wpcxp04QT-XnCMq2a1N43NouznMPcJeFp0IMLUZPShxbUSOQHqA&usqp=CAU' />
-          <PostTop5>
-            {
-              a.map((item) => {
-                return (<Card>asd</Card>)
-              })
-            }
-          </PostTop5>
-        </PostHeader>
-      </PostHeaderSection>
-      <PostNav>
-        <div>게시글</div>
-        <SortItem>
-          <div>
-            정렬방식
-          </div>
-          <div>
-            인기순
-          </div>
-          <div>
-            최신순
-          </div>
-          <div>
-            댓글순
-          </div>
-        </SortItem>
-      </PostNav>
+        <PostWrapper>
+          <InfiniteScroll />
+        </PostWrapper>
 
-      <PostWrapper>
-        <InfiniteScroll />
-      </PostWrapper>
-
-    </PostPage>
+      </PostPage>
     </>
   )
 }

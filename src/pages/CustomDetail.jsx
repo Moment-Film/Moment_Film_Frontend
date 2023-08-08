@@ -3,6 +3,8 @@ import styled from "styled-components"
 import * as S from "../components/common/styles/StyledSpan"
 import commentEnter from '../components/assets/icons/commentEnter.png'
 import Replay_comment from '../components/assets/icons/replay_comment.png'
+import KakaoShareBtn from "../components/common/component/KakaoShareBtn"
+import UrlShare from "../components/common/component/UrlShare"
 
 function CustomDetail() {
   const[selectFrame,setSelectFrame]=useState(false);
@@ -45,10 +47,13 @@ function CustomDetail() {
           </OptionSection>
 
           <PostAction>
+  
             <Action>
               <S.StyledSpan14>좋아요 수</S.StyledSpan14>
               <S.StyledSpan14>{100}개</S.StyledSpan14>
               <S.StyledSpan14>하트</S.StyledSpan14>
+              <KakaoShareBtn></KakaoShareBtn>
+              <UrlShare></UrlShare>
             </Action>
 
             <Action>
