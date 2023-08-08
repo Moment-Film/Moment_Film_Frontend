@@ -24,15 +24,16 @@ const WebcamVideo = styled.div`
   z-index: 10;
   margin-bottom: 40px;
 
-  video {
-    height: 356px;
-  }
-
   button {
     border: 2px solid var(--black);
     width: 123px;
     height: 39px;
   }
+`
+const StyledVideo = styled.video`
+  object-fit: cover;
+  width: ${props => props.width || 300}px;
+  height: ${props=> props.height || 356}px;
 `
 const WindowUI = styled.div`
   width: 767px;
@@ -40,6 +41,7 @@ const WindowUI = styled.div`
   border-radius: 10px;
   border: 2px solid black;
   box-shadow: 0 0 20px rgba(194, 248, 126, 0.35);
+  background-color: #5F5F5F;
   overflow: hidden;
 `
 const WindowHeader = styled.div`
@@ -61,7 +63,6 @@ const WindowHeader = styled.div`
 `
 const PreviewPhotos = styled.div`
   width: 970px;
-  height: 157px;
   margin: 0 auto 60px;
 `
 const ImageSlider = styled.div`
@@ -132,10 +133,41 @@ const SlilderWrap = styled.div`
   border-bottom: 3px solid;
   background-color: var(--whiteGray);
 `
+const GridContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 1170px;
+  height: 620px;
+  background-color: #fbfbfb;
+  border-bottom: 1px solid var(--lightGray);
+  box-sizing: border-box;
+`
+const InnerGrids = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+`
+const GridBackground = styled.div`
+  display: flex;
+  width: ${props => props.width || '150px' };
+  height: 447px;
+  margin: 0 auto;
+  flex-direction: ${props => props.$bottomText ? 'column-reverse': 'column'};
+  gap: ${props => props.$gap};
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 0 40px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+`
 
 export {
   WebcamBody,
   WebcamVideo,
+  StyledVideo,
   WindowUI,
   WindowHeader,
   PreviewPhotos,
@@ -144,4 +176,7 @@ export {
   PreviewTxt,
   CapturedPhotos,
   SlilderWrap,
+  InnerGrids,
+  GridContainer,
+  GridBackground,
 }

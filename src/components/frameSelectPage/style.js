@@ -65,7 +65,7 @@ const FrameImg = styled.img`
   transition: transform 0.4s ease-in-out;
   transform: ${(props) => (props.isSelected ? 'scale(1.15)' : 'scale(1)')};
   transform-origin: bottom;
-  opacity: ${(props) => (props.isHovered || props.isSelected ? '1' : '0.3')};
+  opacity: ${(props) => (props.$isHovered || props.$isSelected ? '1' : '0.3')};
 
   &:hover {
     transform: scale(1.15);
