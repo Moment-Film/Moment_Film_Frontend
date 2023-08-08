@@ -16,7 +16,19 @@ function CustomMakePage() {
             </LeftBox>
             <RightBox>
             <div>Frame</div>
-            <div></div>
+            <div>
+              <div>
+                <div>
+
+                </div>
+                <div>
+                  
+                </div>
+                <div>
+                  
+                </div>
+              </div>
+            </div>
             </RightBox>
           </BoxWrap>
         </s.OptionWrap>
