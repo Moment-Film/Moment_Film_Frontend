@@ -58,17 +58,28 @@ const FrameWrap = styled.div`
 `;
 
 const FrameImg = styled.img`
-  display: flex;
+  display: inline-block;
   width: ${(props) => props.width};
   height: 270px;
+  background-image: url(${(props) => props.src});
+  background-size: cover;
+  background-position: center;
   box-shadow: 0px 0px 40px 10px rgba(0, 0, 0, 0.05);
   transition: transform 0.4s ease-in-out;
-  transform: ${(props) => (props.isSelected ? 'scale(1.15)' : 'scale(1)')};
+  transform: ${(props) => (props.$isSelected ? 'scale(1.15)' : 'scale(1)')};
   transform-origin: bottom;
   opacity: ${(props) => (props.$isHovered || props.$isSelected ? '1' : '0.3')};
 
   &:hover {
     transform: scale(1.15);
+  }
+
+  &::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0px 0px 40px 10px rgba(0, 0, 0, 0.05);
   }
 `;
 
