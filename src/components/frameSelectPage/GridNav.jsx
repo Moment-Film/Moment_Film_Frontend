@@ -4,11 +4,9 @@ import { styled } from "styled-components";
 import mini_flower from "../assets/icons/mini_flower.png";
 import info from "../assets/icons/info.png";
 
-import { useState } from "react";
 import CaptureGuidePage from "../webCam/CaptureGuidePage";
 
-const GridNav = ({ data }) => {
-  const [showGuide, setShowGuide] = useState(true);
+const GridNav = ({ data, showGuide, setShowGuide }) => {
 
   const modalHideHandler = () => {
     setShowGuide(!showGuide);
