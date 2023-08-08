@@ -1,4 +1,3 @@
-import { configureStore } from "@reduxjs/toolkit";
 import { createStore } from "redux";
 import { combineReducers } from "redux";
 import AccessToken from "../modules/AccessToken";
@@ -10,7 +9,7 @@ import storage from "redux-persist/lib/storage";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["Language"],
+  whitelist: ["Language",'image'],
 };
 
 const rootReducer = combineReducers({
