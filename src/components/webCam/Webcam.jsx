@@ -1,6 +1,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import * as S from "../common/styles/StyledSpan";
+
 import GridNav from "../frameSelectPage/GridNav";
 import right_arrow from "../assets/images/right_arrow.png";
 import StyledButton from "../common/component/StyledButton";
@@ -37,6 +38,8 @@ function Webcam() {
   const [currentImgOrder, setcCurrentImgOrder] = useState(0); // 페이지 구별을 위한 useState
   const gridId = useSelector((state)=>state.image.selectedImage);
   const thisGrid = gridSizes.filter((grid)=>grid.id===gridId)[0];
+  const [showGuide, setShowGuide] = useState(true);
+
   useEffect(() => {
     const enableWebcam = async () => {
       try {
@@ -109,7 +112,7 @@ function Webcam() {
   return (
     <>
       <WebcamBody>
-        <GridNav data={"photoGraphy"}/>
+        <GridNav data={"photoGraphy"} showGuide={showGuide} setShowGuide={setShowGuide} />
         <WebcamVideo>
           <WindowUI>
             <WindowHeader>

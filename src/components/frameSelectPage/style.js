@@ -20,7 +20,6 @@ const OptionWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* margin-top: 50px; */
   margin-bottom: 50px;
   position: relative;
 `;
@@ -64,9 +63,9 @@ const FrameImg = styled.img`
   height: 270px;
   box-shadow: 0px 0px 40px -5px rgba(0, 0, 0, 0.1);
   transition: transform 0.4s ease-in-out;
-  transform: scale(1);
+  transform: ${(props) => (props.isSelected ? 'scale(1.15)' : 'scale(1)')};
   transform-origin: bottom;
-  opacity: ${(props) => (props.$isHovered ? "1" : "0.3")};
+  opacity: ${(props) => (props.$isHovered || props.$isSelected ? '1' : '0.3')};
 
   &:hover {
     transform: scale(1.15);

@@ -13,7 +13,7 @@ const Homepage = () => {
   };
 
   const customBtnClickHandler = () => {
-    navigate("/custom");
+    navigate("/camera/capture/frame");
   };
   return (
     <>
