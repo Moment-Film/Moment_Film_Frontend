@@ -1,7 +1,6 @@
 import React from "react";
 import { styled } from "styled-components";
-import * as I from '../common/styles/StyledInput';
-
+import * as I from "../common/styles/StyledInput";
 
 const InputField = ({
   name,
@@ -12,6 +11,7 @@ const InputField = ({
   type = "text",
   checkBtn = false,
   infoText = null,
+  error = null,
 }) => {
   return (
     <ValueWrap>
@@ -38,6 +38,18 @@ const InputField = ({
             {infoText}
           </div>
         )}
+        {error && (
+          <div
+            style={{
+              fontSize: "14px",
+              color: "red",
+              paddingLeft: "20px",
+              marginTop: "5px",
+            }}
+          >
+            {error}
+          </div>
+        )}
       </div>
       <CheckBtn style={{ visibility: checkBtn ? "visible" : "hidden" }}>
         중복확인
@@ -51,7 +63,7 @@ export default InputField;
 const ValueWrap = styled.div`
   display: flex;
   align-items: center;
-  gap:30px;
+  gap: 30px;
 `;
 
 const ValueBox = styled.div`

@@ -46,6 +46,7 @@ const useInputValidation = () => {
         }
       };
       
+      // 닉네임 유효성 검사
       const validateUserName = (input) => {
         const userNamePattern = /^[a-zA-Z]{2,10}$/;
         if (!input) {
@@ -59,6 +60,7 @@ const useInputValidation = () => {
         }
       };
 
+      // 전화번호 유효성 검사
       const validatePhoneNum = (input) => {
         if (!input) {
           setPhoneNumError('전화번호를 입력해주세요.');

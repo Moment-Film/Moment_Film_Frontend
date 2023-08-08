@@ -15,6 +15,10 @@ function SignUp() {
     phoneNum,
     email,
     password,
+    userNameError,
+    phoneNumError,
+    emailError,
+    passwordError,
     handleEmailChange,
     handlePasswordChange,
     handleUserNameChange,
@@ -36,16 +40,18 @@ function SignUp() {
 
   const submitBtnHandler = async (event) => {
     event.preventDefault();
-    const registerData = {
-      username: userName,
-      email,
-      password,
-      phone: phoneNum,
-    };
+    if (!userNameError && !phoneNumError && !emailError && !passwordError) {
+      const registerData = {
+        username: userName,
+        email,
+        password,
+        phone: phoneNum,
+      };
 
-    mutation.mutate(registerData);
-    alert("가입이 완료되었습니다!");
-    navigate("/login");
+      mutation.mutate(registerData);
+      alert("가입이 완료되었습니다!");
+      navigate("/login");
+    }
   };
 
   return (
@@ -60,6 +66,7 @@ function SignUp() {
             placeholder="이메일을 입력하세요."
             label="이메일"
             checkBtn={true}
+            error={emailError}
           />
 
           <InputField
@@ -70,6 +77,7 @@ function SignUp() {
             placeholder="비밀번호를 입력하세요. ( 5자리 이상 )"
             label="비밀번호"
             infoText="· 공백 없이 문자, 숫자 조합 필수 6 ~ 10자"
+            error={passwordError}
           />
 
           <InputField
@@ -78,6 +86,7 @@ function SignUp() {
             onChange={handlePhoneNumChange}
             placeholder="(-) 를 제외한 핸드폰번호를 입력하세요."
             label="휴대폰"
+            error={phoneNumError}
           />
 
           <InputField
@@ -87,6 +96,7 @@ function SignUp() {
             placeholder="닉네임을 입력하세요."
             label="닉네임"
             checkBtn={true}
+            error={userNameError}
           />
         </FormBox>
 

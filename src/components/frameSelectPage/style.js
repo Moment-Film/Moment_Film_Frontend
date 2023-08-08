@@ -61,7 +61,7 @@ const FrameImg = styled.img`
   display: flex;
   width: ${(props) => props.width};
   height: 270px;
-  box-shadow: 0px 0px 40px -5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 40px 10px rgba(0, 0, 0, 0.05);
   transition: transform 0.4s ease-in-out;
   transform: ${(props) => (props.isSelected ? 'scale(1.15)' : 'scale(1)')};
   transform-origin: bottom;

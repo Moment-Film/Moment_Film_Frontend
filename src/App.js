@@ -39,7 +39,6 @@ function App() {
         <Route path="/search" element={<SearchPage />} />
         <Route path="/searchreseult" element={<SearchReseultpage />} />
         <Route path="/signup" element={<SignUpPage />} />
-        <Route path="/frameCustom" element={<FrameCustomPage />} />
       </Route>
 
     {/* 스르륵 */}
