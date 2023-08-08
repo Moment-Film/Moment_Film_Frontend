@@ -19,7 +19,7 @@ const Homepage = () => {
     <>
       <FirstContentWrap>
         <LeftContent>
-          <LeftH minWidth={"347px"}>Take Your Moment at Best Time</LeftH>
+          <LeftH $minWidth={"347px"}>Take Your Moment at Best Time</LeftH>
           <LeftTxt>
             dummy text 2dummy text 2dummy text 2dummy text 2dummy text 2dummy
             text 2dummy text 2dummy text 2dummy text 2dummy text 2dummy text
@@ -39,7 +39,7 @@ const Homepage = () => {
       </FirstContentWrap>
       <SecondContentWrap>
         <div>
-          <LeftH maxWidth={"486px"}>Your own Custom Design</LeftH>
+          <LeftH $maxWidth={"486px"}>Your own Custom Design</LeftH>
           <BottomWrap>
             <LeftContent>
                 <div style={{ width:'141px', height:'53px', fontSize:'24px', }}>Custom</div>
