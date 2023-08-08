@@ -108,7 +108,7 @@ const UserDataSection = styled.section`
     display:grid;
     width: 40%;
     grid-template-columns: 48% 48%;
-    grid-template-rows: 10% 35% 45%;
+    grid-template-rows: 40% 35% 45%;
     grid-row-gap: 5%;
     grid-column-gap:2%;
     .box-1{ 

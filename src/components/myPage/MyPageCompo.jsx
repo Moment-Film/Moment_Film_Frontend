@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import ContentBox from '../common/component/ContentBox';
 import MyPageNav from './MyPageNav';
 import MyPageUserData from './MyPageUserData';
 import { useSelector,useDispatch } from 'react-redux';
@@ -16,12 +15,12 @@ const MyPageCompo = () => {
 
     const language = useSelector((state)=>state.Language.language)
 
+    const[category,setCategory]=useState('')
     return (
         <MyPageSection>
             <MyPageUserData lang={language==='ko'? koData : enData}></MyPageUserData>
             <Contents>
             <MyPageNav></MyPageNav>
-{/*             <ContentBox data={a}></ContentBox> */}
             <PaginationComponent data={a} ItemNums={12}/>
             </Contents>
         </MyPageSection>

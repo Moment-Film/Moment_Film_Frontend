@@ -32,6 +32,17 @@ export const StyledSpan14 = styled.span`
 //----------------------------------------------------------
 // font-weight : BOLD
 
+export const StyledBoldSpan42 = styled.span`
+    font-size:42px;
+    font-weight:bold;
+
+`
+
+export const StyledBoldSpan28 = styled.span`
+    font-size:28px;
+    font-weight:bold;
+
+`
 
 export const StyledBoldSpan26 = styled.span`
     font-size:26px;
