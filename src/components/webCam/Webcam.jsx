@@ -1,23 +1,32 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import * as S from "../common/styles/StyledSpan";
+
 import GridNav from "../frameSelectPage/GridNav";
 import right_arrow from "../assets/images/right_arrow.png";
 import StyledButton from "../common/component/StyledButton";
 import {
   WebcamBody,
-  WebcamHeader,
   WebcamVideo,
+  StyledVideo,
   WindowUI,
   WindowHeader,
   PreviewPhotos,
   PreviewTxt,
   ImageSlider,
   CapturedPhotos,
+  MoveButton,
+  SlilderWrap,
 } from "./style";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import { useSelector } from "react-redux";
 
+const gridSizes = [
+  { id: "down", innerWidth: 257, innerHeight: 356 },
+  { id: "up", innerWidth: 270, innerHeight: 356 },
+  { id: "wide", innerWidth: 767, innerHeight: 299.5 },
+  { id: "narrow", innerWidth: 668, innerHeight: 356 },
+]
 
 function Webcam() {
   const navigate = useNavigate();
@@ -27,13 +36,15 @@ function Webcam() {
   const slideRef = useRef(null); //슬라이더의 돔을 참조하기위한 useRef
   const [capturedImages, setCapturedImages] = useState([]);
   const [currentImgOrder, setcCurrentImgOrder] = useState(0); // 페이지 구별을 위한 useState
-
+  const gridId = useSelector((state)=>state.image.selectedImage);
+  const thisGrid = gridSizes.filter((grid)=>grid.id===gridId)[0];
+  const [showGuide, setShowGuide] = useState(true);
 
   useEffect(() => {
     const enableWebcam = async () => {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
-          video: true,
+          video: true, width: thisGrid.width, height: '300px'
         });
         videoRef.current.srcObject = stream;
         streamRef.current = stream;
@@ -63,14 +74,17 @@ function Webcam() {
       ...prevImages,
       canvas.toDataURL("image/png"),
     ]);
+    setcCurrentImgOrder(1);
   };
 
   //슬라이더 영역을 이동시키기위함 
   const MoveSlider = () => {
     if (slideRef.current !== null) { //즉시할당이 안될수있어서 그냥 옵셔널체이닝 느낌
       slideRef.current.style.transition = "all 0.5s ease-in-out"; //부드럽게 이동 
-      const size = slideRef.current.getBoundingClientRect().width // 내부슬라이더 요소의 가로길이 얻기 
-      slideRef.current.style.transform = `translateX(-${(size) * currentImgOrder}px)`; //얻은 가로길이*페이지 로 x축 이동 
+      const size = capturedImages.length*173+15 // 내부슬라이더 요소의 가로길이 얻기 
+      const element = document.querySelector(SlilderWrap);
+      const slideWidth = size-element.offsetWidth;
+      slideRef.current.style.transform = `translateX(-${(slideWidth) * currentImgOrder}px)`; //얻은 가로길이*페이지 로 x축 이동 
     }
   }
 
@@ -89,20 +103,16 @@ function Webcam() {
   //페이지변경시마다 슬라이더 이동 동작 
   useEffect(() => {
     MoveSlider();
+  }, [currentImgOrder, capturedImages]);
 
-  }, [currentImgOrder]);
-
-/*   useEffect(() => {
-    if(capturedImages.length>5){ //사진이 5개 넘어가면 
-      moveToNextSlide()//다음페이지로 
-    }
-
-  }, [capturedImages]); */
-
+  const removePhoto = (removeIndex) => {
+    const newPhotos = capturedImages.filter((_, index)=> index !=removeIndex )
+    setCapturedImages(newPhotos);
+  } 
   return (
     <>
       <WebcamBody>
-        <GridNav data={"photoGraphy"}/>
+        <GridNav data={"photoGraphy"} showGuide={showGuide} setShowGuide={setShowGuide} />
         <WebcamVideo>
           <WindowUI>
             <WindowHeader>
@@ -110,7 +120,11 @@ function Webcam() {
                 <S.StyledSpan14>{capturedImages.length}/8컷</S.StyledSpan14>
               </div>
             </WindowHeader>
-            <video ref={videoRef} autoPlay style={{ width: '300px', height: '300px', objectFit: 'cover' }} />
+
+            <div style={{display:'flex', width: '100%', height: '356px', alignItems: 'center', justifyContent: 'center'}}>
+              <StyledVideo width={thisGrid.innerWidth} height={thisGrid.innerHeight} ref={videoRef} autoPlay />
+            </div>
+
           </WindowUI>
           {capturedImages.length < 8 && (
             <button onClick={handleCapture}>
@@ -121,7 +135,7 @@ function Webcam() {
             width="360px"
             height="50px"
             title="완료하기"
-            func={() => navigate(`option`)}
+            func={() => navigate(`option`)} 
           />
         </WebcamVideo>
 
@@ -129,31 +143,34 @@ function Webcam() {
           <PreviewTxt>
             <S.StyledBoldSpan16>PREVIEW</S.StyledBoldSpan16>
             <div>
-              <S.StyledSpan16>전체 다시찍기</S.StyledSpan16>
+              <S.StyledSpan16 onClick={()=>{
+                setCapturedImages([])
+                localStorage.clear();
+              }}>전체 다시찍기</S.StyledSpan16>
             </div>
           </PreviewTxt>
           {capturedImages.length > 0 && (
             <CapturedPhotos>
-            <button onClick={moveToPrevSlide}><img src={right_arrow} style={{ transform: "scale(-1)" }} /></button>
+            {capturedImages.length>5 && <MoveButton $hide={currentImgOrder===0} onClick={moveToPrevSlide}><img src={right_arrow} style={{ transform: "scale(-1)" }} /></MoveButton>}
             <SlilderWrap>{/* 전체 슬라이더 영역 범위 밖으로 넘어가면 안보여줄거임*/}
             <ImageSlider ref={slideRef}> {/* 내부 슬라이더 영역 */}
               {capturedImages.map((image, index) => (
                 <div key={index}>
-                 <S.StyledSpan14>{index + 1}컷</S.StyledSpan14>
-                  <div><img src={image} alt={`Captured ${index}`}/></div>
+                  <S.StyledSpan14>{index + 1}컷</S.StyledSpan14>
+                  <div onClick={()=>removePhoto(index)}><img src={image} alt={`Captured ${index}`}/></div>
                 </div>
               ))}
             </ImageSlider>
             </SlilderWrap>
-            <button onClick={moveToNextSlide}><img src={right_arrow} /></button>
+            {capturedImages.length>5 && <MoveButton $hide={currentImgOrder===1} onClick={moveToNextSlide}><img src={right_arrow} /></MoveButton>}
             </CapturedPhotos>
           )}
         </PreviewPhotos>
         <canvas
           ref={canvasRef}
           style={{ display: "none" }}
-          width="640"
-          height="480"
+          width={thisGrid.innerWidth}
+          height={thisGrid.innerHeight}
         ></canvas>
       </WebcamBody>
     </>
@@ -161,13 +178,3 @@ function Webcam() {
 }
 
 export default Webcam;
-
-
-const SlilderWrap = styled.div`
-  width: 85%;
-  height: 200px;
-  overflow: hidden;
-  border-top: 3px solid;
-  border-bottom: 3px solid;
-`
-
