@@ -10,6 +10,7 @@ import * as s from "../components/frameSelectPage/style";
 import StyledButton from "../components/common/component/StyledButton";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useRef } from "react";
 
 // interface Color {
 //   h: number;
@@ -19,12 +20,20 @@ import { useState } from "react";
 
 function CustomMakePage() {
   const [color, setColor] = useState({ h: 180, s: 100, l: 50 });
+  const [frameImg, setFrameImg] = useState(null);
+  const frameImgRef = useRef();
 
   const navigate = useNavigate();
 
   const changeColorHandler = (newColor) => {
     setColor(newColor);
     console.log(newColor);
+  };
+  const imageChangeHandler = (e) => {
+    const input = e.target;
+    if(input.files && input.files[0]) {
+      setFrameImg(input.files[0]);
+    }
   };
 
   const moveBtnHandler = () => {
@@ -41,7 +50,7 @@ function CustomMakePage() {
               <LeftBox>
                 <FrameImg
                   style={{
-                    backgroundColor: `hsl(${color.h}, ${color.s}%, ${color.l}%)`,
+                    backgroundColor: `hsl(${color.h}, ${color.s}%, ${color.l}%)`
                   }}
                 >
                   응애 ㅜㅜ
@@ -65,6 +74,8 @@ function CustomMakePage() {
                       color={color}
                     />
                   </div>
+                  <input accept='image/*' type='file' onChange={imageChangeHandler} ref={frameImgRef} />
+                  <img src={frameImg} alt="입력한 이미지는 여기"/>
                   <StyledButton
                     func={moveBtnHandler}
                     title={"완료하기!"}
