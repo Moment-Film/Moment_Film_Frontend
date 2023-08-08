@@ -7,6 +7,7 @@ import StyledButton from "../common/component/StyledButton";
 import {
   WebcamBody,
   WebcamVideo,
+  StyledVideo,
   WindowUI,
   WindowHeader,
   PreviewPhotos,
@@ -17,8 +18,14 @@ import {
   SlilderWrap,
 } from "./style";
 import { useNavigate } from "react-router-dom";
-import { styled } from "styled-components";
+import { useSelector } from "react-redux";
 
+const gridSizes = [
+  { id: "down", innerWidth: 257, innerHeight: 356 },
+  { id: "up", innerWidth: 270, innerHeight: 356 },
+  { id: "wide", innerWidth: 767, innerHeight: 299.5 },
+  { id: "narrow", innerWidth: 668, innerHeight: 356 },
+]
 
 function Webcam() {
   const navigate = useNavigate();
@@ -28,13 +35,13 @@ function Webcam() {
   const slideRef = useRef(null); //슬라이더의 돔을 참조하기위한 useRef
   const [capturedImages, setCapturedImages] = useState([]);
   const [currentImgOrder, setcCurrentImgOrder] = useState(0); // 페이지 구별을 위한 useState
-
-
+  const gridId = useSelector((state)=>state.image.selectedImage);
+  const thisGrid = gridSizes.filter((grid)=>grid.id===gridId)[0];
   useEffect(() => {
     const enableWebcam = async () => {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
-          video: true,
+          video: true, width: thisGrid.width, height: '300px'
         });
         videoRef.current.srcObject = stream;
         streamRef.current = stream;
@@ -110,7 +117,9 @@ function Webcam() {
                 <S.StyledSpan14>{capturedImages.length}/8컷</S.StyledSpan14>
               </div>
             </WindowHeader>
-            <video ref={videoRef} autoPlay />
+            <div style={{display:'flex', width: '100%', height: '356px', alignItems: 'center', justifyContent: 'center'}}>
+              <StyledVideo width={thisGrid.innerWidth} height={thisGrid.innerHeight} ref={videoRef} autoPlay />
+            </div>
           </WindowUI>
           {capturedImages.length < 8 && (
             <button onClick={handleCapture}>
@@ -121,7 +130,7 @@ function Webcam() {
             width="360px"
             height="50px"
             title="완료하기"
-            func={() => navigate(`option`)}
+            func={() => navigate(`option`)} 
           />
         </WebcamVideo>
 
@@ -155,8 +164,8 @@ function Webcam() {
         <canvas
           ref={canvasRef}
           style={{ display: "none" }}
-          width="640"
-          height="480"
+          width={thisGrid.innerWidth}
+          height={thisGrid.innerHeight}
         ></canvas>
       </WebcamBody>
     </>

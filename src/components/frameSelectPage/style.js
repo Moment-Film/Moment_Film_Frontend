@@ -66,7 +66,7 @@ const FrameImg = styled.img`
   transition: transform 0.4s ease-in-out;
   transform: scale(1);
   transform-origin: bottom;
-  opacity: ${(props) => (props.isHovered ? "1" : "0.3")};
+  opacity: ${(props) => (props.$isHovered ? "1" : "0.3")};
 
   &:hover {
     transform: scale(1.15);
