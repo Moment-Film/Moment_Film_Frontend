@@ -69,8 +69,8 @@ const FrameSelect = () => {
                   key={image.id}
                   src={image.src}
                   width={image.width}
-                  isHovered={hoveredImageId === image.id}
-                  onClick={()=>{dispatch(selectImage(image.src))}}
+                  $isHovered={hoveredImageId === image.id}
+                  onClick={()=>{dispatch(selectImage(image.id))}}
                   onMouseEnter={() => onMouseEnterGridHandler(image.id)}
                   onMouseLeave={() => onMouseLeaveGridHandler(image.id)}
                 />
