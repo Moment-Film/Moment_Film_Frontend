@@ -25,6 +25,7 @@
     "react-redux": "^8.1.1",
     "react-router-dom": "^6.14.2",
     "react-scripts": "5.0.1",
+    "react-slider-color-picker": "^2.0.0",
     "react-webcam": "^7.1.1",
     "redux": "^4.2.1",
     "redux-persist": "^6.0.0",
