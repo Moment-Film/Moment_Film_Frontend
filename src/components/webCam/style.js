@@ -41,6 +41,7 @@ const WindowUI = styled.div`
   border: 2px solid black;
   box-shadow: 0 0 20px rgba(194, 248, 126, 0.35);
   overflow: hidden;
+
 `
 const WindowHeader = styled.div`
   display: flex;

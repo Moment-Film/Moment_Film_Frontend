@@ -110,7 +110,7 @@ function Webcam() {
                 <S.StyledSpan14>{capturedImages.length}/8컷</S.StyledSpan14>
               </div>
             </WindowHeader>
-            <video ref={videoRef} autoPlay />
+            <video ref={videoRef} autoPlay style={{ width: '300px', height: '300px', objectFit: 'cover' }} />
           </WindowUI>
           {capturedImages.length < 8 && (
             <button onClick={handleCapture}>
