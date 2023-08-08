@@ -99,6 +99,7 @@ const SetCount = () => {
   
   const [imgCnt, setImgCnt] = useState(capturedImages.length);
   const [currentImgOrder, setCurrentImgOrder] = useState(0);
+  const [setImage, setSetImage] = useState(0);
 
   const moveToNextSlide = () => {
     if (currentImgOrder === 1) return;
@@ -109,6 +110,13 @@ const SetCount = () => {
     if (currentImgOrder === 0) return;
     setCurrentImgOrder(currentImgOrder - 1);
   };
+
+  const setInnerImage = (index) => {
+    if(boardImages[index]===null) {
+      setSetImage(setImage+1);
+      setImgCnt(imgCnt-1);
+    }
+  }
 
   useEffect(() => {
     MoveSlider();
@@ -127,6 +135,7 @@ const SetCount = () => {
   const [boardImages, setBoardImages] = useState(Array(4).fill(null));
 
   const handleDrop = (imageSrc, index) => {
+    setInnerImage(index);
     const newBoardImages = [...boardImages];
     newBoardImages[index] = imageSrc;
     setBoardImages(newBoardImages);
@@ -154,7 +163,7 @@ const SetCount = () => {
       <div style={{textAlign:"center"}}>
       {capturedImages.length > 0 && (
         <CapturedPhotos>
-          {capturedImages.length>5 && <MoveButton $hide={currentImgOrder===0} onClick={moveToPrevSlide}><img src={right_arrow} style={{ transform: "scale(-1)" }} /></MoveButton>}
+          {imgCnt>5 && <MoveButton $hide={currentImgOrder===0} onClick={moveToPrevSlide}><img src={right_arrow} style={{ transform: "scale(-1)" }} /></MoveButton>}
           <SlilderWrap>{/* 전체 슬라이더 영역 범위 밖으로 넘어가면 안보여줄거임*/}
           <ImageSlider ref={slideRef}> {/* 내부 슬라이더 영역 */}
             {capturedImages?.map((image, index) => (
@@ -166,7 +175,7 @@ const SetCount = () => {
             ))}
           </ImageSlider>
           </SlilderWrap>
-          {capturedImages.length>5 && <MoveButton $hide={currentImgOrder===1} onClick={moveToNextSlide}><img src={right_arrow} /></MoveButton>}
+          {imgCnt>5 && <MoveButton $hide={currentImgOrder===1} onClick={moveToNextSlide}><img src={right_arrow} /></MoveButton>}
         </CapturedPhotos>
       )}
       </div>
