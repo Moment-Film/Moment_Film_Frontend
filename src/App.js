@@ -18,7 +18,6 @@ import Globalstyles from './globalStyle/GlobalStyle';
 import CustomMakePage from './pages/CustomMakePage';
 import CustomFinish from './pages/CustomFinish';
 
-
 function App() {
   return (
     <>
