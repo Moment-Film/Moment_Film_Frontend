@@ -17,7 +17,6 @@ import { Route, Routes } from 'react-router-dom';
 import Globalstyles from './globalStyle/GlobalStyle';
 import CustomMakePage from './pages/CustomMakePage';
 
-
 function App() {
   return (
     <>
@@ -37,7 +36,6 @@ function App() {
         <Route path="/search" element={<SearchPage />} />
         <Route path="/searchreseult" element={<SearchReseultpage />} />
         <Route path="/signup" element={<SignUpPage />} />
-        <Route path="/frameCustom" element={<FrameCustomPage />} />
       </Route>
 
     {/* 스르륵 */}
