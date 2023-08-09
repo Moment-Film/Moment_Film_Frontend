@@ -110,7 +110,6 @@ const FrameSelect = () => {
               </div>
             </s.DiaAlign>
           </s.ArrowWrap>
-          {/* {selectedImage === null ? <p style={{color:'#FC5B70', visiblity:'hidden'}}>그리드가 선택되지 않았습니다!</p> : null} */}
           <p
             style={{
               color: "#FC5B70",

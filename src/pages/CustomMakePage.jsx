@@ -13,12 +13,6 @@ import { useState } from "react";
 import { useRef } from "react";
 import { useSelector } from "react-redux";
 
-// interface Color {
-//   h: number;
-//   s: number;
-//   l: number;
-// }
-
 function CustomMakePage() {
   const [color, setColor] = useState({ h: 180, s: 100, l: 100 });
   const [frameImg, setFrameImg] = useState(null);
@@ -126,7 +120,7 @@ function CustomMakePage() {
                               height: "100%",
                             }}
                             src={img}
-                            alt={img}
+                            alt=''
                           />
                         </div>
                       );
