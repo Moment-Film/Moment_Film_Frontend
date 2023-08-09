@@ -144,7 +144,7 @@ const SetCount = () => {
       <div style={{display:"flex", width:"1170px", flexDirection: "column", alignItems:" center", margin:"0 auto", backgroundColor: "white", overflow: "hidden"}}>
         <GridNav data='photoSelect'/>
       <GridContainer>
-        <S.StyledSpan14>아래 사진을 드래그해 넣어보세요!</S.StyledSpan14>
+        <S.StyledSpan14 style={{color: "var(--gray)"}}>아래 사진을 드래그해 넣어보세요!</S.StyledSpan14>
         <GridBackground width={thisGrid.width} $gap={thisGrid.gap}$bottomText={thisGrid.id==='narrow' || thisGrid.id==='wide'}>
           <S.StyledBoldSpan16>moment film</S.StyledBoldSpan16>
           <InnerGrids>
@@ -159,8 +159,11 @@ const SetCount = () => {
           </InnerGrids>
         </GridBackground>
         <StyledButton func={finishButtonHandler} title={"완료하기"} width={'130px'} height={'49px'} fontSize={'16px'} />
+        <S.StyledSpan16 style={{lineHeight: "16px", margin:"0", }} onClick={()=>{
+          setBoardImages(Array(4).fill(null))
+          setImgCnt(8)}}>전체 다시 선택</S.StyledSpan16>
       </GridContainer>
-      <div style={{textAlign:"center"}}>
+      <div style={{textAlign:"center", marginBottom: "56px"}}>
       {capturedImages.length > 0 && (
         <CapturedPhotos>
           {imgCnt>5 && <MoveButton $hide={currentImgOrder===0} onClick={moveToPrevSlide}><img src={right_arrow} alt='' style={{ transform: "scale(-1)" }} /></MoveButton>}
@@ -177,7 +180,7 @@ const SetCount = () => {
           </SlilderWrap>
           {imgCnt>5 && <MoveButton $hide={currentImgOrder===1} onClick={moveToNextSlide}><img src={right_arrow} alt='' /></MoveButton>}
         </CapturedPhotos>
-      )}
+        )}
       </div>
       </div>
     </DndProvider>

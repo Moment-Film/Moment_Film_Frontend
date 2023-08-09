@@ -1,18 +1,23 @@
 import React from "react";
 import * as a from "./style";
+import * as s from "../frameSelectPage/style";
+import GridNav from "../frameSelectPage/GridNav";
+import StyledButton from "../common/component/StyledButton";
+import { SetFrameColor } from "../../redux/modules/FrameInfo";
+import { async } from "q";
+import upload from "../assets/icons/upload.svg";
+
 import {
   HueSlider,
   SaturationSlider,
   LightnessSlider,
 } from "react-slider-color-picker";
-import GridNav from "../frameSelectPage/GridNav";
-import * as s from "../frameSelectPage/style";
-import StyledButton from "../common/component/StyledButton";
+
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useRef } from "react";
 import { useSelector } from "react-redux";
-import upload from "../assets/icons/upload.svg";
+import { useDispatch } from "react-redux";
 
 const FrameCustomMake = () => {
   
@@ -24,6 +29,7 @@ const FrameCustomMake = () => {
   const navigate = useNavigate();
 
   const thisGrid = useSelector((state) => state.image.images);
+  const dispatch=useDispatch();
 
   const [innerImg] = useState([
     localStorage.getItem(`image0`),
@@ -50,7 +56,9 @@ const FrameCustomMake = () => {
     setUploadedImg(null);
   };
 
-  const moveBtnHandler = () => {
+
+  const moveBtnHandler = async() => {
+    await dispatch(SetFrameColor(color));
     navigate("/camera/capture/filter");
   };
 
@@ -113,17 +121,18 @@ const FrameCustomMake = () => {
                       handleChangeColor={changeColorHandler}
                       color={color}
                     />
-
                     <div>채도</div>
                     <SaturationSlider
                       handleChangeColor={changeColorHandler}
                       color={color}
+                      
                     />
 
                     <div>밝기</div>
                     <LightnessSlider
                       handleChangeColor={changeColorHandler}
                       color={color}
+
                     />
                   </a.SliderBox>
                 </a.Section>

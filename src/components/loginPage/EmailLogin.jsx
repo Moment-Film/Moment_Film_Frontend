@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import StyledButton from '../common/component/StyledButton';
 import * as L from '../common/styles/StyledLink';
 import * as I from '../common/styles/StyledInput';
+import StyledInputBox from '../common/component/StyledInputBox';
 
 const EmailLogin = () => {
     const navigate = useNavigate();
@@ -51,7 +52,7 @@ const EmailLogin = () => {
                     value={email}
                     onChange={handleEmailChange}
                     type={'email'}
-                    width={'100%'}
+                    width={'50%'}
                 />
                 <ValidateResult>{emailError === '' ? <br /> : emailError}</ValidateResult>
 
@@ -60,7 +61,7 @@ const EmailLogin = () => {
                     value={password}
                     onChange={handlePasswordChange}
                     type={'password'}
-                    width={'100%'}
+                    width={'80%'}
                 />
                 <ValidateResult>{passwordError === '' ? <br /> : passwordError}</ValidateResult>
             </InputSection>
@@ -90,7 +91,7 @@ const StyledForm = styled.form`
 `
 const InputSection = styled.section`
     width:100%;
-
+    text-align:center;
 `
 
 const StyledInput = styled.input`
