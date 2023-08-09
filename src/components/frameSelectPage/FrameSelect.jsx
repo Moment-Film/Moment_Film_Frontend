@@ -28,6 +28,8 @@ const FrameSelect = () => {
   const [hoveredImageId, setHoveredImageId] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [showGuide, setShowGuide] = useState(true);
+
+  const [selectedID, setSelectedID] = useState(null);
   
   //확인용 출력 확인하고 지워주세용 
   const Data = useSelector(state => state.image);
@@ -38,6 +40,7 @@ const FrameSelect = () => {
 
   const moveBtnHandler = () => {
     if (selectedImage !== null) {
+      dispatch(selectImage(selectedID));
       // 이미지가 선택되었는지 확인
       navigate("/camera/capture");
     }
@@ -54,7 +57,8 @@ const FrameSelect = () => {
   };
 
   const onGridImgClickHandler = (image, e) => {
-    dispatch(selectImage(image.id,));
+    setSelectedID(image.id)
+
     setSelectedImage(image.src);
     e.stopPropagation(); // 이벤트의 전파를 막습니다.
   };
