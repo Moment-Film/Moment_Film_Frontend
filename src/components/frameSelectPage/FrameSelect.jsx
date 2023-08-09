@@ -15,6 +15,7 @@ import middleDIA from "../assets/icons/9DIA.png";
 import bigDIA from "../assets/icons/4DIA.png";
 import { useDispatch } from "react-redux";
 import { selectImage } from "../../redux/modules/imageSlice";
+import { useSelector } from "react-redux";
 
 const FrameSelect = () => {
   const images = [
@@ -28,11 +29,18 @@ const FrameSelect = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [showGuide, setShowGuide] = useState(true);
 
+  const [selectedID, setSelectedID] = useState(null);
+  
+  //확인용 출력 확인하고 지워주세용 
+  const Data = useSelector(state => state.image);
+  console.log(Data)
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const moveBtnHandler = () => {
     if (selectedImage !== null) {
+      dispatch(selectImage(selectedID));
       // 이미지가 선택되었는지 확인
       navigate("/camera/capture");
     }
@@ -49,7 +57,8 @@ const FrameSelect = () => {
   };
 
   const onGridImgClickHandler = (image, e) => {
-    dispatch(selectImage(image.id));
+    setSelectedID(image.id)
+
     setSelectedImage(image.src);
     e.stopPropagation(); // 이벤트의 전파를 막습니다.
   };

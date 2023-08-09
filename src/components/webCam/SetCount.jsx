@@ -89,7 +89,7 @@ const SetCount = () => {
     { id: 8, src: localStorage.getItem(`image7`)  },
   ]);
   
-  const gridSizes = [
+  const gridSizes = [//내부 네모 사이 15px 고정 
     { id: "down", width: '300px', innerWidth: '126.6px', innerHeight: '175.2px', gap:'4px' },
     { id: "up", width: '300px', innerWidth: '123.1px', innerHeight: '162.5px', gap:'28px' },
     { id: "wide", width: '259px', innerWidth: '202.9px', innerHeight: '78.7px', gap:'8px' },
