@@ -82,8 +82,8 @@ function Webcam() {
     if (slideRef.current !== null) { //즉시할당이 안될수있어서 그냥 옵셔널체이닝 느낌
       slideRef.current.style.transition = "all 0.5s ease-in-out"; //부드럽게 이동 
       const size = capturedImages.length*173+15 // 내부슬라이더 요소의 가로길이 얻기 
-      const element = document.querySelector(SlilderWrap);
-      const slideWidth = size-element.offsetWidth;
+      const element = document.querySelector(SlilderWrap).offsetWidth || 880;
+      const slideWidth = size-element;
       slideRef.current.style.transform = `translateX(-${(slideWidth) * currentImgOrder}px)`; //얻은 가로길이*페이지 로 x축 이동 
     }
   }
