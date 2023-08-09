@@ -180,7 +180,11 @@ const SetCount = () => {
       )}
       </div>
       </div>
-      <button onClick={()=>navigate(`../camera/capture/filter`)}>다음으로</button>
+      <button onClick={()=>{
+        localStorage.clear();
+        boardImages.map((item,index)=> localStorage.setItem(`image${index}`,item));
+        navigate(`../camera/capture/frame`);
+        }}>다음으로</button>
     </DndProvider>
   );
 };
