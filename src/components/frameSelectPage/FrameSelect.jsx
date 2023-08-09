@@ -30,10 +30,6 @@ const FrameSelect = () => {
   const [showGuide, setShowGuide] = useState(true);
 
   const [selectedID, setSelectedID] = useState(null);
-  
-  //확인용 출력 확인하고 지워주세용 
-  const Data = useSelector(state => state.image);
-  console.log(Data)
 
   const navigate = useNavigate();
   const dispatch = useDispatch();

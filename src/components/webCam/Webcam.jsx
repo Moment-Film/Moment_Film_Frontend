@@ -36,8 +36,8 @@ function Webcam() {
   const slideRef = useRef(null); //슬라이더의 돔을 참조하기위한 useRef
   const [capturedImages, setCapturedImages] = useState([]);
   const [currentImgOrder, setcCurrentImgOrder] = useState(0); // 페이지 구별을 위한 useState
-  const gridId = useSelector((state)=>state.image.selectedImage);
-  const thisGrid = gridSizes.filter((grid)=>grid.id===gridId)[0];
+  const gridId = useSelector((state)=>state.image.images).id;
+  const thisGrid = gridSizes.find((grid)=>grid.id===gridId);
   const [showGuide, setShowGuide] = useState(true);
 
   useEffect(() => {

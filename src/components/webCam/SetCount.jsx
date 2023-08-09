@@ -5,6 +5,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useNavigate } from 'react-router-dom';
 import GridNav from '../frameSelectPage/GridNav'
 import right_arrow from '../assets/images/right_arrow.png'
+import StyledButton from '../common/component/StyledButton'
 import {
   CapturedPhotos,
   MoveButton,
@@ -87,15 +88,8 @@ const SetCount = () => {
     { id: 7, src: localStorage.getItem(`image6`)  },
     { id: 8, src: localStorage.getItem(`image7`)  },
   ]);
-  
-  const gridSizes = [//내부 네모 사이 15px 고정 
-    { id: "down", width: '300px', innerWidth: '126.6px', innerHeight: '175.2px', gap:'4px' },
-    { id: "up", width: '300px', innerWidth: '123.1px', innerHeight: '162.5px', gap:'28px' },
-    { id: "wide", width: '259px', innerWidth: '202.9px', innerHeight: '78.7px', gap:'8px' },
-    { id: "narrow", width: '211px', innerWidth: '147.2px', innerHeight: '78.7px', gap:'8px' },
-  ]
-  const gridId = useSelector((state)=>state.image.selectedImage);
-  const [thisGrid] = useState(gridSizes.filter((grid)=>grid.id===gridId)[0])
+
+  const thisGrid = useSelector((state)=>state.image.images)
   
   const [imgCnt, setImgCnt] = useState(capturedImages.length);
   const [currentImgOrder, setCurrentImgOrder] = useState(0);
@@ -120,7 +114,7 @@ const SetCount = () => {
 
   useEffect(() => {
     MoveSlider();
-  }, [currentImgOrder, capturedImages]);
+  }, [currentImgOrder, imgCnt]);
 
   const MoveSlider = () => {
     if (slideRef.current !== null) { //즉시할당이 안될수있어서 그냥 옵셔널체이닝 느낌
@@ -130,6 +124,10 @@ const SetCount = () => {
       const slideWidth = element.offsetWidth? size-element.offsetWidth : null;
       slideRef.current.style.transform = `translateX(-${(slideWidth) * currentImgOrder}px)`; //얻은 가로길이*페이지 로 x축 이동 
     }
+  }
+  const finishButtonHandler = () => {
+    boardImages.map((item,index)=> localStorage.setItem(`image${index}`,item));
+    navigate(`../camera/capture/frame`);
   }
 
   const [boardImages, setBoardImages] = useState(Array(4).fill(null));
@@ -146,8 +144,9 @@ const SetCount = () => {
       <div style={{display:"flex", width:"1170px", flexDirection: "column", alignItems:" center", margin:"0 auto", backgroundColor: "white", overflow: "hidden"}}>
         <GridNav data='photoSelect'/>
       <GridContainer>
+        <S.StyledSpan14>아래 사진을 드래그해 넣어보세요!</S.StyledSpan14>
         <GridBackground width={thisGrid.width} $gap={thisGrid.gap}$bottomText={thisGrid.id==='narrow' || thisGrid.id==='wide'}>
-          <S.StyledBoldSpan16 style={{height:'60px', lineHeight:'60px'}}>moment film</S.StyledBoldSpan16>
+          <S.StyledBoldSpan16>moment film</S.StyledBoldSpan16>
           <InnerGrids>
           {boardImages.map((imageSrc, index) => (
             <GridInner
@@ -159,6 +158,7 @@ const SetCount = () => {
             ))}
           </InnerGrids>
         </GridBackground>
+        <StyledButton func={finishButtonHandler} title={"완료하기"} width={'130px'} height={'49px'} fontSize={'16px'} />
       </GridContainer>
       <div style={{textAlign:"center"}}>
       {capturedImages.length > 0 && (
@@ -180,11 +180,6 @@ const SetCount = () => {
       )}
       </div>
       </div>
-      <button onClick={()=>{
-        localStorage.clear();
-        boardImages.map((item,index)=> localStorage.setItem(`image${index}`,item));
-        navigate(`../camera/capture/frame`);
-        }}>다음으로</button>
     </DndProvider>
   );
 };

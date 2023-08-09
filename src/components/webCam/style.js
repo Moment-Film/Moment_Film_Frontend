@@ -136,12 +136,19 @@ const SlilderWrap = styled.div`
 `
 const GridContainer = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   width: 1170px;
   height: 620px;
   background-color: #fbfbfb;
   border-bottom: 1px solid var(--lightGray);
   box-sizing: border-box;
+
+  span {
+    line-height: 17px;
+    margin: 26px 0 15px;
+  }
 `
 const InnerGrids = styled.div`
   display: flex;
@@ -153,7 +160,6 @@ const GridBackground = styled.div`
   display: flex;
   width: ${props => props.width || '150px' };
   height: 447px;
-  margin: 0 auto;
   flex-direction: ${props => props.$bottomText ? 'column-reverse': 'column'};
   gap: ${props => props.$gap};
   justify-content: center;
@@ -163,6 +169,13 @@ const GridBackground = styled.div`
   border-radius: 5px;
   box-shadow: 0 0 40px rgba(0,0,0,0.1);
   box-sizing: border-box;
+  margin-bottom: 29px;
+
+  span {
+    height: 60px;
+    line-height: 60px;
+    margin: 0%;
+  }
 `
 
 export {

@@ -20,40 +20,8 @@ const FrameCustomMake = () => {
 
   const navigate = useNavigate();
 
-  const gridSizes = [
-    {
-      id: "down",
-      width: "300px",
-      innerWidth: "126.6px",
-      innerHeight: "175.2px",
-      gap: "4px",
-    },
-    {
-      id: "up",
-      width: "300px",
-      innerWidth: "123.1px",
-      innerHeight: "162.5px",
-      gap: "28px",
-    },
-    {
-      id: "wide",
-      width: "259px",
-      innerWidth: "202.9px",
-      innerHeight: "78.7px",
-      gap: "8px",
-    },
-    {
-      id: "narrow",
-      width: "211px",
-      innerWidth: "147.2px",
-      innerHeight: "78.7px",
-      gap: "8px",
-    },
-  ];
-  const gridId = useSelector((state) => state.image.selectedImage);
-  const [thisGrid] = useState(
-    gridSizes.filter((grid) => grid.id === gridId)[0]
-  );
+  const thisGrid = useSelector((state) => state.image.images);
+
 
   const [innerImg] = useState([
     localStorage.getItem(`image0`),
