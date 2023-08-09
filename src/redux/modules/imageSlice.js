@@ -12,7 +12,6 @@ const imageSlice = createSlice({
   initialState: { images: {} },
   reducers: {
     selectImage: (state, action) => {
-      console.log("12")
       const selectGrid= {...gridSizes.filter((item)=>item.id===action.payload)[0]}
       return {images:{...state.images ,...selectGrid}}
       
