@@ -77,7 +77,7 @@ const SetCount = () => {
   const slideRef = useRef(null);
   const navigate = useNavigate();
   const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
-  const [capturedImages, setCapturedImages] = useState([
+  const [capturedImages] = useState([
     { id: 1, src: localStorage.getItem(`image0`) },
     { id: 2, src: localStorage.getItem(`image1`)  },
     { id: 3, src: localStorage.getItem(`image2`)  },
@@ -95,7 +95,7 @@ const SetCount = () => {
     { id: "narrow", width: '211px', innerWidth: '147.2px', innerHeight: '78.7px', gap:'8px' },
   ]
   const gridId = useSelector((state)=>state.image.selectedImage);
-  const [thisGrid, setThisGrid] = useState(gridSizes.filter((grid)=>grid.id===gridId)[0])
+  const [thisGrid] = useState(gridSizes.filter((grid)=>grid.id===gridId)[0])
   
   const [imgCnt, setImgCnt] = useState(capturedImages.length);
   const [currentImgOrder, setCurrentImgOrder] = useState(0);
@@ -163,7 +163,7 @@ const SetCount = () => {
       <div style={{textAlign:"center"}}>
       {capturedImages.length > 0 && (
         <CapturedPhotos>
-          {imgCnt>5 && <MoveButton $hide={currentImgOrder===0} onClick={moveToPrevSlide}><img src={right_arrow} style={{ transform: "scale(-1)" }} /></MoveButton>}
+          {imgCnt>5 && <MoveButton $hide={currentImgOrder===0} onClick={moveToPrevSlide}><img src={right_arrow} alt='' style={{ transform: "scale(-1)" }} /></MoveButton>}
           <SlilderWrap>{/* 전체 슬라이더 영역 범위 밖으로 넘어가면 안보여줄거임*/}
           <ImageSlider ref={slideRef}> {/* 내부 슬라이더 영역 */}
             {capturedImages?.map((image, index) => (
@@ -175,7 +175,7 @@ const SetCount = () => {
             ))}
           </ImageSlider>
           </SlilderWrap>
-          {imgCnt>5 && <MoveButton $hide={currentImgOrder===1} onClick={moveToNextSlide}><img src={right_arrow} /></MoveButton>}
+          {imgCnt>5 && <MoveButton $hide={currentImgOrder===1} onClick={moveToNextSlide}><img src={right_arrow} alt='' /></MoveButton>}
         </CapturedPhotos>
       )}
       </div>
