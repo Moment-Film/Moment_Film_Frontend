@@ -12,6 +12,9 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useRef } from "react";
 import { useSelector } from "react-redux";
+import { SetFrameColor } from "../../redux/modules/FrameInfo";
+import { useDispatch } from "react-redux";
+import { async } from "q";
 
 const FrameCustomMake = () => {
   const [color, setColor] = useState({ h: 180, s: 100, l: 100 });
@@ -21,7 +24,7 @@ const FrameCustomMake = () => {
   const navigate = useNavigate();
 
   const thisGrid = useSelector((state) => state.image.images);
-
+  const dispatch=useDispatch();
 
   const [innerImg] = useState([
     localStorage.getItem(`image0`),
@@ -43,8 +46,9 @@ const FrameCustomMake = () => {
     console.log(frameImg);
   };
 
-  const moveBtnHandler = () => {
-    navigate("/camera/capture/finish");
+  const moveBtnHandler = async() => {
+    await dispatch(SetFrameColor(color));
+    navigate("/camera/capture/filter");
   };
 
   return (
