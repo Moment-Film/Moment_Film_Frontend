@@ -64,7 +64,7 @@ const FrameImg = styled.img`
   background-image: url(${(props) => props.src});
   background-size: cover;
   background-position: center;
-  box-shadow: 0px 0px 40px 10px rgba(0, 0, 0, 0.05);
+  box-shadow: ${(props) => (props.$isSelected ? '0px 0px 40px 10px rgba(135, 206, 46, 0.05)' : '0px 0px 40px 10px rgba(0, 0, 0, 0.05)')};
   transition: transform 0.4s ease-in-out;
   transform: ${(props) => (props.$isSelected ? 'scale(1.15)' : 'scale(1)')};
   transform-origin: bottom;
