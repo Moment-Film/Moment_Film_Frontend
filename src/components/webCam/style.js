@@ -144,6 +144,7 @@ const GridContainer = styled.div`
   background-color: #fbfbfb;
   border-bottom: 1px solid var(--lightGray);
   box-sizing: border-box;
+  margin-bottom: 35px;
 
   span {
     line-height: 17px;
@@ -169,7 +170,7 @@ const GridBackground = styled.div`
   border-radius: 5px;
   box-shadow: 0 0 40px rgba(0,0,0,0.1);
   box-sizing: border-box;
-  margin-bottom: 29px;
+  margin-bottom: 20px;
 
   span {
     height: 60px;
