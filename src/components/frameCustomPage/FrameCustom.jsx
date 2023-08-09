@@ -15,7 +15,7 @@ import { useSelector } from "react-redux";
 import { SetFrameColor } from "../../redux/modules/FrameInfo";
 import { useDispatch } from "react-redux";
 import { async } from "q";
-
+import styled from "styled-components";
 const FrameCustomMake = () => {
   const [color, setColor] = useState({ h: 180, s: 100, l: 100 });
   const [frameImg, setFrameImg] = useState(null);
@@ -109,17 +109,18 @@ const FrameCustomMake = () => {
                       handleChangeColor={changeColorHandler}
                       color={color}
                     />
-
                     <div>채도</div>
                     <SaturationSlider
                       handleChangeColor={changeColorHandler}
                       color={color}
+                      
                     />
 
                     <div>밝기</div>
                     <LightnessSlider
                       handleChangeColor={changeColorHandler}
                       color={color}
+
                     />
                   </a.SliderBox>
                 </a.Section>
@@ -153,3 +154,6 @@ const FrameCustomMake = () => {
 }
 
 export default FrameCustomMake;
+const Div = styled.div`
+
+`
