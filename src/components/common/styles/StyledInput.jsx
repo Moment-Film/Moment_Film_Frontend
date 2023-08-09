@@ -21,7 +21,7 @@ export const StyledShortInput = styled.input`
 width:380px;
 height:60px;
 font-size: 20px;
-background-color: var(--whiteGray);
+background-color: rgb(251, 252, 249);
 border:none;
 border-bottom:2px solid black;
 outline:none;

@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { Modal } from '../common/component/Modal';
 
 const MyPageUserData = ({ lang }) => {
     return (
         <div>
+            <Modal></Modal>
             <HeaderSection>
                 <span>{'Mypage'}</span>
                 <span>{lang.greeting}</span>
@@ -26,23 +28,26 @@ const MyPageUserData = ({ lang }) => {
                         <UserItemResult>1000</UserItemResult>
                     </div>
                     <div className='box-2'>
-                        <UserItem>{'팔로우'}</UserItem>
+                        <UserItem>{'게시물 수'}</UserItem>
                         <hr />
                         <UserItemResult>200</UserItemResult>
                     </div>
                     <div className='box-3'>
+                       
                         <div >
                             <UserItem>{'팔로워'}</UserItem>
                             <UserItemResult>3000000</UserItemResult>
                         </div>
                         <hr/>
                         <div>
-                            <UserItem>{'게시물수'}</UserItem>
+                            <UserItem>{'팔로우'}</UserItem>
                             <UserItemResult>4</UserItemResult>
                         </div>
                     </div>
 
+                
                 </UserDataSection>
+              
             </UserInfoSection>
 
 
@@ -65,7 +70,7 @@ const HeaderSection = styled.section`
 
 const UserInfoSection = styled.section`
  display:flex;
- width:100%;
+
  flex-direction:row;
  gap:5%;
 
