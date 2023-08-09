@@ -191,7 +191,7 @@ function FilterPage() {
           />
         </div>
 
-        <button onClick={() => navigate(`/camera/capture/frame`)}>
+        <button onClick={() => navigate(`/camera/capture/finish`)}>
           다음으로
         </button>
 
