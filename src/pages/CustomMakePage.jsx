@@ -26,40 +26,7 @@ function CustomMakePage() {
 
   const navigate = useNavigate();
 
-  const gridSizes = [
-    {
-      id: "down",
-      width: "300px",
-      innerWidth: "126.6px",
-      innerHeight: "175.2px",
-      gap: "4px",
-    },
-    {
-      id: "up",
-      width: "300px",
-      innerWidth: "123.1px",
-      innerHeight: "162.5px",
-      gap: "28px",
-    },
-    {
-      id: "wide",
-      width: "259px",
-      innerWidth: "202.9px",
-      innerHeight: "78.7px",
-      gap: "8px",
-    },
-    {
-      id: "narrow",
-      width: "211px",
-      innerWidth: "147.2px",
-      innerHeight: "78.7px",
-      gap: "8px",
-    },
-  ];
-  const gridId = useSelector((state) => state.image.selectedImage);
-  const [thisGrid] = useState(
-    gridSizes.filter((grid) => grid.id === gridId)[0]
-  );
+  const thisGrid = useSelector((state) => state.image.images);
 
   const [innerImg] = useState([
     localStorage.getItem(`image0`),
@@ -70,7 +37,6 @@ function CustomMakePage() {
 
   const changeColorHandler = (newColor) => {
     setColor(newColor);
-    console.log(newColor);
   };
 
   const imageChangeHandler = (e) => {
@@ -78,7 +44,6 @@ function CustomMakePage() {
     if (input.files && input.files[0]) {
       setFrameImg(URL.createObjectURL(input.files[0]));
     }
-    console.log(frameImg);
   };
 
   const moveBtnHandler = () => {
@@ -99,7 +64,7 @@ function CustomMakePage() {
                     thisGrid.id === "narrow" || thisGrid.id === "wide"
                   }
                   color={color}
-                  frameImg={frameImg}
+                  $frameImg={frameImg}
                   gap={thisGrid.gap}
                 >
                   <p
@@ -222,7 +187,7 @@ const FrameImg = styled.div`
   overflow: hidden;
   background-color: ${(props) =>
     `hsl(${props.color.h}, ${props.color.s}%, ${props.color.l}%)`};
-  background-image: ${(props) => `url(${props.frameImg})`};
+  background-image: ${(props) => `url(${props.$frameImg})`};
   background-size: cover;
   background-position: center;
   gap: ${(props) => props.gap};
