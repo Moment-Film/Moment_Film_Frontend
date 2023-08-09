@@ -16,8 +16,8 @@ const GridNav = ({ data, showGuide, setShowGuide }) => {
     { name: "gridSelect", text: "Grid Setting" },
     { name: "photoGraphy", text: "Photography" },
     { name: "photoSelect", text: "Photo Select" },
-    { name: "filter", text: "Filter" },
     { name: "frameSetting", text: "Frame Setting" },
+    { name: "filter", text: "Filter" },
     { name: "finish", text: "Finish" },
   ];
 
@@ -81,6 +81,7 @@ const ModalBG = styled.div`
 `;
 
 const StepWrap = styled.div`
+  /* font-family: ; */
   width: 970px;
   border-bottom: 1px solid var(--lightGray);
   padding: 0 115px;
