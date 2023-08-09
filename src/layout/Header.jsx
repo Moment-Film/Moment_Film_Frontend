@@ -12,7 +12,7 @@ function Header() {
   return (
     <HeaderSection>
       <HeaderTitle>
-        <span onClick={() => navigate(`/`)} >Momonet Film</span>
+        <span onClick={() => navigate(`/`)} >Moment Film</span>
       </HeaderTitle>
 
       <LinkBox>
