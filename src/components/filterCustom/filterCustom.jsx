@@ -22,11 +22,7 @@ const FilterCustom = () => {
   const dispatch=useDispatch();
   const thisGrid = useSelector((state) => state.image.images);
   const FrameColor = useSelector((state) => state.FrameInfo.color);
-<<<<<<< HEAD
   const thisbackGround = useSelector((state) => state.FrameInfo.backgroundImg);
-=======
-  console.log(FrameColor);
->>>>>>> 7eb13c7841f41b8bae43ebe0027dac0b0385bd33
 
   const [innerImg] = useState([
     localStorage.getItem(`image0`),
@@ -42,7 +38,6 @@ const FilterCustom = () => {
     setFilterValue(newValue);
   };
 
-<<<<<<< HEAD
   const handleDownload = async () => {
     if (!picRef.current) return;
 
@@ -57,18 +52,13 @@ const FilterCustom = () => {
       console.error("Error converting div to image:", error);
     }
   };
-=======
-  /*   const moveBtnHandler = () => {
-    navigate("/camera/capture/filter");
-  }; */
->>>>>>> 7eb13c7841f41b8bae43ebe0027dac0b0385bd33
 
   return (
     <>
       <s.Wrap>
         <s.Slider>
           <s.OptionWrap>
-            <GridNav data={"filter"} />
+            <GridNav data={"frameSetting"} />
             <a.BoxWrap>
               <a.LeftBox >
                 <a.FrameImg
@@ -77,39 +67,28 @@ const FilterCustom = () => {
                   $bottomText={
                     thisGrid.id === "narrow" || thisGrid.id === "wide"
                   }
-<<<<<<< HEAD
                 h={FrameColor.h}
                 s={FrameColor.s}
                 l={FrameColor.l}
                   frameImg={thisbackGround}
-=======
-                  h={FrameColor.h}
-                  s={FrameColor.s}
-                  l={FrameColor.l}
-                  frameImg={frameImg}
->>>>>>> 7eb13c7841f41b8bae43ebe0027dac0b0385bd33
                   gap={thisGrid.gap}
                 >
                   <p
                     style={{
-<<<<<<< HEAD
                        color: FrameColor.l > 50 ? "var(--black)" : "var(--whiteGray)",
                        fontFamily: "'Abril Fatface', cursive",
-=======
-                      /*                       color: color.l > 50 ? "var(--black)" : "var(--whiteGray)",
-                       */ fontFamily: "'Abril Fatface', cursive",
->>>>>>> 7eb13c7841f41b8bae43ebe0027dac0b0385bd33
                     }}
                   >
                     moment film
                   </p>
                   <a.InnerImgWrap>
-                    {innerImg.map((img, index) => {
+                    {
+                    innerImg.map((img, index) => {
                       return (
                         <FilterImage
                           key={index}
-                          width={thisGrid.innerWidth}
-                          height={thisGrid.innerHeight}
+                          width= {thisGrid.innerWidth}
+                          height= {thisGrid.innerHeight}
                           blur={filterValue.blur}
                           brightness={filterValue.brightness}
                           saturate={filterValue.saturate}
@@ -117,9 +96,6 @@ const FilterCustom = () => {
                           contrast={filterValue.contrast}
                           huerotate={filterValue.huerotate}
                           sepia={filterValue.sepia}
-                          style={{
-                            visibility: img === "null" ? "hidden" : "visible",
-                          }}
                         >
                           <img
                             style={{
@@ -127,171 +103,28 @@ const FilterCustom = () => {
                               height: "100%",
                             }}
                             src={img}
-                            alt=""
+                            alt=''
                           />
                         </FilterImage>
                       );
-                    })}
+                    })
+                    }
                   </a.InnerImgWrap>
                 </a.FrameImg>
               </a.LeftBox>
               <a.RightBox>
-                <OptionSection>
-                  <div>Filter</div>
-                  <div>
-                    <p>블러 {filterValue.blur || 0}px</p>
-                    <Slider
-                      style={{ width: "250px" }}
-                      min={0}
-                      max={10}
-                      step={0.1}
-                      value={filterValue.blur || 0}
-                      onChange={(value) => filterValueHandler("blur", value)}
-                      trackStyle={{ backgroundColor: "rgba(203, 221, 90, 1)" }} // 트랙의 배경색을 변경
-                      handleStyle={{
-                        borderColor: "rgba(203, 221, 90, 1)", // 핸들의 테두리 색상을 변경
-                        backgroundColor: "rgba(203, 221, 90, 1)", // 핸들의 배경색을 변경
-                        borderRadius: "10%", // 원형 핸들로 모양 변경
-                        width: "10px",
-                        height: "20px",
-                        marginLeft: "-5px", // 핸들의 가로  가운데 정렬
-                        marginTop: "-9px", // 핸들의 세로  가운데 정렬
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <p>밝기 {filterValue.brightness || 1}</p>
-                    <Slider
-                      style={{ width: "250px" }}
-                      min={0}
-                      max={5}
-                      step={0.1}
-                      value={filterValue.brightness || 1}
-                      onChange={(value) =>
-                        filterValueHandler("brightness", value)
-                      }
-                      trackStyle={{ backgroundColor: "rgba(203, 221, 90, 1)" }} // 트랙의 배경색을 변경
-                      handleStyle={{
-                        borderColor: "rgba(203, 221, 90, 1)", // 핸들의 테두리 색상을 변경
-                        backgroundColor: "rgba(203, 221, 90, 1)", // 핸들의 배경색을 변경
-                        borderRadius: "10%", // 원형 핸들로 모양 변경
-                        width: "10px",
-                        height: "20px",
-                        marginLeft: "-5px", // 핸들의 가로  가운데 정렬
-                        marginTop: "-9px", // 핸들의 세로  가운데 정렬
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <p>채도 {filterValue.saturate || 100}%</p>
-                    <Slider
-                      style={{ width: "250px" }}
-                      min={0}
-                      max={200}
-                      value={filterValue.saturate || 100}
-                      onChange={(value) =>
-                        filterValueHandler("saturate", value)
-                      }
-                      trackStyle={{ backgroundColor: "rgba(203, 221, 90, 1)" }} // 트랙의 배경색을 변경
-                      handleStyle={{
-                        borderColor: "rgba(203, 221, 90, 1)", // 핸들의 테두리 색상을 변경
-                        backgroundColor: "rgba(203, 221, 90, 1)", // 핸들의 배경색을 변경
-                        borderRadius: "10%", // 원형 핸들로 모양 변경
-                        width: "10px",
-                        height: "20px",
-                        marginLeft: "-5px", // 핸들의 가로  가운데 정렬
-                        marginTop: "-9px", // 핸들의 세로  가운데 정렬
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <p>흑백 {filterValue.grayscale || 0}%</p>
-                    <Slider
-                      style={{ width: "250px" }}
-                      min={0}
-                      max={100}
-                      value={filterValue.grayscale || 0}
-                      onChange={(value) =>
-                        filterValueHandler("grayscale", value)
-                      }
-                      trackStyle={{ backgroundColor: "rgba(203, 221, 90, 1)" }} // 트랙의 배경색을 변경
-                      handleStyle={{
-                        borderColor: "rgba(203, 221, 90, 1)", // 핸들의 테두리 색상을 변경
-                        backgroundColor: "rgba(203, 221, 90, 1)", // 핸들의 배경색을 변경
-                        borderRadius: "10%", // 원형 핸들로 모양 변경
-                        width: "10px",
-                        height: "20px",
-                        marginLeft: "-5px", // 핸들의 가로  가운데 정렬
-                        marginTop: "-9px", // 핸들의 세로  가운데 정렬
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <p>대비 {filterValue.contrast || 100}%</p>
-                    <Slider
-                      style={{ width: "250px" }}
-                      min={0}
-                      max={200}
-                      value={filterValue.contrast || 100}
-                      onChange={(value) =>
-                        filterValueHandler("contrast", value)
-                      }
-                      trackStyle={{ backgroundColor: "rgba(203, 221, 90, 1)" }} // 트랙의 배경색을 변경
-                      handleStyle={{
-                        borderColor: "rgba(203, 221, 90, 1)", // 핸들의 테두리 색상을 변경
-                        backgroundColor: "rgba(203, 221, 90, 1)", // 핸들의 배경색을 변경
-                        borderRadius: "10%", // 원형 핸들로 모양 변경
-                        width: "10px",
-                        height: "20px",
-                        marginLeft: "-5px", // 핸들의 가로  가운데 정렬
-                        marginTop: "-9px", // 핸들의 세로  가운데 정렬
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <p>hue-rotate {filterValue.huerotate || 0}deg</p>
-                    <Slider
-                      style={{ width: "250px" }}
-                      min={0}
-                      max={360}
-                      value={filterValue.huerotate || 0}
-                      onChange={(value) =>
-                        filterValueHandler("huerotate", value)
-                      }
-                      trackStyle={{ backgroundColor: "rgba(203, 221, 90, 1)" }} // 트랙의 배경색을 변경
-                      handleStyle={{
-                        borderColor: "rgba(203, 221, 90, 1)", // 핸들의 테두리 색상을 변경
-                        backgroundColor: "rgba(203, 221, 90, 1)", // 핸들의 배경색을 변경
-                        borderRadius: "10%", // 원형 핸들로 모양 변경
-                        width: "10px",
-                        height: "20px",
-                        marginLeft: "-5px", // 핸들의 가로  가운데 정렬
-                        marginTop: "-9px", // 핸들의 세로  가운데 정렬
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <p>세피아 {filterValue.sepia || 0}%</p>
-                    <Slider
-                      style={{ width: "250px" }}
-                      min={0}
-                      max={100}
-                      value={filterValue.sepia || 0}
-                      onChange={(value) => filterValueHandler("sepia", value)}
-                      trackStyle={{ backgroundColor: "rgba(203, 221, 90, 1)" }} // 트랙의 배경색을 변경
-                      handleStyle={{
-                        borderColor: "rgba(203, 221, 90, 1)", // 핸들의 테두리 색상을 변경
-                        backgroundColor: "rgba(203, 221, 90, 1)", // 핸들의 배경색을 변경
-                        borderRadius: "10%", // 원형 핸들로 모양 변경
-                        width: "10px",
-                        height: "20px",
-                        marginLeft: "-5px", // 핸들의 가로  가운데 정렬
-                        marginTop: "-9px", // 핸들의 세로  가운데 정렬
-                      }}
-                    />
-                  </div>
+              <OptionSection>
+        <div>Filter</div>
+        <div>
+          <p>블러 {filterValue.blur || 0}px</p>
+          <Slider
+            style={{ width: "250px" }}
+            min={0}
+            max={10}
+            step={0.1}
+            value={filterValue.blur || 0}
+            onChange={(value) => filterValueHandler("blur", value)}
 
-<<<<<<< HEAD
             trackStyle={{ backgroundColor: 'rgba(203, 221, 90, 1)' }} // 트랙의 배경색을 변경
 
             handleStyle={{
@@ -438,17 +271,12 @@ const FilterCustom = () => {
             }}
           />
         </div>
+
         <button onClick={handleDownload}>
           다음으로
         </button>
 
       </OptionSection>
-=======
-                  <button onClick={() => navigate(`/camera/capture/finish`)}>
-                    다음으로
-                  </button>
-                </OptionSection>
->>>>>>> 7eb13c7841f41b8bae43ebe0027dac0b0385bd33
               </a.RightBox>
             </a.BoxWrap>
           </s.OptionWrap>
@@ -456,21 +284,22 @@ const FilterCustom = () => {
       </s.Wrap>
     </>
   );
-};
+}
 
 export default FilterCustom;
 
 const OptionSection = styled.section`
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 30px;
-`;
+width:50%;
+display:flex;
+flex-direction:column;
+align-items:center;
+padding-top:30px;
+
+`
 
 const FilterImage = styled.div`
-  width: ${(props) => props.width};
-  height: ${(props) => props.height};
+  width:${(props)=>props.width};
+  height: ${(props)=>props.height};
   overflow: hidden;
   filter: blur(${(props) => props.blur || 0}px)
     saturate(${(props) => props.saturate || 100}%)
