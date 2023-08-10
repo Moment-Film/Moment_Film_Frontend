@@ -15,9 +15,13 @@ body{
 
     --white:#FFF;
 
+    --green6: #2e4c07;
     --green5: #60a10e;
-    --green4: #9CD94F;
-    --green2: #E3FFC0;
+    --green4: #9cd94f;
+    --green3: #c2f87e;
+    --green2: #e3ffc0;
+    --green1: #f6faf0;
+
 }
 
 
