@@ -14,8 +14,9 @@ import { useRef } from "react";
 import { useSelector } from "react-redux";
 import { SetFrameColor } from "../../redux/modules/FrameInfo";
 import { useDispatch } from "react-redux";
-import { async } from "q";
 import styled from "styled-components";
+import { SetBackgroundImg } from "../../redux/modules/FrameInfo";
+
 const FrameCustomMake = () => {
   const [color, setColor] = useState({ h: 180, s: 100, l: 100 });
   const [frameImg, setFrameImg] = useState(null);
@@ -42,6 +43,7 @@ const FrameCustomMake = () => {
     const input = e.target;
     if (input.files && input.files[0]) {
       setFrameImg(URL.createObjectURL(input.files[0]));
+      dispatch(SetBackgroundImg(URL.createObjectURL(input.files[0])))
     }
     console.log(frameImg);
   };

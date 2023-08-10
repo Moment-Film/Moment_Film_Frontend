@@ -8,17 +8,21 @@ import * as s from "../frameSelectPage/style";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useRef } from "react";
-import { useSelector } from "react-redux";
+import { useSelector ,useDispatch } from "react-redux";
 import styled from "styled-components";
+import { saveAs } from "file-saver";
+import domtoimage from 'dom-to-image';
+import { SetResultImage } from "../../redux/modules/ResultImage";
 
 const FilterCustom = () => {
   const [frameImg, setFrameImg] = useState(null);
+  const picRef=useRef();
 
   const navigate = useNavigate();
-
+  const dispatch=useDispatch();
   const thisGrid = useSelector((state) => state.image.images);
   const FrameColor = useSelector((state) => state.FrameInfo.color);
-  console.log(FrameColor)
+  const thisbackGround = useSelector((state) => state.FrameInfo.backgroundImg);
 
   const [innerImg] = useState([
     localStorage.getItem(`image0`),
@@ -34,9 +38,20 @@ const FilterCustom = () => {
     setFilterValue(newValue);
   };
 
-/*   const moveBtnHandler = () => {
-    navigate("/camera/capture/filter");
-  }; */
+  const handleDownload = async () => {
+    if (!picRef.current) return;
+
+    try {
+      const card = picRef.current;
+      domtoimage.toBlob(card).then(blob => {
+        dispatch(SetResultImage(blob))
+        saveAs(blob, 'card.png');
+        navigate(`/camera/capture/finish`);
+      });
+    } catch (error) {
+      console.error("Error converting div to image:", error);
+    }
+  };
 
   return (
     <>
@@ -45,8 +60,9 @@ const FilterCustom = () => {
           <s.OptionWrap>
             <GridNav data={"frameSetting"} />
             <a.BoxWrap>
-              <a.LeftBox>
+              <a.LeftBox >
                 <a.FrameImg
+                  ref={picRef}
                   width={thisGrid.width}
                   $bottomText={
                     thisGrid.id === "narrow" || thisGrid.id === "wide"
@@ -54,13 +70,13 @@ const FilterCustom = () => {
                 h={FrameColor.h}
                 s={FrameColor.s}
                 l={FrameColor.l}
-                  frameImg={frameImg}
+                  frameImg={thisbackGround}
                   gap={thisGrid.gap}
                 >
                   <p
                     style={{
-/*                       color: color.l > 50 ? "var(--black)" : "var(--whiteGray)",
- */                      fontFamily: "'Abril Fatface', cursive",
+                       color: FrameColor.l > 50 ? "var(--black)" : "var(--whiteGray)",
+                       fontFamily: "'Abril Fatface', cursive",
                     }}
                   >
                     moment film
@@ -255,8 +271,7 @@ const FilterCustom = () => {
             }}
           />
         </div>
-
-        <button onClick={() => navigate(`/camera/capture/finish`)}>
+        <button onClick={handleDownload}>
           다음으로
         </button>
 
