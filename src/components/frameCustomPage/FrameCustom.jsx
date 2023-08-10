@@ -17,12 +17,12 @@ import { useState } from "react";
 import { useRef } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-<<<<<<< HEAD
+
 import styled from "styled-components";
 import { SetBackgroundImg } from "../../redux/modules/FrameInfo";
-=======
+
 import { StyledSpan14 } from "../common/styles/StyledSpan";
->>>>>>> 7eb13c7841f41b8bae43ebe0027dac0b0385bd33
+
 
 const FrameCustomMake = () => {
   
@@ -52,11 +52,7 @@ const FrameCustomMake = () => {
     const input = e.target;
     if (input.files && input.files[0]) {
       setFrameImg(URL.createObjectURL(input.files[0]));
-<<<<<<< HEAD
       dispatch(SetBackgroundImg(URL.createObjectURL(input.files[0])))
-=======
-      setUploadedImg(input.files[0].name);
->>>>>>> 7eb13c7841f41b8bae43ebe0027dac0b0385bd33
     }
   };
 
