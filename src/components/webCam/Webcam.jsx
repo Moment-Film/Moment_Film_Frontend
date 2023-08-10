@@ -38,7 +38,6 @@ function Webcam() {
   const [currentImgOrder, setcCurrentImgOrder] = useState(0); // 페이지 구별을 위한 useState
   const gridId = useSelector((state)=>state.image.images).id;
   const thisGrid = gridSizes.find((grid)=>grid.id===gridId);
-  const [showGuide, setShowGuide] = useState(true);
 
   useEffect(() => {
     const enableWebcam = async () => {
@@ -112,7 +111,7 @@ function Webcam() {
   return (
     <>
       <WebcamBody>
-        <GridNav data={"photoGraphy"} showGuide={showGuide} setShowGuide={setShowGuide} />
+        <GridNav data={"photoGraphy"} />
         <WebcamVideo>
           <WindowUI>
             <WindowHeader>

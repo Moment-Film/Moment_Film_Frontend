@@ -13,7 +13,9 @@ body{
     --warningRed: #FC5B70;
     --lightGreen: #C2F87E;
 
-    --white:#FFFF;
+    --white:#FFF;
+
+    --green5: #60a10e;
 }
 
 

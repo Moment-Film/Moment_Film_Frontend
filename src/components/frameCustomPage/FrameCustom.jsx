@@ -1,25 +1,34 @@
 import React from "react";
 import * as a from "./style";
+import * as s from "../frameSelectPage/style";
+import GridNav from "../frameSelectPage/GridNav";
+import StyledButton from "../common/component/StyledButton";
+import { SetFrameColor } from "../../redux/modules/FrameInfo";
+import upload from "../assets/icons/upload.svg";
+
 import {
   HueSlider,
   SaturationSlider,
   LightnessSlider,
 } from "react-slider-color-picker";
-import GridNav from "../frameSelectPage/GridNav";
-import * as s from "../frameSelectPage/style";
-import StyledButton from "../common/component/StyledButton";
+
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useRef } from "react";
 import { useSelector } from "react-redux";
-import { SetFrameColor } from "../../redux/modules/FrameInfo";
 import { useDispatch } from "react-redux";
+<<<<<<< HEAD
 import styled from "styled-components";
 import { SetBackgroundImg } from "../../redux/modules/FrameInfo";
+=======
+import { StyledSpan14 } from "../common/styles/StyledSpan";
+>>>>>>> 7eb13c7841f41b8bae43ebe0027dac0b0385bd33
 
 const FrameCustomMake = () => {
+  
   const [color, setColor] = useState({ h: 180, s: 100, l: 100 });
   const [frameImg, setFrameImg] = useState(null);
+  const [uploadedImg, setUploadedImg] = useState(null);
   const frameImgRef = useRef();
 
   const navigate = useNavigate();
@@ -43,10 +52,19 @@ const FrameCustomMake = () => {
     const input = e.target;
     if (input.files && input.files[0]) {
       setFrameImg(URL.createObjectURL(input.files[0]));
+<<<<<<< HEAD
       dispatch(SetBackgroundImg(URL.createObjectURL(input.files[0])))
+=======
+      setUploadedImg(input.files[0].name);
+>>>>>>> 7eb13c7841f41b8bae43ebe0027dac0b0385bd33
     }
-    console.log(frameImg);
   };
+
+  const imageDeleteHandler = () => {
+    setFrameImg(null);
+    setUploadedImg(null);
+  };
+
 
   const moveBtnHandler = async() => {
     await dispatch(SetFrameColor(color));
@@ -86,6 +104,7 @@ const FrameCustomMake = () => {
                           style={{
                             width: `${thisGrid.innerWidth}`,
                             height: `${thisGrid.innerHeight}`,
+                            visibility: img === "null" ? "hidden" : "visible",
                           }}
                         >
                           <img
@@ -94,7 +113,7 @@ const FrameCustomMake = () => {
                               height: "100%",
                             }}
                             src={img}
-                            alt=''
+                            alt=""
                           />
                         </div>
                       );
@@ -126,7 +145,8 @@ const FrameCustomMake = () => {
                     />
                   </a.SliderBox>
                 </a.Section>
-                <a.UploadContainer>
+                <div style={{ width:'70%', display:'flex', flexDirection:'column', alignItems:'flex-end'}}>
+                  <a.UploadContainer>
                   <a.UploadInput
                     id="fileInput"
                     accept="image/*"
@@ -134,11 +154,38 @@ const FrameCustomMake = () => {
                     onChange={imageChangeHandler}
                     ref={frameImgRef}
                   />
-                  <a.UploadLabel htmlFor="fileInput">
-                    <div>이미지 불러오기</div>
-                    <div>클릭</div>
+                  <a.UploadLabel>
+                    {uploadedImg ? (
+                      <>
+                        <a.UploadedImg color="var(--green5)">
+                          {uploadedImg}
+                        </a.UploadedImg>
+                        <a.ImgDeleteBtn onClick={imageDeleteHandler}>
+                          x
+                        </a.ImgDeleteBtn>
+                      </>
+                    ) : (
+                      <>
+                        <a.UploadedImg color="var(--gray)">
+                          이미지 불러오기
+                        </a.UploadedImg>
+                        <label htmlFor="fileInput">
+                          <img
+                            src={upload}
+                            alt=""
+                            style={{
+                              width: "16px",
+                              opacity: "0.5",
+                              cursor: "pointer",
+                            }}
+                          />
+                        </label>
+                      </>
+                    )}
                   </a.UploadLabel>
                 </a.UploadContainer>
+                <StyledSpan14 style={{ margin: '12px 0 35px 0', color: 'var(--lightGray)'}}>300px * 447px를 권장합니다.</StyledSpan14>
+                </div>
                 <StyledButton
                   func={moveBtnHandler}
                   title={"완료하기!"}
@@ -153,9 +200,6 @@ const FrameCustomMake = () => {
       </s.Wrap>
     </>
   );
-}
+};
 
 export default FrameCustomMake;
-const Div = styled.div`
-
-`

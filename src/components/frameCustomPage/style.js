@@ -54,18 +54,22 @@ const RightBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* box-sizing: border-box; */
   padding-bottom: 50px;
 `;
 
 const Title = styled.div`
   font-size: 24px;
+  line-height: 32px;
   height: 84px;
+  margin: 30px 0 22px 0;
   display: flex;
   align-items: center;
 `;
 
 const Section = styled.div`
   width: 80%;
+  height: 215px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -82,25 +86,55 @@ const SliderBox = styled.div`
 `;
 
 const UploadContainer = styled.div`
-  width: 65%;
+  width: 100%;
   height: 35px;
   color: var(--gray);
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  box-sizing: border-box;
   border-bottom: 2px solid var(--black);
-  background-color: var(--lightGray);
-  /* margin-bottom: 40px; */
+  background-color: var(--whiteGray);
+  /* margin-bottom: 10px; */
 `;
 
-const UploadLabel = styled.label`
+const UploadLabel = styled.div`
+  width: 100%;
   height: 35px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  cursor: pointer;
 `;
 
 const UploadInput = styled.input`
   display: none;
 `;
+
+const UploadedImg = styled.div`
+  font-size: 14px;
+  width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: ${(props) => props.color};
+`;
+
+const ImgDeleteBtn = styled.div`
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--green5);
+  border-radius: 50%;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  color: var(--green5);
+  cursor: pointer;
+`;
+
+const Notice = styled.div`
+  font-size: 16px;
+  background-color: pink;
+`
 
 export {
   BoxWrap,
@@ -114,5 +148,7 @@ export {
   UploadContainer,
   UploadLabel,
   UploadInput,
-  
-}
+  UploadedImg,
+  ImgDeleteBtn,
+  Notice,
+};

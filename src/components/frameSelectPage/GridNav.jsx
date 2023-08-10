@@ -1,25 +1,28 @@
-import React from "react";
-import { styled } from "styled-components";
+import React, { useState } from "react";
+import styled from "styled-components";
 
-import mini_flower from "../assets/icons/mini_flower.png";
+import mini_flower from "../assets/icons/mini_flower.svg";
 import info from "../assets/icons/info.png";
 
 import CaptureGuidePage from "../webCam/CaptureGuidePage";
+import { StyledSpan15 } from "../common/styles/StyledSpan";
 
-const GridNav = ({ data, showGuide, setShowGuide }) => {
+const steps = [
+  { name: "gridSelect", text: "Grid Setting" },
+  { name: "photoGraphy", text: "Photography" },
+  { name: "photoSelect", text: "Photo Select" },
+  { name: "frameSetting", text: "Frame Setting" },
+  { name: "filter", text: "Filter" },
+  { name: "finish", text: "Finish" },
+];
+
+const GridNav = ({ data, autoShowModal = false }) => {
+
+  const [showGuide, setShowGuide] = useState(autoShowModal);
 
   const modalHideHandler = () => {
     setShowGuide(!showGuide);
   };
-
-  const steps = [
-    { name: "gridSelect", text: "Grid Setting" },
-    { name: "photoGraphy", text: "Photography" },
-    { name: "photoSelect", text: "Photo Select" },
-    { name: "filter", text: "Filter" },
-    { name: "frameSetting", text: "Frame Setting" },
-    { name: "finish", text: "Finish" },
-  ];
 
   return (
     <>
@@ -35,7 +38,7 @@ const GridNav = ({ data, showGuide, setShowGuide }) => {
         {steps.map((step) => {
             return data === step.name ? (
               <div style={{ height: "45px" }} key={step.name}>
-                <span>{step.text}</span>
+                <StyledSpan15>{step.text}</StyledSpan15>
                 <StepTitle
                   src={mini_flower}
                   alt="mini_flower"
@@ -43,7 +46,7 @@ const GridNav = ({ data, showGuide, setShowGuide }) => {
                 />
               </div>
             ) : (
-              <span style={{ opacity: "0.3" }} key={step.name}>{step.text}</span>
+              <StyledSpan15 style={{ opacity: "0.3" }} key={step.name}>{step.text}</StyledSpan15>
             );
           })}
         </SelectStep>
@@ -78,7 +81,8 @@ const ModalBG = styled.div`
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.15);
-  margin-top: -60px;
+  /* margin-top: -60px; */
+  top: 0;
 `;
 
 const StepWrap = styled.div`
