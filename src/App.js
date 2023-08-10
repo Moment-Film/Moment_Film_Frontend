@@ -31,6 +31,7 @@ function App() {
         <Route path='/post/:id' element={<CustomDetail />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path='/camera/frameSelect' element={<FrameSelectPage />} />
+        <Route path='/camera/capture' element={<CameraPage />} />
         <Route path='/camera/capture/option' element={<CameraOptionPage />} />
         <Route path='/camera/capture/filter' element={<FilterPage />} />
         <Route path='/camera/capture/frame' element={<CustomMakePage />} />
@@ -42,7 +43,6 @@ function App() {
 
     {/* 스르륵 */}
       <Route path='/camera' element={<CamPageLayout />}>
-        <Route path='/camera/capture' element={<CameraPage />} />
       </Route>
       
     </Routes>
