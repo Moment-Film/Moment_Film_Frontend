@@ -4,7 +4,6 @@ import * as s from "../frameSelectPage/style";
 import GridNav from "../frameSelectPage/GridNav";
 import StyledButton from "../common/component/StyledButton";
 import { SetFrameColor } from "../../redux/modules/FrameInfo";
-import { async } from "q";
 import upload from "../assets/icons/upload.svg";
 
 import {
@@ -18,6 +17,7 @@ import { useState } from "react";
 import { useRef } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import { StyledSpan14 } from "../common/styles/StyledSpan";
 
 const FrameCustomMake = () => {
   
@@ -136,7 +136,8 @@ const FrameCustomMake = () => {
                     />
                   </a.SliderBox>
                 </a.Section>
-                <a.UploadContainer>
+                <div style={{ width:'70%', display:'flex', flexDirection:'column', alignItems:'flex-end'}}>
+                  <a.UploadContainer>
                   <a.UploadInput
                     id="fileInput"
                     accept="image/*"
@@ -151,7 +152,7 @@ const FrameCustomMake = () => {
                           {uploadedImg}
                         </a.UploadedImg>
                         <a.ImgDeleteBtn onClick={imageDeleteHandler}>
-                          X
+                          x
                         </a.ImgDeleteBtn>
                       </>
                     ) : (
@@ -174,6 +175,8 @@ const FrameCustomMake = () => {
                     )}
                   </a.UploadLabel>
                 </a.UploadContainer>
+                <StyledSpan14 style={{ margin: '12px 0 35px 0', color: 'var(--lightGray)'}}>300px * 447px를 권장합니다.</StyledSpan14>
+                </div>
                 <StyledButton
                   func={moveBtnHandler}
                   title={"완료하기!"}

@@ -15,7 +15,7 @@ import middleDIA from "../assets/icons/9DIA.png";
 import bigDIA from "../assets/icons/4DIA.png";
 import { useDispatch } from "react-redux";
 import { selectImage } from "../../redux/modules/imageSlice";
-import { useSelector } from "react-redux";
+import { StyledSpan15 } from "../common/styles/StyledSpan";
 
 const FrameSelect = () => {
   const images = [
@@ -73,11 +73,10 @@ const FrameSelect = () => {
         <s.OptionWrap>
           <GridNav
             data={"gridSelect"}
-            showGuide={showGuide}
-            setShowGuide={setShowGuide}
+            autoShowModal={true} 
           />
-          <div style={{ fontSize: "30px", marginTop: "50px" }}>Pick Me!</div>
-          <p>그리드를 선택하세요.</p>
+          <StyledSpan15 style={{ fontSize: "30px", marginTop: "50px" }}>Pick One!</StyledSpan15>
+          <p style={{color:'#949494'}}>그리드를 선택하세요.</p>
           <s.ArrowWrap>
             <s.DiaAlign>
               <img src={bigDIA} alt="top_bigDIA" />

@@ -16,7 +16,7 @@ import FilterPage from './pages/FilterPage';
 import { Route, Routes } from 'react-router-dom';
 import Globalstyles from './globalStyle/GlobalStyle';
 import CustomMakePage from './pages/CustomMakePage';
-import CustomFinish from './pages/CustomFinish';
+import CustomFinish from './components/CustomFinishPage/CustomFinish';
 
 function App() {
   return (

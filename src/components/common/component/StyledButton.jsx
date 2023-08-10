@@ -30,7 +30,7 @@ const WhiteBox = styled.div`
     border:2px solid black;
     position:absolute;
     z-index: 0;
-
+    box-sizing: border-box;
     max-width:470px;
 
 `
@@ -45,6 +45,7 @@ const MainBox = styled.div`
     font-size:${props => (props.fontSize)};
     border:2px solid black;
     background-color:var(--lightGreen);
+    box-sizing: border-box;
 
     max-width:470px;
     cursor: pointer;
