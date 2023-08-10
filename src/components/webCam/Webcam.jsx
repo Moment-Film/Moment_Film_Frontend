@@ -1,7 +1,5 @@
-
 import React, { useEffect, useRef, useState } from "react";
 import * as S from "../common/styles/StyledSpan";
-
 import GridNav from "../frameSelectPage/GridNav";
 import right_arrow from "../assets/images/right_arrow.png";
 import StyledButton from "../common/component/StyledButton";
