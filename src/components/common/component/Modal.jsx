@@ -1,16 +1,22 @@
+import { useState } from "react";
 import styled from "styled-components";
 
-export const Modal = ({state}) => {
+export const Modal = () => {
+    const[stateModal,setStateMdoal]=useState(true);
+
+    const CloseModalHandler =()=>{
+        setStateMdoal(false)
+    }
     return (
         <div>
-            <OutLayer state={state} ></OutLayer>
-            <Modalsection state={state}>
+            <OutLayer state={stateModal} ></OutLayer>
+            <Modalsection state={stateModal}>
                 <Contents>
                     <span>
                         모달인데 
                     </span>
                     <BtnContainer>
-                        <button   >닫기</button>
+                        <button onClick={CloseModalHandler}>닫기</button>
                         <button>확인</button>
                     </BtnContainer>
                 </Contents>
@@ -20,6 +26,7 @@ export const Modal = ({state}) => {
 }
 
 const Modalsection = styled.div`
+
     display:${props => props.state ? 'block' : 'none'};
     position:fixed;
     left: 50%;
@@ -34,7 +41,9 @@ const Modalsection = styled.div`
 
     width: 500px;
     height: 300px;
-    z-index:${props => props.state ? 1 : -1};
+   z-index:${props => props.state ? 1 : -1};
+
+   overflow:scroll;
 `
 
 const Contents = styled.div`
@@ -48,12 +57,13 @@ const BtnContainer = styled.div`
     justify-content:right;
 `
 const OutLayer = styled.div`
-display:none;
+
     position:fixed;
     /* border: 1px solid red; */
     height: 100vh;
     width: 100vw;
     z-index:${props => props.state ? 1 : -1};
-    margin-top:-60px;
-    background-color:gray;
+    top:0;
+    background-color:#ffff;
+    opacity:0.5;
 `
