@@ -35,6 +35,14 @@ export const StyledSpan16 = styled.span`
     line-height: ${(props)=>props.lineHeight};
 
 `
+
+export const StyledSpan15 = styled.span`
+    font-size:15px;
+    color: ${(props)=>props.color};
+    line-height: ${(props)=>props.lineHeight};
+    font-family: 'Abril Fatface', cursive;
+`
+
 export const StyledSpan14 = styled.span`
     font-size:14px;
     color: ${(props)=>props.color};

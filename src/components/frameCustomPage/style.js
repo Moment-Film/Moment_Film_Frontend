@@ -54,18 +54,22 @@ const RightBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* box-sizing: border-box; */
   padding-bottom: 50px;
 `;
 
 const Title = styled.div`
   font-size: 24px;
+  line-height: 32px;
   height: 84px;
+  margin: 30px 0 22px 0;
   display: flex;
   align-items: center;
 `;
 
 const Section = styled.div`
   width: 80%;
+  height: 215px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -82,7 +86,7 @@ const SliderBox = styled.div`
 `;
 
 const UploadContainer = styled.div`
-  width: 65%;
+  width: 100%;
   height: 35px;
   color: var(--gray);
   display: flex;
@@ -90,8 +94,8 @@ const UploadContainer = styled.div`
   padding: 10px;
   box-sizing: border-box;
   border-bottom: 2px solid var(--black);
-  background-color: var(--lightGray);
-  margin-bottom: 10px;
+  background-color: var(--whiteGray);
+  /* margin-bottom: 10px; */
 `;
 
 const UploadLabel = styled.div`
@@ -124,7 +128,13 @@ const ImgDeleteBtn = styled.div`
   align-content: center;
   justify-content: center;
   color: var(--green5);
+  cursor: pointer;
 `;
+
+const Notice = styled.div`
+  font-size: 16px;
+  background-color: pink;
+`
 
 export {
   BoxWrap,
@@ -140,4 +150,5 @@ export {
   UploadInput,
   UploadedImg,
   ImgDeleteBtn,
+  Notice,
 };

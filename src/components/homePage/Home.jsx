@@ -42,13 +42,15 @@ const Homepage = () => {
           <LeftH $maxWidth={"486px"}>Your own Custom Design</LeftH>
           <BottomWrap>
             <LeftContent>
-                <div style={{ width:'141px', height:'53px', fontSize:'24px', }}>Custom</div>
-                <LeftTxt>
-                  dummy text 2dummy text 2dummy text 2dummy text 2dummy text
-                  2dummy text 2dummy text 2dummy text 2dummy text 2dummy text
-                  2dummy text 2dummy text 2dummy text 2dummy text 2dummy text
-                  2dummy text 2dummy text 2dummy text 2dummy text 2dummy text 2
-                </LeftTxt>
+              <div style={{ width: "141px", height: "53px", fontSize: "24px" }}>
+                Custom
+              </div>
+              <LeftTxt>
+                dummy text 2dummy text 2dummy text 2dummy text 2dummy text
+                2dummy text 2dummy text 2dummy text 2dummy text 2dummy text
+                2dummy text 2dummy text 2dummy text 2dummy text 2dummy text
+                2dummy text 2dummy text 2dummy text 2dummy text 2dummy text 2
+              </LeftTxt>
               <StyledButton
                 func={customBtnClickHandler}
                 title={"촬영하러 가기"}
@@ -102,7 +104,8 @@ const LeftH = styled.div`
   max-width: ${(props) => props.maxWidth};
   min-height: 267px;
   font-size: 64px;
-  font-weight: bold;
+  /* font-weight: bold; */
+  font-family: "Abril Fatface", cursive;
   line-height: 89px;
 `;
 
@@ -130,15 +133,15 @@ const SecondContentWrap = styled.div`
 
 const BottomWrap = styled.div`
   display: flex;
-`
+`;
 
 const CardWrap = styled.div`
   display: flex;
   gap: 30px;
-`
+`;
 
 const Card = styled.div`
   width: 278px;
   height: 449px;
   background-color: var(--lightGray);
-`
+`;
