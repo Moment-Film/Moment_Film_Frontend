@@ -16,6 +16,8 @@ body{
     --white:#FFF;
 
     --green5: #60a10e;
+    --green4: #9CD94F;
+    --green2: #E3FFC0;
 }
 
 
