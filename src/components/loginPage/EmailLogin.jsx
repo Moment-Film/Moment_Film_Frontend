@@ -36,6 +36,7 @@ const EmailLogin = () => {
                 await dispatch(SetAccessToken(ACToken))
                 setCookie('refresh',response.headers.refreshtoken);
 
+
                 const jwtPayload = ACToken.split(".")[1];
                 // payload 부분을 복호화한다.JWT는 base64방식으로 암호화 되어 있으므로 base64.decode로 복호화한 뒤
                 // 복호화된 JSON 문자열을 쓸 수 있게 객체로 변환한다.
@@ -43,6 +44,7 @@ const EmailLogin = () => {
                 console.log(decodedPayload);
                 dispatch(SetUserInfo(decodedPayload))
                 /* navigate('/'); */
+
             }
         },
         onError: (error) => {

@@ -74,7 +74,7 @@ function SignUp() {
             type="password"
             value={password}
             onChange={handlePasswordChange}
-            placeholder="비밀번호를 입력하세요. ( 5자리 이상 )"
+            placeholder="비밀번호를 입력하세요. ( 6자리 이상 )"
             label="비밀번호"
             infoText="· 공백 없이 문자, 숫자 조합 필수 6 ~ 10자"
             error={passwordError}

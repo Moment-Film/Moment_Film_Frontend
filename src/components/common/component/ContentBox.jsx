@@ -1,21 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const ContentBox = ({ data }) => {
+    const navigate = useNavigate();
 
     const Card = ({ item }) => {
         return (
             <ContentsItem>
                 <StyledLink>
-                    <Img src={'https://pbs.twimg.com/media/Fi3MBQvaMAAMymZ.jpg'}></Img>
+                    <Img src={item.image}></Img>
                 </StyledLink>
                 <ItemInfo>
+                    <div>● {item.username}</div>
                     <OptionCount>
-                        <div>b {'123'}</div>
-                        <div>C {'123'}</div>
+                        <div>댓글 {item.commentCount}</div>
+                        <div>좋아요 {item.likeCount}</div>
+                        <div>조회 {item.viewCount}</div>
                     </OptionCount>
-                    <div>● 유저이름</div>
                 </ItemInfo>
             </ContentsItem>
         )
@@ -25,7 +27,7 @@ const ContentBox = ({ data }) => {
         <ContentsSection>
             {
                 data.map((item, index) => {
-                    return <Card item={item} key={index}></Card>
+                    return <Card item={item} key={index} onClick={()=>navigate(`${item.id}`)}></Card>
                 })
             }
         </ContentsSection>
