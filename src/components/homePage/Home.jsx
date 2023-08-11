@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import StyledButton from "../common/component/StyledButton";
 import homeImg from "../assets/images/home_bgImg.png";
+import { useSelector } from "react-redux";
 
 const Homepage = () => {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ const Homepage = () => {
   const customBtnClickHandler = () => {
     navigate("/camera/capture/frame");
   };
+
   return (
     <>
       <FirstContentWrap>
