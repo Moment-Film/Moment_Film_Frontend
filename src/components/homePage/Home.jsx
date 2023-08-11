@@ -4,6 +4,7 @@ import { styled } from "styled-components";
 import StyledButton from "../common/component/StyledButton";
 import { useSelector } from "react-redux";
 import homeImg from "../assets/images/home_bgImg.png";
+import { useSelector } from "react-redux";
 
 const Homepage = () => {
 /*   const user = useSelector((state) => state.UserInfo);
@@ -18,6 +19,7 @@ const Homepage = () => {
   const customBtnClickHandler = () => {
     navigate("/camera/capture/frame");
   };
+
   return (
     <>
       <FirstContentWrap>
