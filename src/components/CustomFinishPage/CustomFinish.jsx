@@ -5,9 +5,10 @@ import GridNav from "./../frameSelectPage/GridNav";
 import { styled } from "styled-components";
 import point from "../assets/images/point.svg";
 import { useSelector } from "react-redux";
+import { redirect, useNavigate } from "react-router";
 
 const CustomFinish = () => {
-
+  const navigate = useNavigate();
   const reusultImg = useSelector((state) => state.ResultImage);
   var objectURL = window.URL.createObjectURL(reusultImg);
 
@@ -28,7 +29,7 @@ const CustomFinish = () => {
                 <CustomImg><img src={objectURL} alt="" /></CustomImg>
                 <BtnWrap>
                   <MoveBtn>이미지 다운로드</MoveBtn>
-                  <MoveBtn>게시글 등록</MoveBtn>
+                  <MoveBtn onClick={()=>navigate('write')}>게시글 등록</MoveBtn>
                 </BtnWrap>
                 <Point src={point} alt="point"></Point>
               </ImgWrap>

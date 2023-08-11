@@ -1,15 +1,17 @@
 import React from 'react'
 import styled from 'styled-components'
 import * as S from '../components/common/styles/StyledSpan'
+import { useNavigate } from 'react-router'
 
 function PointModal() {
+  const navigate = useNavigate();
   return (
     <ModalBackLayer>
       <ModalContainer>
         <img src={null} alt='폭죽 아이콘' />
         <S.StyledBoldSpan20>+ 10P</S.StyledBoldSpan20>
         <p>포인트 지급이 완료되었습니다!</p>
-        <button>확인</button>
+        <button onClick={()=>navigate('/post')}>확인</button>
       </ModalContainer>
     </ModalBackLayer>
   )

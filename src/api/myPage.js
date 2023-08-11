@@ -1,10 +1,19 @@
-import ourAxios from "./ourAxios";
+import axios from "axios";
 
-export const myPage = async ({userId, actoken}) => {
+
+// export const myPage = async ({userId, actoken}) => {
+//   try {
+//     const res = await ourAxios.get(`/api/user/profile/${userId}`)
+
+export const getProfile = async ({userId}) => {
+  console.log(userId)
   try {
-    const res = await ourAxios.get(`/api/user/profile/${userId}`)
+    const res = await axios.get(`/api/user/profile/3`)
+
     console.log(res);
-    return res.data;
+
+    return res;
+
   } catch (error) {
     console.error("myPage api error", error);
     throw error;
