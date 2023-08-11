@@ -15,6 +15,7 @@
     "dom-to-image": "^2.6.0",
     "file-saver": "^2.0.5",
     "html2canvas": "^1.4.1",
+    "http-proxy-middleware": "^2.0.6",
     "lodash": "^4.17.21",
     "rc-slider": "^10.2.1",
     "react": "^18.2.0",
@@ -62,7 +63,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-    
   },
   "proxy": "http://52.78.24.117"
 }
