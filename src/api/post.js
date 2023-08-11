@@ -2,7 +2,13 @@ import axios from "axios";
 
 export const getAllPosts = async() => {
   const response = await axios.get(`/api/post`);
-  return response;
+  return response.data.body;
+}
+export const getPostSort = async({sort}) => {
+  const response = await axios.get(`/api/post/${sort}`,{
+    sort
+  });
+  return response.data.body;
 }
 export const getPostDetail = async(postId) => {
   const response = await axios.get(`/api/post/${postId}`);

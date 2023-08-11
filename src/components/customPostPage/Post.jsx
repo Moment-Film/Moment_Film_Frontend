@@ -7,6 +7,7 @@ import { StyledBoldSpan42 } from '../common/styles/StyledSpan'
 function Post() {
   // const [getPosts, setGetPosts] = useState([]);
   const a = [1, 2, 3, 4];
+  const [sortType, setSortType] = useState(null);
 
   useEffect(() => {
     // setGetPosts(getAllPosts());
@@ -42,8 +43,8 @@ function Post() {
             <SImg src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmJcGGiZhQYnrTUPV1Wpcxp04QT-XnCMq2a1N43NouznMPcJeFp0IMLUZPShxbUSOQHqA&usqp=CAU' />
             <PostTop5>
               {
-                a.map((item) => {
-                  return (<Card>asd</Card>)
+                a.map((item, index) => {
+                  return (<Card key={index}>asd</Card>)
                 })
               }
             </PostTop5>
@@ -55,20 +56,20 @@ function Post() {
             <div>
               정렬방식
             </div>
-            <div>
-              인기순
-            </div>
-            <div>
+            <div onClick={()=>setSortType(null)}>
               최신순
             </div>
-            <div>
-              댓글순
+            <div onClick={()=>setSortType("likes")}>
+              인기순
+            </div>
+            <div onClick={()=>setSortType("view")}>
+              조회순
             </div>
           </SortItem>
         </PostNav>
 
         <PostWrapper>
-          <InfiniteScroll />
+          <InfiniteScroll sortType={sortType}/>
         </PostWrapper>
 
       </PostPage>

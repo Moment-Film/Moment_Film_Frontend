@@ -11,18 +11,14 @@ import {
   SaturationSlider,
   LightnessSlider,
 } from "react-slider-color-picker";
-
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useRef } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-
-import styled from "styled-components";
 import { SetBackgroundImg } from "../../redux/modules/FrameInfo";
-
 import { StyledSpan14 } from "../common/styles/StyledSpan";
-
+import { useEffect } from "react";
 
 const FrameCustomMake = () => {
   
@@ -45,14 +41,13 @@ const FrameCustomMake = () => {
 
   const changeColorHandler = (newColor) => {
     setColor(newColor);
-    console.log(newColor);
   };
 
   const imageChangeHandler = (e) => {
     const input = e.target;
     if (input.files && input.files[0]) {
       setFrameImg(URL.createObjectURL(input.files[0]));
-      dispatch(SetBackgroundImg(URL.createObjectURL(input.files[0])))
+      setUploadedImg(input.files[0].name);
     }
   };
 
@@ -61,9 +56,15 @@ const FrameCustomMake = () => {
     setUploadedImg(null);
   };
 
+  useEffect(()=>{
+    dispatch(SetBackgroundImg(null));
+    dispatch(SetFrameColor(null));
+  },[])
+
 
   const moveBtnHandler = async() => {
     await dispatch(SetFrameColor(color));
+    await frameImg && dispatch(SetBackgroundImg(frameImg));
     navigate("/camera/capture/filter");
   };
 
@@ -81,7 +82,7 @@ const FrameCustomMake = () => {
                     thisGrid.id === "narrow" || thisGrid.id === "wide"
                   }
                   color={color}
-                  frameImg={frameImg}
+                  $frameImg={frameImg}
                   gap={thisGrid.gap}
                 >
                   <p

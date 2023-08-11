@@ -17,8 +17,13 @@ import { Route, Routes } from 'react-router-dom';
 import Globalstyles from './globalStyle/GlobalStyle';
 import CustomMakePage from './pages/CustomMakePage';
 import CustomFinishPage from './pages/CustomFinishPage';
+<<<<<<< HEAD
 import RedirectPage from './pages/RedirectPage';
 
+=======
+import PostWritePage from './pages/PostWritePage';
+import PrivateRoute from './layout/PrivateRoute'
+>>>>>>> f3166accf7d7efd76fe60fcdfb5b0efa358edcf2
 function App() {
   return (
     <>
@@ -40,7 +45,13 @@ function App() {
         <Route path="/search" element={<SearchPage />} />
         <Route path="/searchreseult" element={<SearchReseultpage />} />
         <Route path="/signup" element={<SignUpPage />} />
+<<<<<<< HEAD
         <Route path="/api/user/kakao/login" element={<RedirectPage />} />
+=======
+        <Route element={<PrivateRoute />}>
+          <Route path='/camera/capture/finish/write' element={<PostWritePage />} />
+        </Route>
+>>>>>>> f3166accf7d7efd76fe60fcdfb5b0efa358edcf2
       </Route>
 
     {/* 스르륵 */}
