@@ -17,6 +17,7 @@ import { Route, Routes } from 'react-router-dom';
 import Globalstyles from './globalStyle/GlobalStyle';
 import CustomMakePage from './pages/CustomMakePage';
 import CustomFinishPage from './pages/CustomFinishPage';
+import PostWritePage from './pages/PostWritePage';
 function App() {
   return (
     <>
@@ -35,6 +36,7 @@ function App() {
         <Route path='/camera/capture/filter' element={<FilterPage />} />
         <Route path='/camera/capture/frame' element={<CustomMakePage />} />
         <Route path='/camera/capture/finish' element={<CustomFinishPage />} />
+        <Route path='/camera/capture/finish/write' element={<PostWritePage />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/searchreseult" element={<SearchReseultpage />} />
         <Route path="/signup" element={<SignUpPage />} />
