@@ -17,7 +17,6 @@ import { Route, Routes } from 'react-router-dom';
 import Globalstyles from './globalStyle/GlobalStyle';
 import CustomMakePage from './pages/CustomMakePage';
 import CustomFinishPage from './pages/CustomFinishPage';
-
 function App() {
   return (
     <>

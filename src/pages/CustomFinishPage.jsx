@@ -5,6 +5,5 @@ function CustomFinishPage() {
   return (
     <CustomFinish />
   )
-}
-
+};
 export default CustomFinishPage;

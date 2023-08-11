@@ -24,14 +24,15 @@ export const ELogin = async ({email,password}) => {
   console.log(email,password)
   const response = await axios.post('/api/user/login' ,
   {
-    email,
-    password
+    email:email,
+    password:`${password}`
   }
   );
 
-  console.log(response.status)
+  console.log(response.headers.accesstoken)
+  console.log(response.headers.refreshtoken)
 //성공이면 로그인 화면 or 홈화면을 보내버리자
-    if(response.status===201){
+    if(response.status===200){
       return response;
   }
   else

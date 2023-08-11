@@ -5,7 +5,7 @@ import GridNav from "../frameSelectPage/GridNav";
 import StyledButton from "../common/component/StyledButton";
 import { SetFrameColor } from "../../redux/modules/FrameInfo";
 import upload from "../assets/icons/upload.svg";
-
+import clear from '../assets/images/clear.png';
 import {
   HueSlider,
   SaturationSlider,
@@ -100,17 +100,29 @@ const FrameCustomMake = () => {
                           style={{
                             width: `${thisGrid.innerWidth}`,
                             height: `${thisGrid.innerHeight}`,
-                            visibility: img === "null" ? "hidden" : "visible",
                           }}
                         >
-                          <img
+                          {
+                            img==='null'
+                            ?
+                            <img
                             style={{
                               width: "100%",
                               height: "100%",
                             }}
-                            src={img}
+                            src={clear}
                             alt=""
                           />
+                          :
+                          <img
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                          }}
+                          src={img}
+                          alt=""
+                        />
+                          }
                         </div>
                       );
                     })}
