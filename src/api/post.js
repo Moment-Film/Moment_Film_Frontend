@@ -1,4 +1,5 @@
 import axios from "axios";
+import ourAxios from "./ourAxios";
 
 export const getAllPosts = async() => {
   const response = await axios.get(`/api/post`);
@@ -17,9 +18,20 @@ export const getPostDetail = async(postId) => {
 export const deletePost = async(postId) => {
   await axios.delete(`/api/post/${postId}`);
 }
-export const addPost = async(newPost)=>{
+export const addPost = async(accessToken, refreshToken,newPost)=>{
+  console.log({
+    acc : accessToken,
+    refresh : refreshToken,
+    data: newPost,
+  })
   try {
-    await axios.post(`/api/post`,newPost);
+    await axios.post(`/api/post`,newPost, {
+      headers : {
+        'accessToken' : accessToken,
+        'refreshToken' : refreshToken,
+      }
+    });
+    console.log("POST SUCCESS!!!!!!!!");
   }
   catch(error){
     console.log("Error :", error);
