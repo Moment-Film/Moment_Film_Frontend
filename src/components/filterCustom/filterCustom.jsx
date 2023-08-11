@@ -67,11 +67,11 @@ const FilterCustom = () => {
                   $bottomText={
                     thisGrid.id === "narrow" || thisGrid.id === "wide"
                   }
-                  h={FrameColor.h}
-                  s={FrameColor.s}
-                  l={FrameColor.l}
-                  frameImg={thisbackGround}
-                  gap={thisGrid.gap}
+                  $h={FrameColor.h}
+                  $s={FrameColor.s}
+                  $l={FrameColor.l}
+                  $frameImg={thisbackGround}
+                  $gap={thisGrid.gap}
                 >
                   <p
                     style={{
@@ -89,14 +89,13 @@ const FilterCustom = () => {
                           key={index}
                           width={thisGrid.innerWidth}
                           height={thisGrid.innerHeight}
-                          blur={filterValue.blur}
-                          brightness={filterValue.brightness}
-                          saturate={filterValue.saturate}
-                          grayscale={filterValue.grayscale}
-                          contrast={filterValue.contrast}
-                          huerotate={filterValue.huerotate}
-                          sepia={filterValue.sepia}
-                          style={{}}
+                          $blur={filterValue.blur}
+                          $brightness={filterValue.brightness}
+                          $saturate={filterValue.saturate}
+                          $grayscale={filterValue.grayscale}
+                          $contrast={filterValue.contrast}
+                          $huerotate={filterValue.huerotate}
+                          $sepia={filterValue.sepia}
                         >
                           <img
                             style={{
@@ -293,11 +292,11 @@ const FilterImage = styled.div`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   overflow: hidden;
-  filter: blur(${(props) => props.blur || 0}px)
-    saturate(${(props) => props.saturate || 100}%)
-    brightness(${(props) => props.brightness || 1})
-    grayscale(${(props) => props.grayscale || 0}%)
-    contrast(${(props) => props.contrast || 100}%)
-    hue-rotate(${(props) => props.huerotate || 0}deg)
-    sepia(${(props) => props.sepia || 0}%);
+  filter: blur(${(props) => props.$blur || 0}px)
+    saturate(${(props) => props.$saturate || 100}%)
+    brightness(${(props) => props.$brightness || 1})
+    grayscale(${(props) => props.$grayscale || 0}%)
+    contrast(${(props) => props.$contrast || 100}%)
+    hue-rotate(${(props) => props.$huerotate || 0}deg)
+    sepia(${(props) => props.$sepia || 0}%);
 `;

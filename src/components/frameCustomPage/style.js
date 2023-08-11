@@ -34,7 +34,7 @@ const FrameImg = styled.div`
   overflow: hidden;
   background-color: ${(props) =>
     `hsl(${props.color.h}, ${props.color.s}%, ${props.color.l}%)`};
-  background-image: ${(props) => `url(${props.frameImg})`};
+  background-image: ${(props) => `url(${props.$frameImg})`};
   background-size: cover;
   background-position: center;
   gap: ${(props) => props.gap};

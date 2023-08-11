@@ -9,15 +9,15 @@ const ContentBox = ({ data }) => {
         return (
             <ContentsItem>
                 <StyledLink>
-                    <Img src={item.imageUrl}></Img>
+                    <Img src={item.image}></Img>
                 </StyledLink>
                 <ItemInfo>
+                    <div>● {item.username}</div>
                     <OptionCount>
-                        <div>댓글 {item.commentCnt}</div>
-                        <div>좋아요 {item.likeCnt}</div>
-                        <div>조회 {item.viewCnt}</div>
+                        <div>댓글 {item.commentCount}</div>
+                        <div>좋아요 {item.likeCount}</div>
+                        <div>조회 {item.viewCount}</div>
                     </OptionCount>
-                    <div>● 유저이름</div>
                 </ItemInfo>
             </ContentsItem>
         )
@@ -27,7 +27,7 @@ const ContentBox = ({ data }) => {
         <ContentsSection>
             {
                 data.map((item, index) => {
-                    return <Card item={item} key={index} onClick={()=>navigate(`/${item.id}`)}></Card>
+                    return <Card item={item} key={index} onClick={()=>navigate(`${item.id}`)}></Card>
                 })
             }
         </ContentsSection>

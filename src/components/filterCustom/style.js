@@ -34,12 +34,12 @@ const FrameImg = styled.div`
   overflow: hidden;
 
   background-color: ${(props) =>
-    `hsl(${props.h}, ${props.s}%, ${props.l}%)`};
+    `hsl(${props.$h}, ${props.$s}%, ${props.$l}%)`};
 
     background-image: ${(props) => `url(${props.frameImg})`};
   background-size: cover;
   background-position: center;
-  gap: ${(props) => props.gap};
+  gap: ${(props) => props.$gap};
 `;
 
 const InnerImgWrap = styled.div`

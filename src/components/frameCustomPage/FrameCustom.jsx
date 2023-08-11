@@ -46,7 +46,6 @@ const FrameCustomMake = () => {
 
   const changeColorHandler = (newColor) => {
     setColor(newColor);
-    console.log(newColor);
   };
 
   const imageChangeHandler = (e) => {
@@ -88,7 +87,7 @@ const FrameCustomMake = () => {
                     thisGrid.id === "narrow" || thisGrid.id === "wide"
                   }
                   color={color}
-                  frameImg={frameImg}
+                  $frameImg={frameImg}
                   gap={thisGrid.gap}
                 >
                   <p
