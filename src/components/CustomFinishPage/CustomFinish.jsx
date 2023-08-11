@@ -7,8 +7,10 @@ import point from "../assets/images/point.svg";
 import { useSelector } from "react-redux";
 
 const CustomFinish = () => {
+
   const reusultImg = useSelector((state) => state.ResultImage);
   var objectURL = window.URL.createObjectURL(reusultImg);
+
   return (
     <>
       <s.Wrap>
@@ -23,7 +25,7 @@ const CustomFinish = () => {
                 </span>
               </TextWrap>
               <ImgWrap>
-                <CustomImg><img src={objectURL}/></CustomImg>
+                <CustomImg><img src={objectURL} alt="" /></CustomImg>
                 <BtnWrap>
                   <MoveBtn>이미지 다운로드</MoveBtn>
                   <MoveBtn>게시글 등록</MoveBtn>
