@@ -31,7 +31,7 @@ const EmailLogin = () => {
             if (response.status === 200) {
                 await dispatch(SetAccessToken(response.headers.accesstoken))
                 setCookie('refresh',response.headers.refreshtoken);
-                navigate('/');
+                navigate(-1);
             }
         },
         onError: (error) => {
