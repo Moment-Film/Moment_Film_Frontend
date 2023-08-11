@@ -28,12 +28,12 @@ function SignUp() {
   const mutation = useMutation(register, {
     onSuccess: (data) => {
       if (data) {
-        alert("회원가입 성공!");
+        alert(data.msg);
         navigate("/login");
       }
     },
     onError: (error) => {
-      alert("회원가입 오류입니다.");
+      alert("회원가입 오류입니다.", error);
       console.log(error);
     },
   });

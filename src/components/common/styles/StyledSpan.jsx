@@ -88,7 +88,6 @@ export const StyledBoldSpan20 = styled.span`
     color: ${(props)=>props.color};
     line-height: ${(props)=>props.lineHeight};
     font-weight:bold;
-
 `
 export const StyledBoldSpan18 = styled.span`
     font-size:18px;

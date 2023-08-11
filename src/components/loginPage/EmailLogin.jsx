@@ -60,7 +60,8 @@ const EmailLogin = () => {
     const LoginHandler = async (e) => {
         e.preventDefault()
         console.log("qwe")
-        mutation.mutate({ email, password })
+        mutation.mutate({ email, password });
+        navigate(-1);
     };
 
     return (
