@@ -2,14 +2,17 @@ import React from 'react'
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components'
+import PointModal from '../components/PointModal'
 
 function PostWritePage() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const reusultImg = useSelector((state) => state.ResultImage);
+  const [showModal, setShowModal] = useState(false);
+  const resultImg = useSelector((state) => state.ResultImage);
+  const objectUrl = URL.createObjectURL(resultImg);
 
   const onSubmitHandler = () => {
-
+    setShowModal(true);
   }
 
   return (
@@ -20,7 +23,7 @@ function PostWritePage() {
         </WritePageTitle>
         <WriteForm>
           <ImgSection>
-          <img src={null} alt='ResultImage' />
+          <img src={objectUrl} alt='ResultImage' />
           </ImgSection>
           <InputSection>
             <Writer>
@@ -52,6 +55,7 @@ function PostWritePage() {
           </InputSection>
         </WriteForm>
       </WriteBody>
+      { showModal && <PointModal />}
     </ViewBody>
   )
 }
@@ -97,8 +101,7 @@ const ImgSection = styled.div`
   height: 100%;
   background-color: #e9e9e9;
   img{
-    border: 1px solid;
-    box-shadow: 0, 0, 40px, rgba(0,0,0,0.05);
+    box-shadow: 0 0 40px rgba(0,0,0,0.05);
   }
 `
 const InputSection = styled.div`

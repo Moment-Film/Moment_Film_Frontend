@@ -22,6 +22,7 @@ import styled from "styled-components";
 import { SetBackgroundImg } from "../../redux/modules/FrameInfo";
 
 import { StyledSpan14 } from "../common/styles/StyledSpan";
+import { useEffect } from "react";
 
 
 const FrameCustomMake = () => {
@@ -52,7 +53,7 @@ const FrameCustomMake = () => {
     const input = e.target;
     if (input.files && input.files[0]) {
       setFrameImg(URL.createObjectURL(input.files[0]));
-      dispatch(SetBackgroundImg(URL.createObjectURL(input.files[0])))
+      setUploadedImg(input.files[0].name);
     }
   };
 
@@ -61,9 +62,15 @@ const FrameCustomMake = () => {
     setUploadedImg(null);
   };
 
+  useEffect(()=>{
+    dispatch(SetBackgroundImg(null));
+    dispatch(SetFrameColor(null));
+  },[])
+
 
   const moveBtnHandler = async() => {
     await dispatch(SetFrameColor(color));
+    frameImg && dispatch(SetBackgroundImg(frameImg));
     navigate("/camera/capture/filter");
   };
 
