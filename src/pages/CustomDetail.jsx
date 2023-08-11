@@ -43,8 +43,11 @@ function CustomDetail() {
   const [isReplyShow, setIsReplyShow] = useState([null]);
 
   const showReplyHandler = (commentId) => {
-    const newList = isReplyShow.includes(commentId) ? isReplyShow.filter((item)=> item !== commentId) : [ ... isReplyShow, commentId ] ;
-    setIsReplyShow(newList);
+    const newList = isReplyShow.includes(commentId) // 받은 댓글ID가 SHOW 배열에 존재하는지  
+    ? isReplyShow.filter((item)=> item !== commentId)  // 존재하면 해당 댓글빼고 리턴 
+    : [ ... isReplyShow, commentId ] ; // 존재하지않으면 추가 
+    
+    setIsReplyShow(newList); // 설정 
   }
 
 

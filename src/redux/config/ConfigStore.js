@@ -11,7 +11,7 @@ import ResultImage from '../modules/ResultImage';
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["Language", "image","ResultImage"],
+  whitelist: ["Language", "image","ResultImage","AccessToken"],
 
 };
 
