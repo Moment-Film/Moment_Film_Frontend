@@ -11,19 +11,14 @@ import {
   SaturationSlider,
   LightnessSlider,
 } from "react-slider-color-picker";
-
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useRef } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-
-import styled from "styled-components";
 import { SetBackgroundImg } from "../../redux/modules/FrameInfo";
-
 import { StyledSpan14 } from "../common/styles/StyledSpan";
 import { useEffect } from "react";
-
 
 const FrameCustomMake = () => {
   
@@ -69,7 +64,7 @@ const FrameCustomMake = () => {
 
   const moveBtnHandler = async() => {
     await dispatch(SetFrameColor(color));
-    frameImg && dispatch(SetBackgroundImg(frameImg));
+    await frameImg && dispatch(SetBackgroundImg(frameImg));
     navigate("/camera/capture/filter");
   };
 

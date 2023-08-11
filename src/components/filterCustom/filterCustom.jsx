@@ -23,14 +23,13 @@ const FilterCustom = () => {
   const thisGrid = useSelector((state) => state.image.images);
   const FrameColor = useSelector((state) => state.FrameInfo.color);
   const thisbackGround = useSelector((state) => state.FrameInfo.backgroundImg);
-
+  
   const [innerImg] = useState([
     localStorage.getItem(`image0`),
     localStorage.getItem(`image1`),
     localStorage.getItem(`image2`),
     localStorage.getItem(`image3`),
   ]);
-
   const [filterValue, setFilterValue] = useState({});
 
   const filterValueHandler = (key, value) => {
