@@ -6,8 +6,8 @@ import { useSelector } from "react-redux";
 import homeImg from "../assets/images/home_bgImg.png";
 
 const Homepage = () => {
-  const actoken = useSelector((state) => state.AccessToken);
-  console.log(actoken)
+/*   const user = useSelector((state) => state.UserInfo);
+  console.log(user) */
 
   const navigate = useNavigate();
 

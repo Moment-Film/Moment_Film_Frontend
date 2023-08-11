@@ -11,6 +11,9 @@ import * as L from '../common/styles/StyledLink';
 import * as I from '../common/styles/StyledInput';
 import { useCookies } from 'react-cookie';
 
+import base64 from "base-64"
+import { SetUserInfo } from '../../redux/modules/User';
+
 const EmailLogin = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -29,9 +32,17 @@ const EmailLogin = () => {
     const mutation = useMutation(ELogin, {
         onSuccess: async (response) => {
             if (response.status === 200) {
-                await dispatch(SetAccessToken(response.headers.accesstoken))
+                const ACToken=response.headers.accesstoken;
+                await dispatch(SetAccessToken(ACToken))
                 setCookie('refresh',response.headers.refreshtoken);
-                navigate('/');
+
+                const jwtPayload = ACToken.split(".")[1];
+                // payload 부분을 복호화한다.JWT는 base64방식으로 암호화 되어 있으므로 base64.decode로 복호화한 뒤
+                // 복호화된 JSON 문자열을 쓸 수 있게 객체로 변환한다.
+                const decodedPayload = JSON.parse(base64.decode(jwtPayload));
+                console.log(decodedPayload);
+                dispatch(SetUserInfo(decodedPayload))
+                /* navigate('/'); */
             }
         },
         onError: (error) => {

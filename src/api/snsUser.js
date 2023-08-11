@@ -1,10 +1,10 @@
 import axios from "axios";
 
-export const socialLogin = async ({credential,social}) => {
+export const socialLogin = async ({keyword,social}) => {
     // 아직 주소 안정해짐 
 
-    console.log(credential,social)
-    const response = await axios.get(`/api/user/kakao/callback?code=${credential}`);
+    console.log(keyword,social)
+    const response = await axios.post(`/api/user/kakao/callback?code=${keyword}`);
 
   console.log(response.headers.accesstoken)
   console.log(response.headers.refreshtoken)
