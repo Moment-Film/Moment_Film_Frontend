@@ -17,6 +17,8 @@ import { Route, Routes } from 'react-router-dom';
 import Globalstyles from './globalStyle/GlobalStyle';
 import CustomMakePage from './pages/CustomMakePage';
 import CustomFinishPage from './pages/CustomFinishPage';
+import RedirectPage from './pages/RedirectPage';
+
 function App() {
   return (
     <>
@@ -38,6 +40,7 @@ function App() {
         <Route path="/search" element={<SearchPage />} />
         <Route path="/searchreseult" element={<SearchReseultpage />} />
         <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/api/user/kakao/login" element={<RedirectPage />} />
       </Route>
 
     {/* 스르륵 */}

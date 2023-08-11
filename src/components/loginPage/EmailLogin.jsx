@@ -32,9 +32,12 @@ const EmailLogin = () => {
     const mutation = useMutation(ELogin, {
         onSuccess: async (response) => {
             if (response.status === 200) {
+                console.log(response);
                 const ACToken=response.headers.accesstoken;
+  
                 await dispatch(SetAccessToken(ACToken))
                 setCookie('refresh',response.headers.refreshtoken);
+
 
                 const jwtPayload = ACToken.split(".")[1];
                 // payload 부분을 복호화한다.JWT는 base64방식으로 암호화 되어 있으므로 base64.decode로 복호화한 뒤
@@ -42,6 +45,8 @@ const EmailLogin = () => {
                 const decodedPayload = JSON.parse(base64.decode(jwtPayload));
                 console.log(decodedPayload);
                 dispatch(SetUserInfo(decodedPayload))
+                console.log('ac',ACToken)
+                console.log('rc',cookie)
                 /* navigate('/'); */
             }
         },
