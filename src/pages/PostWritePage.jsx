@@ -3,16 +3,31 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components'
 import PointModal from '../components/PointModal'
+import { addPost } from '../api/post';
+import { useCookies } from 'react-cookie';
 
 function PostWritePage() {
+  const [cookie,setCookie] = useCookies(['refresh']);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [showModal, setShowModal] = useState(false);
   const resultImg = useSelector((state) => state.ResultImage);
   const objectUrl = URL.createObjectURL(resultImg);
-  const writerInfo = useSelector((state)=>state.AccessToken.accessToken);
+  const accessToken = useSelector((state)=>state.AccessToken.accessToken);
+  const writerInfo = useSelector((state)=> state.UserInfo);
 
   const onSubmitHandler = () => {
+    const newPost = new FormData();
+    const datas = {
+      title,
+      contents : content
+    }
+
+
+    newPost.append('imageFile', resultImg);
+    newPost.append('data', datas);
+
+    addPost(accessToken, cookie.refresh, newPost);
     setShowModal(true);
   }
 
@@ -29,7 +44,7 @@ function PostWritePage() {
           <InputSection>
             <Writer>
               <img src={null} alt='' />
-              <span><strong>{writerInfo}</strong> 님</span>
+              <span><strong>{writerInfo.username}</strong> 님</span>
             </Writer>
             <section>
               <InputHead>
