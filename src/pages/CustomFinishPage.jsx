@@ -1,9 +1,10 @@
 import React from 'react'
+import CustomFinish from './../components/CustomFinishPage/CustomFinish';
 
-function CustomFinish() {
+function CustomFinishPage() {
   return (
     <CustomFinish />
   )
 }
 
-export default CustomFinish
+export default CustomFinishPage;
