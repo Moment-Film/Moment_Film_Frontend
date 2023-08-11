@@ -9,11 +9,12 @@ import { useNavigate } from 'react-router-dom';
 import StyledButton from '../common/component/StyledButton';
 import * as L from '../common/styles/StyledLink';
 import * as I from '../common/styles/StyledInput';
-import StyledInputBox from '../common/component/StyledInputBox';
+import { useCookies } from 'react-cookie';
 
 const EmailLogin = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [cookie,setCookie] = useCookies(['refresh']);
 
     const
         {
@@ -27,8 +28,9 @@ const EmailLogin = () => {
 
     const mutation = useMutation(ELogin, {
         onSuccess: async (response) => {
-            if (response.status === 201) {
-                await dispatch(SetAccessToken(response.data.token))
+            if (response.status === 200) {
+                await dispatch(SetAccessToken(response.headers.accesstoken))
+                setCookie('refresh',response.headers.refreshtoken);
                 navigate('/');
             }
         },

@@ -1,8 +1,9 @@
 import ourAxios from './ourAxios';
+import axios from 'axios';
 
 export const register = async ({username, password, email, phone}) => {
     try {
-        const res = await ourAxios.post('/user', {
+        const res = await axios.post('/api/user/signup', {
             username,
             email,
             password,
@@ -15,3 +16,4 @@ export const register = async ({username, password, email, phone}) => {
         throw error;
     }
 };
+

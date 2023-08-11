@@ -4,8 +4,11 @@ import * as s from "../frameSelectPage/style";
 import GridNav from "./../frameSelectPage/GridNav";
 import { styled } from "styled-components";
 import point from "../assets/images/point.svg";
+import { useSelector } from "react-redux";
 
 const CustomFinish = () => {
+  const reusultImg = useSelector((state) => state.ResultImage);
+  var objectURL = window.URL.createObjectURL(reusultImg);
   return (
     <>
       <s.Wrap>
@@ -20,7 +23,7 @@ const CustomFinish = () => {
                 </span>
               </TextWrap>
               <ImgWrap>
-                <CustomImg>img</CustomImg>
+                <CustomImg><img src={objectURL}/></CustomImg>
                 <BtnWrap>
                   <MoveBtn>이미지 다운로드</MoveBtn>
                   <MoveBtn>게시글 등록</MoveBtn>
