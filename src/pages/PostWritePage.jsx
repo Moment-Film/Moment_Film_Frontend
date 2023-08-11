@@ -10,6 +10,7 @@ function PostWritePage() {
   const [showModal, setShowModal] = useState(false);
   const resultImg = useSelector((state) => state.ResultImage);
   const objectUrl = URL.createObjectURL(resultImg);
+  const writerInfo = useSelector((state)=>state.AccessToken.accessToken);
 
   const onSubmitHandler = () => {
     setShowModal(true);
@@ -28,7 +29,7 @@ function PostWritePage() {
           <InputSection>
             <Writer>
               <img src={null} alt='' />
-              <span><strong>닉네임</strong> 님</span>
+              <span><strong>{writerInfo}</strong> 님</span>
             </Writer>
             <section>
               <InputHead>

@@ -29,7 +29,7 @@ const CustomFinish = () => {
                 <CustomImg><img src={objectURL} alt="" /></CustomImg>
                 <BtnWrap>
                   <MoveBtn>이미지 다운로드</MoveBtn>
-                  <MoveBtn>게시글 등록</MoveBtn>
+                  <MoveBtn onClick={()=>navigate('write')}>게시글 등록</MoveBtn>
                 </BtnWrap>
                 <Point src={point} alt="point"></Point>
               </ImgWrap>
