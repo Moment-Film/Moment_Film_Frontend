@@ -7,7 +7,7 @@ import { useMutation } from 'react-query';
 
 ///안전한 폴더에서 모아서 관리 해보자 
 const Rest_api_key ='2e877086c066dea8246d1b0796d4c68f'
-const redirect_uri='http://localhost:3000/login'
+const redirect_uri='https://view-teal.vercel.app/login'
 const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`
 
 const KakaoLoginBtn = ({width, height}) => {
@@ -15,19 +15,18 @@ const KakaoLoginBtn = ({width, height}) => {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search)
     const keyword=searchParams.get('code')
-    
     console.log(keyword);
 
     const navigate = useNavigate();
 
-    const mutation = useMutation(socialLogin, {
+     const mutation = useMutation(socialLogin, {
         onSuccess: (response) => {
             navigate('/')
         },
         onError: (error)=>{
             console.log("에러")
         }
-    })
+    }) 
 
 
     const handleLogin =()=>{
@@ -38,7 +37,7 @@ const KakaoLoginBtn = ({width, height}) => {
         if(keyword!==null){
             const social='kakao';
             const credential = keyword;
-            mutation.mutate({credential,social});
+             mutation.mutate({credential,social}); 
         }
     },[])
 
