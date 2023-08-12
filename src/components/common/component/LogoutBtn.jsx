@@ -2,6 +2,7 @@ import React from 'react';
 import { LogOutAPI } from '../../../api/snsUser';
 import { useSelector } from 'react-redux';
 import { useCookies } from 'react-cookie';
+
 const LogoutBtn = () => {
     const [cookie,setCookie] = useCookies(['refresh']);
     const ACToken = useSelector((state) => state.AccessToken.accessToken);

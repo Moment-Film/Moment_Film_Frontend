@@ -23,7 +23,7 @@ function Header() {
         <Btn onClick={() => navigate(`/login`)}>Log In</Btn>
         <LogoutBtn></LogoutBtn>
         <WithdrawalBtn></WithdrawalBtn>
-        <Btn onClick={() => navigate(`/post`)}>Post</Btn>
+        <Btn onClick={() => navigate(`/postlist/recent`)}>Post</Btn>
         <Btn onClick={() => navigate(`/post/1`)}>PostDetail</Btn>
         <Btn onClick={() => navigate(`/camera/frameSelect`)}>⚠️📸⚠️</Btn>
         <Btn onClick={() =>dispatch(SetLanguage(`${language==='ko' ? 'en' : 'ko'}`))}>Language</Btn>

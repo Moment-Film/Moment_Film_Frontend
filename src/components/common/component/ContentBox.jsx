@@ -7,7 +7,7 @@ const ContentBox = ({ data }) => {
 
     const Card = ({ item }) => {
         return (
-            <ContentsItem onClick={()=>navigate(`${item.id}`)}>
+            <ContentsItem onClick={()=>navigate(`/post/${item.id}`)}>
                 <StyledLink>
                     <Img src={item.image}></Img>
                 </StyledLink>
