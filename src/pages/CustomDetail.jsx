@@ -12,20 +12,33 @@ import { likePost } from "../api/likePost"
 import { useSelector } from "react-redux";
 import { useCookies } from 'react-cookie';
 import { FolllowAPI } from "../api/snsUser"
+import { useEffect } from "react"
+import { addComment } from "../api/addComment"
+import { useMutation } from "react-query"
+import { useQueryClient } from "react-query"
 
+//댓글 mutate해서 즉시 반영되게 해야함  덜했음
 function CustomDetail() {
   const param = useParams();
-  const [postDetail, setPostDetail] = useState();
+  const queryClient = useQueryClient();
+
+
+  const [commentList, setCommentList] = useState();
   const[selectFrame,setSelectFrame]=useState(false);
   const[selectFilter,setSelectFilter]=useState(false);
-  const {data,isLoading,isError}=useQuery(`Detail${param.id}`,()=>getPostDetail(param.id));
+  const {data,isLoading,isError, isSuccess}=useQuery(`Detail${param.id}`,()=>getPostDetail(param.id));
+  const[commemt,setComment]=useState(null);
   console.log(data);
+useEffect(()=>{
+  if(isSuccess){
+    setCommentList(data.commentList);
+  }
+},[])
 
   const [cookie,setCookie] = useCookies(['refresh']);
   const ACToken = useSelector((state) => state.AccessToken.accessToken);
  
   const postLikeHandler=()=>{
-    console.log("whgkdyd")
     likePost(param.id,ACToken,cookie.refresh)
   }
 
@@ -33,35 +46,33 @@ function CustomDetail() {
     FolllowAPI(data.id,ACToken,cookie.refresh)
   }
 
+  const CommentInput=(e)=>{
+    setComment(e.target.value);
+  }
+  const mutation = useMutation(addComment, {
+    onSuccess: (response) => {
+      if (response.data.success) {
+        queryClient.invalidateQueries(`Detail${param.id}`)
+      }
+    },
+    onError: (error) => {
+      alert('에러');
+    }
+  })
+  const AddComment=()=>{
+    const content={
+      content:commemt
+    }
+    const postId=data.id
+    const accessToken=ACToken
+    const refreshToken=cookie.refresh
 
-  // const commentList = [
-  //   {
-  //     commentId: 1, content: "최고예요^^", username: "닉네임", createdAt: "2023-08-10", replyList: [
-  //       {
-  //         replyId: 1, content: "최고예요^^", username: "떡볶이", createdAt: "2023-08-10",
-  //       },
-  //       {
-  //         replyId: 2, content: "너무 예뻐요", username: "깜찍이", createdAt: "2023-08-10",
-  //       },
-  //       {
-  //         replyId: 3, content: "이 필터 최고네요 ^^b", username: "야옹이", createdAt: "2023-08-10",
-  //       },
-  //     ]
-  //   },
-  //   {
-  //     commentId: 2, content: "너무 예뻐요", username: "깜찍이", createdAt: "2023-08-10", replyList: [
-  //       {
-  //         replyId: 4, content: "최고예요^^", username: "불닭볶음면", createdAt: "2023-08-10",
-  //       },
-  //       {
-  //         replyId: 5, content: "너무 예뻐요", username: "카리나", createdAt: "2023-08-10",
-  //       },
-  //     ]
-  //   },
-  //   {
-  //     commentId: 3, content: "이 필터 최고네요 ^^b", username: "야옹이", createdAt: "2023-08-10", replyList: []
-  //   },
-  // ]
+    mutation.mutate({postId,accessToken,refreshToken,content});
+  }
+
+
+
+
 
   const [isReplyShow, setIsReplyShow] = useState([null]);
   const showReplyHandler = (commentId) => {
@@ -129,12 +140,18 @@ function CustomDetail() {
       <CommentSection>
         <CommentInputArea>
           <CommentInputDiv>
-            <input placeholder="댓글을 입력해 주세요" />
-            <img src={commentEnter} alt="commentEnter"></img>
+            <input 
+            placeholder="댓글을 입력해 주세요"
+            value={commemt}
+            onChange={CommentInput}
+            />
+            <img src={commentEnter} alt="commentEnter"
+              onClick={AddComment}
+            ></img>
           </CommentInputDiv>
         </CommentInputArea>
-          { data.commentList.length >0 &&
-            data.commentList.map((comment)=>(
+          { commentList &&
+            commentList.map((comment)=>(
               <CommentContainer key={comment.commentId}>
                 <CommentsDetail>
                   <CommentCard>
@@ -142,7 +159,7 @@ function CustomDetail() {
                     <CommentMain>
                       <div>{comment.username}</div>
                       <div>{comment.content}</div>
-                      { comment.replyList.length > 0 &&
+                      { comment.replyList> 0 &&
                         <button onClick={()=>showReplyHandler(comment.commentId)}>
                           { isReplyShow.includes(comment.commentId) ? "대댓글 닫기" : "대댓글 보기" }
                         </button>
