@@ -21,8 +21,8 @@ function PostWritePage() {
     const formData = new FormData();
 
     const jsonData = {
-      title: "title",
-      contents: "content"
+      title : title,
+      contents : content
     };
 
     formData.append("imageFile", resultImg);
