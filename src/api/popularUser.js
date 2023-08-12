@@ -1,13 +1,8 @@
 import ourAxios from "./ourAxios";
 
-export const popularUser = async ({actoken}) => {
+export const popularUser = async () => {
   try {
-    const res = await ourAxios.get('/api/user/popular',{
-      headers: {
-        Authorization: `Bearer ${actoken}`,
-      },
-    })
-    console.log(res.data.body);
+    const res = await ourAxios.get('/api/user/popular')
     return res.data.body;
   } catch (error) {
     console.error("popularUser api error", error);

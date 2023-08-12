@@ -1,10 +1,12 @@
-import React from 'react'
-import SearchUser from '../components/searchPage/SearchUser'
+import React from "react";
+import SearchUser from "../components/searchPage/SearchUser";
 
 function Searchpage() {
   return (
-    <SearchUser />
-  )
+    <div style={{background:'var(--whiteGray)'}}>
+      <SearchUser/>
+    </div>
+  );
 }
 
-export default Searchpage
+export default Searchpage;

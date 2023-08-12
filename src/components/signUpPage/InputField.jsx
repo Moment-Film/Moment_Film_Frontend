@@ -33,6 +33,8 @@ const InputField = ({
               fontSize: "14px",
               paddingLeft: "20px",
               marginTop: "5px",
+              color:'var(--warningRed)',
+              lineHeight:'17px'
             }}
           >
             {infoText}
@@ -78,12 +80,13 @@ const ValueBox = styled.div`
 `;
 
 const CheckBtn = styled.div`
-  width: 175px;
-  height: 52px;
+  width: 145px;
+  height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid var(--black);
-  background-color: rgb(217, 217, 217);
+  color: var(--green6);
+  border: 2px solid var(--green5);
+  background-color: var(--green1);
   cursor: pointer;
 `;
