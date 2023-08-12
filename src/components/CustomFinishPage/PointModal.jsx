@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import * as S from '../components/common/styles/StyledSpan'
+import * as S from '../common/styles/StyledSpan'
 import { useNavigate } from 'react-router'
 
 function PointModal() {

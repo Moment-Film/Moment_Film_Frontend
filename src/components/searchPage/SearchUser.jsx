@@ -67,6 +67,7 @@ const SearchUser = () => {
               justifyContent: "center",
               color: "#2E4D07",
               marginBottom: "35px",
+              lineHeight:'24px',
             }}
           >
             무엇을 도와드릴까요?
@@ -95,7 +96,7 @@ const SearchUser = () => {
                       <div>크리에이터 {item.username}</div>
                     </div>
                     <div style={{ display: "flex" }}>
-                      <div>팔로워 {item.follower}명</div>
+                      <div style={{lineHeight:'28px'}}>팔로워 {item.follower}명</div>
                       <div>
                         <img src={upperArr} alt="" />
                       </div>
@@ -120,7 +121,9 @@ const SearchUser = () => {
 export default SearchUser;
 
 const SearchWrap = styled.div`
-  
+  width: 1170px;
+  background: #fff;
+  margin: auto;
 `
 
 const SearchSection = styled.div`
@@ -151,7 +154,7 @@ const SearchInputDiv = styled.div`
   background-color: var(--green1);
   border-bottom: 2px solid var(--green4);
   border-radius: 5px 5px 0px 0px;
-
+  box-sizing: border-box;
   padding: 0 15px 0 10px;
   margin-bottom: 60px;
 
@@ -172,7 +175,7 @@ const SearchInputDiv = styled.div`
 const RecommendSection = styled.div`
   display: flex;
   flex-direction: column;
-  border-top: 1px solid var(--green2);
+  border-top: 1px solid var(--green3);
   margin-top: 30px;
   margin-bottom: 48%;
 `;
@@ -181,9 +184,9 @@ const RecommendItem = styled.div`
   /*  flex:auto; */
   /* text-align: center; */
   /* border: 1px solid black; */
-  height: 58px;
+  height: 57px;
   color: var(--green5);
-  border-bottom: 1px solid var(--green2);
+  border-bottom: 1px solid var(--green3);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -191,5 +194,10 @@ const RecommendItem = styled.div`
   font-size: 16px;
   line-height: 19px;
   min-width: 36px;
+  box-sizing: border-box;
   padding: 15px 30px;
+
+  img {
+    padding: 0 40px 0 30px;
+  }
 `;

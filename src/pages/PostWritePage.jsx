@@ -2,9 +2,9 @@ import React from 'react'
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components'
-import PointModal from '../components/PointModal'
 import { addPost } from '../api/post';
 import { useCookies } from 'react-cookie';
+import PointModal from './../components/CustomFinishPage/PointModal';
 
 function PostWritePage() {
   const [cookie,setCookie] = useCookies(['refresh']);
