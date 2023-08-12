@@ -2,11 +2,25 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Modal } from '../common/component/Modal';
+import { useState } from 'react';
 
 const MyPageUserData = ({ lang,data }) => {
+    const [showModal, setShowModal] = useState(false);
+    const [fof, setFof] = useState("followerList");
+
+    const clickHandler = (modalData) => {
+        setShowModal(true);
+        setFof(modalData);
+    }
+    const hideModalHandler = () => {
+        setShowModal(false);
+    }
+    const fofToggle = () => {
+        fof==="followerList" ? setFof("followingList") : setFof("followerList");
+    }
     return (
         <div>
-            <Modal></Modal>
+            {showModal && <Modal onClose={hideModalHandler} onToggle={fofToggle} data={data[fof]} title={fof}/> }
             <HeaderSection>
                 <span>{'Mypage'}</span>
                 <span>{lang.greeting}</span>
@@ -33,13 +47,12 @@ const MyPageUserData = ({ lang,data }) => {
                         <UserItemResult>{data.postList.length}</UserItemResult>
                     </div>
                     <div className='box-3'>
-                       
-                        <div >
+                        <div onClick={()=>clickHandler("followerList")}>
                             <UserItem>{'팔로워'}</UserItem>
                             <UserItemResult>{data.followerList.length}</UserItemResult>
                         </div>
                         <hr/>
-                        <div>
+                        <div onClick={()=>clickHandler("followingList")}>
                             <UserItem>{'팔로우'}</UserItem>
                             <UserItemResult>{data.followingList.length}</UserItemResult>
                         </div>
