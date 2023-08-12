@@ -1,21 +1,12 @@
 import axios from "axios";
 
+export const getProfile = async (userId) => {
+  console.log(userId);
 
-// export const myPage = async ({userId, actoken}) => {
-//   try {
-//     const res = await ourAxios.get(`/api/user/profile/${userId}`)
-
-export const getProfile = async ({userId}) => {
-  console.log(userId)
-  try {
-    const res = await axios.get(`/api/user/profile/3`)
+    const res = await axios.get(`/api/user/profile/${userId}`)
 
     console.log(res);
 
-    return res;
+    return res.data.body;
 
-  } catch (error) {
-    console.error("myPage api error", error);
-    throw error;
-  }
 }

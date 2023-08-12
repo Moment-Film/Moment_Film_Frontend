@@ -19,6 +19,8 @@ import CustomMakePage from './pages/CustomMakePage';
 import CustomFinishPage from './pages/CustomFinishPage';
 import PostWritePage from './pages/PostWritePage';
 import PrivateRoute from './layout/PrivateRoute'
+import RedirectPage from './pages/RedirectPage';
+
 function App() {
   return (
     <>
@@ -40,6 +42,7 @@ function App() {
         <Route path="/search" element={<SearchPage />} />
         <Route path="/searchreseult" element={<SearchReseultpage />} />
         <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/api/user/kakao/login" element={<RedirectPage />} />
         <Route element={<PrivateRoute />}>
           <Route path='/camera/capture/finish/write' element={<PostWritePage />} />
         </Route>

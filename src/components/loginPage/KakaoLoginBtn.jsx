@@ -21,20 +21,20 @@ const KakaoLoginBtn = ({width, height}) => {
 
     const navigate = useNavigate();
 
-     const mutation = useMutation(socialLogin, {
+  /*    const mutation = useMutation(socialLogin, {
         onSuccess: (response) => {
             navigate('/')
         },
         onError: (error)=>{
             console.log("에러")
         }
-    }) 
+    })  */
 
 
     const handleLogin =()=>{
         window.location.href=kakaoURL;
         const social='kakao';
-        mutation.mutate({keyword,social}); 
+       /*  mutation.mutate({keyword,social});  */
     }
 
     useEffect(()=>{
