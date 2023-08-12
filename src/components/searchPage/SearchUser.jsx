@@ -1,50 +1,45 @@
-import React from "react";
+import React, { useCallback } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router";
 import { useQuery } from "react-query";
 import { useState } from "react";
+import { debounce } from "lodash";
 import { searchUser } from "../../api/searchUser";
 import * as S from "../common/styles/StyledSpan";
-import { useSelector } from "react-redux";
 import { popularUser } from "../../api/popularUser";
 
 import upperArr from "../assets/icons/upperArr.svg";
 import search from "../assets/icons/searchIcon.svg";
 
 const SearchUser = () => {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [username, setUsername] = useState("");
 
   const navigate = useNavigate();
 
   const searchTermHandler = (event) => {
-    setSearchTerm(event.target.value);
+    setUsername(event.target.value);
   };
 
-  const actoken = useSelector((state) => state.AccessToken.accessToken);
+  const debouncedSearch = useCallback(debounce(searchTermHandler, 300), []);
+
+  const { data: popularUserData } = useQuery("popularUser", () =>
+    popularUser()
+  );
+
   const {
-    data: popularUserData,
-    isLoading: isPopularUserLoading,
-    isError: isPopularUserError,
-    error: popularUserError,
-  } = useQuery("popularUser", () => popularUser({ actoken }), {
-    enabled: !!actoken,
+    data: searchUserData,
+    isLoading,
+    isError,
+    error,
+  } = useQuery(["searchUser", username], 
+  () => searchUser({ username }), 
+  {
+    enabled: username !== "",
   });
 
-  if (isPopularUserLoading) {
-    alert("인기 사용자를 불러오고 있습니다!");
-  } else if (isPopularUserError) {
-    alert(`인기 사용자 로딩 중 오류 발생: ${popularUserError.message}`);
-  } else {
-    console.log(popularUserData);
+  if (searchUserData && searchUserData.body && searchUserData.body[0]) {
   }
-
-  const { data, isLoading, isError, error } = useQuery(
-    ["searchUser", searchTerm],
-    () => searchUser({ username: searchTerm }),
-    {
-      enabled: searchTerm !== "", // searchTerm이 비어있지 않을 때만 쿼리를 수행합니다.
-    }
-  );
+    console.log(searchUserData);
 
   const searchBtnHandler = () => {
     if (isLoading) {
@@ -52,8 +47,7 @@ const SearchUser = () => {
     } else if (isError) {
       alert(`에러가 발생했습니다 : ${error.message}`);
     } else {
-      console.log(data);
-      navigate("/searchresult");
+    navigate(`/search/reseult/${username}`, { state: { searchData: searchUserData } });
     }
   };
 
@@ -67,7 +61,7 @@ const SearchUser = () => {
               justifyContent: "center",
               color: "#2E4D07",
               marginBottom: "35px",
-              lineHeight:'24px',
+              lineHeight: "24px",
             }}
           >
             무엇을 도와드릴까요?
@@ -75,7 +69,7 @@ const SearchUser = () => {
 
           <SearchInputDiv>
             <input
-              onChange={searchTermHandler}
+              onChange={debouncedSearch}
               placeholder="검색어를 입력해 주세요."
             />
             <div onClick={searchBtnHandler}>
@@ -96,7 +90,9 @@ const SearchUser = () => {
                       <div>크리에이터 {item.username}</div>
                     </div>
                     <div style={{ display: "flex" }}>
-                      <div style={{lineHeight:'28px'}}>팔로워 {item.follower}명</div>
+                      <div style={{ lineHeight: "28px" }}>
+                        팔로워 {item.follower}명
+                      </div>
                       <div>
                         <img src={upperArr} alt="" />
                       </div>
@@ -105,13 +101,6 @@ const SearchUser = () => {
                 );
               })}
           </RecommendSection>
-
-          {/* <S.StyledBoldSpan20>나에게 맞는 크리에이터 보기</S.StyledBoldSpan20>
-        <RecommendSection>
-          {posts.map((item) => {
-            return <Img src={item.images} alt="" />;
-          })}
-        </RecommendSection> */}
         </Wrap>
       </SearchSection>
     </SearchWrap>
@@ -124,7 +113,7 @@ const SearchWrap = styled.div`
   width: 1170px;
   background: #fff;
   margin: auto;
-`
+`;
 
 const SearchSection = styled.div`
   display: flex;
@@ -138,9 +127,6 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   width: 790px;
-
-  /* gap: 42pt; */
-
   @media only screen and (max-width: 900px) {
     width: 80%;
   }
@@ -181,16 +167,12 @@ const RecommendSection = styled.div`
 `;
 
 const RecommendItem = styled.div`
-  /*  flex:auto; */
-  /* text-align: center; */
-  /* border: 1px solid black; */
   height: 57px;
   color: var(--green5);
   border-bottom: 1px solid var(--green3);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* padding: 2px; */
   font-size: 16px;
   line-height: 19px;
   min-width: 36px;

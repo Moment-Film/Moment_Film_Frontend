@@ -11,8 +11,8 @@ export const StyledMiddleInput = styled.input`
   width: 461px;
   height: 50px;
   border: none;
-  border-bottom: 2px solid black;
-  background-color: var(--whiteGray);
+  border-bottom: 2px solid var(--green5);
+  background-color: #FBFCF9;
   padding-left: 20px;
   outline: none;
 

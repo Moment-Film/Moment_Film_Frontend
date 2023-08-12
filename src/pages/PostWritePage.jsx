@@ -2,15 +2,16 @@ import React from 'react'
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components'
-import { addPost } from '../api/post';
+// import { addPost } from '../api/post';
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
+// import PointModal from './../components/CustomFinishPage/PointModal';
 
 function PostWritePage() {
   const [cookie,setCookie] = useCookies(['refresh']);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [showModal, setShowModal] = useState(false);
+  // const [showModal, setShowModal] = useState(false);
   const resultImg = useSelector((state) => state.ResultImage);
   const objectUrl = URL.createObjectURL(resultImg);
   const accessToken = useSelector((state)=>state.AccessToken.accessToken);
@@ -82,7 +83,7 @@ function PostWritePage() {
           </InputSection>
         </WriteForm>
       </WriteBody>
-      { showModal && <PointModal />}
+      {/* { showModal && <PointModal />} */}
     </ViewBody>
   )
 }
