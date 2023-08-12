@@ -130,7 +130,7 @@ function CustomDetail() {
         <CommentInputArea>
           <CommentInputDiv>
             <input placeholder="댓글을 입력해 주세요" />
-            <img src={commentEnter} alt="commentEnter"></img>
+            <img onClick={()=>{}} src={commentEnter} alt="commentEnter"></img>
           </CommentInputDiv>
         </CommentInputArea>
           { data.commentList.length >0 &&
