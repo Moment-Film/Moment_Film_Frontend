@@ -24,35 +24,37 @@ import RedirectPage from './pages/RedirectPage';
 function App() {
   return (
     <>
-    <Globalstyles/>
-    <Routes>
-      {/* 안스르륵 */}
-      <Route path='/' element={<PageLayout />}>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path='/postlist/:id' element={<CustomPostPage />} />
-        <Route path='/post/:id' element={<CustomDetail />} />
-        <Route path='/camera/frameSelect' element={<FrameSelectPage />} />
-        <Route path='/camera/capture' element={<CameraPage />} />
-        <Route path='/camera/capture/option' element={<CameraOptionPage />} />
-        <Route path='/camera/capture/filter' element={<FilterPage />} />
-        <Route path='/camera/capture/frame' element={<CustomMakePage />} />
-        <Route path='/camera/capture/finish' element={<CustomFinishPage />} />
-        <Route path="/search" element={<SearchPage />} />
-        <Route path="/search/reseult/:id" element={<SearchReseultpage />} />
-        <Route path="/signup" element={<SignUpPage />} />
-        <Route path="/api/user/kakao/login" element={<RedirectPage />} />
-        <Route element={<PrivateRoute />}>
-        <Route path="/profile/:id" element={<MyPage />} />
-          <Route path='/camera/capture/finish/write' element={<PostWritePage />} />
+      <Globalstyles />
+      <Routes>
+        {/* 안스르륵 */}
+        <Route path='/' element={<PageLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path='/postlist/:id' element={<CustomPostPage />} />
+          <Route path='/post/:id' element={<CustomDetail />} />
+          <Route path='/camera/frameSelect' element={<FrameSelectPage />} />
+          <Route path='/camera/capture' element={<CameraPage />} />
+          <Route path='/camera/capture/option' element={<CameraOptionPage />} />
+          <Route path='/camera/capture/filter' element={<FilterPage />} />
+          <Route path='/camera/capture/frame' element={<CustomMakePage />} />
+          <Route path='/camera/capture/finish' element={<CustomFinishPage />} />
+          <Route path="/search" element={<SearchPage />} />
+          <Route path="/search/reseult/:id" element={<SearchReseultpage />} />
+          <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/api/user/kakao/login" element={<RedirectPage />} />
+          
+          {/* private Router */}
+          <Route element={<PrivateRoute />}>
+            <Route path="/profile/:id" element={<MyPage />} />
+            <Route path='/camera/capture/finish/write' element={<PostWritePage />} />
+          </Route>
         </Route>
-      </Route>
 
-    {/* 스르륵 */}
-      <Route path='/camera' element={<CamPageLayout />}>
-      </Route>
-      
-    </Routes>
+        {/* 스르륵 */}
+        <Route path='/camera' element={<CamPageLayout />}>
+        </Route>
+
+      </Routes>
     </>
   );
 }

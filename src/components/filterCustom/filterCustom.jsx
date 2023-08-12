@@ -42,9 +42,10 @@ const FilterCustom = () => {
 
     try {
       const card = picRef.current;
-      domtoimage.toBlob(card).then((blob) => {
-        dispatch(SetResultImage(blob));
-        saveAs(blob, "card.png");
+      domtoimage.toBlob(card).then((imageFile) => {
+        dispatch(SetResultImage(imageFile));
+        console.log(imageFile);
+        saveAs(imageFile, "card.png");
         navigate(`/camera/capture/finish`);
       });
     } catch (error) {

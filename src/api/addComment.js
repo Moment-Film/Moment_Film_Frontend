@@ -1,10 +1,16 @@
-import ourAxios from './ourAxios';
+import axios from 'axios';
 
-export const addComment = async ({postId, content}) => {
+export const addComment = async ({postId,accessToken, refreshToken,content}) => {
+  console.log(postId,content)
   try {
-    const res = await ourAxios.post(`/api/post/${postId}/comment`, {
-      content,
+    const res = await axios.post(`/api/post/${postId}/comment`,content,
+    {
+      headers: {
+        accessToken: accessToken,
+        refreshToken: refreshToken,
+      }
     });
+ 
     console.log(res);
     return res.data;
   } catch (error) {

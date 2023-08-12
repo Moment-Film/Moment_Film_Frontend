@@ -2,9 +2,10 @@ import React from 'react'
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components'
-// import { addPost } from '../api/post';
+ import { addPost } from '../api/post';
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
+import ex from '../components/assets/images/ex.png'
 // import PointModal from './../components/CustomFinishPage/PointModal';
 
 function PostWritePage() {
@@ -13,7 +14,9 @@ function PostWritePage() {
   const [content, setContent] = useState("");
   // const [showModal, setShowModal] = useState(false);
   const resultImg = useSelector((state) => state.ResultImage);
+
   const objectUrl = URL.createObjectURL(resultImg);
+  console.log(typeof(resultImg));
   const accessToken = useSelector((state)=>state.AccessToken.accessToken);
   const writerInfo = useSelector((state)=> state.UserInfo);
 
@@ -21,26 +24,18 @@ function PostWritePage() {
     const formData = new FormData();
 
     const jsonData = {
-      title : title,
-      contents : content
+      title : "asdasd",
+      contents : "asdads"
     };
 
-    formData.append("imageFile", resultImg);
-
-    formData.append("data", JSON.stringify(jsonData));
-
-    const response = await axios.post("/api/post", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data", // FormData의 Content-Type
-        accessToken:"Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwidXNlcm5hbWUiOiJhc2Rhc2Rhc2QiLCJlbWFpbCI6ImZpbm9zMzcwM0BuYXZlci5jb20iLCJleHAiOjE2OTE4Mzk4NzQsImlhdCI6MTY5MTgxODI3NH0.sCWWf2_JB1NRYq4NTrvtQJALVYcY1x8vmQ0NQlywB5s",
-        refreshToken:"Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwidXNlcm5hbWUiOiJhc2Rhc2Rhc2QiLCJlbWFpbCI6ImZpbm9zMzcwM0BuYXZlci5jb20iLCJleHAiOjE2OTE4NTk1MTgsImlhdCI6MTY5MTgxNjMxOH0.znFUdkP7tKOIUjRvm1K-3LA--jDGu5jj3XT0P7KQkWI"
-      }
-    });
-  
-    console.log("Response:", response.data);
+    // 이슈 블롭객체를 전송하려다 에러가 발생 서버에서는 파일객체를 지정했었음 타입을 잘 blob과 파일 객체에 대한 이해 필요
+    const file = new File([resultImg], 'test.jpg', { type: 'image/jpeg' });
+    formData.append("imageFile", file);
+    formData.append("data", new Blob([JSON.stringify(jsonData)], { type: "application/json" }))
  
-/*     await addPost(accessToken, cookie.refresh, formData);
-    setShowModal(true); */
+ 
+    await addPost(accessToken, cookie.refresh, formData);
+/*     setShowModal(true); */
   }
 
   return (
