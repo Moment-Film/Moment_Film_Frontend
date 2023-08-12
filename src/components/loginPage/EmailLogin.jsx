@@ -32,7 +32,9 @@ const EmailLogin = () => {
     const mutation = useMutation(ELogin, {
         onSuccess: async (response) => {
             if (response.status === 200) {
+                console.log(response);
                 const ACToken=response.headers.accesstoken;
+  
                 await dispatch(SetAccessToken(ACToken))
                 setCookie('refresh',response.headers.refreshtoken);
 
@@ -43,6 +45,8 @@ const EmailLogin = () => {
                 const decodedPayload = JSON.parse(base64.decode(jwtPayload));
                 console.log(decodedPayload);
                 dispatch(SetUserInfo(decodedPayload))
+                console.log('ac',ACToken)
+                console.log('rc',cookie)
                 /* navigate('/'); */
 
             }

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Modal } from '../common/component/Modal';
 
-const MyPageUserData = ({ lang }) => {
+const MyPageUserData = ({ lang,data }) => {
     return (
         <div>
             <Modal></Modal>
@@ -19,7 +19,7 @@ const MyPageUserData = ({ lang }) => {
                 </UserProfileSection>
 
                 <UserDataSection>
-                    <Span>{'김헛둘'}{' 님'}</Span>
+                    <Span>{data.username}{' 님'}</Span>
 
                     {/* 다른이용자면 box-1가리고  */}
                     <div className='box-1'>
@@ -30,18 +30,18 @@ const MyPageUserData = ({ lang }) => {
                     <div className='box-2'>
                         <UserItem>{'게시물 수'}</UserItem>
                         <hr />
-                        <UserItemResult>200</UserItemResult>
+                        <UserItemResult>{data.postList.length}</UserItemResult>
                     </div>
                     <div className='box-3'>
                        
                         <div >
                             <UserItem>{'팔로워'}</UserItem>
-                            <UserItemResult>3000000</UserItemResult>
+                            <UserItemResult>{data.followerList.length}</UserItemResult>
                         </div>
                         <hr/>
                         <div>
                             <UserItem>{'팔로우'}</UserItem>
-                            <UserItemResult>4</UserItemResult>
+                            <UserItemResult>{data.followingList.length}</UserItemResult>
                         </div>
                     </div>
 
