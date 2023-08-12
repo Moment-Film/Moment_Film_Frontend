@@ -1,13 +1,26 @@
 import { React, useEffect, useState } from 'react'
 import InfiniteScroll from '../common/component/InfinityScroll'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { StyledBoldSpan42 } from '../common/styles/StyledSpan'
+import { useParams } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import { getAllPosts } from '../../api/post'
 
 function Post() {
-  // const [getPosts, setGetPosts] = useState([]);
-  const a = [1, 2, 3, 4];
-  const [sortType, setSortType] = useState(null);
+  const a=[1,2,3,4];
+  const params = useParams();
+  const navigate=useNavigate();
+  console.log(params.id);
+  let sort='';
+
+  if(params.id==='view' || params.id==='likes' ||params.id==='recent') sort = params.id;
+  else alert("없는페이지로 보내자 ")
+
+  const [pageNum, setPageNum] = useState(0);
+  //정렬값에 맞는 포스트를 가져올 리엑트 쿼리 
+  const { isLoading, isError, data, isSuccess } = useQuery(`post${params.id}${pageNum}`, () => getAllPosts(sort));
+
 
   useEffect(() => {
     // setGetPosts(getAllPosts());
@@ -56,20 +69,20 @@ function Post() {
             <div>
               정렬방식
             </div>
-            <div onClick={()=>setSortType(null)}>
+            <div onClick={()=>navigate('/postlist/recent')}>
               최신순
             </div>
-            <div onClick={()=>setSortType("likes")}>
+            <div onClick={()=>navigate("/postlist/likes")}>
               인기순
             </div>
-            <div onClick={()=>setSortType("view")}>
+            <div onClick={()=>navigate("/postlist/view")}>
               조회순
             </div>
           </SortItem>
         </PostNav>
 
         <PostWrapper>
-          <InfiniteScroll sortType={sortType}/>
+          <InfiniteScroll data={data}/>
         </PostWrapper>
 
       </PostPage>

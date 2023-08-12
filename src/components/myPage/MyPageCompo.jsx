@@ -27,9 +27,9 @@ const MyPageCompo = () => {
         return <div>Loading...</div>; // 또는 로딩 컴포넌트를 사용
     }
 
-/*     if (isError) {
+    if (isError) {
         return <div>Error loading data</div>; // 에러 처리
-    } */
+    }
 
     return (
         <MyPageSection>

@@ -1,10 +1,18 @@
-import ourAxios from './ourAxios';
+import axios from "axios";
 
-export const likePost = async ({postId}) => {
+export const likePost = async ( postId ,ACToken ,REToken ) => {
     try {
-        const res = await ourAxios.post(`/api/post/${postId}/like`);
+        const res = await axios.post(`/api/post/${postId}/likes`,null,
+            {
+                headers: {
+                    accessToken: ACToken,
+                    refreshToken: REToken
+                },
+            }
+        );
         console.log(res);
         return res.data;
+
     } catch (error) {
         console.error("likePost api error", error);
         throw error;

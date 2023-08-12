@@ -5,10 +5,13 @@ import commentEnter from '../components/assets/icons/commentEnter.png'
 import Replay_comment from '../components/assets/icons/replay_comment.png'
 import KakaoShareBtn from "../components/common/component/KakaoShareBtn"
 import UrlShare from "../components/common/component/UrlShare"
-import { useEffect } from "react"
 import { useParams } from "react-router"
 import { getPostDetail } from "../api/post"
 import { useQuery } from "react-query"
+import { likePost } from "../api/likePost"
+import { useSelector } from "react-redux";
+import { useCookies } from 'react-cookie';
+import { FolllowAPI } from "../api/snsUser"
 
 function CustomDetail() {
   const param = useParams();
@@ -17,10 +20,18 @@ function CustomDetail() {
   const[selectFilter,setSelectFilter]=useState(false);
   const {data,isLoading,isError}=useQuery(`Detail${param.id}`,()=>getPostDetail(param.id));
   console.log(data);
-  useEffect(()=>{
-    setPostDetail(getPostDetail(param.id));
-  },[]);
 
+  const [cookie,setCookie] = useCookies(['refresh']);
+  const ACToken = useSelector((state) => state.AccessToken.accessToken);
+ 
+  const postLikeHandler=()=>{
+    console.log("whgkdyd")
+    likePost(param.id,ACToken,cookie.refresh)
+  }
+
+  const FollowHandler=()=>{
+    FolllowAPI(data.id,ACToken,cookie.refresh)
+  }
 
 
   // const commentList = [
@@ -106,9 +117,10 @@ function CustomDetail() {
             <Action>
               <S.StyledSpan14>좋아요 수</S.StyledSpan14>
               <S.StyledSpan14>{data.likeCount}개</S.StyledSpan14>
-              <S.StyledSpan14>하트</S.StyledSpan14>
+              <S.StyledSpan14 onClick={postLikeHandler}>하트</S.StyledSpan14>
               <KakaoShareBtn></KakaoShareBtn>
               <UrlShare></UrlShare>
+              <button onClick={FollowHandler}>팔로우</button>
             </Action>
           </PostAction>
 
@@ -203,7 +215,7 @@ const DetailPost = styled.div`
   padding:30px;
 `
 const Detail = styled.div`
-  min-height:210px;
+/*   min-height:210px; */
 `
 const VeiwCount = styled.div`
   margin-left:auto;

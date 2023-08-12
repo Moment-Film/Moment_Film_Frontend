@@ -20,7 +20,6 @@ const KakaoLoginBtn = ({width, height}) => {
     console.log(code1===keyword);
 
     const navigate = useNavigate();
-
   /*    const mutation = useMutation(socialLogin, {
         onSuccess: (response) => {
             navigate('/')

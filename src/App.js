@@ -30,7 +30,7 @@ function App() {
       <Route path='/' element={<PageLayout />}>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path='/post' element={<CustomPostPage />} />
+        <Route path='/postlist/:id' element={<CustomPostPage />} />
         <Route path='/post/:id' element={<CustomDetail />} />
         <Route path='/camera/frameSelect' element={<FrameSelectPage />} />
         <Route path='/camera/capture' element={<CameraPage />} />
