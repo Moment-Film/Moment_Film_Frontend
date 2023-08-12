@@ -1,56 +1,172 @@
 import { useState } from "react";
 import styled from "styled-components";
+import searchIcon from '../../assets/icons/searchIcon.svg'
 
-export const Modal = () => {
-    const[stateModal,setStateMdoal]=useState(true);
+export const Modal = ({onClose, onToggle, data, title}) => {
+    const deleteFollower = (id) => {
 
-    const CloseModalHandler =()=>{
-        setStateMdoal(false)
     }
     return (
         <div>
-            <OutLayer state={stateModal} ></OutLayer>
-            <Modalsection state={stateModal}>
+            <Modalsection >
                 <Contents>
-                    <span>
-                        모달인데 
-                    </span>
-                    <BtnContainer>
-                        <button onClick={CloseModalHandler}>닫기</button>
+                    <ContentHeader data={title}>
+                        <HeaderTitle onClick={onToggle} $type={title==="followerList"}>팔로우</HeaderTitle>
+                        <HeaderTitle onClick={onToggle} $type={title==="followingList"}>팔로잉</HeaderTitle>
+                    </ContentHeader>
+                    <SearchSection>
+                        <input type="text" placeholder="검색" />
+                        <img src={searchIcon} alt=""/>
+                    </SearchSection>
+                    <ListHeader>
+                        <span>모든 {title==="followerList" ? "팔로우" : "팔로잉" }</span>
+                        <span>{data.length} 명</span>
+
+                    </ListHeader>
+                    <ListSection>
+                        {data.length > 0 && data.map((follow)=>{
+                            return (
+                            <FollowListItem key={follow.id}>
+                                <div>
+                                    <img src={null} alt=""/>
+                                    <span>{follow.username}</span>
+                                </div>
+                                <div>
+                                    <button onClick={()=>deleteFollower(follow.id)}>삭제</button>
+                                </div>
+                            </FollowListItem>
+                        )})}
+                        {data.length===0 &&
+                        <div>{title==="followerList" ? "팔로워가" : "팔로잉 중인 사람이" } 없습니다.</div>}</ListSection>
+                    {/* <BtnContainer>
+                        <button onClick={onClose}>닫기</button>
                         <button>확인</button>
-                    </BtnContainer>
+                    </BtnContainer> */}
                 </Contents>
             </Modalsection>
+            <OutLayer onClick={onClose}/>
         </div>
     )
 }
 
 const Modalsection = styled.div`
-
-    display:${props => props.state ? 'block' : 'none'};
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     position:fixed;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
 
-    border-radius: 12px;
+    border-radius: 5px;
     box-sizing: border-box;
 
-    padding: 24px;
-    background-color: rgb(200, 200, 200);
+    padding: 23px;
+    background-color: white;
+    z-index: 51;
+    width: 400px;
+    height: 400px;
 
-    width: 500px;
-    height: 300px;
-   z-index:${props => props.state ? 1 : -1};
-
-   overflow:scroll;
+   // overflow:scroll;
 `
-
 const Contents = styled.div`
+    width: 100%;
     display:flex;
     flex-direction:column;
-    height: 100%;
     justify-content:space-between;
+`
+const ContentHeader = styled.div`
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 43px;
+    margin-bottom: 19px;
+`
+const HeaderTitle = styled.div`
+    text-align: center;
+    line-height: 40px;
+    font-size: 15px;
+    color: var(--green5);
+    cursor: pointer;
+    width: 50%;
+    border-bottom: ${props => props.$type ? '2px solid var(--green5)' : 'none'} ;
+`
+const SearchSection = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 48px;
+    background-color: var(--green1);
+    border-radius: 5px 5px 0 0;
+    border-bottom: 2px solid var(--green4);
+    padding: 15px;
+    box-sizing: border-box;
+    margin-bottom: 23px;
+
+    input {
+        font-family: 'Pretendard-Regular';
+        background: none;
+        border: none;
+        outline: none;
+        width: 80%;
+        font-size: 16px;
+        color: var(--green5);
+        &::placeholder {
+            font-family: 'Pretendard-Regular';
+            color: var(--green5);
+        }
+    }
+`
+const ListHeader = styled.div`
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 18px;
+    line-height: 18px;
+    font-size: 15px;
+    color: var(--green5);
+    padding-bottom: 5px;
+    border-bottom: 2px solid var(--green4);
+`
+const ListSection = styled.div`
+    width: 100%;
+    height: 185px;
+    overflow-y: scroll;
+    padding-top: 10px;
+`
+const FollowListItem = styled.div`
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 61px;
+    border-bottom: 1px solid var(--whiteGray);
+    justify-content: space-between;
+
+    div {
+        display: flex;
+        align-items: center;
+        
+        img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: var(--lightGray);
+            margin-right: 15px;
+        }
+        button{
+            width: 45px;
+            height: 25px;
+            border-radius: 5px;
+            background-color: var(--green1);
+            border: 1px solid var(--green5);
+            color: var(--green5);
+            margin-right: 20px;
+        }
+    }
+
+    
+    
 `
 const BtnContainer = styled.div`
     display:flex;
@@ -62,8 +178,7 @@ const OutLayer = styled.div`
     /* border: 1px solid red; */
     height: 100vh;
     width: 100vw;
-    z-index:${props => props.state ? 1 : -1};
     top:0;
-    background-color:#ffff;
-    opacity:0.5;
+    background-color: rgba(0,0,0,0.05);
+    z-index: 50;
 `

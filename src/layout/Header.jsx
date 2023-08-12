@@ -11,6 +11,8 @@ function Header() {
   const language = useSelector((state)=>state.Language.language)
   const dispatch = useDispatch();
 
+  const userInfo = useSelector((state)=> state.UserInfo)
+
   return (
     <HeaderSection>
       <HeaderTitle>
@@ -32,7 +34,7 @@ function Header() {
 
       <LinkBox>
         <Btn onClick={() => navigate(`/search`)}>🔍</Btn>
-        <Btn onClick={() => navigate(`/mypage`)}>ᕙ༼◕ ᴥ ◕༽ᕗ</Btn>
+        <Btn onClick={() => navigate(`/profile/${userInfo.sub}`)}>ᕙ༼◕ ᴥ ◕༽ᕗ</Btn>
       </LinkBox>
     </HeaderSection>
 

@@ -164,7 +164,8 @@ const FrameCustomMake = () => {
                     ref={frameImgRef}
                   />
                   <a.UploadLabel>
-                    {uploadedImg ? (
+                    {uploadedImg 
+                    ? (
                       <>
                         <a.UploadedImg color="var(--green5)">
                           {uploadedImg}
@@ -173,7 +174,8 @@ const FrameCustomMake = () => {
                           x
                         </a.ImgDeleteBtn>
                       </>
-                    ) : (
+                    ) 
+                    : (
                       <>
                         <a.UploadedImg color="var(--gray)">
                           이미지 불러오기

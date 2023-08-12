@@ -32,7 +32,6 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path='/postlist/:id' element={<CustomPostPage />} />
         <Route path='/post/:id' element={<CustomDetail />} />
-        <Route path="/mypage" element={<MyPage />} />
         <Route path='/camera/frameSelect' element={<FrameSelectPage />} />
         <Route path='/camera/capture' element={<CameraPage />} />
         <Route path='/camera/capture/option' element={<CameraOptionPage />} />
@@ -40,10 +39,11 @@ function App() {
         <Route path='/camera/capture/frame' element={<CustomMakePage />} />
         <Route path='/camera/capture/finish' element={<CustomFinishPage />} />
         <Route path="/search" element={<SearchPage />} />
-        <Route path="/searchreseult" element={<SearchReseultpage />} />
+        <Route path="/search/reseult/:id" element={<SearchReseultpage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/api/user/kakao/login" element={<RedirectPage />} />
         <Route element={<PrivateRoute />}>
+        <Route path="/profile/:id" element={<MyPage />} />
           <Route path='/camera/capture/finish/write' element={<PostWritePage />} />
         </Route>
       </Route>

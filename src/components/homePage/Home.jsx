@@ -2,7 +2,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import StyledButton from "../common/component/StyledButton";
-import { useSelector } from "react-redux";
 import homeImg from "../assets/images/home_bgImg.png";
 
 const Homepage = () => {

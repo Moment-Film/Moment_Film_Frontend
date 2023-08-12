@@ -9,12 +9,12 @@ import { useState } from 'react';
 import PaginationComponent from '../common/component/PageNation';
 import { useQuery } from 'react-query';
 import { getProfile } from '../../api/myPage';
-
+import { useParams } from 'react-router-dom';
 
 const MyPageCompo = () => {
 
-    const user = useSelector((state) => state.UserInfo);
-    const userId= user.sub;
+    const userId = useParams().id;
+
     console.log(userId);
     const {data,isLoading,isError} = useQuery(`User${userId}`,()=>getProfile(userId))
     console.log(data);
