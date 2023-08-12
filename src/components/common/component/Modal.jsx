@@ -1,10 +1,15 @@
 import { useState } from "react";
 import styled from "styled-components";
 import searchIcon from '../../assets/icons/searchIcon.svg'
+import { useSelector } from "react-redux";
+import { useCookies } from "react-cookie";
+import { FolllowAPI } from "../../../api/snsUser";
 
 export const Modal = ({onClose, onToggle, data, title}) => {
+    const access = useSelector((state)=>state.AccessToken.accessToken);
+    const [cookie] = useCookies(['refresh']);
     const deleteFollower = (id) => {
-
+        FolllowAPI(id,access,cookie);
     }
     return (
         <div>
@@ -32,16 +37,16 @@ export const Modal = ({onClose, onToggle, data, title}) => {
                                     <span>{follow.username}</span>
                                 </div>
                                 <div>
-                                    <button onClick={()=>deleteFollower(follow.id)}>삭제</button>
+                                    {title==="followingList" &&
+                                    <button onClick={()=>deleteFollower(follow.id)}>
+                                        언팔로우
+                                    </button>
+                                    }
                                 </div>
                             </FollowListItem>
                         )})}
                         {data.length===0 &&
                         <div>{title==="followerList" ? "팔로워가" : "팔로잉 중인 사람이" } 없습니다.</div>}</ListSection>
-                    {/* <BtnContainer>
-                        <button onClick={onClose}>닫기</button>
-                        <button>확인</button>
-                    </BtnContainer> */}
                 </Contents>
             </Modalsection>
             <OutLayer onClick={onClose}/>
@@ -155,13 +160,13 @@ const FollowListItem = styled.div`
             margin-right: 15px;
         }
         button{
-            width: 45px;
             height: 25px;
             border-radius: 5px;
             background-color: var(--green1);
             border: 1px solid var(--green5);
             color: var(--green5);
             margin-right: 20px;
+            padding: 0 10px;
         }
     }
 
