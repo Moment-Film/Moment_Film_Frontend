@@ -140,6 +140,7 @@ useEffect(()=>{
       <CommentSection>
         <CommentInputArea>
           <CommentInputDiv>
+
             <input 
             placeholder="댓글을 입력해 주세요"
             value={commemt}
@@ -148,6 +149,7 @@ useEffect(()=>{
             <img src={commentEnter} alt="commentEnter"
               onClick={AddComment}
             ></img>
+
           </CommentInputDiv>
         </CommentInputArea>
           { commentList &&
