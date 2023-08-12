@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { useSelector,useDispatch } from "react-redux";
 import { SetLanguage } from "../redux/modules/Language";
 import LogoutBtn from "../components/common/component/LogoutBtn";
+import WithdrawalBtn from "../components/common/component/WithdrawalBtn";
+
 function Header() {
   const navigate = useNavigate();
 
@@ -20,6 +22,7 @@ function Header() {
         <Btn onClick={() => navigate(`/signup`)}>Sign Up</Btn>
         <Btn onClick={() => navigate(`/login`)}>Log In</Btn>
         <LogoutBtn></LogoutBtn>
+        <WithdrawalBtn></WithdrawalBtn>
         <Btn onClick={() => navigate(`/post`)}>Post</Btn>
         <Btn onClick={() => navigate(`/post/1`)}>PostDetail</Btn>
         <Btn onClick={() => navigate(`/camera/frameSelect`)}>⚠️📸⚠️</Btn>

@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import PointModal from '../components/PointModal'
 import { addPost } from '../api/post';
 import { useCookies } from 'react-cookie';
+import axios from 'axios';
 
 function PostWritePage() {
   const [cookie,setCookie] = useCookies(['refresh']);
@@ -16,19 +17,30 @@ function PostWritePage() {
   const accessToken = useSelector((state)=>state.AccessToken.accessToken);
   const writerInfo = useSelector((state)=> state.UserInfo);
 
-  const onSubmitHandler = () => {
-    const newPost = new FormData();
-    const datas = {
-      title,
-      contents : content
-    }
+  const onSubmitHandler = async() => {
+    const formData = new FormData();
 
+    const jsonData = {
+      title: "title",
+      contents: "content"
+    };
 
-    newPost.append('imageFile', resultImg);
-    newPost.append('data', datas);
+    formData.append("imageFile", resultImg);
 
-    addPost(accessToken, cookie.refresh, newPost);
-    setShowModal(true);
+    formData.append("data", JSON.stringify(jsonData));
+
+    const response = await axios.post("/api/post", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data", // FormData의 Content-Type
+        accessToken:"Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwidXNlcm5hbWUiOiJhc2Rhc2Rhc2QiLCJlbWFpbCI6ImZpbm9zMzcwM0BuYXZlci5jb20iLCJleHAiOjE2OTE4Mzk4NzQsImlhdCI6MTY5MTgxODI3NH0.sCWWf2_JB1NRYq4NTrvtQJALVYcY1x8vmQ0NQlywB5s",
+        refreshToken:"Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwidXNlcm5hbWUiOiJhc2Rhc2Rhc2QiLCJlbWFpbCI6ImZpbm9zMzcwM0BuYXZlci5jb20iLCJleHAiOjE2OTE4NTk1MTgsImlhdCI6MTY5MTgxNjMxOH0.znFUdkP7tKOIUjRvm1K-3LA--jDGu5jj3XT0P7KQkWI"
+      }
+    });
+  
+    console.log("Response:", response.data);
+ 
+/*     await addPost(accessToken, cookie.refresh, formData);
+    setShowModal(true); */
   }
 
   return (

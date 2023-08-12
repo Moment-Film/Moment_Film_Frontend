@@ -13,22 +13,19 @@ export const getPostSort = async({sort}) => {
 }
 export const getPostDetail = async(postId) => {
   const response = await axios.get(`/api/post/${postId}`);
-  return response;
+  return response.data.body;
 }
 export const deletePost = async(postId) => {
   await axios.delete(`/api/post/${postId}`);
 }
-export const addPost = async(accessToken, refreshToken,newPost)=>{
-  console.log({
-    acc : accessToken,
-    refresh : refreshToken,
-    data: newPost,
-  })
+
+export const addPost = async(accessToken, refreshToken,formData)=>{
   try {
-    await axios.post(`/api/post`,newPost, {
+    await axios.post(`/api/post`,formData,{
       headers : {
-        'accessToken' : accessToken,
-        'refreshToken' : refreshToken,
+        "Content-Type": "multipart/form-data",
+        accessToken: accessToken,
+        refreshToken: refreshToken,
       }
     });
     console.log("POST SUCCESS!!!!!!!!");

@@ -8,16 +8,20 @@ import UrlShare from "../components/common/component/UrlShare"
 import { useEffect } from "react"
 import { useParams } from "react-router"
 import { getPostDetail } from "../api/post"
+import { useQuery } from "react-query"
 
 function CustomDetail() {
   const param = useParams();
   const [postDetail, setPostDetail] = useState();
   const[selectFrame,setSelectFrame]=useState(false);
   const[selectFilter,setSelectFilter]=useState(false);
-
+  const {data,isLoading,isError}=useQuery(`Detail${param.id}`,()=>getPostDetail(param.id));
+  console.log(data);
   useEffect(()=>{
     setPostDetail(getPostDetail(param.id));
   },[]);
+
+
 
   // const commentList = [
   //   {
@@ -47,6 +51,7 @@ function CustomDetail() {
   //     commentId: 3, content: "이 필터 최고네요 ^^b", username: "야옹이", createdAt: "2023-08-10", replyList: []
   //   },
   // ]
+
   const [isReplyShow, setIsReplyShow] = useState([null]);
   const showReplyHandler = (commentId) => {
     const newList = isReplyShow.includes(commentId) // 받은 댓글ID가 SHOW 배열에 존재하는지  
@@ -55,7 +60,14 @@ function CustomDetail() {
     
     setIsReplyShow(newList); // 설정 
   }
+  
+  if(isLoading){
+    return<div>aa</div>
+  }
 
+  if(isError){
+    return<div>aa</div>
+  }
 
   return (
     <div style={{backgroundColor: "var(--whiteGray)"}}>
@@ -65,17 +77,17 @@ function CustomDetail() {
       </DetailHeader>
       <DetailContents>
         <FrameSection>
-          <img src={postDetail.image} alt="" />
+          <img src={data.image} alt="" />
         </FrameSection>
 
         <DetailPost>
           <VeiwCount><S.StyledSpan14>veiw</S.StyledSpan14></VeiwCount>
-          <S.StyledSpan14>작성날짜 {postDetail.createdAt} </S.StyledSpan14>
-          <S.StyledBoldSpan24>{postDetail.title}</S.StyledBoldSpan24>
-          <S.StyledSpan18>● {postDetail.username} 님</S.StyledSpan18>
+          <S.StyledSpan14>작성날짜 {data.createdAt} </S.StyledSpan14>
+          <S.StyledBoldSpan24>{data.title}</S.StyledBoldSpan24>
+          <S.StyledSpan18>● {data.username} 님</S.StyledSpan18>
 
           <Detail>
-            <S.StyledSpan16>{postDetail.contents}</S.StyledSpan16>
+            <S.StyledSpan16>{data.contents}</S.StyledSpan16>
           </Detail>
 
           <OptionSection>
@@ -93,7 +105,7 @@ function CustomDetail() {
           <PostAction>
             <Action>
               <S.StyledSpan14>좋아요 수</S.StyledSpan14>
-              <S.StyledSpan14>{postDetail.likeCount}개</S.StyledSpan14>
+              <S.StyledSpan14>{data.likeCount}개</S.StyledSpan14>
               <S.StyledSpan14>하트</S.StyledSpan14>
               <KakaoShareBtn></KakaoShareBtn>
               <UrlShare></UrlShare>
@@ -109,8 +121,8 @@ function CustomDetail() {
             <img src={commentEnter} alt="commentEnter"></img>
           </CommentInputDiv>
         </CommentInputArea>
-          { postDetail.commentList.length >0 &&
-            postDetail.commentList.map((comment)=>(
+          { data.commentList.length >0 &&
+            data.commentList.map((comment)=>(
               <CommentContainer key={comment.commentId}>
                 <CommentsDetail>
                   <CommentCard>
