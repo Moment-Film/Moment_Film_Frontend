@@ -32,10 +32,7 @@ const SearchUser = () => {
     isError,
     error,
   } = useQuery(["searchUser", username], 
-  () => searchUser({ username }), 
-  {
-    enabled: username !== "",
-  });
+  () => searchUser({ username }));
 
   if (searchUserData && searchUserData.body && searchUserData.body[0]) {
   }
