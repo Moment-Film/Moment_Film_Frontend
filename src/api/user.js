@@ -16,4 +16,12 @@ export const register = async ({username, password, email, phone}) => {
         throw error;
     }
 };
-
+export const getPrivateInfo = async ({access, refresh}) => {
+    const res = await axios.get(`/api/user/info`,{
+        headers: {
+            accessToken: access,
+            refreshToken: refresh,
+        }
+    });
+    return res;
+}
