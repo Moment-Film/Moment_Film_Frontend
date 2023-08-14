@@ -132,6 +132,7 @@ function CustomDetail() {
   }
 
   return (
+
     <div style={{ backgroundColor: "var(--whiteGray)" }}>
       <DetailSection>
         <DetailHeader>
@@ -193,6 +194,7 @@ function CustomDetail() {
           {commentList &&
             commentList.map((comment) => (
               <CommentContainer key={comment.id}>
+
                 <CommentsDetail>
                   <CommentCard>
                     <ProfilePic><img src="https://pbs.twimg.com/media/Fi3MBQvaMAAMymZ.jpg" alt="" /></ProfilePic>
