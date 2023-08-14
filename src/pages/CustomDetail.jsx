@@ -13,7 +13,7 @@ import { useSelector } from "react-redux";
 import { useCookies } from 'react-cookie';
 import { FolllowAPI } from "../api/snsUser"
 import { useEffect } from "react"
-import { addComment } from "../api/addComment"
+import { addComment,addReply, delComment } from "../api/addComment"
 import { useMutation } from "react-query"
 import { useQueryClient } from "react-query"
 
@@ -22,36 +22,46 @@ function CustomDetail() {
   const param = useParams();
   const queryClient = useQueryClient();
 
-
   const [commentList, setCommentList] = useState();
-  const[selectFrame,setSelectFrame]=useState(false);
-  const[selectFilter,setSelectFilter]=useState(false);
-  const {data,isLoading,isError, isSuccess}=useQuery(`Detail${param.id}`,()=>getPostDetail(param.id));
-  const[commemt,setComment]=useState(null);
+  const [selectFrame, setSelectFrame] = useState(false);
+  const [selectFilter, setSelectFilter] = useState(false);
+  const { data, isLoading, isError, isSuccess } = useQuery(`Detail${param.id}`, () => getPostDetail(param.id));
+  const [commemt, setComment] = useState(null);
+  const [recomment,setRecomment]=useState(null);
   console.log(data);
-useEffect(()=>{
-  if(isSuccess){
-    setCommentList(data.commentList);
-  }
-},[])
 
-  const [cookie,setCookie] = useCookies(['refresh']);
+  useEffect(() => {
+    if (isSuccess) {
+      setCommentList(data.commentList);
+    }
+  }, [data])
+
+  const [cookie, setCookie] = useCookies(['refresh']);
   const ACToken = useSelector((state) => state.AccessToken.accessToken);
- 
-  const postLikeHandler=()=>{
-    likePost(param.id,ACToken,cookie.refresh)
+
+  const accessToken = ACToken
+  const refreshToken = cookie.refresh
+
+  const postLikeHandler = () => {
+    likePost(param.id, ACToken, cookie.refresh)
   }
 
-  const FollowHandler=()=>{
-    FolllowAPI(data.id,ACToken,cookie.refresh)
+  const FollowHandler = () => {
+    FolllowAPI(data.id, ACToken, cookie.refresh)
   }
 
-  const CommentInput=(e)=>{
+  const CommentInput = (e) => {
     setComment(e.target.value);
   }
-  const mutation = useMutation(addComment, {
+
+  const InputReply= (e) =>{
+   setRecomment(e.target.value);
+  }
+
+  const CommentMutation = useMutation(addComment, {
     onSuccess: (response) => {
-      if (response.data.success) {
+      console.log(response)
+      if (response.status==='CREATED') {
         queryClient.invalidateQueries(`Detail${param.id}`)
       }
     },
@@ -59,115 +69,154 @@ useEffect(()=>{
       alert('에러');
     }
   })
-  const AddComment=()=>{
-    const content={
-      content:commemt
+ 
+  const AddComment = () => {
+    const content = {
+      content: commemt
     }
-    const postId=data.id
-    const accessToken=ACToken
-    const refreshToken=cookie.refresh
+    const postId = data.id
 
-    mutation.mutate({postId,accessToken,refreshToken,content});
+
+    CommentMutation.mutate({ postId, accessToken, refreshToken, content });
+  }
+
+  const ReplyMutation = useMutation(addReply, {
+    onSuccess: (response) => {
+      console.log(response)
+      if (response.status==='CREATED') {
+        queryClient.invalidateQueries(`Detail${param.id}`)
+      }
+    },
+    onError: (error) => {
+      alert('에러');
+    }
+  })
+
+  const AddReply= (commentId) =>{
+    ReplyMutation.mutate({ commentId, accessToken, refreshToken, recomment });
   }
 
 
+  const DelCommentMutation = useMutation(delComment, {
+    onSuccess: (response) => {
+      console.log(response)
+      if (response.status==='OK') {
+        queryClient.invalidateQueries(`Detail${param.id}`)
+      }
+    },
+    onError: (error) => {
+      alert('에러');
+    }
+  })
 
-
+  const DeleteComment= (commentId) =>{
+    const postId= param.id;
+    DelCommentMutation.mutate({ commentId, accessToken, refreshToken, postId });
+  }
 
   const [isReplyShow, setIsReplyShow] = useState([null]);
   const showReplyHandler = (commentId) => {
     const newList = isReplyShow.includes(commentId) // 받은 댓글ID가 SHOW 배열에 존재하는지  
-    ? isReplyShow.filter((item)=> item !== commentId)  // 존재하면 해당 댓글빼고 리턴 
-    : [ ... isReplyShow, commentId ] ; // 존재하지않으면 추가 
-    
+      ? isReplyShow.filter((item) => item !== commentId)  // 존재하면 해당 댓글빼고 리턴 
+      : [...isReplyShow, commentId]; // 존재하지않으면 추가 
+
     setIsReplyShow(newList); // 설정 
   }
-  
-  if(isLoading){
-    return<div>aa</div>
+
+  if (isLoading) {
+    return <div>aa</div>
   }
 
-  if(isError){
-    return<div>aa</div>
+  if (isError) {
+    return <div>aa</div>
   }
 
   return (
-    <div style={{backgroundColor: "var(--whiteGray)"}}>
-    <DetailSection>
-      <DetailHeader>
-        <S.StyledBoldSpan28>Detail Page</S.StyledBoldSpan28>
-      </DetailHeader>
-      <DetailContents>
-        <FrameSection>
-          <img src={data.image} alt="" />
-        </FrameSection>
+    <div style={{ backgroundColor: "var(--whiteGray)" }}>
+      <DetailSection>
+        <DetailHeader>
+          <S.StyledBoldSpan28>Detail Page</S.StyledBoldSpan28>
+        </DetailHeader>
+        <DetailContents>
+          <FrameSection>
+            <img src={data.image} alt="" />
+          </FrameSection>
 
-        <DetailPost>
-          <VeiwCount><S.StyledSpan14>veiw</S.StyledSpan14></VeiwCount>
-          <S.StyledSpan14>작성날짜 {data.createdAt} </S.StyledSpan14>
-          <S.StyledBoldSpan24>{data.title}</S.StyledBoldSpan24>
-          <S.StyledSpan18>● {data.username} 님</S.StyledSpan18>
+          <DetailPost>
+            <VeiwCount><S.StyledSpan14>veiw</S.StyledSpan14></VeiwCount>
+            <S.StyledSpan14>작성날짜 {data.createdAt} </S.StyledSpan14>
+            <S.StyledBoldSpan24>{data.title}</S.StyledBoldSpan24>
+            <S.StyledSpan18>● {data.username} 님</S.StyledSpan18>
 
-          <Detail>
-            <S.StyledSpan16>{data.contents}</S.StyledSpan16>
-          </Detail>
+            <Detail>
+              <S.StyledSpan16>{data.contents}</S.StyledSpan16>
+            </Detail>
 
-          <OptionSection>
-            <CheckBox $bg={selectFrame} onMouseDown={()=>setSelectFrame(!selectFrame)}>
-              <span >프레임 사용하기</span>
-              <input type="checkbox" value={selectFrame} checked={selectFrame} />
-            </CheckBox>
-            <CheckBox $bg={selectFilter} onMouseDown={()=>setSelectFilter(!selectFilter)}>
-              <span >필터 사용하기</span>
-              <input type="checkbox" value={selectFilter} checked={selectFilter}/>
-            </CheckBox>
-            <button>사용해보기</button>
-          </OptionSection>
+            <OptionSection>
+              <CheckBox $bg={selectFrame} onMouseDown={() => setSelectFrame(!selectFrame)}>
+                <span >프레임 사용하기</span>
+                <input type="checkbox" value={selectFrame} checked={selectFrame} />
+              </CheckBox>
+              <CheckBox $bg={selectFilter} onMouseDown={() => setSelectFilter(!selectFilter)}>
+                <span >필터 사용하기</span>
+                <input type="checkbox" value={selectFilter} checked={selectFilter} />
+              </CheckBox>
+              <button>사용해보기</button>
+            </OptionSection>
 
-          <PostAction>
-            <Action>
-              <S.StyledSpan14>좋아요 수</S.StyledSpan14>
-              <S.StyledSpan14>{data.likeCount}개</S.StyledSpan14>
-              <S.StyledSpan14 onClick={postLikeHandler}>하트</S.StyledSpan14>
-              <KakaoShareBtn></KakaoShareBtn>
-              <UrlShare></UrlShare>
-              <button onClick={FollowHandler}>팔로우</button>
-            </Action>
-          </PostAction>
+            <PostAction>
+              <Action>
+                <S.StyledSpan14>좋아요 수</S.StyledSpan14>
+                <S.StyledSpan14>{data.likeCount}개</S.StyledSpan14>
+                <S.StyledSpan14 onClick={postLikeHandler}>하트</S.StyledSpan14>
+                <KakaoShareBtn></KakaoShareBtn>
+                <UrlShare></UrlShare>
+                <button onClick={FollowHandler}>팔로우</button>
+              </Action>
+            </PostAction>
 
-        </DetailPost>
-      </DetailContents>
-      <CommentSection>
-        <CommentInputArea>
-          <CommentInputDiv>
-            <input 
-            placeholder="댓글을 입력해 주세요"
-            value={commemt}
-            onChange={CommentInput}
-            />
-            <img src={commentEnter} alt="commentEnter"
-              onClick={AddComment}
-            ></img>
-          </CommentInputDiv>
-        </CommentInputArea>
-          { commentList &&
-            commentList.map((comment)=>(
-              <CommentContainer key={comment.commentId}>
+          </DetailPost>
+        </DetailContents>
+        <CommentSection>
+          <CommentInputArea>
+            <CommentInputDiv>
+              <input
+                placeholder="댓글을 입력해 주세요"
+                value={commemt}
+                onChange={CommentInput}
+              />
+              <img src={commentEnter} alt="commentEnter"
+                onClick={AddComment}
+              ></img>
+            </CommentInputDiv>
+          </CommentInputArea>
+          {commentList &&
+            commentList.map((comment) => (
+              <CommentContainer key={comment.id}>
                 <CommentsDetail>
                   <CommentCard>
                     <ProfilePic><img src="https://pbs.twimg.com/media/Fi3MBQvaMAAMymZ.jpg" alt="" /></ProfilePic>
                     <CommentMain>
                       <div>{comment.username}</div>
                       <div>{comment.content}</div>
-                      { comment.replyList> 0 &&
-                        <button onClick={()=>showReplyHandler(comment.commentId)}>
-                          { isReplyShow.includes(comment.commentId) ? "대댓글 닫기" : "대댓글 보기" }
+                     
+                      <input placeholder="대댓글 작성"
+                      value={recomment}
+                      onChange={InputReply} 
+                      />
+                      <button onClick={()=>AddReply(comment.id)}>입력</button>
+                     
+                      {comment.subComments.length > 0 &&
+                        <button onClick={() => showReplyHandler(comment.id)}>
+                          {isReplyShow.includes(comment.id) ? "대댓글 닫기" : "대댓글 보기"}
                         </button>
                       }
+
+                      <button onClick={()=>DeleteComment(comment.id)}>댓글삭제</button>
                     </CommentMain>
                   </CommentCard>
                 </CommentsDetail>
-                { isReplyShow.includes(comment.commentId) && comment.replyList.map((reply)=>(
+                {isReplyShow.includes(comment.id) && comment.subComments.map((reply) => (
                   <ReplayComment key={reply.replyId}>
                     <CommentsDetail>
                       <img src={Replay_comment} alt="" />
@@ -183,9 +232,9 @@ useEffect(()=>{
                 ))}
               </CommentContainer>
             ))}
-      </CommentSection>
-    </DetailSection>
-  </div>
+        </CommentSection>
+      </DetailSection>
+    </div>
   )
 }
 

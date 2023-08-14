@@ -4,9 +4,8 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components'
  import { addPost } from '../api/post';
 import { useCookies } from 'react-cookie';
-import axios from 'axios';
-import ex from '../components/assets/images/ex.png'
-// import PointModal from './../components/CustomFinishPage/PointModal';
+import { addFrame } from '../api/post';
+import { addFilter } from '../api/post';
 
 function PostWritePage() {
   const [cookie,setCookie] = useCookies(['refresh']);
@@ -19,22 +18,47 @@ function PostWritePage() {
   console.log(typeof(resultImg));
   const accessToken = useSelector((state)=>state.AccessToken.accessToken);
   const writerInfo = useSelector((state)=> state.UserInfo);
-
+  const filterInfo =useSelector((state)=>state.Filter)  
+  console.log(filterInfo)
   const onSubmitHandler = async() => {
-    const formData = new FormData();
 
-    const jsonData = {
+    ////////////////////////////////////////////////////
+    // 게시글등록을 위한 폼데이터 생성 
+    const PostForm = new FormData();
+
+    const PostData = {
       title : "asdasd",
       contents : "asdads"
     };
 
     // 이슈 블롭객체를 전송하려다 에러가 발생 서버에서는 파일객체를 지정했었음 타입을 잘 blob과 파일 객체에 대한 이해 필요
-    const file = new File([resultImg], 'test.jpg', { type: 'image/jpeg' });
-    formData.append("imageFile", file);
-    formData.append("data", new Blob([JSON.stringify(jsonData)], { type: "application/json" }))
+    const PostFile = new File([resultImg], 'test.jpg', { type: 'image/jpeg' });
+    PostForm.append("imageFile", PostFile);
+    PostForm.append("data", new Blob([JSON.stringify(PostData)], { type: "application/json" }))
  
  
-    await addPost(accessToken, cookie.refresh, formData);
+    ////////////////////////////////////////////////////
+    //프레임 등록을 위한 폼데이터 생성
+    
+    const FrameForm = new FormData();
+
+    const FrameData = {
+      frameName: "asdasd"
+    };
+
+    // 이슈 블롭객체를 전송하려다 에러가 발생 서버에서는 파일객체를 지정했었음 타입을 잘 blob과 파일 객체에 대한 이해 필요
+    const FrameFile = new File([resultImg], 'test.jpg', { type: 'image/jpeg' });
+    FrameForm.append("frame", FrameFile);
+    FrameForm.append("name", new Blob([JSON.stringify(FrameData)], { type: "application/json" }))
+
+    
+    
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+    //적용
+    await addFilter(accessToken, cookie.refresh, filterInfo);
+    await addFrame(accessToken, cookie.refresh, FrameForm);
+    await addPost(accessToken, cookie.refresh, PostForm);
 /*     setShowModal(true); */
   }
 
