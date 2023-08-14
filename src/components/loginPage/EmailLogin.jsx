@@ -8,14 +8,13 @@ import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import StyledButton from "../common/component/StyledButton";
 import * as L from "../common/styles/StyledLink";
-import * as I from "../common/styles/StyledInput";
 import { useCookies } from "react-cookie";
 
 import base64 from "base-64";
 import { SetUserInfo } from "../../redux/modules/User";
 import right_arrow from "../assets/images/right_arrow.png";
-
-import useRefreshToken from '../../hooks/useRefreshToken';
+import inputDelete from "../assets/icons/inputDelete.svg";
+// import useRefreshToken from "../../hooks/useRefreshToken";
 
 const EmailLogin = () => {
   const navigate = useNavigate();
@@ -27,6 +26,8 @@ const EmailLogin = () => {
     password,
     emailError,
     passwordError,
+    eMailDeleteHandler,
+    passwordDeleteHandler,
     handleEmailChange,
     handlePasswordChange,
   } = useInputValidation();
@@ -67,45 +68,53 @@ const EmailLogin = () => {
   return (
     <StyledForm>
       <InputSection>
-        <>
         <LinkBox>
           <L.StyledLink14 to={"/signup"}>
             {"회원가입하기"}
             <img src={right_arrow} alt=""></img>
           </L.StyledLink14>
         </LinkBox>
-        <I.StyledShortInput
-          placeholder={"아이디(이메일)"}
-          value={email}
-          onChange={handleEmailChange}
-          type={"email"}
-          width={"50%"}
-        />
-        {/* <ValidateResult>
-          {emailError === "" ? <br /> : emailError}
-        </ValidateResult> */}
 
-        <I.StyledShortInput
-          placeholder={"비밀번호"}
-          value={password}
-          onChange={handlePasswordChange}
-          type={"password"}
-          width={"80%"}
-        />
-        </>
-        {/* <ValidateResult>
-          {passwordError === "" ? <br /> : passwordError}
-        </ValidateResult> */}
+        <InputWrap>
+          <AddressInput
+            placeholder={"아이디(이메일)"}
+            value={email}
+            onChange={handleEmailChange}
+            type={"email"}
+          />
+          <img onClick={eMailDeleteHandler} src={inputDelete} alt="" />
+        </InputWrap>
+
+        <InputWrap>
+          <AddressInput
+            placeholder={"비밀번호"}
+            value={password}
+            onChange={handlePasswordChange}
+            type={"password"}
+          />
+          <img onClick={passwordDeleteHandler} src={inputDelete} alt="" />
+        </InputWrap>
       </InputSection>
-{<ValidateResult>
-  존재하지 않는 아이디나 비밀번호입니다.
-</ValidateResult>}
-      <StyledButton
-        func={LoginHandler}
-        title={"로그인"}
-        width={"350px"}
-        height={"45px"}
-      />
+      <div
+        style={{
+          width: "70%",
+          marginBottom: "25px",
+        }}
+      >
+        {
+          <ValidateResult>
+            존재하지 않는 아이디나 비밀번호입니다.
+          </ValidateResult>
+        }
+      </div>
+      <div style={{ width: "370px", marginBottom: "24px" }}>
+        <StyledButton
+          func={LoginHandler}
+          title={"로그인"}
+          width={"97%"}
+          height={"45px"}
+        />
+      </div>
 
       <FindInfoSection>
         <div>{"아이디를 잊으셨나요?"}</div>
@@ -123,8 +132,6 @@ const StyledForm = styled.form`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  gap: 20px;
-  margin-top: 50px;
 `;
 
 const InputSection = styled.section`
@@ -133,22 +140,33 @@ const InputSection = styled.section`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-`;
-
-const StyledInput = styled.input`
-  width: 380px;
-  height: 60px;
-  font-size: 20px;
-  background-color: rgba(248, 248, 248, 1);
-  border: none;
-  border-bottom: 2px solid black;
-  outline: none;
+  margin-bottom: 22px;
 `;
 
 const LinkBox = styled.div`
   margin-left: auto;
 `;
 
+const InputWrap = styled.div`
+  width: 100%;
+  height: 60px;
+  font-size: 20px;
+  background-color: rgb(251, 252, 249);
+  border: none;
+  border-bottom: 2px solid var(--green5);
+  outline: none;
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 19px 18px;
+`;
+
+const AddressInput = styled.input`
+  font-size: 16px;
+  line-height: 18px;
+  background: none;
+  border: none;
+`;
 const FindInfoSection = styled.section`
   display: flex;
   gap: 15px;
@@ -164,9 +182,7 @@ const FindInfoSection = styled.section`
 
 const ValidateResult = styled.div`
   font-size: 16px;
-  padding: 5px 0 5px 10px;
+  /* padding: 5px 0 5px 10px; */
   margin-bottom: 5px;
   color: rgba(252, 91, 112, 1);
-  display: flex;
-  justify-content: flex-start;
 `;
