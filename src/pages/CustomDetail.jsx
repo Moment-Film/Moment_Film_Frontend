@@ -7,16 +7,17 @@ import Replay_comment from "../components/assets/icons/replay_comment.png";
 import KakaoShareBtn from "../components/common/component/KakaoShareBtn";
 import UrlShare from "../components/common/component/UrlShare";
 import { useParams } from "react-router";
-import { getPostDetail } from "../api/post";
+import { getPostDetail, deletePost } from "../api/post";
 import { useQuery } from "react-query";
 import { likePost } from "../api/likePost";
 import { useSelector } from "react-redux";
 import { useCookies } from "react-cookie";
 import { FolllowAPI } from "../api/snsUser";
 import { useEffect } from "react";
-import { addComment, addReply, delComment } from "../api/addComment";
+import { addComment, addReply, delComment, delReply } from "../api/addComment";
 import { useMutation } from "react-query";
 import { useQueryClient } from "react-query";
+import { useNavigate } from "react-router-dom";
 
 function CustomDetail() {
   const param = useParams();

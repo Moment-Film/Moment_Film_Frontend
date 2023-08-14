@@ -6,6 +6,7 @@ import { getPrivateInfo, putEditInfo } from "../../api/user";
 import { useQuery } from "react-query";
 import { useState } from "react";
 import { useRef } from "react";
+import { useEffect } from "react";
 
 function ProfileEdit() {
   const [isEdit, setIsEdit] = useState(false);
@@ -18,14 +19,17 @@ function ProfileEdit() {
   const refresh = cookie.refresh;
   const { data, isLoading, isError, isSuccess } = useQuery(`Private${userInfo.username}`, () => getPrivateInfo({access,refresh}));
 
-  isSuccess && console.log("Success");
-
   const [editProfile, setEditProfile] = useState({
-    username : userInfo?.username,
-    phone : isSuccess && data.data.data.phone,
+    username : "",
+    phone : "",
   });
 
-  console.log(data);
+  useEffect(()=>{
+    if(isSuccess){
+      setEditProfile({['phone'] : data.data.data.phone, ['username'] : data.data.data.username});
+    }
+  },[data])
+  
   const UploadPic = (e) => {
     const input = e.target;
     if(input.files && input.files[0]){
