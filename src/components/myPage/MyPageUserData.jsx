@@ -23,7 +23,7 @@ const MyPageUserData = ({ lang,data }) => {
             {showModal && <Modal onClose={hideModalHandler} onToggle={fofToggle} data={data[fof]} title={fof}/> }
             <HeaderSection>
                 <span>{'Mypage'}</span>
-                <span>{lang.greeting}</span>
+                <span>{data.username}{lang.greeting}</span>
             </HeaderSection>
 
             <UserInfoSection>
