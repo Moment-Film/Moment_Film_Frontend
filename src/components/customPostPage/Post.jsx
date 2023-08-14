@@ -20,7 +20,7 @@ function Post() {
   const [pageNum, setPageNum] = useState(0);
   //정렬값에 맞는 포스트를 가져올 리엑트 쿼리 
   const { isLoading, isError, data, isSuccess } = useQuery(`post${params.id}${pageNum}`, () => getAllPosts(sort));
-
+  console.log(data);
 
   useEffect(() => {
     // setGetPosts(getAllPosts());

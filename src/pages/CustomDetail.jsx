@@ -1,3 +1,4 @@
+
 import { React, useState } from "react";
 import styled from "styled-components";
 import * as S from "../components/common/styles/StyledSpan";
@@ -24,15 +25,15 @@ function CustomDetail() {
   const [selectFrame, setSelectFrame] = useState(false);
   const [selectFilter, setSelectFilter] = useState(false);
 
+  const { data, isLoading, isError, isSuccess } = useQuery(`Detail${param.id}`, () => getPostDetail(param.id));
   const [comment, setComment] = useState(null);
   const [commentList, setCommentList] = useState();
-  const [recomment, setRecomment] = useState(null);
+  const [recomment,setRecomment]=useState({});
 
-  const { data, isLoading, isError, isSuccess } = useQuery(
-    `Detail${param.id}`,
-    () => getPostDetail(param.id)
-  );
   console.log(data);
+
+  const navigate=useNavigate();
+
 
   useEffect(() => {
     if (isSuccess) {
@@ -55,13 +56,19 @@ function CustomDetail() {
     FolllowAPI(data.id, ACToken, cookie.refresh);
   };
 
+  const deleteHandler = () => {
+    deletePost(data.id,ACToken, cookie.refresh)
+  }
+
   const CommentInput = (e) => {
     setComment(e.target.value);
   };
 
-  const InputReply = (e) => {
-    setRecomment(e.target.value);
-  };
+
+  const InputReply= (e,id) =>{
+   setRecomment({...recomment,[id]:e.target.value});
+  }
+
 
   const CommentMutation = useMutation(addComment, {
     onSuccess: (response) => {
@@ -77,9 +84,11 @@ function CustomDetail() {
 
   const AddComment = () => {
     const content = {
-      content: comment,
-    };
-    const postId = data.id;
+
+      content: comment
+    }
+    const postId = data.id
+
 
     CommentMutation.mutate({ postId, accessToken, refreshToken, content });
     setComment("");
@@ -97,9 +106,11 @@ function CustomDetail() {
     },
   });
 
-  const AddReply = (commentId) => {
-    ReplyMutation.mutate({ commentId, accessToken, refreshToken, recomment });
-  };
+
+  const AddReply= (commentId) =>{
+    const replay=recomment[commentId]
+    ReplyMutation.mutate({ commentId, accessToken, refreshToken, replay });
+  }
 
   const DelCommentMutation = useMutation(delComment, {
     onSuccess: (response) => {
@@ -118,6 +129,24 @@ function CustomDetail() {
     DelCommentMutation.mutate({ commentId, accessToken, refreshToken, postId });
   };
 
+  const DelReplyMutation = useMutation(delReply, {
+    onSuccess: (response) => {
+      console.log(response)
+      if (response.status==='OK') {
+        queryClient.invalidateQueries(`Detail${param.id}`)
+      }
+    },
+    onError: (error) => {
+      alert('에러');
+    }
+  })
+
+  const DeleteReply= (commentId, replyId) =>{
+    console.log(replyId)
+    const postId= param.id;
+    DelReplyMutation.mutate({ commentId, accessToken, refreshToken, postId ,replyId});
+  }
+
   const [isReplyShow, setIsReplyShow] = useState([null]);
   const showReplyHandler = (commentId) => {
     const newList = isReplyShow.includes(commentId) // 받은 댓글ID가 SHOW 배열에 존재하는지
@@ -132,7 +161,9 @@ function CustomDetail() {
   }
 
   if (isError) {
-    return <div>aa</div>;
+
+    alert("다시 시도해주세요")
+    return navigate('/');
   }
 
   return (
@@ -192,6 +223,7 @@ function CustomDetail() {
                 <KakaoShareBtn></KakaoShareBtn>
                 <UrlShare></UrlShare>
                 <button onClick={FollowHandler}>팔로우</button>
+                <button onClick={deleteHandler}>게시글 삭제</button>
               </Action>
             </PostAction>
           </DetailPost>
@@ -225,11 +257,10 @@ function CustomDetail() {
                     <CommentMain>
                       <div>{comment.username}</div>
                       <div>{comment.content}</div>
-
-                      <input
-                        placeholder="대댓글 작성"
-                        value={recomment}
-                        onChange={InputReply}
+    
+                      <input placeholder="대댓글 작성"
+                      value={recomment[comment.id]}
+                      onChange={(e)=>InputReply(e,comment.id)} 
                       />
                       <button onClick={() => AddReply(comment.id)}>입력</button>
 
@@ -247,26 +278,22 @@ function CustomDetail() {
                     </CommentMain>
                   </CommentCard>
                 </CommentsDetail>
-                {isReplyShow.includes(comment.id) &&
-                  comment.subComments.map((reply) => (
-                    <ReplayComment key={reply.replyId}>
-                      <CommentsDetail>
-                        <img src={Replay_comment} alt="" />
-                        <CommentCard>
-                          <ProfilePic>
-                            <img
-                              src="https://pbs.twimg.com/media/Fi3MBQvaMAAMymZ.jpg"
-                              alt=""
-                            />
-                          </ProfilePic>
-                          <CommentMain>
-                            <div>{reply.username}</div>
-                            <div>{reply.content}</div>
-                          </CommentMain>
-                        </CommentCard>
-                      </CommentsDetail>
-                    </ReplayComment>
-                  ))}
+
+                {isReplyShow.includes(comment.id) && comment.subComments.map((reply) => (
+                  <ReplayComment key={reply.id}>
+                    <CommentsDetail>
+                      <img src={Replay_comment} alt="" />
+                      <CommentCard>
+                        <ProfilePic><img src="https://pbs.twimg.com/media/Fi3MBQvaMAAMymZ.jpg" alt="" /></ProfilePic>
+                        <CommentMain>
+                          <div>{reply.username}</div>
+                          <div>{reply.content}</div>
+                        </CommentMain>
+                        <button onClick={()=>DeleteReply(comment.id,reply.id)}>대댓글삭제</button>
+                      </CommentCard>
+                    </CommentsDetail>
+                  </ReplayComment>
+                ))}
               </CommentContainer>
             ))}
         </CommentSection>

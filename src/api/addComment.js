@@ -19,10 +19,10 @@ export const addComment = async ({postId,accessToken, refreshToken,content}) => 
   }
 }
 
-export const addReply = async ({commentId,accessToken, refreshToken,recomment}) => {
-  console.log(commentId,recomment)
+export const addReply = async ({commentId,accessToken, refreshToken,replay}) => {
+  console.log(commentId,replay)
   try {
-    const res = await axios.post(`/api/post/{postId}/comment/${commentId}/subcomment`,{content:recomment},
+    const res = await axios.post(`/api/post/{postId}/comment/${commentId}/subcomment`,{content:replay},
     {
       headers: {
         accessToken: accessToken,
@@ -42,6 +42,25 @@ export const delComment  = async ({commentId,accessToken, refreshToken,postId}) 
   console.log(commentId,postId)
   try {
     const res = await axios.delete(`/api/post/${postId}/comment/${commentId}`,
+    {
+      headers: {
+        accessToken: accessToken,
+        refreshToken: refreshToken,
+      }
+    });
+ 
+    console.log(res);
+    return res.data;
+  } catch (error) {
+    console.error("addComment api error", error);
+    throw error;
+  }
+}
+
+export const delReply  = async ({commentId,accessToken, refreshToken,postId ,replyId}) => {
+  console.log(commentId,postId,replyId)
+  try {
+    const res = await axios.delete(`/api/post/${postId}/comment/${commentId}/subcomment/${replyId}`,
     {
       headers: {
         accessToken: accessToken,

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as a from "./style";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
@@ -36,6 +36,7 @@ const FilterCustom = () => {
   const filterValueHandler = (key, value) => {
     const newValue = { ...filterValue, [key]: value };
     setFilterValue(newValue);
+
   };
 
   const handleDownload = async () => {
