@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Modal } from '../common/component/Modal';
 import { useState } from 'react';
 
 const MyPageUserData = ({ lang,data }) => {
+    const navigate = useNavigate();
     const [showModal, setShowModal] = useState(false);
     const [fof, setFof] = useState("followerList");
 
@@ -34,6 +35,7 @@ const MyPageUserData = ({ lang,data }) => {
 
                 <UserDataSection>
                     <Span>{data.username}{' 님'}</Span>
+                    <button onClick={()=>navigate(`../profile/edit`)}>프로필 수정</button>
 
                     {/* 다른이용자면 box-1가리고  */}
                     <div className='box-1'>
