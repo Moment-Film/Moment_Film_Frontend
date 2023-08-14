@@ -13,6 +13,7 @@ import styled from "styled-components";
 import { saveAs } from "file-saver";
 import domtoimage from "dom-to-image";
 import { SetResultImage } from "../../redux/modules/ResultImage";
+import { SetFilter } from "../../redux/modules/Filter";
 
 const FilterCustom = () => {
   const [frameImg, setFrameImg] = useState(null);
@@ -44,6 +45,7 @@ const FilterCustom = () => {
       const card = picRef.current;
       domtoimage.toBlob(card).then((imageFile) => {
         dispatch(SetResultImage(imageFile));
+        dispatch(SetFilter(filterValue));
         console.log(imageFile);
         saveAs(imageFile, "card.png");
         navigate(`/camera/capture/finish`);

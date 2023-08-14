@@ -8,17 +8,18 @@ import storage from "redux-persist/lib/storage";
 import FrameInfo from '../modules/FrameInfo';
 import ResultImage from '../modules/ResultImage';
 import UserInfo from '../modules/User';
+import Filter from "../modules/Filter";
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["Language", "image","ResultImage","AccessToken",'UserInfo'],
+  whitelist: ["Language", "image","ResultImage","AccessToken",'UserInfo','Filter'],
 
 };
 
 const rootReducer = combineReducers({
     AccessToken,Language,
-    image,FrameInfo,ResultImage,UserInfo
+    image,FrameInfo,ResultImage,UserInfo,Filter
 })
 
 const store = createStore(persistReducer(persistConfig, rootReducer));
