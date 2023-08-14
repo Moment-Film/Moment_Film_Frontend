@@ -2,15 +2,17 @@ import React from 'react'
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components'
- import { addPost } from '../api/post';
+import { addPost } from '../api/post';
 import { useCookies } from 'react-cookie';
 import { addFrame } from '../api/post';
 import { addFilter } from '../api/post';
+import { useNavigate } from 'react-router-dom';
 
 function PostWritePage() {
   const [cookie,setCookie] = useCookies(['refresh']);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const navigate = useNavigate();
   // const [showModal, setShowModal] = useState(false);
   const resultImg = useSelector((state) => state.ResultImage);
 
@@ -60,7 +62,9 @@ function PostWritePage() {
     await addFrame(accessToken, cookie.refresh, FrameForm);
     await addPost(accessToken, cookie.refresh, PostForm);
 /*     setShowModal(true); */
-  }
+  alert("게시글이 등록되었습니다!")
+  navigate("/postlist/recent")
+}
 
   return (
     <ViewBody>
