@@ -80,7 +80,8 @@ export const WithdrawalAPI = async (ACToken, REToken) => {
 
 //팔로우 요청 및 취소 
 export const FolllowAPI = async (userId, ACToken, REToken) => {
-  const response = await axios.post(`/api/follow/${userId}`, null,
+  try{ //팔로우가 되어있지않아서 팔로우할때
+    const response = await axios.post(`/api/follow/${userId}`, null,
     {
       headers: {
         accessToken: ACToken,
@@ -88,31 +89,26 @@ export const FolllowAPI = async (userId, ACToken, REToken) => {
       },
     }
   );
-  
-  //팔로우 성공과 이미 팔로우되어서 안된경우도 200으로옴
-  if (response.status === 200) {
-
-    // 이미 팔로우 한 사용자라면 취소하기
-    if (response.data.msg === "이미 팔로우한 사용자입니다.") {
-      const CancelResponse = await axios.delete(`/api/follow/${userId}`,
-        {
-          headers: {
-            accessToken: ACToken,
-            refreshToken: REToken
-          },
-        }
-      );
-      alert(CancelResponse.data.msg)
-      return CancelResponse;
-    }
-    //팔로우안되어 있을 경우
-    else{
-      alert(response.data.msg)
-      return response;
-    }
+  alert(response.data.msg)
+  return response;
 
   }
-  else
-    alert("로그인 실패한 이유")
+  catch(error){ //팔로우가 이미 되어있어서 팔로우취소할때
+
+    if(error.response.data.msg==='이미 팔로우한 사용자입니다.'){
+      const CancelResponse = await axios.delete(`/api/follow/${userId}`,
+      {
+        headers: {
+          accessToken: ACToken,
+          refreshToken: REToken
+        },
+      }
+    );
+    alert(CancelResponse.data.msg)
+    return CancelResponse;
+    }
+
+    alert(error.response.data)
+  }
 }
 

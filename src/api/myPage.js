@@ -7,6 +7,6 @@ export const getProfile = async (userId) => {
 
     console.log(res);
 
-    return res.data.body;
+    return res.data.data;
 
 }
