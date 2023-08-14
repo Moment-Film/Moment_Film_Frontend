@@ -14,6 +14,8 @@ import { useCookies } from 'react-cookie';
 import base64 from "base-64"
 import { SetUserInfo } from '../../redux/modules/User';
 
+import useRefreshToken from '../../hooks/useRefreshToken';
+
 const EmailLogin = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -28,6 +30,7 @@ const EmailLogin = () => {
             handleEmailChange,
             handlePasswordChange
         } = useInputValidation()
+
 
     const mutation = useMutation(ELogin, {
         onSuccess: async (response) => {
@@ -47,6 +50,14 @@ const EmailLogin = () => {
                 dispatch(SetUserInfo(decodedPayload))
                 console.log('ac',ACToken)
                 console.log('rc',cookie)
+                
+                let date=new Date(decodedPayload.exp)
+                console.log(date)
+                date.setDate(date.getMinutes()+1);
+                //이런느낌으로 재발급요청 API 생기면 보내보자 
+                console.log(date);
+                
+                Re(decodedPayload.exp,100);
                 /* navigate('/'); */
 
             }
@@ -56,6 +67,9 @@ const EmailLogin = () => {
         }
     })
 
+    const Re =()=>{
+        
+    }
     //로그인 버튼 클릭 시  동작 
     const LoginHandler = async (e) => {
         e.preventDefault()
