@@ -11,13 +11,22 @@ function SearchReseultpage() {
   if (!receivedData) {
     return <div>불가능한 접근입니다.</div>;
   }
-  console.log(params)
+  console.log(receivedData);
 
   return (
     <>
-    <div>
-      {`"${params.id}"과 관련된 검색 결과입니다!`}
-    </div>
+      <div>
+        {receivedData.status === "NOT_FOUND" ? (
+          <>"{params.id}"와 관련된 결과가 없습니다.</>
+        ) : (
+          <>"{params.id}"과 관련된 검색 결과입니다!</>
+        )}
+        <>
+          {receivedData.body.map((item, index) => {
+            return (<div key={index}>{item.username}</div>)
+          })}
+        </>
+      </div>
       <InfiniteScroll />
     </>
   );

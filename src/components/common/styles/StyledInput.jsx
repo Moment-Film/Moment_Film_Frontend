@@ -18,11 +18,11 @@ export const StyledMiddleInput = styled.input`
 
 `
 export const StyledShortInput = styled.input`
-width:380px;
+width:100%;
 height:60px;
 font-size: 20px;
 background-color: rgb(251, 252, 249);
 border:none;
-border-bottom:2px solid black;
+border-bottom:2px solid var(--green5);
 outline:none;
 `

@@ -18,6 +18,12 @@ export const StyledLink14 = styled(Link)`
     text-decoration:none;
     text-align:center;
     color: ${(props)=>props.color};
+    display: flex;
+    align-items: center;
+
+    &:visited {
+    color: var(--black);
+}
 `
 
 //---------------------------------------------------------------

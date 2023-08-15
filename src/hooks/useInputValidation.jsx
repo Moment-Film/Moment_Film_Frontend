@@ -95,6 +95,14 @@ const useInputValidation = () => {
           validatePhoneNum(e.target.value);
       };
 
+      const eMailDeleteHandler = () => {
+        setEmail("")
+      }
+
+      const passwordDeleteHandler = () => {
+        setPassword("")
+      }
+
       return {
         userName,
         phoneNum,
@@ -104,6 +112,8 @@ const useInputValidation = () => {
         phoneNumError,
         emailError,
         passwordError,
+        eMailDeleteHandler,
+        passwordDeleteHandler,
         handleEmailChange,
         handlePasswordChange,
         handleUserNameChange,

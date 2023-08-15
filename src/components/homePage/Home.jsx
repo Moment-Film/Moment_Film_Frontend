@@ -18,32 +18,34 @@ const Homepage = () => {
   };
 
   return (
-    <>
-      <FirstContentWrap>
-        <LeftContent>
-          <LeftH $minWidth={"347px"}>Take Your Moment at Best Time</LeftH>
-          <LeftTxt>
-            dummy text 2dummy text 2dummy text 2dummy text 2dummy text 2dummy
-            text 2dummy text 2dummy text 2dummy text 2dummy text 2dummy text
-            2dummy text 2dummy text 2dummy text 2dummy text 2dummy text 2dummy
-            text 2dummy text 2dummy text 2dummy text 2
-          </LeftTxt>
+    <ContentContainor>
+      <FirstAlign>
+        <FirstContentWrap>
+          <LeftContent>
+            <LeftH $minWidth={"347px"}>Take Your Moment at Best Time</LeftH>
+            <LeftTxt>
+              dummy text 2dummy text 2dummy text 2dummy text 2dummy text 2dummy
+              text 2dummy text 2dummy text 2dummy text 2dummy text 2dummy text
+              2dummy text 2dummy text 2dummy text 2dummy text 2dummy text 2dummy
+              text 2dummy text 2dummy text 2dummy text 2
+            </LeftTxt>
 
-          <StyledButton
-            func={camBtnClickHandler}
-            title={"촬영하러 가기"}
-            width={"228px"}
-            height={"72px"}
-            fontSize={"24px"}
-          />
-        </LeftContent>
-        <RightImg src="" />
-      </FirstContentWrap>
-      <SecondContentWrap>
-        <div>
-          <LeftH $maxWidth={"486px"}>Your own Custom Design</LeftH>
+            <StyledButton
+              func={camBtnClickHandler}
+              title={"촬영하러 가기"}
+              width={"228px"}
+              height={"72px"}
+              fontSize={"24px"}
+            />
+          </LeftContent>
+          <RightImg src="" />
+        </FirstContentWrap>
+      </FirstAlign>
+      <SecondAlign>
+        <SecondContentWrap>
+          <div $maxWidth={"486px"}>Your own Custom Design</div>
           <BottomWrap>
-            <LeftContent>
+            <div>
               <div style={{ width: "141px", height: "53px", fontSize: "24px" }}>
                 Custom
               </div>
@@ -59,33 +61,42 @@ const Homepage = () => {
                 width={"228px"}
                 height={"72px"}
                 fontSize={"24px"}
+                style={{ position: "absolute" }}
               />
-            </LeftContent>
+            </div>
             <CardWrap>
               <Card>아무카드</Card>
               <Card>아무카드</Card>
               <Card>아무카드</Card>
             </CardWrap>
           </BottomWrap>
-        </div>
-      </SecondContentWrap>
-    </>
+        </SecondContentWrap>
+      </SecondAlign>
+    </ContentContainor>
   );
 };
 
 export default Homepage;
 
-// const ContentContainor = styled.div`
-//   display: flex;
-//   flex-direction: column;
-// `
+const ContentContainor = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+`;
 
-const FirstContentWrap = styled.div`
+const FirstAlign = styled.div`
+  width: 100%;
   background-image: url(${homeImg});
   background-size: cover;
+  display: flex;
+  justify-content: center;
+`;
+
+const FirstContentWrap = styled.div`
   height: 100vh;
-  width: 100%;
-  height: 20;
+  width: 1170px;
+  height: 20%;
   display: flex;
   justify-content: center;
   padding: 100px 0;
@@ -123,13 +134,22 @@ const RightImg = styled.div`
   margin-bottom: 50px;
 `;
 
+const SecondAlign = styled.div`
+  /* width: 100%; */
+  background-color: #a3e784;
+  display: flex;
+  /* justify-content: center; */
+`;
+
 const SecondContentWrap = styled.div`
   box-sizing: border-box;
-  height: 100vh;
+  width: 1170px;
+
+  height: 20%;
   padding: 370px 20% 0 20%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
   background-color: #a3e784;
 `;
 
