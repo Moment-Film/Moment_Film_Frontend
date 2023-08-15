@@ -162,10 +162,16 @@ const InputWrap = styled.div`
 `;
 
 const AddressInput = styled.input`
+  width: 100%;
   font-size: 16px;
   line-height: 18px;
   background: none;
   border: none;
+
+  &:focus {
+    outline: none;
+    border: none;
+  }
 `;
 const FindInfoSection = styled.section`
   display: flex;
