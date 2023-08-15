@@ -1,6 +1,6 @@
 import { React } from "react"
 import styled from "styled-components"
-import { useParams } from "react-router"
+import { useParams } from "react-router-dom"
 import { getPostDetail } from "../api/post"
 import { useQuery } from "react-query"
 import { useNavigate } from "react-router-dom"
@@ -9,7 +9,6 @@ import Comment from "../components/detailPage/Comment"
 
 function DetailPage() {
 
-  //변수 선언부 
   const param = useParams();
   const navigate = useNavigate();
 
