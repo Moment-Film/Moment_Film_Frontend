@@ -17,7 +17,6 @@ function MyPage() {
 
   // 유저 정보 불러오는 쿼리
   const { data, isLoading, isError } = useQuery(`User${userId}`, () => getProfile(userId))
-
   //언어 변경 
   const language = useSelector((state) => state.Language.language)
 
@@ -35,7 +34,7 @@ function MyPage() {
       <MyPageUserData lang={language === 'ko' ? koData : enData} data={data}></MyPageUserData>
       <Contents>
         <MyPageNav />
-        <PaginationComponent data={a} ItemNums={12} />
+        <PaginationComponent data={data.postList} ItemNums={15} />
       </Contents>
     </MyPageSection>
   );
