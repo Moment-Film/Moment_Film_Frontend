@@ -84,7 +84,7 @@ const SearchUser = () => {
                   <RecommendItem>
                     <div style={{ display: "flex", gap: "20px" }}>
                       <div>{index + 1}위</div>
-                      <div>크리에이터 {item.username}</div>
+                      <div>{item.username}</div>
                     </div>
                     <div style={{ display: "flex" }}>
                       <div style={{ lineHeight: "28px" }}>

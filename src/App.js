@@ -20,6 +20,8 @@ import CustomFinishPage from './pages/CustomFinishPage';
 import PostWritePage from './pages/PostWritePage';
 import PrivateRoute from './layout/PrivateRoute'
 import RedirectPage from './pages/RedirectPage';
+import ProfileEdit from './components/myPage/ProfileEdit';
+
 import Test from './pages/Test';
 function App() {
   return (
@@ -49,6 +51,7 @@ function App() {
           <Route element={<PrivateRoute />}>
             <Route path="/profile/:id" element={<MyPage />} />
             <Route path='/camera/capture/finish/write' element={<PostWritePage />} />
+            <Route path='/profile/edit' element={<ProfileEdit />} />
           </Route>
         </Route>
 
