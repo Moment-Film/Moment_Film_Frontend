@@ -15,6 +15,7 @@ export const addComment = async ({
         refreshToken: refreshToken,
 
       }
+    }
     );
 
     console.log(res);
