@@ -27,14 +27,16 @@ function SignUp() {
 
   const mutation = useMutation(register, {
     onSuccess: (data) => {
-      if (data) {
-        alert(data.msg);
-        navigate("/login");
-      }
+      alert("가입이 완료되었습니다!");
+      navigate("/login");
     },
     onError: (error) => {
-      alert("회원가입 오류입니다.", error);
-      console.log(error);
+      const errorMsg = error.response?.data?.msg;
+
+      if (errorMsg) {
+        alert(`${errorMsg}`);
+        console.log(error);
+      }
     },
   });
 
@@ -49,8 +51,6 @@ function SignUp() {
       };
 
       mutation.mutate(registerData);
-      alert("가입이 완료되었습니다!");
-      navigate("/login");
     }
   };
 
@@ -65,7 +65,7 @@ function SignUp() {
             onChange={handleEmailChange}
             placeholder="이메일을 입력하세요."
             label="이메일"
-            checkBtn={true}
+            // checkBtn={true}
             error={emailError}
           />
 
@@ -95,7 +95,7 @@ function SignUp() {
             onChange={handleUserNameChange}
             placeholder="닉네임을 입력하세요."
             label="닉네임"
-            checkBtn={true}
+            // checkBtn={true}
             error={userNameError}
           />
         </FormBox>
