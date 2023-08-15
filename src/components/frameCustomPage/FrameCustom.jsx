@@ -19,16 +19,20 @@ import { useDispatch } from "react-redux";
 import { SetBackgroundImg } from "../../redux/modules/FrameInfo";
 import { StyledSpan14 } from "../common/styles/StyledSpan";
 import { useEffect } from "react";
+import MyFrameModal from './MyFrameModal'
+import { useCookies } from "react-cookie";
+import { useQuery } from "react-query";
+import { getMyFrame } from "../../api/myFrameFilter";
 
 const FrameCustomMake = () => {
   
   const [color, setColor] = useState({ h: 180, s: 100, l: 100 });
   const [frameImg, setFrameImg] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
   const [uploadedImg, setUploadedImg] = useState(null);
   const frameImgRef = useRef();
 
   const navigate = useNavigate();
-
   const thisGrid = useSelector((state) => state.image.images);
   const dispatch=useDispatch();
 
@@ -67,6 +71,25 @@ const FrameCustomMake = () => {
     await frameImg && dispatch(SetBackgroundImg(frameImg));
     navigate("/camera/capture/filter");
   };
+
+  const userInfo = useSelector((state)=>state.UserInfo);
+  const accessToken = useSelector((state)=>state.AccessToken.accessToken);
+  const [cookie] = useCookies(['refresh']);
+  const refreshToken = cookie.refresh;
+  const {data} = useQuery(`myFrame${userInfo.sub}`, () => getMyFrame({accessToken, refreshToken}));
+  const openModalHandler = () => {
+    if (accessToken) setOpenModal(true)
+    else {
+      window.confirm('로그인이 필요합니다.') &&  navigate(`../login`);
+    }
+  } 
+  const closeModal = () => {
+    setOpenModal(false);
+  }
+  const applyFrameBackground = (h, s, l, img) => {
+    h && s && l && setColor({h,s,l});
+    img ? setFrameImg(img) : setFrameImg(null);
+  }
 
   return (
     <>
@@ -131,7 +154,19 @@ const FrameCustomMake = () => {
                 </a.FrameImg>
               </a.LeftBox>
               <a.RightBox>
-                <a.Title>Frame</a.Title>
+                {openModal &&
+                  <MyFrameModal 
+                    onClose={closeModal} 
+                    data={data.data.data} 
+                    title="프레임" 
+                    accessToken={accessToken} 
+                    refreshToken={refreshToken}
+                    onApply={applyFrameBackground}
+                    />}
+                <div style={{display :'flex', alignItems: "center"}}>
+                  <a.Title>Frame</a.Title>
+                  <button onClick={openModalHandler}>MY</button>
+                </div>
                 <a.Section>
                   <a.SliderBox>
                     <div>색조</div>
