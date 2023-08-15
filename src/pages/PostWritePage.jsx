@@ -28,8 +28,6 @@ function PostWritePage() {
 
   const onSubmitHandler = async() => {
 
-
-
     ////////////////////////////////////////////////////
     //프레임 등록을 위한 폼데이터 생성
     
