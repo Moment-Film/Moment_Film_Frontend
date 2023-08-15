@@ -4,8 +4,7 @@ import FilterCustom from "../components/filterCustom/filterCustom";
 function FilterPage() {
 
   return (
-    <FilterCustom>
-    </FilterCustom>
+    <FilterCustom />
   );
 }
 

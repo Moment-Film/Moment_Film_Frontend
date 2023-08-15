@@ -4,7 +4,7 @@ import Home from './pages/HomePage';
 import Login from './pages/LoginPage'
 import MyPage from './pages/MyPage'
 import CustomPostPage from './pages/CustomPostPage';
-import CustomDetail from './pages/CustomDetail';
+import DetailPage from './pages/DetailPage';
 import SearchPage from './pages/SearchPage'
 import SearchReseultpage from './pages/SearchReseultpage'
 import SignUpPage from './pages/SignUpPage'
@@ -22,6 +22,7 @@ import PrivateRoute from './layout/PrivateRoute'
 import RedirectPage from './pages/RedirectPage';
 import ProfileEdit from './components/myPage/ProfileEdit';
 
+import Test from './pages/Test';
 function App() {
   return (
     <>
@@ -32,7 +33,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path='/postlist/:id' element={<CustomPostPage />} />
-          <Route path='/post/:id' element={<CustomDetail />} />
+          <Route path='/post/:id' element={<DetailPage />} />
           <Route path='/camera/frameSelect' element={<FrameSelectPage />} />
           <Route path='/camera/capture' element={<CameraPage />} />
           <Route path='/camera/capture/option' element={<CameraOptionPage />} />
@@ -43,6 +44,8 @@ function App() {
           <Route path="/search/reseult/:id" element={<SearchReseultpage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/api/user/kakao/login" element={<RedirectPage />} />
+
+          <Route path="/test" element={<Test />} />
           
           {/* private Router */}
           <Route element={<PrivateRoute />}>

@@ -5,8 +5,7 @@ import StyledButton from "../common/component/StyledButton";
 import homeImg from "../assets/images/home_bgImg.png";
 
 const Homepage = () => {
-  /*   const user = useSelector((state) => state.UserInfo);
-  console.log(user) */
+
 
   const navigate = useNavigate();
 

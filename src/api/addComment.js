@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-export const addComment = async ({postId,accessToken, refreshToken,content}) => {
-  console.log(postId,content)
+export const addComment = async ({postId,accessToken, refreshToken,comment}) => {
+  console.log(postId,comment)
   try {
-    const res = await axios.post(`/api/post/${postId}/comment`,content,
+    const res = await axios.post(`/api/post/${postId}/comment`,{content:"asd"},
     {
       headers: {
         accessToken: accessToken,

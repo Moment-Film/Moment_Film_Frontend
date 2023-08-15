@@ -1,5 +1,4 @@
-import ourAxios from "./ourAxios";
-import axios from "axios";
+import axios from 'axios';
 
 export const register = async ({ username, password, email, phone }) => {
   try {

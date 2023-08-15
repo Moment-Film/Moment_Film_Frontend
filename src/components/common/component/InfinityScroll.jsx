@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ContentBox from './ContentBox';
 import _ from 'lodash'; // lodash 라이브러리 사용
+import { getAllPosts } from '../../../api/post'
 
 
 //통신연결후 스로틀링의 사용 전 후 성능 기록해놓을 것 
@@ -18,9 +19,11 @@ const InfiniteScroll = ({data}) => {
         if (scrollPosition > documentHeight * 0.8) {
 
             // 가상의 비동기 API 요청 대신에 setTimeout을 사용하여 1초 후에 추가 데이터를 로드한다고 가정
-            setTimeout(() => {
+          
+                const res = getAllPosts('recent');
+                console.log(res)
                 // setPosts((prevPosts) => [...prevPosts, ...generatePosts(5, page)]);
-            }, 1000);
+      
         }
     }, 1000); // 1초마다 한 번씩 이벤트 처리
 

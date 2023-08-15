@@ -16,27 +16,38 @@ import { SetResultImage } from "../../redux/modules/ResultImage";
 import { SetFilter } from "../../redux/modules/Filter";
 
 const FilterCustom = () => {
-  const [frameImg, setFrameImg] = useState(null);
   const picRef = useRef();
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const [filterList, setFilterList] = useState([
+    { key: "blur", label: "블러", max: 10, unit: "px" },
+    { key: "brightness", label: "밝기", max: 5, unit: "" },
+    { key: "saturate", label: "채도", max: 200, unit: "%" },
+    { key: "grayscale", label: "흑백", max: 100, unit: "%" },
+    { key: "contrast", label: "대비", max: 200, unit: "%" },
+    { key: "huerotate", label: "hue-rotate", max: 360, unit: "deg" },
+    { key: "sepia", label: "세피아", max: 100, unit: "%" },
+  ])
+
+  const [filterValue, setFilterValue] = useState({ filterName: "test" });
+
   const thisGrid = useSelector((state) => state.image.images);
   const FrameColor = useSelector((state) => state.FrameInfo.color);
   const thisbackGround = useSelector((state) => state.FrameInfo.backgroundImg);
-  
+
+  //로컬스토리지에서 사진 가져오기 
   const [innerImg] = useState([
     localStorage.getItem(`image0`),
     localStorage.getItem(`image1`),
     localStorage.getItem(`image2`),
     localStorage.getItem(`image3`),
   ]);
-  const [filterValue, setFilterValue] = useState({});
+
 
   const filterValueHandler = (key, value) => {
     const newValue = { ...filterValue, [key]: value };
     setFilterValue(newValue);
-
   };
 
   const handleDownload = async () => {
@@ -62,6 +73,7 @@ const FilterCustom = () => {
         <s.Slider>
           <s.OptionWrap>
             <GridNav data={"frameSetting"} />
+            
             <a.BoxWrap>
               <a.LeftBox>
                 <a.FrameImg
@@ -114,161 +126,36 @@ const FilterCustom = () => {
                   </a.InnerImgWrap>
                 </a.FrameImg>
               </a.LeftBox>
+
               <a.RightBox>
                 <OptionSection>
                   <div>Filter</div>
-                  <div>
-                    <p>블러 {filterValue.blur || 0}px</p>
-                    <Slider
-                      style={{ width: "250px" }}
-                      min={0}
-                      max={10}
-                      step={0.1}
-                      value={filterValue.blur || 0}
-                      onChange={(value) => filterValueHandler("blur", value)}
-                      trackStyle={{ backgroundColor: "rgba(203, 221, 90, 1)" }} // 트랙의 배경색을 변경
-                      handleStyle={{
-                        borderColor: "rgba(203, 221, 90, 1)", // 핸들의 테두리 색상을 변경
-                        backgroundColor: "rgba(203, 221, 90, 1)", // 핸들의 배경색을 변경
-                        borderRadius: "10%", // 원형 핸들로 모양 변경
-                        width: "10px",
-                        height: "20px",
-                        marginLeft: "-5px", // 핸들의 가로  가운데 정렬
-                        marginTop: "-9px", // 핸들의 세로  가운데 정렬
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <p>밝기 {filterValue.brightness || 1}</p>
-                    <Slider
-                      style={{ width: "250px" }}
-                      min={0}
-                      max={5}
-                      step={0.1}
-                      value={filterValue.brightness || 1}
-                      onChange={(value) =>
-                        filterValueHandler("brightness", value)
-                      }
-                      trackStyle={{ backgroundColor: "rgba(203, 221, 90, 1)" }} // 트랙의 배경색을 변경
-                      handleStyle={{
-                        borderColor: "rgba(203, 221, 90, 1)", // 핸들의 테두리 색상을 변경
-                        backgroundColor: "rgba(203, 221, 90, 1)", // 핸들의 배경색을 변경
-                        borderRadius: "10%", // 원형 핸들로 모양 변경
-                        width: "10px",
-                        height: "20px",
-                        marginLeft: "-5px", // 핸들의 가로  가운데 정렬
-                        marginTop: "-9px", // 핸들의 세로  가운데 정렬
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <p>채도 {filterValue.saturate || 100}%</p>
-                    <Slider
-                      style={{ width: "250px" }}
-                      min={0}
-                      max={200}
-                      value={filterValue.saturate || 100}
-                      onChange={(value) =>
-                        filterValueHandler("saturate", value)
-                      }
-                      trackStyle={{ backgroundColor: "rgba(203, 221, 90, 1)" }} // 트랙의 배경색을 변경
-                      handleStyle={{
-                        borderColor: "rgba(203, 221, 90, 1)", // 핸들의 테두리 색상을 변경
-                        backgroundColor: "rgba(203, 221, 90, 1)", // 핸들의 배경색을 변경
-                        borderRadius: "10%", // 원형 핸들로 모양 변경
-                        width: "10px",
-                        height: "20px",
-                        marginLeft: "-5px", // 핸들의 가로  가운데 정렬
-                        marginTop: "-9px", // 핸들의 세로  가운데 정렬
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <p>흑백 {filterValue.grayscale || 0}%</p>
-                    <Slider
-                      style={{ width: "250px" }}
-                      min={0}
-                      max={100}
-                      value={filterValue.grayscale || 0}
-                      onChange={(value) =>
-                        filterValueHandler("grayscale", value)
-                      }
-                      trackStyle={{ backgroundColor: "rgba(203, 221, 90, 1)" }} // 트랙의 배경색을 변경
-                      handleStyle={{
-                        borderColor: "rgba(203, 221, 90, 1)", // 핸들의 테두리 색상을 변경
-                        backgroundColor: "rgba(203, 221, 90, 1)", // 핸들의 배경색을 변경
-                        borderRadius: "10%", // 원형 핸들로 모양 변경
-                        width: "10px",
-                        height: "20px",
-                        marginLeft: "-5px", // 핸들의 가로  가운데 정렬
-                        marginTop: "-9px", // 핸들의 세로  가운데 정렬
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <p>대비 {filterValue.contrast || 100}%</p>
-                    <Slider
-                      style={{ width: "250px" }}
-                      min={0}
-                      max={200}
-                      value={filterValue.contrast || 100}
-                      onChange={(value) =>
-                        filterValueHandler("contrast", value)
-                      }
-                      trackStyle={{ backgroundColor: "rgba(203, 221, 90, 1)" }} // 트랙의 배경색을 변경
-                      handleStyle={{
-                        borderColor: "rgba(203, 221, 90, 1)", // 핸들의 테두리 색상을 변경
-                        backgroundColor: "rgba(203, 221, 90, 1)", // 핸들의 배경색을 변경
-                        borderRadius: "10%", // 원형 핸들로 모양 변경
-                        width: "10px",
-                        height: "20px",
-                        marginLeft: "-5px", // 핸들의 가로  가운데 정렬
-                        marginTop: "-9px", // 핸들의 세로  가운데 정렬
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <p>hue-rotate {filterValue.huerotate || 0}deg</p>
-                    <Slider
-                      style={{ width: "250px" }}
-                      min={0}
-                      max={360}
-                      value={filterValue.huerotate || 0}
-                      onChange={(value) =>
-                        filterValueHandler("huerotate", value)
-                      }
-                      trackStyle={{ backgroundColor: "rgba(203, 221, 90, 1)" }} // 트랙의 배경색을 변경
-                      handleStyle={{
-                        borderColor: "rgba(203, 221, 90, 1)", // 핸들의 테두리 색상을 변경
-                        backgroundColor: "rgba(203, 221, 90, 1)", // 핸들의 배경색을 변경
-                        borderRadius: "10%", // 원형 핸들로 모양 변경
-                        width: "10px",
-                        height: "20px",
-                        marginLeft: "-5px", // 핸들의 가로  가운데 정렬
-                        marginTop: "-9px", // 핸들의 세로  가운데 정렬
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <p>세피아 {filterValue.sepia || 0}%</p>
-                    <Slider
-                      style={{ width: "250px" }}
-                      min={0}
-                      max={100}
-                      value={filterValue.sepia || 0}
-                      onChange={(value) => filterValueHandler("sepia", value)}
-                      trackStyle={{ backgroundColor: "rgba(203, 221, 90, 1)" }} // 트랙의 배경색을 변경
-                      handleStyle={{
-                        borderColor: "rgba(203, 221, 90, 1)", // 핸들의 테두리 색상을 변경
-                        backgroundColor: "rgba(203, 221, 90, 1)", // 핸들의 배경색을 변경
-                        borderRadius: "10%", // 원형 핸들로 모양 변경
-                        width: "10px",
-                        height: "20px",
-                        marginLeft: "-5px", // 핸들의 가로  가운데 정렬
-                        marginTop: "-9px", // 핸들의 세로  가운데 정렬
-                      }}
-                    />
-                  </div>
+                    {
+                      filterList.map((item) =>
+                        <div key={item.key}>
+                          <p>{`${item.label} ${filterValue[item.key] || 0}${filterList.unit}`}</p>
+
+                          <Slider
+                            style={{ width: "250px" }}
+                            min={0}
+                            max={item.max}
+                            step={item.unit === "%" ? 1 : 0.1}
+                            value={filterValue[item.key] || 0}
+                            onChange={(value) => filterValueHandler(item.key, value)}
+                            trackStyle={{ backgroundColor: "rgba(203, 221, 90, 1)" }}
+                            handleStyle={{
+                              borderColor: "rgba(203, 221, 90, 1)",
+                              backgroundColor: "rgba(203, 221, 90, 1)",
+                              borderRadius: "10%",
+                              width: "10px",
+                              height: "20px",
+                              marginLeft: "-5px",
+                              marginTop: "-9px",
+                            }}
+                          />
+                        </div>
+                      )
+                    }
 
                   <button onClick={handleDownload}>다음으로</button>
                 </OptionSection>
