@@ -16,9 +16,7 @@ const LogoutBtn = () => {
         const res = await LogOutAPI(ACToken,cookie.refresh);
 
         await dispatch(SetAccessToken(null));
-        navigate("/")    
-        alert("로그아웃이 완료되었습니다.")
-
+        navigate("/")
     }
 
     return (
