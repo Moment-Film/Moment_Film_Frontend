@@ -82,7 +82,7 @@ function Post() {
         </PostNav>
 
         <PostWrapper>
-          <InfiniteScroll data={data}/>
+          <InfiniteScroll data={data} sort={sort}/>
         </PostWrapper>
 
       </PostPage>

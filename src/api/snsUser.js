@@ -5,7 +5,7 @@ export const socialLogin = async ({ code, social }) => {
 
   console.log(code, social)
   const response = await axios.post(`/api/user/kakao/callback?code=${code}`);
-
+  console.log(response)
   console.log(response.headers.accesstoken)
   console.log(response.headers.refreshtoken)
   //성공이면 로그인 화면 or 홈화면을 보내버리자
@@ -79,7 +79,8 @@ export const WithdrawalAPI = async (ACToken, REToken) => {
 }
 
 //팔로우 요청 및 취소 
-export const FolllowAPI = async (userId, ACToken, REToken) => {
+export const FollowAPI = async (userId, ACToken, REToken) => {
+  console.log(userId)
   try{ //팔로우가 되어있지않아서 팔로우할때
     const response = await axios.post(`/api/follow/${userId}`, null,
     {

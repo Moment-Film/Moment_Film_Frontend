@@ -15,58 +15,77 @@ function PostWritePage() {
   const navigate = useNavigate();
   // const [showModal, setShowModal] = useState(false);
   const resultImg = useSelector((state) => state.ResultImage);
+  const FrameColor = useSelector((state) => state.FrameInfo.color);
+  const Frame = useSelector((state) => state.FrameInfo.backgroundImg);
 
   const objectUrl = URL.createObjectURL(resultImg);
-  console.log(typeof resultImg);
-  const accessToken = useSelector((state) => state.AccessToken.accessToken);
-  const writerInfo = useSelector((state) => state.UserInfo);
-  const filterInfo = useSelector((state) => state.Filter);
-  console.log(filterInfo);
-  const onSubmitHandler = async () => {
+
+  console.log(typeof(resultImg));
+  const accessToken = useSelector((state)=>state.AccessToken.accessToken);
+  const writerInfo = useSelector((state)=> state.UserInfo);
+  const filterInfo =useSelector((state)=>state.Filter)  
+  console.log(filterInfo)
+
+
+  const onSubmitHandler = async() => {
+
+
+
+    ////////////////////////////////////////////////////
+    //프레임 등록을 위한 폼데이터 생성
+    
+    const FrameForm = new FormData();
+
+    const FrameData = {
+      frameName: "zzzzz",
+      hue:FrameColor.h,
+      saturation:FrameColor.s,
+      lightness:FrameColor.l
+    };
+
+    // 이슈 블롭객체를 전송하려다 에러가 발생 서버에서는 파일객체를 지정했었음 타입을 잘 blob과 파일 객체에 대한 이해 필요
+    const FrameFile = new File([Frame], 'test.jpg', { type: 'image/jpeg' });
+    FrameForm.append("frame", FrameFile);
+    FrameForm.append("data", new Blob([JSON.stringify(FrameData)], { type: "application/json" }))
+
+
+    ////////////////////////////////////////////////////
+    
+    const filterId = await addFilter(accessToken, cookie.refresh, filterInfo);
+    const frameId = await addFrame(accessToken, cookie.refresh, FrameForm);
+
+
     ////////////////////////////////////////////////////
     // 게시글등록을 위한 폼데이터 생성
     const PostForm = new FormData();
 
     const PostData = {
-      title,
-      contents: content,
+      title : title,
+      contents : content,
+      filterId,
+      frameId
     };
 
     // 이슈 블롭객체를 전송하려다 에러가 발생 서버에서는 파일객체를 지정했었음 타입을 잘 blob과 파일 객체에 대한 이해 필요
     const PostFile = new File([resultImg], "test.jpg", { type: "image/jpeg" });
     PostForm.append("imageFile", PostFile);
-    PostForm.append(
-      "data",
-      new Blob([JSON.stringify(PostData)], { type: "application/json" })
-    );
 
+    PostForm.append("data", new Blob([JSON.stringify(PostData)], { type: "application/json" }))
+ 
     ////////////////////////////////////////////////////
-    //프레임 등록을 위한 폼데이터 생성
 
-    const FrameForm = new FormData();
-
-    const FrameData = {
-      frameName: "asdasd",
-    };
-
-    // 이슈 블롭객체를 전송하려다 에러가 발생 서버에서는 파일객체를 지정했었음 타입을 잘 blob과 파일 객체에 대한 이해 필요
-    const FrameFile = new File([resultImg], "test.jpg", { type: "image/jpeg" });
-    FrameForm.append("frame", FrameFile);
-    FrameForm.append(
-      "name",
-      new Blob([JSON.stringify(FrameData)], { type: "application/json" })
-    );
-
-    //////////////////////////////////////////////////////////////////////////////////////////////
-
-    //적용
-    await addFilter(accessToken, cookie.refresh, filterInfo);
-    await addFrame(accessToken, cookie.refresh, FrameForm);
+    
+    //게시글 등록
     await addPost(accessToken, cookie.refresh, PostForm);
-    /*     setShowModal(true); */
-    alert("게시글이 등록되었습니다!");
-    navigate("/postlist/recent");
-  };
+    
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+
+/*     setShowModal(true); */
+  alert("게시글이 등록되었습니다!")
+  navigate("/postlist/recent")
+}
+
 
   return (
     <ViewBody>
