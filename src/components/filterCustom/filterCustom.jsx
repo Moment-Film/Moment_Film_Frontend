@@ -3,6 +3,7 @@ import * as a from "./style";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 
+import MyFrameModal from '../frameCustomPage/MyFrameModal'
 import GridNav from "../frameSelectPage/GridNav";
 import * as s from "../frameSelectPage/style";
 import { useNavigate } from "react-router-dom";
@@ -14,11 +15,15 @@ import { saveAs } from "file-saver";
 import domtoimage from "dom-to-image";
 import { SetResultImage } from "../../redux/modules/ResultImage";
 import { SetFilter } from "../../redux/modules/Filter";
+import { useCookies } from "react-cookie";
+import { useQuery } from "react-query";
+import { getMyFilter } from "../../api/myFrameFilter";
 
 const FilterCustom = () => {
   const picRef = useRef();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [openModal, setOpenModal] = useState(false);
 
   const [filterList, setFilterList] = useState([
     { key: "blur", label: "블러", max: 10, unit: "px" },
@@ -67,6 +72,26 @@ const FilterCustom = () => {
     }
   };
 
+  const userInfo = useSelector((state)=>state.UserInfo);
+  const [cookie] = useCookies(['refresh']);
+  const refreshToken = cookie.refresh;
+  const accessToken = useSelector((state)=>state.AccessToken.accessToken);
+  const openModalHandler = () => {
+    if (accessToken) setOpenModal(true)
+    else {
+      window.confirm('로그인이 필요합니다.') &&  navigate(`../login`);
+    }
+  }
+  const closeModal = () => {
+    setOpenModal(false);
+  }
+  const {data} = useQuery(`myFilter${userInfo.sub}`, () => getMyFilter({accessToken, refreshToken}));
+  const applyFilter = (blur, brightness, saturate, contrast, sepia) =>{
+    blur!==null&&brightness!==null&&saturate!==null&&contrast!==null&&sepia!==null&& setFilterValue({
+      filterName: "test",
+      blur, brightness, saturate, contrast, sepia
+    })
+  }
   return (
     <>
       <s.Wrap>
@@ -128,8 +153,21 @@ const FilterCustom = () => {
               </a.LeftBox>
 
               <a.RightBox>
+                { openModal &&
+                  <MyFrameModal 
+                    onClose={closeModal} 
+                    data={data.data.data} 
+                    title="필터" 
+                    accessToken={accessToken} 
+                    refreshToken={refreshToken}
+                    onApply={applyFilter}
+                    />}
                 <OptionSection>
-                  <div>Filter</div>
+                  <>
+                    <div>Filter</div>
+                    <button onClick={openModalHandler}>MY</button>
+                  </>
+                  
                     {
                       filterList.map((item) =>
                         <div key={item.key}>
