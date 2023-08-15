@@ -20,6 +20,10 @@ export const StyledLink14 = styled(Link)`
     color: ${(props)=>props.color};
     display: flex;
     align-items: center;
+
+    &:visited {
+    color: var(--black);
+}
 `
 
 //---------------------------------------------------------------
