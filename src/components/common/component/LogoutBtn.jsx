@@ -12,6 +12,7 @@ const LogoutBtn = () => {
     const LogOut=async()=>{
         const res = await LogOutAPI(ACToken,cookie.refresh);
         dispatch(SetAccessToken(null));
+        alert("로그아웃이 완료되었습니다.")
     }
 
     return (
