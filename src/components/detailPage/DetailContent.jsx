@@ -4,7 +4,7 @@ import styled from "styled-components"
 import KakaoShareBtn from "../common/component/KakaoShareBtn"
 import UrlShare from "../common/component/UrlShare"
 import * as S from "../common/styles/StyledSpan"
-import { FolllowAPI } from "../../api/snsUser"
+import { FollowAPI } from "../../api/snsUser"
 import { likePost } from "../../api/likePost"
 import { getPostDetail, deletePost } from "../../api/post"
 import { useParams,useNavigate } from 'react-router-dom';
@@ -29,7 +29,7 @@ const DetailContent = ({data}) => {
   }
 
   const FollowHandler = () => {
-    FolllowAPI(data.id, accessToken, refreshToken)
+    FollowAPI(data.userId, accessToken, refreshToken)
   }
 
   const deleteHandler = async() => {

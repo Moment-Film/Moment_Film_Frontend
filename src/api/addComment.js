@@ -3,7 +3,7 @@ import axios from 'axios';
 export const addComment = async ({postId,accessToken, refreshToken,comment}) => {
   console.log(postId,comment)
   try {
-    const res = await axios.post(`/api/post/${postId}/comment`,{content:"asd"},
+    const res = await axios.post(`/api/post/${postId}/comment`,{content:comment},
     {
       headers: {
         accessToken: accessToken,
@@ -33,6 +33,7 @@ export const addReply = async ({commentId,accessToken, refreshToken,replay}) => 
     console.log(res);
     return res.data;
   } catch (error) {
+    alert(error)
     console.error("addComment api error", error);
     throw error;
   }

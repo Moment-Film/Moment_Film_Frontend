@@ -3,15 +3,19 @@ import { LogOutAPI } from '../../../api/snsUser';
 import { useDispatch, useSelector } from 'react-redux';
 import { useCookies } from 'react-cookie';
 import { SetAccessToken } from '../../../redux/modules/AccessToken';
+import { useNavigate } from 'react-router';
 
 const LogoutBtn = () => {
     const [cookie,setCookie] = useCookies(['refresh']);
     const dispatch=useDispatch();
+    const navigate=useNavigate();
+
     const ACToken = useSelector((state) => state.AccessToken.accessToken);
 
     const LogOut=async()=>{
         const res = await LogOutAPI(ACToken,cookie.refresh);
-        dispatch(SetAccessToken(null));
+        await dispatch(SetAccessToken(null));
+        navigate("/")    
     }
 
     return (

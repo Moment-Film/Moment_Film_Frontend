@@ -3,13 +3,13 @@ import styled from "styled-components";
 import searchIcon from '../../assets/icons/searchIcon.svg'
 import { useSelector } from "react-redux";
 import { useCookies } from "react-cookie";
-import { FolllowAPI } from "../../../api/snsUser";
+import { FollowAPI } from "../../../api/snsUser";
 
 export const Modal = ({onClose, onToggle, data, title}) => {
     const access = useSelector((state)=>state.AccessToken.accessToken);
     const [cookie] = useCookies(['refresh']);
     const deleteFollower = (id) => {
-        FolllowAPI(id,access,cookie);
+        FollowAPI(id,access,cookie);
     }
     return (
         <div>

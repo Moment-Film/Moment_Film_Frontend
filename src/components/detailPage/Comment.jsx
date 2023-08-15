@@ -31,7 +31,7 @@ const Comment = ({ data, isSuccess }) => {
 
     useEffect(() => {
         if (isSuccess) {
-            setCommentList(data.commentList);
+            setCommentList(data.commentList.reverse());
         }
     }, [data])
 
@@ -167,7 +167,8 @@ const Comment = ({ data, isSuccess }) => {
                                 </CommentMain>
                             </CommentCard>
                         </CommentsDetail>
-                        {isReplyShow.includes(comment.id) && comment.subComments.map((reply) => (
+                        {isReplyShow.includes(comment.id) &&
+                         comment.subComments.slice().reverse().map((reply) => (
                             <ReplayComment key={reply.id}>
                                 <CommentsDetail>
                                     <img src={Replay_comment} alt="" />

@@ -133,7 +133,7 @@ const FilterCustom = () => {
                     {
                       filterList.map((item) =>
                         <div key={item.key}>
-                          <p>{`${item.label} ${filterValue[item.key] || 0}${filterList.unit}`}</p>
+                          <p>{`${item.label} ${filterValue[item.key] || 0}${item.unit}`}</p>
 
                           <Slider
                             style={{ width: "250px" }}
