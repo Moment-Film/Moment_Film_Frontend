@@ -18,15 +18,15 @@ const PaginationComponent = ({ data ,ItemNums }) => {
     const Card = ({ item }) => {
         return (
             <ContentsItem>
-                <StyledLink>
-                    <Img src={'https://pbs.twimg.com/media/Fi3MBQvaMAAMymZ.jpg'}></Img>
+                <StyledLink to={`/post/${item.id}`}>
+                    <Img src={item.image}></Img>
                 </StyledLink>
                 <ItemInfo>
                     <OptionCount>
-                        <div>b {'123'}</div>
-                        <div>C {'123'}</div>
+                        <div>아이디 {item.id}</div>
+                        {/* <div>C {'123'}</div> */}
                     </OptionCount>
-                    <div>● 유저이름</div>
+                    <div>제목 {item.title}</div>
                 </ItemInfo>
             </ContentsItem>
         )

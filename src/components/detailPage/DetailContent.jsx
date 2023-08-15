@@ -30,6 +30,7 @@ const DetailContent = ({data}) => {
 
   const FollowHandler = () => {
     FollowAPI(data.userId, accessToken, refreshToken)
+
   }
 
   const deleteHandler = async() => {

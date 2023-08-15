@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { SetAccessToken } from "../../redux/modules/AccessToken";
 import { useDispatch } from "react-redux";
@@ -17,6 +17,7 @@ import inputDelete from "../assets/icons/inputDelete.svg";
 // import useRefreshToken from "../../hooks/useRefreshToken";
 
 const EmailLogin = () => {
+  const [loginError, setLoginError] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [cookie, setCookie] = useCookies(["refresh"]);
@@ -49,20 +50,25 @@ const EmailLogin = () => {
         dispatch(SetUserInfo(decodedPayload));
         console.log("ac", ACToken);
         console.log("rc", cookie);
-        /* navigate('/'); */
+        setLoginError(null);
+        navigate(-1);
       }
     },
     onError: (error) => {
-      alert("에러입니다");
+      const errorMsg = error.response?.data?.msg;
+
+      if (errorMsg && errorMsg.includes("잘못된 로그인 정보입니다.")) {
+        setLoginError("존재하지 않는 아이디나 비밀번호입니다.");
+      } else {
+        setLoginError("로그인 중 문제가 발생했습니다.");
+      }
     },
   });
 
   //로그인 버튼 클릭 시  동작
   const LoginHandler = async (e) => {
     e.preventDefault();
-    console.log("qwe");
     mutation.mutate({ email, password });
-    navigate(-1);
   };
 
   return (
@@ -101,11 +107,7 @@ const EmailLogin = () => {
           marginBottom: "25px",
         }}
       >
-        {
-          <ValidateResult>
-            존재하지 않는 아이디나 비밀번호입니다.
-          </ValidateResult>
-        }
+        {loginError && <ValidateResult>{loginError}</ValidateResult>}
       </div>
       <div style={{ width: "370px", marginBottom: "24px" }}>
         <StyledButton
@@ -162,10 +164,16 @@ const InputWrap = styled.div`
 `;
 
 const AddressInput = styled.input`
+  width: 100%;
   font-size: 16px;
   line-height: 18px;
   background: none;
   border: none;
+
+  &:focus {
+    outline: none;
+    border: none;
+  }
 `;
 const FindInfoSection = styled.section`
   display: flex;

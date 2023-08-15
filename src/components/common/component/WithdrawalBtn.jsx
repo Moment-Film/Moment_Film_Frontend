@@ -10,7 +10,7 @@ const WithdrawalBtn = () => {
 
     const Withdrawal = async () => {
         const res = await WithdrawalAPI(ACToken, cookie.refresh);
-
+        alert("탈퇴되었습니다.")
     }
 
     return (
