@@ -29,8 +29,8 @@ function PostWritePage() {
     const PostForm = new FormData();
 
     const PostData = {
-      title : "asdasd",
-      contents : "asdads"
+      title : title,
+      contents : content
     };
 
     // 이슈 블롭객체를 전송하려다 에러가 발생 서버에서는 파일객체를 지정했었음 타입을 잘 blob과 파일 객체에 대한 이해 필요

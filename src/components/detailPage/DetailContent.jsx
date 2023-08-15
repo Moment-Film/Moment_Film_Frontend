@@ -29,7 +29,7 @@ const DetailContent = ({data}) => {
   }
 
   const FollowHandler = () => {
-    FolllowAPI(data.id, accessToken, refreshToken)
+    FolllowAPI(data.userId, accessToken, refreshToken)
   }
 
   const deleteHandler = async() => {
