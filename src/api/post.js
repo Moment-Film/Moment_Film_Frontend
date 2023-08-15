@@ -54,7 +54,7 @@ export const addPost = async (accessToken, refreshToken, formData) => {
 
 export const addFrame = async (accessToken, refreshToken, formData) => {
   try {
-    await axios.post(`/api/frame`, formData, {
+    const response =await axios.post(`/api/frame`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
         accessToken: accessToken,
@@ -62,6 +62,8 @@ export const addFrame = async (accessToken, refreshToken, formData) => {
       }
     });
     console.log("Frame SUCCESS!!!!!!!!");
+    console.log(response.data.data.id);
+    return response.data.data.id
   }
   catch (error) {
     console.log("Error :", error);
@@ -70,13 +72,15 @@ export const addFrame = async (accessToken, refreshToken, formData) => {
 
 export const addFilter = async (accessToken, refreshToken, formData) => {
   try {
-    await axios.post(`/api/filter`, formData, {
+    const response =await axios.post(`/api/filter`, formData, {
       headers: {
         accessToken: accessToken,
         refreshToken: refreshToken,
       }
     });
     console.log("filter SUCCESS!!!!!!!!");
+    console.log(response.data.data.id);
+    return response.data.data.id
   }
   catch (error) {
     console.log("Error :", error);
