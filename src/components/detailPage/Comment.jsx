@@ -22,7 +22,9 @@ const Comment = ({ data, isSuccess }) => {
     const [commentList, setCommentList] = useState();
     const [isReplyShow, setIsReplyShow] = useState([null]);
 
-
+    const accessToken = useSelector((state)=>state.AccessToken.accessToken)
+    const [cookie] = useCookies(['refresg']);
+    const refreshToken = cookie.refresh;
   //일반 함수 부
   const showReplyHandler = (commentId) => {
     const newList = isReplyShow.includes(commentId) // 받은 댓글ID가 SHOW 배열에 존재하는지
