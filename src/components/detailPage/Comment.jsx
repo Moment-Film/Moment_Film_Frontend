@@ -31,7 +31,7 @@ const Comment = ({ data, isSuccess }) => {
 
     useEffect(() => {
         if (isSuccess) {
-            setCommentList(data.commentList);
+            setCommentList(data.commentList.reverse());
         }
     }, [data])
 
