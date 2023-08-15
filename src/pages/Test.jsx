@@ -13,6 +13,8 @@ const Test = () => {
     useEffect(() => {
         const handleScroll = () => {
             if (intersectionRef.current) {
+
+
                 const rect = intersectionRef.current.getBoundingClientRect();
                 const rect1 = intersectionRef1.current.getBoundingClientRect();
                 const rect2 = intersectionRef2.current.getBoundingClientRect();
@@ -22,9 +24,28 @@ const Test = () => {
                     const opacity = 1 - (rect.top / windowHeight);
                     const opacity1 = 1 - (rect1.top / windowHeight);
                     const opacity2 = 1 - (rect2.top / windowHeight);
-                    aaaRef.current.style.opacity = `${opacity}`
+        /*             aaaRef.current.style.opacity = `${opacity}`
                     aaaRef1.current.style.opacity = `${opacity1}`
-                    aaaRef2.current.style.opacity = `${opacity2}`
+                    aaaRef2.current.style.opacity = `${opacity2}` */
+
+                    
+                    if (aaaRef.current) {
+                        console.log(1)
+                        aaaRef.current.style.opacity = `${opacity}`;
+                        const translateY = (1 - opacity) * 1000; // Adjust the multiplier for desired speed
+                        aaaRef.current.style.transform = `translateY(-${translateY}px)`;
+                    }
+                    if (aaaRef1.current) {
+                        console.log(1)
+                        aaaRef1.current.style.opacity = `${opacity1}`;
+                        const translateY = (1 - opacity) * 400; // Adjust the multiplier for desired speed
+                        aaaRef1.current.style.transform = `translateY(-${translateY}px)`;
+                    }
+                    if (aaaRef2.current) {
+                        aaaRef2.current.style.opacity = `${opacity2}`;
+                        const translateY = (1 - opacity) * 800; // Adjust the multiplier for desired speed
+                        aaaRef2.current.style.transform = `translateY(-${translateY}px)`;
+                    }
                     setIsVisible(opacity > 0);
                 } else {
                     setIsVisible(false);
@@ -39,10 +60,11 @@ const Test = () => {
     }, []);
 
     return (
-        <div>
-            <div style={{ height: '100vh' }}></div>
+        <>
+        <div style={{ height: '100vh', display: "flex", alignItems: "center"}}  ></div>
+        <div style={{ height: '200vh', display: "flex" ,gap:"5%"}}   ref={intersectionRef}>
             <div style={{ height: '100vh', display: "flex", alignItems: "center" }}  ref={intersectionRef}>
-                <div style={{ fontSize: "100px" }} >
+                <div style={{ fontSize: "30px",border:"1px solid black"}} ref={aaaRef} >
                     <div>디자이너님 이겁니까??</div>
                     <div>디자이너님 이겁니까??</div>
                     <div>디자이너님 이겁니까??</div>
@@ -50,7 +72,7 @@ const Test = () => {
                 </div>
             </div>
             <div style={{ height: '100vh', display: "flex", alignItems: "center" }} ref={intersectionRef1}>
-                <div style={{ fontSize: "100px" }} ref={aaaRef1}>
+                <div style={{ fontSize: "30px",border:"1px solid gray" }} ref={aaaRef1}>
                     <div>디자이너님 이겁니까??</div>
                     <div>디자이너님 이겁니까??</div>
                     <div>디자이너님 이겁니까??</div>
@@ -58,7 +80,7 @@ const Test = () => {
                 </div>
             </div>
             <div style={{ height: '100vh', display: "flex", alignItems: "center" }}  ref={intersectionRef2}>
-                <div style={{ fontSize: "100px" }}  ref={aaaRef2}>
+                <div style={{ fontSize: "30px",border:"1px solid green" }}  ref={aaaRef2}>
                     <div>디자이너님 이겁니까??</div>
                     <div>디자이너님 이겁니까??</div>
                     <div>디자이너님 이겁니까??</div>
@@ -66,6 +88,7 @@ const Test = () => {
                 </div>
             </div>
         </div>
+        </>
     );
 };
 
