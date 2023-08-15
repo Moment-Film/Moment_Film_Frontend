@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import { Modal } from '../common/component/Modal';
 import { useState } from 'react';
-import { FolllowAPI } from "../../api/snsUser"
+import { FollowAPI } from "../../api/snsUser"
 import { useSelector } from 'react-redux';
 import { useCookies } from 'react-cookie';
 
@@ -28,7 +28,7 @@ const MyPageUserData = ({ lang,data }) => {
     const refreshToken = cookie.refresh;
 
     const FollowHandler = () => {
-        FolllowAPI(data.id, accessToken, refreshToken)
+        FollowAPI(data.id, accessToken, refreshToken)
     }
     return (
         <div>
