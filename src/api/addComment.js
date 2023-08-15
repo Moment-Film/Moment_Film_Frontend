@@ -8,14 +8,12 @@ export const addComment = async ({
 }) => {
   console.log(postId, comment);
   try {
-    const res = await axios.post(
-      `/api/post/${postId}/comment`,
-      { content: comment },
-      {
-        headers: {
-          accessToken: accessToken,
-          refreshToken: refreshToken,
-        },
+    const res = await axios.post(`/api/post/${postId}/comment`,{content:comment},
+    {
+      headers: {
+        accessToken: accessToken,
+        refreshToken: refreshToken,
+
       }
     );
 
@@ -49,6 +47,7 @@ export const addReply = async ({
     console.log(res);
     return res.data;
   } catch (error) {
+    alert(error)
     console.error("addComment api error", error);
     throw error;
   }

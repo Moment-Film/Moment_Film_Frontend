@@ -186,39 +186,31 @@ const Comment = ({ data, isSuccess }) => {
                     </button>
                   )}
 
-                  <button onClick={() => DeleteComment(comment.id)}>
-                    댓글삭제
-                  </button>
-                </CommentMain>
-              </CommentCard>
-            </CommentsDetail>
-            {isReplyShow.includes(comment.id) &&
-              comment.subComments.slice().reverse().map((reply) => (
-                <ReplayComment key={reply.id}>
-                  <CommentsDetail>
-                    <img src={Replay_comment} alt="" />
-                    <CommentCard>
-                      <ProfilePic>
-                        <img
-                          src="https://pbs.twimg.com/media/Fi3MBQvaMAAMymZ.jpg"
-                          alt=""
-                        />
-                      </ProfilePic>
-                      <CommentMain>
-                        <div>{reply.username}</div>
-                        <div>{reply.content}</div>
-                      </CommentMain>
-                      <button onClick={() => DeleteReply(comment.id, reply.id)}>
-                        대댓글삭제
-                      </button>
-                    </CommentCard>
-                  </CommentsDetail>
-                </ReplayComment>
-              ))}
-          </CommentContainer>
-        ))}
-    </CommentSection>
-  );
+                                    <button onClick={() => DeleteComment(comment.id)}>댓글삭제</button>
+                                </CommentMain>
+                            </CommentCard>
+                        </CommentsDetail>
+                        {isReplyShow.includes(comment.id) &&
+                         comment.subComments.slice().reverse().map((reply) => (
+                            <ReplayComment key={reply.id}>
+                                <CommentsDetail>
+                                    <img src={Replay_comment} alt="" />
+                                    <CommentCard>
+                                        <ProfilePic><img src="https://pbs.twimg.com/media/Fi3MBQvaMAAMymZ.jpg" alt="" /></ProfilePic>
+                                        <CommentMain>
+                                            <div>{reply.username}</div>
+                                            <div>{reply.content}</div>
+                                        </CommentMain>
+                                        <button onClick={() => DeleteReply(comment.id, reply.id)}>대댓글삭제</button>
+                                    </CommentCard>
+                                </CommentsDetail>
+                            </ReplayComment>
+                        ))}
+                    </CommentContainer>
+                ))}
+        </CommentSection>
+    );
+
 };
 
 export default Comment;
