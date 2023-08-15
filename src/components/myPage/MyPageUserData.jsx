@@ -3,8 +3,12 @@ import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import { Modal } from '../common/component/Modal';
 import { useState } from 'react';
+import { FollowAPI } from "../../api/snsUser"
+import { useSelector } from 'react-redux';
+import { useCookies } from 'react-cookie';
 
 const MyPageUserData = ({ lang,data }) => {
+    const userInfo = useSelector((state)=>state.UserInfo);
     const navigate = useNavigate();
     const [showModal, setShowModal] = useState(false);
     const [fof, setFof] = useState("followerList");
@@ -18,6 +22,13 @@ const MyPageUserData = ({ lang,data }) => {
     }
     const fofToggle = () => {
         fof==="followerList" ? setFof("followingList") : setFof("followerList");
+    }
+    const [cookie, setCookie] = useCookies(['refresh']);
+    const accessToken = useSelector((state) => state.AccessToken.accessToken);
+    const refreshToken = cookie.refresh;
+
+    const FollowHandler = () => {
+        FollowAPI(data.id, accessToken, refreshToken)
     }
     return (
         <div>
@@ -35,7 +46,10 @@ const MyPageUserData = ({ lang,data }) => {
 
                 <UserDataSection>
                     <Span>{data.username}{' 님'}</Span>
-                    <button onClick={()=>navigate(`../profile/edit`)}>프로필 수정</button>
+                    { Number(userInfo.sub)===data.id 
+                    ? <button onClick={()=>navigate(`../profile/edit`)}>프로필 수정</button> 
+                    : <button onClick={FollowHandler}>
+                        {data.followerList.some(follower => follower.id=== Number(userInfo.sub)) ? "언팔로우" : "팔로우"}</button> }
 
                     {/* 다른이용자면 box-1가리고  */}
                     <div className='box-1'>

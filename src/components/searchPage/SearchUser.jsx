@@ -1,10 +1,8 @@
-import React, { useCallback } from "react";
+import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router";
 import { useQuery } from "react-query";
 import { useState } from "react";
-import { debounce } from "lodash";
-import { searchUser } from "../../api/searchUser";
 import * as S from "../common/styles/StyledSpan";
 import { popularUser } from "../../api/popularUser";
 
@@ -20,32 +18,12 @@ const SearchUser = () => {
     setUsername(event.target.value);
   };
 
-  const debouncedSearch = useCallback(debounce(searchTermHandler, 300), []);
-
   const { data: popularUserData } = useQuery("popularUser", () =>
     popularUser()
   );
 
-  const {
-    data: searchUserData,
-    isLoading,
-    isError,
-    error,
-  } = useQuery(["searchUser", username], 
-  () => searchUser({ username }));
-
-  if (searchUserData && searchUserData.body && searchUserData.body[0]) {
-  }
-    console.log(searchUserData);
-
   const searchBtnHandler = () => {
-    if (isLoading) {
-      alert("검색중입니다, 잠시만 기다려 주세요!");
-    } else if (isError) {
-      alert(`에러가 발생했습니다 : ${error.message}`);
-    } else {
-    navigate(`/search/reseult/${username}`, { state: { searchData: searchUserData } });
-    }
+    navigate(`/search/reseult/${username}`);
   };
 
   return (
@@ -66,7 +44,8 @@ const SearchUser = () => {
 
           <SearchInputDiv>
             <input
-              onChange={debouncedSearch}
+              value={username}
+              onChange={searchTermHandler}
               placeholder="검색어를 입력해 주세요."
             />
             <div onClick={searchBtnHandler}>

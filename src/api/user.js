@@ -42,3 +42,32 @@ export const putEditInfo = async ({ access, refresh, editName, editPhone }) => {
   );
 	return res;
 };
+
+export const replacePassword = async ({ access, refresh, newPassword }) => {
+  const res = await axios.put(
+    `/api/user/password-reset`,
+    {
+      password : newPassword
+    },
+    {
+      headers: {
+        accessToken: access,
+        refreshToken: refresh,
+      },
+    }
+  );
+	return res;
+};
+
+export const sendEmail = async ({ access, refresh }) => {
+  const res = await axios.post(
+    `/api/user/email`,
+    {
+      headers: {
+        accessToken: access,
+        refreshToken: refresh,
+      },
+    }
+  );
+	return res;
+};
