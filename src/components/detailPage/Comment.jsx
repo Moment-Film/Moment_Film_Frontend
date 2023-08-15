@@ -16,10 +16,6 @@ const Comment = ({ data, isSuccess }) => {
   //변수 선언부
   const param = useParams();
   const queryClient = useQueryClient();
-  
-    //변수 선언부 
-    const param = useParams();
-    const queryClient = useQueryClient();
 
     const [comment, setComment] = useState(null);
     const [recomment, setRecomment] = useState({});
@@ -36,17 +32,6 @@ const Comment = ({ data, isSuccess }) => {
             setCommentList(data.commentList.reverse());
         }
     }, [data])
-
-  //토큰 관련 부분
-  const [cookie, setCookie] = useCookies(["refresh"]);
-  const accessToken = useSelector((state) => state.AccessToken.accessToken);
-  const refreshToken = cookie.refresh;
-
-  useEffect(() => {
-    if (isSuccess) {
-      setCommentList(data.commentList);
-    }
-  }, [data]);
 
   //일반 함수 부
   const showReplyHandler = (commentId) => {
