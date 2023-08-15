@@ -1,9 +1,7 @@
-import React,{useEffect} from 'react';
+import React from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import { socialLogin } from '../../api/snsUser';
-import { useNavigate } from 'react-router-dom';
-import { useMutation } from 'react-query';
+
 
 ///안전한 폴더에서 모아서 관리 해보자 
 const Rest_api_key ='2e877086c066dea8246d1b0796d4c68f'
@@ -17,32 +15,10 @@ const KakaoLoginBtn = ({width, height}) => {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search)
     const keyword=searchParams.get('code')
-    console.log(code1===keyword);
-
-    const navigate = useNavigate();
-  /*    const mutation = useMutation(socialLogin, {
-        onSuccess: (response) => {
-            navigate('/')
-        },
-        onError: (error)=>{
-            console.log("에러")
-        }
-    })  */
-
 
     const handleLogin =()=>{
         window.location.href=kakaoURL;
-        const social='kakao';
-       /*  mutation.mutate({keyword,social});  */
     }
-
-    useEffect(()=>{
-
-            
-/*             const credential = keyword;
- */            
-
-    },[])
 
     return (
             <KakaoBtn onClick={handleLogin} width={width} height={height}>{'카카오로 바로시작'}</KakaoBtn>

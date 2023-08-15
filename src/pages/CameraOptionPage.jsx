@@ -2,9 +2,7 @@ import SetCount from "../components/webCam/SetCount";
 
 function CameraOptionPage() {
   return (
-    <div style={{width: '100%', backgroundColor:'var(--whiteGray)'}}>
-      <SetCount />
-    </div>
+      <SetCount  style={{width: '100%', backgroundColor:'var(--whiteGray)'}}/>
   )
 }
 export default CameraOptionPage;

@@ -5,6 +5,8 @@ import { socialLogin } from '../api/snsUser';
 import { useDispatch } from 'react-redux';
 import { useCookies } from 'react-cookie';
 import { SetAccessToken } from '../redux/modules/AccessToken';
+import base64 from "base-64"
+import { SetUserInfo } from '../redux/modules/User';
 
 const RedirectPage = () => {
     const navigate=useNavigate();
@@ -17,9 +19,18 @@ const RedirectPage = () => {
 
     const saveToken=async()=>{
         console.log(data);
-        setCookie('refresh',data.headers.refreshtoken);
-        await dispatch(SetAccessToken(data.headers.accesstoken));
-        
+        const accesstoken=data.headers.accesstoken;
+        const refreshtoken=data.headers.refreshtoken
+
+        setCookie('refresh',refreshtoken);
+        await dispatch(SetAccessToken(accesstoken));
+
+        const jwtPayload = accesstoken.split(".")[1];
+        const decodedPayload = JSON.parse(base64.decode(jwtPayload));
+        console.log(decodedPayload);
+        dispatch(SetUserInfo(decodedPayload))
+        console.log('ac',accesstoken)
+        console.log('rc',refreshtoken)
     }
 
     if(isSuccess){

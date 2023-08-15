@@ -10,11 +10,8 @@ import StyledButton from '../common/component/StyledButton';
 import * as L from '../common/styles/StyledLink';
 import * as I from '../common/styles/StyledInput';
 import { useCookies } from 'react-cookie';
-
 import base64 from "base-64"
 import { SetUserInfo } from '../../redux/modules/User';
-
-import useRefreshToken from '../../hooks/useRefreshToken';
 
 const EmailLogin = () => {
     const navigate = useNavigate();
