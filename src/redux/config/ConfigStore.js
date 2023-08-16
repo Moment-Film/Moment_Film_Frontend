@@ -13,7 +13,7 @@ import Filter from "../modules/Filter";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["Language", "image","ResultImage","AccessToken",'UserInfo','Filter'],
+  whitelist: ["Language", "image","ResultImage",/* "AccessToken" */,'UserInfo','Filter',"FrameInfo"],
 
 };
 

@@ -10,10 +10,15 @@ import { getPostDetail, deletePost } from "../../api/post"
 import { useParams,useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 const DetailContent = ({data}) => {
   //필요한 변수 선언
   const param = useParams();
+  const location = useLocation();
+  const path = location.pathname
+
+
   const navigate=useNavigate();
   const [selectFrame, setSelectFrame] = useState(false);
   const [selectFilter, setSelectFilter] = useState(false);
@@ -75,7 +80,7 @@ const DetailContent = ({data}) => {
                             <S.StyledSpan14>좋아요 수</S.StyledSpan14>
                             <S.StyledSpan14>{data.likeCount}개</S.StyledSpan14>
                             <S.StyledSpan14 onClick={postLikeHandler}>하트</S.StyledSpan14>
-                            <KakaoShareBtn></KakaoShareBtn>
+                            <KakaoShareBtn path={path} data={data} ></KakaoShareBtn>
                             <UrlShare></UrlShare>
                             <button onClick={FollowHandler}>팔로우</button>
                             <button onClick={deleteHandler}>게시글 삭제</button>

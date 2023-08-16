@@ -3,7 +3,6 @@ import * as a from "./style";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 
-import MyFrameModal from '../frameCustomPage/MyFrameModal'
 import GridNav from "../frameSelectPage/GridNav";
 import * as s from "../frameSelectPage/style";
 import { useNavigate } from "react-router-dom";
@@ -11,19 +10,14 @@ import { useState } from "react";
 import { useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
-import { saveAs } from "file-saver";
 import domtoimage from "dom-to-image";
 import { SetResultImage } from "../../redux/modules/ResultImage";
 import { SetFilter } from "../../redux/modules/Filter";
-import { useCookies } from "react-cookie";
-import { useQuery } from "react-query";
-import { getMyFilter } from "../../api/myFrameFilter";
 
 const FilterCustom = () => {
   const picRef = useRef();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [openModal, setOpenModal] = useState(false);
 
   const [filterList, setFilterList] = useState([
     { key: "blur", label: "블러", max: 10, unit: "px" },
@@ -64,41 +58,20 @@ const FilterCustom = () => {
         dispatch(SetResultImage(imageFile));
         dispatch(SetFilter(filterValue));
         console.log(imageFile);
-        saveAs(imageFile, "card.png");
-        navigate(`/camera/capture/finish`);
+/*         navigate("/camera/capture/finish"); */
+         navigate(`/DrawPage`);
       });
     } catch (error) {
-      console.error("Error converting div to image:", error);
+      console.error("Error make Image:", error);
     }
   };
 
-  const userInfo = useSelector((state)=>state.UserInfo);
-  const [cookie] = useCookies(['refresh']);
-  const refreshToken = cookie.refresh;
-  const accessToken = useSelector((state)=>state.AccessToken.accessToken);
-  const openModalHandler = () => {
-    if (accessToken) setOpenModal(true)
-    else {
-      window.confirm('로그인이 필요합니다.') &&  navigate(`../login`);
-    }
-  }
-  const closeModal = () => {
-    setOpenModal(false);
-  }
-  const {data} = useQuery(`myFilter${userInfo.sub}`, () => getMyFilter({accessToken, refreshToken}));
-  const applyFilter = (blur, brightness, saturate, contrast, sepia) =>{
-    blur!==null&&brightness!==null&&saturate!==null&&contrast!==null&&sepia!==null&& setFilterValue({
-      filterName: "test",
-      blur, brightness, saturate, contrast, sepia
-    })
-  }
   return (
     <>
       <s.Wrap>
         <s.Slider>
           <s.OptionWrap>
             <GridNav data={"frameSetting"} />
-            
             <a.BoxWrap>
               <a.LeftBox>
                 <a.FrameImg
@@ -153,21 +126,8 @@ const FilterCustom = () => {
               </a.LeftBox>
 
               <a.RightBox>
-                { openModal &&
-                  <MyFrameModal 
-                    onClose={closeModal} 
-                    data={data.data.data} 
-                    title="필터" 
-                    accessToken={accessToken} 
-                    refreshToken={refreshToken}
-                    onApply={applyFilter}
-                    />}
                 <OptionSection>
-                  <>
-                    <div>Filter</div>
-                    <button onClick={openModalHandler}>MY</button>
-                  </>
-                  
+                  <div>Filter</div>
                     {
                       filterList.map((item) =>
                         <div key={item.key}>

@@ -1,10 +1,15 @@
 import React from 'react';
-import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
+/* import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google'; */
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { socialLogin } from '../../api/snsUser';
 import { useCookies } from 'react-cookie';
 import styled from 'styled-components';
+
+import {GoogleLogin} from "@react-oauth/google";
+import {GoogleOAuthProvider} from "@react-oauth/google";
+
+
 // 보안이 되는 폴더??? 그런게 있다면 옮겨보자 
 const clientId = '130079254258-jg9vkidldjsvjg5u1fkncj66hs5iep9v.apps.googleusercontent.com'
 
@@ -35,11 +40,21 @@ const GoogleLoginBtn = ({width , height}) => {
         await setCookie('refresh',credential);
         console.log(cookie.refresh);
         const social='google';
-        mutation.mutate({credential,social});
+        const code= credential
+        mutation.mutate({code,social});
     }
 
     return (
- 
+/*         <GoogleOAuthProvider clientId={clientId}>
+        <GoogleLogin
+            onSuccess={(res) => {
+                console.log(res);
+            }}
+            onFailure={(err) => {
+                console.log(err);
+            }}
+        />
+    </GoogleOAuthProvider> */
         <GoogleOAuthProvider clientId={clientId}>
             <GoogleLogin onSuccess={handleOnSuccess} width={width} height={height} />
         </GoogleOAuthProvider>

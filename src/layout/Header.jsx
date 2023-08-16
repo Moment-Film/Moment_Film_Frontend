@@ -15,7 +15,7 @@ function Header() {
 
 
   const ACToken = useSelector((state) => state.AccessToken.accessToken);
-
+  console.log(ACToken)
 
 
   return (
