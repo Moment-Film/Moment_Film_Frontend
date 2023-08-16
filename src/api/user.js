@@ -1,5 +1,6 @@
-import axios from 'axios';
+import axios from "axios";
 
+// 회원가입 api
 export const register = async ({ username, password, email, phone }) => {
   try {
     const res = await axios.post("/api/user/signup", {
@@ -8,7 +9,6 @@ export const register = async ({ username, password, email, phone }) => {
       password,
       phone,
     });
-    console.log(res);
     return res.data;
   } catch (error) {
     console.error("resitster api error", error);
@@ -16,6 +16,7 @@ export const register = async ({ username, password, email, phone }) => {
   }
 };
 
+// 회원정보 조회 api
 export const getPrivateInfo = async ({ access, refresh }) => {
   const res = await axios.get(`/api/user/info`, {
     headers: {
@@ -26,6 +27,7 @@ export const getPrivateInfo = async ({ access, refresh }) => {
   return res;
 };
 
+// 회원정보 수정 api
 export const putEditInfo = async ({ access, refresh, editName, editPhone }) => {
   const res = await axios.put(
     `/api/user/info`,
@@ -40,14 +42,31 @@ export const putEditInfo = async ({ access, refresh, editName, editPhone }) => {
       },
     }
   );
-	return res;
+  return res;
 };
 
-export const replacePassword = async ({ access, refresh, newPassword }) => {
+// 회원 이메일로 인증 코드 전송 api
+export const sendEmail = async ({ access, refresh }) => {
+  const res = await axios.post(`/api/user/email`, null, {
+    headers: {
+      accessToken: access,
+      refreshToken: refresh,
+    },
+  });
+  return res.data.msg;
+};
+
+// 회원 비밀번호 수정 api
+export const replacePassword = async ({
+  access,
+  refresh,
+  newPassword,
+  code,
+}) => {
   const res = await axios.put(
-    `/api/user/password-reset`,
+    `/api/user/password-reset?code=${code}`,
     {
-      password : newPassword
+      password: newPassword,
     },
     {
       headers: {
@@ -56,18 +75,5 @@ export const replacePassword = async ({ access, refresh, newPassword }) => {
       },
     }
   );
-	return res;
-};
-
-export const sendEmail = async ({ access, refresh }) => {
-  const res = await axios.post(
-    `/api/user/email`,
-    {
-      headers: {
-        accessToken: access,
-        refreshToken: refresh,
-      },
-    }
-  );
-	return res;
+  return res;
 };
