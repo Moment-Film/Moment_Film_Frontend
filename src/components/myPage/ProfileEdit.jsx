@@ -11,6 +11,7 @@ import {
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
+import WithdrawalBtn from "../common/component/WithdrawalBtn";
 
 // "code = ${}"
 function ProfileEdit() {
@@ -231,6 +232,7 @@ function ProfileEdit() {
           </>
         )}
       </PasswordEditSection>
+      <WithdrawalBtn />
     </ProfileWrap>
   );
 }
@@ -248,8 +250,4 @@ const PasswordEditSection = styled.div`
   flex-direction: column;
   padding: 20px;
   margin-bottom: 20px;
-`;
-
-const CodeBtnWrap = styled.div`
-  display: flex;
 `;

@@ -60,23 +60,29 @@ export const LogOutAPI = async (ACToken, REToken) => {
 
 
 export const WithdrawalAPI = async (ACToken, REToken) => {
-  console.log(ACToken, REToken)
-  const response = await axios.delete('/api/user/withdrawal', null,
-    {
-      headers: {
-        accessToken: ACToken,
-        refreshToken: REToken
-      },
-    }
-  );
+  try {
+    const response = await axios.delete('/api/user/withdrawal',
+      {
+        headers: {
+          accessToken: ACToken,
+          refreshToken: REToken
+        },
+      }
+    );
+    return response;
+  } catch(error) {
+    return error;
+  }
+}
+  
 
   //성공이면 로그인 화면 or 홈화면을 보내버리자
-  if (response.status === 200) {
-    return response;
-  }
-  else
-    alert("로그인 실패한 이유")
-}
+//   if (response.status === 200) {
+//     return response;
+//   }
+//   else
+//     alert("로그인 실패한 이유")
+// }
 
 //팔로우 요청 및 취소 
 export const FollowAPI = async (userId, ACToken, REToken) => {

@@ -16,12 +16,8 @@ function Header() {
   return (
     <HeaderSection>
       <LinkBox>
-        {ACToken ? (
-          <>
-            <LogoutBtn />
-            <WithdrawalBtn />
-          </>
-        ) : (
+        {ACToken ?
+            <LogoutBtn /> : (
           <>
             <Btn
               onClick={() => {

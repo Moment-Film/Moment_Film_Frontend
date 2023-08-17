@@ -84,12 +84,10 @@ const DetailContent = ({data}) => {
                             <KakaoShareBtn path={path} data={data} ></KakaoShareBtn>
                             <UrlShare></UrlShare>
                             {
-                              userInfo.sub===data.userId ?
+                              Number(userInfo.sub)===data.userId ?
                               <button onClick={deleteHandler}>게시글 삭제</button> :
                               <button onClick={FollowHandler}>팔로우</button>
                             }
-                            {/* <button onClick={FollowHandler}>팔로우</button>
-                            <button onClick={deleteHandler}>게시글 삭제</button> */}
                         </Action>
                     </PostAction>
 
