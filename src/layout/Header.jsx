@@ -12,15 +12,9 @@ function Header() {
   const language = useSelector((state) => state.Language.language);
   const userInfo = useSelector((state) => state.UserInfo);
   const ACToken = useSelector((state) => state.AccessToken.accessToken);
-  console.log(ACToken)
-
 
   return (
     <HeaderSection>
-      <HeaderTitle>
-        <span onClick={() => navigate(`/`)}>Moment Film</span>
-      </HeaderTitle>
-
       <LinkBox>
         {ACToken ? (
           <>
@@ -50,6 +44,10 @@ function Header() {
           Language
         </Btn>
       </LinkBox>
+
+      <HeaderTitle>
+        <span onClick={() => navigate(`/`)}>Moment Film</span>
+      </HeaderTitle>
 
       <LinkBox>
         <Btn onClick={() => navigate(`/search`)}>🔍</Btn>
