@@ -1,10 +1,12 @@
+import axios from "axios";
 import ourAxios from "./ourAxios";
 
 export const searchUser = async ({username}) => {
   try {
-    const res = await ourAxios.get(`/api/user/search?userKeyword=${username}`);
 
-    console.log(username);
+    const res = await axios.get(`/api/user/search?userKeyword=${username}`);
+    console.log(res.data.data);
+
     return res.data.data;
 
   } catch (error) {

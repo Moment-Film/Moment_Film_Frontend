@@ -22,6 +22,7 @@ import PrivateRoute from './layout/PrivateRoute'
 import RedirectPage from './pages/RedirectPage';
 import ProfileEdit from './components/myPage/ProfileEdit';
 
+import DrawPage from './pages/DrawPage';
 import Test from './pages/Test';
 function App() {
   return (
@@ -44,8 +45,9 @@ function App() {
           <Route path="/search/reseult/:id" element={<SearchReseultpage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/api/user/kakao/login" element={<RedirectPage />} />
-
+          
           <Route path="/test" element={<Test />} />
+          <Route path="/DrawPage" element={<DrawPage />} />
           
           {/* private Router */}
           <Route element={<PrivateRoute />}>

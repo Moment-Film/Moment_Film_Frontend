@@ -12,7 +12,7 @@ function Header() {
   const language = useSelector((state) => state.Language.language);
   const userInfo = useSelector((state) => state.UserInfo);
   const ACToken = useSelector((state) => state.AccessToken.accessToken);
-
+  console.log(ACToken)
 
 
   return (

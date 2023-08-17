@@ -13,6 +13,7 @@ import Filter from "../modules/Filter";
 const persistConfig = {
   key: "root",
   storage,
+
   whitelist: [
     "Language",
     "image",
@@ -21,6 +22,7 @@ const persistConfig = {
     "UserInfo",
     "Filter",
   ],
+
 };
 
 const rootReducer = combineReducers({

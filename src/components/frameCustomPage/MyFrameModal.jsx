@@ -15,6 +15,7 @@ function MyFrameModal({onClose, data, title, accessToken, refreshToken, onApply}
   const ApplyMyFrame = (frameId) => {
     applyFrame({frameId, accessToken, refreshToken})
     .then(result =>{
+      console.log(result);
       applyThisFrame(result.hue, result.saturation, result.lightness, result.image);
     })
   }
