@@ -18,7 +18,7 @@ export const addComment = async ({
     });
 
     console.log(res);
-    return res.data;
+    return res.data.data;
   } catch (error) {
     console.error("addComment api error", error);
     throw error;

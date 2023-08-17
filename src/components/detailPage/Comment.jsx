@@ -13,18 +13,26 @@ import { delReply } from "../../api/addComment";
 
 //input 태그를 따로 빼면 컴포넌트의 필요없는 랜더링을 줄일 수 있다
 const Comment = ({ data, isSuccess }) => {
+  console.log(data);
+
   //변수 선언부
   const param = useParams();
   const queryClient = useQueryClient();
 
     const [comment, setComment] = useState(null);
     const [recomment, setRecomment] = useState({});
-    const [commentList, setCommentList] = useState();
+    const [commentList, setCommentList] = useState(data);
     const [isReplyShow, setIsReplyShow] = useState([null]);
 
     const accessToken = useSelector((state)=>state.AccessToken.accessToken)
     const [cookie] = useCookies(['refresg']);
     const refreshToken = cookie.refresh;
+
+    useEffect(()=>{
+      setCommentList(data)
+    },[data])
+
+
   //일반 함수 부
   const showReplyHandler = (commentId) => {
     const newList = isReplyShow.includes(commentId) // 받은 댓글ID가 SHOW 배열에 존재하는지
@@ -42,11 +50,12 @@ const Comment = ({ data, isSuccess }) => {
     setRecomment({ ...recomment, [id]: e.target.value });
   };
 
+
   // mutatin 함수 선언 부
   const CommentMutation = useMutation(addComment, {
     onSuccess: (response) => {
       console.log(response);
-      if (response.status === "CREATED") {
+      {
         queryClient.invalidateQueries(`Detail${param.id}`);
       }
     },
@@ -58,7 +67,7 @@ const Comment = ({ data, isSuccess }) => {
   const ReplyMutation = useMutation(addReply, {
     onSuccess: (response) => {
       console.log(response);
-      if (response.status === "CREATED") {
+      {
         queryClient.invalidateQueries(`Detail${param.id}`);
       }
     },
@@ -70,7 +79,7 @@ const Comment = ({ data, isSuccess }) => {
   const DelCommentMutation = useMutation(delComment, {
     onSuccess: (response) => {
       console.log(response);
-      if (response.status === "OK") {
+      {
         queryClient.invalidateQueries(`Detail${param.id}`);
       }
     },
@@ -82,7 +91,7 @@ const Comment = ({ data, isSuccess }) => {
   const DelReplyMutation = useMutation(delReply, {
     onSuccess: (response) => {
       console.log(response);
-      if (response.status === "OK") {
+  {
         queryClient.invalidateQueries(`Detail${param.id}`);
       }
     },
@@ -93,7 +102,7 @@ const Comment = ({ data, isSuccess }) => {
 
   // api 동작이 들어있는 함수
   const AddComment = () => {
-    const postId = data.id;
+    const postId = param.id;
     CommentMutation.mutate({ postId, accessToken, refreshToken, comment });
     setComment("");
   };

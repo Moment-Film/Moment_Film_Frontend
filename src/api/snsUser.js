@@ -4,7 +4,7 @@ export const socialLogin = async ({ code, social }) => {
   // 아직 주소 안정해짐 
 
   console.log(code, social)
-  const response = await axios.post(`/api/user/kakao/callback?code=${code}`);
+  const response = await axios.post(`/api/user/${social}/callback?code=${code}`);
   console.log(response)
   console.log(response.headers.accesstoken)
   console.log(response.headers.refreshtoken)

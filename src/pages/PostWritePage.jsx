@@ -29,15 +29,13 @@ function PostWritePage() {
 
   const onSubmitHandler = async() => {
 
-
-
     ////////////////////////////////////////////////////
     //프레임 등록을 위한 폼데이터 생성
     
     const FrameForm = new FormData();
-
+    console.log(Frame);
     const FrameData = {
-      frameName: "zzzzz",
+      frameName: "asqqqqq",
       hue:FrameColor.h,
       saturation:FrameColor.s,
       lightness:FrameColor.l
@@ -45,7 +43,7 @@ function PostWritePage() {
 
     // 이슈 블롭객체를 전송하려다 에러가 발생 서버에서는 파일객체를 지정했었음 타입을 잘 blob과 파일 객체에 대한 이해 필요
     const FrameFile = new File([Frame], 'test.jpg', { type: 'image/jpeg' });
-    FrameForm.append("frame", FrameFile);
+    FrameForm.append("imageFile", FrameFile);
     FrameForm.append("data", new Blob([JSON.stringify(FrameData)], { type: "application/json" }))
 
 

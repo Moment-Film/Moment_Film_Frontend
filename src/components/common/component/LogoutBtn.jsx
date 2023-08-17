@@ -16,6 +16,7 @@ const LogoutBtn = () => {
         const res = await LogOutAPI(ACToken,cookie.refresh);
 
         await dispatch(SetAccessToken(null));
+        console.log(ACToken);
         navigate("/")
     }
 

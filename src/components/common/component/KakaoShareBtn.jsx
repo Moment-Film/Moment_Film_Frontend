@@ -4,9 +4,9 @@ import { useEffect } from "react";
 // kakao 기능 동작을 위해 넣어준다.
 const { Kakao } = window;
 
-const KakaoShareBtn = ({data}) => {
+const KakaoShareBtn = ({data,path}) => {
     // 배포한 자신의 사이트
-    const realUrl = "http://localhost:3000"
+    const realUrl = `https://view-teal.vercel.app/${path}`
     // 로컬 주소 (localhost 3000 같은거)
     const resultUrl = window.location.href;
 
@@ -24,17 +24,16 @@ const KakaoShareBtn = ({data}) => {
         Kakao.Share.sendDefault({
             objectType: 'feed',
             content: {
-                title: '오늘의 디저트',
-                description: '아메리카노, 빵, 케익',
-                imageUrl:
-                    'https://mud-kage.kakao.com/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg',
+                title: data.title,
+                description: data.contents,
+                imageUrl:data.image,
                 link: {
                     mobileWebUrl: realUrl,
                 },
             },
             buttons: [
                 {
-                    title: '나도 테스트 하러가기',
+                    title: '구경하러가기',
                     link: {
                         mobileWebUrl: realUrl,
                     },
