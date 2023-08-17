@@ -14,6 +14,7 @@ function DetailPage() {
 console.log(param.id)
   //리액트 쿼리
   const { data, isLoading, isError, isSuccess } = useQuery(`Detail${param.id}`, () => getPostDetail(param.id));
+  console.log(data);
 
   //리액트 쿼리 상태 처리 부분 
   if (isLoading) {
