@@ -5,13 +5,25 @@ import { SetResultImage } from "../redux/modules/ResultImage";
 import { useNavigate } from "react-router-dom";
 import domtoimage from "dom-to-image";
 
+import {
+  HueSlider,
+  SaturationSlider,
+  LightnessSlider,
+} from "react-slider-color-picker";
+
 function DrawPage() {
   const thisbackGround = useSelector((state) => state.ResultImage);
-  const FrameSize = useSelector((state) => state.image);
-  console.log(FrameSize)
- 
+  const FrameSize = useSelector((state) => state.image.images);
+  console.log(FrameSize.width)
+  console.log(FrameSize.height)
+
+  const [color, setColor] = useState({ h: 180, s: 100, l: 100 });
+
+  const changeColorHandler = (newColor) => {
+    setColor(newColor);
+  };
+
   const canvasRef = useRef(null);
-  const picRef = useRef();
 
   const [isDrawing, setIsDrawing] = useState(false);
   const [lastX, setLastX] = useState(0);
@@ -74,7 +86,7 @@ function DrawPage() {
     if (!isDrawing) return;
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
-    ctx.strokeStyle = "blue";
+    ctx.strokeStyle = `hsl(${color.h}, ${color.s}%, ${color.l}%)`;
     ctx.lineJoin = "round";
     ctx.lineCap = "round";
     ctx.lineWidth = 5;
@@ -137,13 +149,13 @@ function DrawPage() {
 
 
   return (
-    <div ref={picRef}>
+    <div >
       <h1>자 그려 봅시다</h1>
       <input type="file" onChange={handleImageChange} />
       <canvas
         ref={canvasRef}
-        width={300}
-        height={400}
+        width={FrameSize.width}
+        height={FrameSize.height}
         onMouseDown={mode ? startMoving : startDrawing}
         onMouseMove={mode ? handleImageMove : draw}
         onMouseUp={endDrawing}
@@ -151,6 +163,26 @@ function DrawPage() {
       />
       <button onClick={handleSave}>Save Drawing</button>
       <button onClick={chagemode}>mode</button>
+
+
+      <div>penColor</div>
+      <div>색조</div>
+      <HueSlider
+        handleChangeColor={changeColorHandler}
+        color={color}
+      />
+      <div>채도</div>
+      <SaturationSlider
+        handleChangeColor={changeColorHandler}
+        color={color}
+      />
+
+      <div>밝기</div>
+      <LightnessSlider
+        handleChangeColor={changeColorHandler}
+        color={color}
+
+      />
     </div>
   );
 }
