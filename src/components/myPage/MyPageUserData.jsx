@@ -28,7 +28,13 @@ const MyPageUserData = ({ lang,data }) => {
     const refreshToken = cookie.refresh;
 
     const FollowHandler = () => {
-        FollowAPI(data.id, accessToken, refreshToken)
+        if (userInfo.sub) {
+            FollowAPI(data.id, accessToken, refreshToken);
+        }
+        else {
+            alert('로그인이 필요합니다.')
+            navigate(`/login`);
+        }
     }
     return (
         <div>
