@@ -11,7 +11,7 @@ export const likePost = async ( postId ,ACToken ,REToken ) => {
             }
         );
         console.log(res);
-        return res.data;
+        return res.data.data;
 
     } catch (error) {
         console.error("likePost api error", error);
