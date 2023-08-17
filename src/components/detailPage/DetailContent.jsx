@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import styled from "styled-components"
 
 import KakaoShareBtn from "../common/component/KakaoShareBtn"
@@ -22,6 +22,7 @@ const DetailContent = ({data}) => {
   const navigate=useNavigate();
   const [selectFrame, setSelectFrame] = useState(false);
   const [selectFilter, setSelectFilter] = useState(false);
+  
 
   //액세스 토큰 리프레시 토큰 가져오는 부분 
   const [cookie, setCookie] = useCookies(['refresh']);
@@ -34,8 +35,7 @@ const DetailContent = ({data}) => {
   }
 
   const FollowHandler = () => {
-    FollowAPI(data.userId, accessToken, refreshToken)
-
+    FollowAPI(data.userId, accessToken, refreshToken);
   }
 
   const deleteHandler = async() => {

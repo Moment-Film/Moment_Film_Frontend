@@ -58,9 +58,9 @@ const FilterCustom = () => {
         dispatch(SetResultImage(imageFile));
         dispatch(SetFilter(filterValue));
         console.log(imageFile);
-/*         navigate("/camera/capture/finish"); */
-         navigate(`/DrawPage`);
-      });
+/*          navigate("/camera/capture/finish");
+ */          navigate(`/DrawPage`);
+       });
     } catch (error) {
       console.error("Error make Image:", error);
     }

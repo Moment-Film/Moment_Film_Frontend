@@ -4,13 +4,19 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { SetResultImage } from "../redux/modules/ResultImage";
 import { useNavigate } from "react-router-dom";
+import domtoimage from "dom-to-image";
 
 function DrawPage() {
   const thisbackGround = useSelector((state) => state.ResultImage);
   const canvasRef = useRef(null);
+  const picRef = useRef();
+
   const [isDrawing, setIsDrawing] = useState(false);
   const [lastX, setLastX] = useState(0);
   const [lastY, setLastY] = useState(0);
+  const [imglastX, setImgLastX] = useState(0);
+  const [imglastY, setImgLastY] = useState(0);
+
   const [selectedImage, setSelectedImage] = useState(null); // 선택된 이미지 파일
   const [imageX, setImageX] = useState(0); // 이미지 x 좌표
   const [imageY, setImageY] = useState(0); // 이미지 y 좌표
@@ -22,33 +28,46 @@ function DrawPage() {
 
   const objectUrl = URL.createObjectURL(thisbackGround);
 
+
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     const img = new Image();
     img.src = objectUrl;
-
+  
     img.onload = () => {
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-
-      if (selectedImage) {
-        const img1 = new Image();
-        img1.src = URL.createObjectURL(selectedImage);
-
-        img1.onload = () => {
-          ctx.drawImage(img1, imageX, imageY, 100, 100);
-        };
-      }
     };
-  }, [thisbackGround, selectedImage, imageX, imageY]);
+  }, [thisbackGround, imageX, imageY]);
+  
+
+  useEffect(() => {
+    if (selectedImage) {
+      const canvas = canvasRef.current;
+      const ctx = canvas.getContext("2d");
+  
+      const img1 = new Image();
+      img1.src = URL.createObjectURL(selectedImage);
+  
+      img1.onload = () => {
+        ctx.drawImage(img1, imageX, imageY, 100, 100);
+      };
+    }
+  }, [selectedImage, imageX, imageY]);
+  
+
 
   const startDrawing = (e) => {
-    if (selectedImage) {
       setIsDrawing(true);
       setLastX(e.nativeEvent.offsetX);
       setLastY(e.nativeEvent.offsetY);
-    }
   };
+
+  const startMoving = (e) => {
+    setIsDrawing(true);
+    setImgLastX(e.nativeEvent.offsetX);
+    setImgLastY(e.nativeEvent.offsetY);
+};
 
   const draw = (e) => {
     if (!isDrawing) return;
@@ -79,10 +98,10 @@ function DrawPage() {
 
   const handleImageMove = (e) => {
     if (isDrawing) {
-      setImageX(imageX + (e.nativeEvent.offsetX - lastX));
-      setImageY(imageY + (e.nativeEvent.offsetY - lastY));
-      setLastX(e.nativeEvent.offsetX);
-      setLastY(e.nativeEvent.offsetY);
+      setImageX(imageX + (e.nativeEvent.offsetX - imglastX));
+      setImageY(imageY + (e.nativeEvent.offsetY - imglastY));
+      setImgLastX(e.nativeEvent.offsetX);
+      setImgLastY(e.nativeEvent.offsetY);
     }
   };
 
@@ -91,11 +110,24 @@ function DrawPage() {
 
     try {
 
-      const canvas = canvasRef.current;
+      ////////////////////
+      const card = picRef.current;
+      domtoimage.toBlob(card).then((imageFile) => {
+        dispatch(SetResultImage(imageFile));
+/*         dispatch(SetFilter(filterValue));
+ */        console.log(imageFile);
+         navigate("/camera/capture/finish");
+/*          navigate(`/DrawPage`);
+ */      });
+
+
+      ////////////////////
+
+/*       const canvas = canvasRef.current;
       const dataUrl = canvas.toDataURL("image/png");
       const blob = dataURLtoBlob(dataUrl);
       await dispatch(SetResultImage(blob));
-      navigate("/camera/capture/finish");
+      navigate("/camera/capture/finish"); */
    /*    saveAs(blob, "drawing.png"); */
 
     } catch (error) {
@@ -106,6 +138,12 @@ function DrawPage() {
   
   const chagemode = async() => {
    await setMode(!mode);
+   if(mode===true){
+    const card = picRef.current;
+    domtoimage.toBlob(card).then((imageFile) => {
+      dispatch(SetResultImage(imageFile));
+      });
+   }
    console.log(mode)
   };
 
@@ -125,14 +163,14 @@ function DrawPage() {
   };
 
   return (
-    <div className="App">
+    <div ref={picRef}>
       <h1>자 그려 봅시다</h1>
       <input type="file" onChange={handleImageChange} />
       <canvas
         ref={canvasRef}
         width={800}
         height={600}
-        onMouseDown={startDrawing}
+        onMouseDown={mode? startMoving  : startDrawing}
         onMouseMove={mode? handleImageMove : draw}
         onMouseUp={endDrawing}
         style={{ cursor: selectedImage ? "move" : "auto" }}
