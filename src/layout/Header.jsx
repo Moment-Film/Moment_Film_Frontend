@@ -7,13 +7,10 @@ import WithdrawalBtn from "../components/common/component/WithdrawalBtn";
 
 function Header() {
   const navigate = useNavigate();
-
-  const language = useSelector((state) => state.Language.language);
   const dispatch = useDispatch();
 
+  const language = useSelector((state) => state.Language.language);
   const userInfo = useSelector((state) => state.UserInfo);
-
-
   const ACToken = useSelector((state) => state.AccessToken.accessToken);
   console.log(ACToken)
 
