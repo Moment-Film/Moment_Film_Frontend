@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { FollowAPI } from "../../api/snsUser"
 import { useSelector } from 'react-redux';
 import { useCookies } from 'react-cookie';
-
+import WithdrawalBtn from '../common/component/WithdrawalBtn';
 const MyPageUserData = ({ lang,data }) => {
     const userInfo = useSelector((state)=>state.UserInfo);
     const navigate = useNavigate();
@@ -52,6 +52,9 @@ const MyPageUserData = ({ lang,data }) => {
 
                 <UserDataSection>
                     <Span>{data.username}{' 님'}</Span>
+
+                    <WithdrawalBtn></WithdrawalBtn>
+                    
                     { Number(userInfo.sub)===data.id 
                     ? <button onClick={()=>navigate(`../profile/edit`)}>프로필 수정</button> 
                     : <button onClick={FollowHandler}>
