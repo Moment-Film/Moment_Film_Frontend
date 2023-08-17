@@ -11,7 +11,7 @@ function DetailPage() {
 
   const param = useParams();
   const navigate = useNavigate();
-console.log(param.id)
+  console.log(param.id)
   //리액트 쿼리
   const { data, isLoading, isError, isSuccess } = useQuery(`Detail${param.id}`, () => getPostDetail(param.id));
   console.log(data);
@@ -28,7 +28,7 @@ console.log(param.id)
 
   return (
     <DetailSection style={{ backgroundColor: "var(--whiteGray)" }}>
-      <DetailContent data={data} />
+      <DetailContent data={data} isSuccess={isSuccess}/>
       <Comment data={data.commentList} isSuccess={isSuccess} />
     </DetailSection>
   )

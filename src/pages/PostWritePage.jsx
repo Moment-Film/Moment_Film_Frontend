@@ -21,6 +21,7 @@ function PostWritePage() {
   const objectUrl = URL.createObjectURL(resultImg);
 
   console.log(typeof(resultImg));
+  console.log((resultImg));
   const accessToken = useSelector((state)=>state.AccessToken.accessToken);
   const writerInfo = useSelector((state)=> state.UserInfo);
   const filterInfo =useSelector((state)=>state.Filter)  
@@ -67,7 +68,7 @@ function PostWritePage() {
     // 이슈 블롭객체를 전송하려다 에러가 발생 서버에서는 파일객체를 지정했었음 타입을 잘 blob과 파일 객체에 대한 이해 필요
     const PostFile = new File([resultImg], "test.jpg", { type: "image/jpeg" });
     PostForm.append("imageFile", PostFile);
-
+    console.log(PostFile)
     PostForm.append("data", new Blob([JSON.stringify(PostData)], { type: "application/json" }))
  
     ////////////////////////////////////////////////////

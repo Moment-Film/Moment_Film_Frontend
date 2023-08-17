@@ -61,7 +61,7 @@ export const LogOutAPI = async (ACToken, REToken) => {
 
 export const WithdrawalAPI = async (ACToken, REToken) => {
   console.log(ACToken, REToken)
-  const response = await axios.delete('/api/user/withdrawal', null,
+  const response = await axios.delete('/api/user/withdrawal',
     {
       headers: {
         accessToken: ACToken,
