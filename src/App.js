@@ -11,7 +11,6 @@ import SignUpPage from './pages/SignUpPage'
 import CameraPage from './pages/CameraPage';
 import CameraOptionPage from './pages/CameraOptionPage';
 import FrameSelectPage from './pages/FrameSelectPage';
-import CamPageLayout from './layout/CamPageLayout';
 import FilterPage from './pages/FilterPage';
 import { Route, Routes } from 'react-router-dom';
 import Globalstyles from './globalStyle/GlobalStyle';
@@ -54,11 +53,6 @@ function App() {
             <Route path='/profile/edit' element={<ProfileEdit />} />
           </Route>
         </Route>
-
-        {/* 스르륵 */}
-        <Route path='/camera' element={<CamPageLayout />}>
-        </Route>
-
       </Routes>
     </>
   );

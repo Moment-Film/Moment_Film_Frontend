@@ -3,9 +3,9 @@ import styled from "styled-components";
 import { useNavigate } from "react-router";
 import { useQuery } from "react-query";
 import { useState } from "react";
-import * as S from "../common/styles/StyledSpan";
 import { popularUser } from "../../api/popularUser";
 
+import * as S from "../common/styles/StyledSpan";
 import upperArr from "../assets/icons/upperArr.svg";
 import search from "../assets/icons/searchIcon.svg";
 
@@ -63,7 +63,7 @@ const SearchUser = () => {
                   <RecommendItem>
                     <div style={{ display: "flex", gap: "20px" }}>
                       <div>{index + 1}위</div>
-                      <div>{item.username}</div>
+                      <div onClick={()=>{navigate(`/profile/${item.id}`)}}>{item.username}</div>
                     </div>
                     <div style={{ display: "flex" }}>
                       <div style={{ lineHeight: "28px" }}>

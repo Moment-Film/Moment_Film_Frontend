@@ -14,7 +14,6 @@ function SearchReseultpage() {
     error,
   } = useQuery(["searchUser", username], () => searchUser({ username }));
 
-  // console.log(searchUserData.data.data);
   return (
     <>
       <div>
@@ -24,7 +23,7 @@ function SearchReseultpage() {
           <>
             "{params.id}"과 관련된 검색 결과입니다!
             <>
-              {searchUserData?.data.data.map((item, index) => {
+              {searchUserData.map((item, index) => {
                 return <div key={index}>{item.username}</div>;
               })}
             </>
