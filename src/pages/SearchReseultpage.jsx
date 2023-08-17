@@ -14,7 +14,6 @@ function SearchReseultpage() {
     error,
   } = useQuery(["searchUser", username], () => searchUser({ username }));
 
-  // console.log(searchUserData.data.data);
   return (
     <>
       <div>

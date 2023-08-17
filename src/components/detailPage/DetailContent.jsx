@@ -24,7 +24,8 @@ const DetailContent = ({ data }) => {
   const navigate = useNavigate();
   const [selectFrame, setSelectFrame] = useState(false);
   const [selectFilter, setSelectFilter] = useState(false);
-
+  const userInfo = useSelector((state)=>state.UserInfo);
+  
 
   //액세스 토큰 리프레시 토큰 가져오는 부분 
   const [cookie, setCookie] = useCookies(['refresh']);
@@ -92,17 +93,22 @@ const DetailContent = ({ data }) => {
             <button>사용해보기</button>
           </OptionSection>
 
-          <PostAction>
-            <Action>
-              <S.StyledSpan14>좋아요 수</S.StyledSpan14>
-              <S.StyledSpan14>{data.likeCount}개</S.StyledSpan14>
-              <S.StyledSpan14 onClick={postLikeHandler}>하트</S.StyledSpan14>
-              <KakaoShareBtn path={path} data={data} ></KakaoShareBtn>
-              <UrlShare></UrlShare>
-              <button onClick={FollowHandler}>팔로우</button>
-              <button onClick={deleteHandler}>게시글 삭제</button>
-            </Action>
-          </PostAction>
+                    <PostAction>
+                        <Action>
+                            <S.StyledSpan14>좋아요 수</S.StyledSpan14>
+                            <S.StyledSpan14>{data.likeCount}개</S.StyledSpan14>
+                            <S.StyledSpan14 onClick={postLikeHandler}>하트</S.StyledSpan14>
+                            <KakaoShareBtn path={path} data={data} ></KakaoShareBtn>
+                            <UrlShare></UrlShare>
+                            {
+                              Number(userInfo.sub)===data.userId ?
+                              <button onClick={deleteHandler}>게시글 삭제</button> :
+                              <button onClick={FollowHandler}>팔로우</button>
+                            }
+                            {/* <button onClick={FollowHandler}>팔로우</button>
+                            <button onClick={deleteHandler}>게시글 삭제</button> */}
+                        </Action>
+                    </PostAction>
 
         </DetailPost>
       </DetailContents>
