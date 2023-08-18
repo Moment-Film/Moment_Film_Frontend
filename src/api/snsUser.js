@@ -60,25 +60,21 @@ export const LogOutAPI = async (ACToken, REToken) => {
 
 
 export const WithdrawalAPI = async (ACToken, REToken) => {
-  console.log(ACToken, REToken)
-  const response = await axios.delete('/api/user/withdrawal', null,
-    {
-      headers: {
-        accessToken: ACToken,
-        refreshToken: REToken
-      },
-    }
-  );
-
-  //성공이면 로그인 화면 or 홈화면을 보내버리자
-  if (response.status === 200) {
+  try {
+    const response = await axios.delete('/api/user/withdrawal',
+      {
+        headers: {
+          accessToken: ACToken,
+          refreshToken: REToken
+        },
+      }
+    );
     return response;
   } catch(error) {
     return error;
   }
 }
   
-
   //성공이면 로그인 화면 or 홈화면을 보내버리자
 //   if (response.status === 200) {
 //     return response;
