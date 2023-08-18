@@ -8,7 +8,7 @@ export const addComment = async ({
 }) => {
   console.log(postId, comment);
   try {
-    const res = await axios.post(`http://52.78.24.117:8080/api/post/${postId}/comment`,{content:comment},
+    const res = await axios.post(`/api/post/${postId}/comment`,{content:comment},
     {
       headers: {
         accessToken: accessToken,

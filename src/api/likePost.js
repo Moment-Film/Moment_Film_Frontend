@@ -7,7 +7,7 @@ export const likePost = async ( {postId ,accessToken ,refreshToken }) => {
 
         console.log(refreshToken)
 
-        const res = await axios.post(`http://52.78.24.117:8080/api/post/${postId}/likes`,null,
+        const res = await axios.post(`/api/post/${postId}/likes`,null,
             {
                 headers: {
                     accessToken: accessToken,

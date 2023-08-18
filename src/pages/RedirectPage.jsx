@@ -36,7 +36,7 @@ const RedirectPage = () => {
     if(isSuccess){
         console.log(data);
         saveToken()
-        navigate('https://view-teal.vercel.app/'); 
+        navigate('/'); 
     }
 
     if(isError){
