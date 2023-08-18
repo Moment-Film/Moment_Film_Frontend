@@ -21,9 +21,16 @@ const SearchUser = () => {
   const { data: popularUserData } = useQuery("popularUser", () =>
     popularUser()
   );
+  console.log(popularUserData)
 
   const searchBtnHandler = () => {
     navigate(`/search/reseult/${username}`);
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter" || e.keyCode === 13) {
+      navigate(`/search/reseult/${username}`);
+    }
   };
 
   return (
@@ -44,8 +51,10 @@ const SearchUser = () => {
 
           <SearchInputDiv>
             <input
+              type="text"
               value={username}
               onChange={searchTermHandler}
+              onKeyPress={handleKeyPress}
               placeholder="검색어를 입력해 주세요."
             />
             <div onClick={searchBtnHandler}>
@@ -63,7 +72,14 @@ const SearchUser = () => {
                   <RecommendItem>
                     <div style={{ display: "flex", gap: "20px" }}>
                       <div>{index + 1}위</div>
-                      <div onClick={()=>{navigate(`/profile/${item.id}`)}}>{item.username}</div>
+                      <div
+                        onClick={() => {
+                          navigate(`/profile/${item.id}`);
+                        }}
+                      >
+                        {index < 2 || item.username === "zlzonKing" ? "👑" : ""}
+                        {item.username}
+                      </div>
                     </div>
                     <div style={{ display: "flex" }}>
                       <div style={{ lineHeight: "28px" }}>
