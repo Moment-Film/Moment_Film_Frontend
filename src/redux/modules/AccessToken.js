@@ -26,9 +26,8 @@ const AccessTokenSlice = createSlice({
 /* 
 const isTokenValid =({accessToken})=>
 {
-    //복호화해서 유효성 검증진행예정
-    //구글 카카오 이메일 각 토큰들이 암호화 되어있는 방식이 달라서
-    // 복호화하는법 고민 해봐야할 듯  
+    // 현재 액세스 토큰이랑 리브레시 토큰이 동시에 전송되는 상황 
+    // ??? 리프레시 토큰의 이유 희미 
     return true;
 } */
 
