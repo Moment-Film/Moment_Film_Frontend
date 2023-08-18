@@ -11,6 +11,7 @@ import {
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
+import WithdrawalBtn from "../common/component/WithdrawalBtn";
 
 // "code = ${}"
 function ProfileEdit() {
@@ -91,9 +92,9 @@ function ProfileEdit() {
       onSuccess: () => {
         setIsVerified(false);
         setIsClicked(false);
-        setCode('')
+        setCode("");
         alert("비밀번호가 변경되었습니다.");
-        navigate(`/profile/${userInfo.sub}`)
+        navigate(`/profile/${userInfo.sub}`);
       },
       onError: (error) => {
         alert("비밀번호 변경에 실패했습니다.");
@@ -231,6 +232,7 @@ function ProfileEdit() {
           </>
         )}
       </PasswordEditSection>
+      <WithdrawalBtn />
     </ProfileWrap>
   );
 }
