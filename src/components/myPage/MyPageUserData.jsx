@@ -7,12 +7,15 @@ import { useState } from "react";
 import { FollowAPI } from "../../api/snsUser";
 import { useSelector } from "react-redux";
 import { useCookies } from "react-cookie";
+import Edit from "../assets/icons/Edit.png";
+import { StyledSpan24 } from "../common/styles/StyledSpan";
 
 const MyPageUserData = ({ lang, data }) => {
   const userInfo = useSelector((state) => state.UserInfo);
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [fof, setFof] = useState("followerList");
+  const [isSelected, SetIsSelected] = useState();
 
   const clickHandler = (modalData) => {
     setShowModal(true);
@@ -66,24 +69,29 @@ const MyPageUserData = ({ lang, data }) => {
         </UserProfileSection>
 
         <UserDataSection>
-          <span>
+          <StyledSpan24>
             {data.username}
-            {" 님"}
-          </span>
-
-          {Number(userInfo.sub) === data.id ? (
-            <button onClick={() => navigate(`../profile/edit`)}>
-              프로필 수정
-            </button>
-          ) : (
-            <button onClick={FollowHandler}>
-              {data.followerList.some(
-                (follower) => follower.id === Number(userInfo.sub)
-              )
-                ? "언팔로우"
-                : "팔로우"}
-            </button>
-          )}
+            {" 님     "}
+          </StyledSpan24>
+          <NameSection>
+            {Number(userInfo.sub) === data.id ? (
+              <div onClick={() => navigate(`../profile/edit`)}>
+                <img
+                  src={Edit}
+                  alt=""
+                  style={{ width: "25px", padding: "2.5px" }}
+                />
+              </div>
+            ) : (
+              <button onClick={FollowHandler}>
+                {data.followerList.some(
+                  (follower) => follower.id === Number(userInfo.sub)
+                )
+                  ? "언팔로우"
+                  : "팔로우"}
+              </button>
+            )}
+          </NameSection>
 
           {/* 다른이용자면 box-1가리고  */}
           <div className="box-1">
@@ -157,6 +165,11 @@ const UserProfileSection = styled.section`
   background-color: var(--white);
 `;
 
+const NameSection = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
 const UserDataSection = styled.section`
   display: grid;
   width: 40%;
@@ -172,6 +185,7 @@ const UserDataSection = styled.section`
     align-items: center;
     hr {
       height: 30px;
+      border: 1px solid var(--lightGray);
     }
   }
   .box-2 {
@@ -183,6 +197,7 @@ const UserDataSection = styled.section`
     align-items: center;
     hr {
       height: 30px;
+      border: 1px solid var(--lightGray);
     }
   }
   .box-3 {
@@ -202,7 +217,8 @@ const UserDataSection = styled.section`
     }
 
     hr {
-      height: 10px;
+      height: 15px;
+      border: 1px solid var(--lightGray);
     }
   }
 
@@ -231,6 +247,10 @@ const UserItemResult = styled.div`
   align-items: center;
 
   background-color: var(--white);
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--green5);
+  line-height: 21px;
 `;
 
 const Img = styled.img`

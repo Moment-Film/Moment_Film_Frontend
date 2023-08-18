@@ -71,6 +71,13 @@ const EmailLogin = () => {
     mutation.mutate({ email, password });
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter" || e.keyCode === 13) {
+      e.preventDefault();
+      mutation.mutate({ email, password });
+    }
+  };
+
   return (
     <StyledForm>
       <InputSection>
@@ -96,6 +103,7 @@ const EmailLogin = () => {
             placeholder={"비밀번호"}
             value={password}
             onChange={handlePasswordChange}
+            onKeyPress={handleKeyPress}
             type={"password"}
           />
           <img onClick={passwordDeleteHandler} src={inputDelete} alt="" />
