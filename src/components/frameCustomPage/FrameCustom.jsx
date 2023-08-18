@@ -3,7 +3,7 @@ import * as a from "./style";
 import * as s from "../frameSelectPage/style";
 import GridNav from "../frameSelectPage/GridNav";
 import StyledButton from "../common/component/StyledButton";
-import { SetFrameColor } from "../../redux/modules/FrameInfo";
+import { SetFrame } from "../../redux/modules/FrameInfo";
 import upload from "../assets/icons/upload.svg";
 import clear from '../assets/images/clear.png';
 import {
@@ -23,17 +23,26 @@ import MyFrameModal from './MyFrameModal'
 import { useCookies } from "react-cookie";
 import { useQuery } from "react-query";
 import { getMyFrame } from "../../api/myFrameFilter";
-
+import { SetImgFile } from "../../redux/modules/FrameInfo";
 const FrameCustomMake = () => {
+  const thisGrid = useSelector((state) => state.image.images);
+  const frame = useSelector((state) => state.FrameInfo);
+  console.log("As",frame.image)
   
-  const [color, setColor] = useState({ h: 180, s: 100, l: 100 });
-  const [frameImg, setFrameImg] = useState(null);
+  const [color, setColor] = useState({
+     h: frame.hue, 
+     s: frame.saturation, 
+     l: frame.lightness 
+  });
+
+  const [frameImg, setFrameImg] = useState(frame.image);
   const [openModal, setOpenModal] = useState(false);
   const [uploadedImg, setUploadedImg] = useState(null);
   const frameImgRef = useRef();
 
   const navigate = useNavigate();
-  const thisGrid = useSelector((state) => state.image.images);
+
+
   const dispatch=useDispatch();
 
   const [innerImg] = useState([
@@ -47,13 +56,19 @@ const FrameCustomMake = () => {
     setColor(newColor);
   };
 
-  const imageChangeHandler = (e) => {
+  const imageChangeHandler = async (e) => {
     const input = e.target;
     if (input.files && input.files[0]) {
-      setFrameImg(URL.createObjectURL(input.files[0]));
-      setUploadedImg(input.files[0].name);
+      const file = input.files[0];
+      const blob = new Blob([file], { type: file.type });
+  
+      setFrameImg(URL.createObjectURL(blob));
+      setUploadedImg(file.name);
+      await dispatch(SetImgFile(blob));
     }
   };
+  
+  
 
   const imageDeleteHandler = () => {
     setFrameImg(null);
@@ -61,14 +76,15 @@ const FrameCustomMake = () => {
   };
 
   useEffect(()=>{
-    dispatch(SetBackgroundImg(null));
-    dispatch(SetFrameColor(null));
+/*     dispatch(SetBackgroundImg(null));
+    dispatch(SetFrame(null)); */
   },[])
 
 
   const moveBtnHandler = async() => {
-    await dispatch(SetFrameColor(color));
-    await frameImg && dispatch(SetBackgroundImg(frameImg));
+    const colorData={ hue: color.h, saturation: color.s, lightness: color.l }
+    await dispatch(SetFrame(colorData));
+    await frameImg && dispatch(SetBackgroundImg(frameImg))
     navigate("/camera/capture/filter");
   };
 

@@ -19,6 +19,10 @@ const FilterCustom = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const thisGrid = useSelector((state) => state.image.images);
+  const Frame = useSelector((state) => state.FrameInfo);
+  const filter = useSelector((state) => state.Filter);
+
   const [filterList, setFilterList] = useState([
     { key: "blur", label: "블러", max: 10, unit: "px" },
     { key: "brightness", label: "밝기", max: 5, unit: "" },
@@ -29,11 +33,9 @@ const FilterCustom = () => {
     { key: "sepia", label: "세피아", max: 100, unit: "%" },
   ])
 
-  const [filterValue, setFilterValue] = useState({ filterName: "test" });
+  const [filterValue, setFilterValue] = useState(filter);
 
-  const thisGrid = useSelector((state) => state.image.images);
-  const FrameColor = useSelector((state) => state.FrameInfo.color);
-  const thisbackGround = useSelector((state) => state.FrameInfo.backgroundImg);
+
 
   //로컬스토리지에서 사진 가져오기 
   const [innerImg] = useState([
@@ -80,16 +82,16 @@ const FilterCustom = () => {
                   $bottomText={
                     thisGrid.id === "narrow" || thisGrid.id === "wide"
                   }
-                  $h={FrameColor.h}
-                  $s={FrameColor.s}
-                  $l={FrameColor.l}
-                  $frameImg={thisbackGround}
+                  $h={Frame.hue}
+                  $s={Frame.saturation}
+                  $l={Frame.lightness}
+                  $frameImg={Frame.imageUrl}
                   $gap={thisGrid.gap}
                 >
                   <p
                     style={{
                       color:
-                        FrameColor.l > 50 ? "var(--black)" : "var(--whiteGray)",
+                      Frame.lightness > 50 ? "var(--black)" : "var(--whiteGray)",
                       fontFamily: "'Abril Fatface', cursive",
                     }}
                   >

@@ -3,17 +3,39 @@ import InfiniteScroll from "../components/common/component/InfinityScroll";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { searchUser } from "../api/searchUser";
+import { useEffect } from "react";
+import { useMutation } from "react-query";
+import { useQueryClient } from "react-query";
 
 function SearchReseultpage() {
+  
   const params = useParams();
   const username = params.id;
+  const queryClient=useQueryClient();
+
   const {
     data: searchUserData,
     isLoading,
     isError,
     error,
-  } = useQuery(["searchUser", username], () => searchUser({ username }));
+  } = useQuery("searchUser", () => searchUser({ username }));
 
+  const searchUserMutation = useMutation(searchUser, {
+    onSuccess: (response) => {
+      console.log(response);
+      {
+        queryClient.invalidateQueries(`searchUser`);
+      }
+    },
+    onError: (error) => {
+      alert("에러");
+    },
+  });
+
+  useEffect(()=>{
+    searchUserMutation.mutate({ username });
+  },[])
+    
   return (
     <>
       <div>
