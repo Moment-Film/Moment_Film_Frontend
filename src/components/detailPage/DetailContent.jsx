@@ -139,8 +139,6 @@ const DetailContent = ({ data }) => {
                               <button onClick={deleteHandler}>게시글 삭제</button> :
                               <button onClick={FollowHandler}>팔로우</button>
                             }
-                            {/* <button onClick={FollowHandler}>팔로우</button>
-                            <button onClick={deleteHandler}>게시글 삭제</button> */}
                         </Action>
                     </PostAction>
 

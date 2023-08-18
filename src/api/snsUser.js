@@ -73,10 +73,19 @@ export const WithdrawalAPI = async (ACToken, REToken) => {
   //성공이면 로그인 화면 or 홈화면을 보내버리자
   if (response.status === 200) {
     return response;
+  } catch(error) {
+    return error;
   }
-  else
-    alert("로그인 실패한 이유")
 }
+  
+
+  //성공이면 로그인 화면 or 홈화면을 보내버리자
+//   if (response.status === 200) {
+//     return response;
+//   }
+//   else
+//     alert("로그인 실패한 이유")
+// }
 
 //팔로우 요청 및 취소 
 export const FollowAPI = async (userId, ACToken, REToken) => {
