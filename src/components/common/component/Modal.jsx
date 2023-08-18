@@ -3,13 +3,32 @@ import { useSelector } from "react-redux";
 import { useCookies } from "react-cookie";
 import { FollowAPI } from "../../../api/snsUser";
 import * as S from './modalStyle'
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
-export const Modal = ({onClose, onToggle, data, title}) => {
+export const Modal = ({onClose, onToggle, data, title, id, me}) => {
+    const navigate = useNavigate();
     const access = useSelector((state)=>state.AccessToken.accessToken);
     const [cookie] = useCookies(['refresh']);
+    const [isSearch, setIsSearch] = useState(false);
+    const [thisData, setThisData] = useState(data);
+    const [searchWord, setSearchWord] = useState("");
     const deleteFollower = (id) => {
         FollowAPI(id,access,cookie);
     }
+    useEffect(()=>{
+        setThisData(data);
+    },[title, data])
+    useEffect(()=>{
+        if(searchWord.length>0) {
+            setIsSearch(true);
+            setThisData(thisData.filter((item)=>item.username.includes(searchWord)));
+        }
+        else{
+            setIsSearch(false);
+            setThisData(data);
+        }
+    },[searchWord])
     return (
         <div>
             <S.Modalsection >
@@ -19,8 +38,13 @@ export const Modal = ({onClose, onToggle, data, title}) => {
                         <S.HeaderTitle onClick={onToggle} $type={title==="followingList"}>팔로잉</S.HeaderTitle>
                     </S.ContentHeader>
                     <S.SearchSection>
-                        <input type="text" placeholder="검색" />
-                        <img src={searchIcon} alt=""/>
+                        <input type="text" placeholder="검색" 
+                            value={searchWord} onChange={(e)=>setSearchWord(e.target.value)} />
+                        {isSearch ? <button onClick={()=>{
+                            setIsSearch(false);
+                            setSearchWord("");
+                        }}>X</button>
+                        :<img src={searchIcon} alt=""/>}
                     </S.SearchSection>
                     <S.ListHeader>
                         <span>모든 {title==="followerList" ? "팔로우" : "팔로잉" }</span>
@@ -28,15 +52,17 @@ export const Modal = ({onClose, onToggle, data, title}) => {
 
                     </S.ListHeader>
                     <S.ListSection>
-                        {data.length > 0 && data.map((follow)=>{
+                        {thisData.length > 0 && thisData.map((follow)=>{
                             return (
                             <S.FollowListItem key={follow.id}>
-                                <div>
+                                <div onClick={()=>{
+                                    navigate(`/profile/${follow.id}`)
+                                    onClose()}}>
                                     <img src={null} alt=""/>
                                     <span>{follow.username}</span>
                                 </div>
                                 <div>
-                                    {title==="followingList" &&
+                                    {title==="followingList" && me===id &&
                                     <button onClick={()=>deleteFollower(follow.id)}>
                                         언팔로우
                                     </button>
@@ -44,8 +70,8 @@ export const Modal = ({onClose, onToggle, data, title}) => {
                                 </div>
                             </S.FollowListItem>
                         )})}
-                        {data.length===0 &&
-                        <div>{title==="followerList" ? "팔로워가" : "팔로잉 중인 사람이" } 없습니다.</div>}</S.ListSection>
+                        {thisData.length===0 &&
+                        <div>{isSearch ? "검색 결과가" : title==="followerList" ? "팔로워가" : "팔로잉 중인 사람이"} 없습니다.</div>}</S.ListSection>
                 </S.Contents>
             </S.Modalsection>
             <S.OutLayer onClick={onClose}/>

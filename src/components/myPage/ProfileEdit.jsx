@@ -251,7 +251,3 @@ const PasswordEditSection = styled.div`
   padding: 20px;
   margin-bottom: 20px;
 `;
-
-const CodeBtnWrap = styled.div`
-  display: flex;
-`;

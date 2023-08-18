@@ -129,6 +129,7 @@ const Comment = ({ data, isSuccess }) => {
       replyId,
     });
   };
+  const userInfo = useSelector((state)=>state.UserInfo);
 
   return (
     <CommentSection>
@@ -167,12 +168,12 @@ const Comment = ({ data, isSuccess }) => {
                   {comment.subComments.length > 0 && (
                     <button onClick={() => showReplyHandler(comment.id)}>
                       {isReplyShow.includes(comment.id)
-                        ? "대댓글 닫기"
-                        : "대댓글 보기"}
+                        ? `대댓글 닫기`
+                        : `대댓글 보기 ( ${comment.subComments.length} )`}
                     </button>
                   )}
 
-                                    <button onClick={() => DeleteComment(comment.id)}>댓글삭제</button>
+                                    {comment.userId===Number(userInfo.sub) && <button onClick={() => DeleteComment(comment.id)}>댓글삭제</button>}
                                 </CommentMain>
                             </CommentCard>
                         </CommentsDetail>
@@ -187,7 +188,7 @@ const Comment = ({ data, isSuccess }) => {
                                             <div>{reply.username}</div>
                                             <div>{reply.content}</div>
                                         </CommentMain>
-                                        <button onClick={() => DeleteReply(comment.id, reply.id)}>대댓글삭제</button>
+                                        {reply.userId===Number(userInfo.sub) && <button onClick={() => DeleteReply(comment.id, reply.id)}>대댓글삭제</button>}
                                     </CommentCard>
                                 </CommentsDetail>
                             </ReplayComment>

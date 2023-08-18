@@ -68,6 +68,15 @@ export const SearchSection = styled.div`
             color: var(--green5);
         }
     }
+    button {
+        width: 28px;
+        height: 28px;
+        background: none;
+        border: 2px solid var(--green4);
+        color: var(--green4);
+        border-radius: 50%;
+        font-size: 15px;
+    }
 `
 export const ListHeader = styled.div`
     display: flex;
@@ -97,6 +106,7 @@ export const FollowListItem = styled.div`
     div {
         display: flex;
         align-items: center;
+        cursor: pointer;
         
         img {
             width: 30px;
