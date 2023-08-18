@@ -54,16 +54,16 @@ const Homepage = () => {
         <SecondContent>
       <h1 style={{justifyContent:"left", width:"100%"}}>WHY HAVE <br /> TO MOMENT</h1>
       <CardSection>
-        <Img ></Img>
-        <Img ></Img>
-        <Img ></Img>
-        <Img ></Img>
+        <Img src={first}></Img>
+        <Img src={first}></Img>
+        <Img src={first}></Img>
+        <Img src={first}></Img>
       </CardSection>
       <CardSection>
-      <Img ></Img>
-      <Img ></Img>
-      <Img ></Img>
-      <Img ></Img>
+      <Img src={first}></Img>
+      <Img src={first}></Img>
+      <Img src={first}></Img>
+      <Img src={first}></Img>
       </CardSection>
       </SecondContent>
       </SecondAlign>

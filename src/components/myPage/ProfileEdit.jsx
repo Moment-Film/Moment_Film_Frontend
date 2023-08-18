@@ -92,9 +92,9 @@ function ProfileEdit() {
       onSuccess: () => {
         setIsVerified(false);
         setIsClicked(false);
-        setCode('')
+        setCode("");
         alert("비밀번호가 변경되었습니다.");
-        navigate(`/profile/${userInfo.sub}`)
+        navigate(`/profile/${userInfo.sub}`);
       },
       onError: (error) => {
         alert("비밀번호 변경에 실패했습니다.");
