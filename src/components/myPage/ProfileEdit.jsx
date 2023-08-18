@@ -12,9 +12,14 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import WithdrawalBtn from "../common/component/WithdrawalBtn";
-
-// "code = ${}"
+import useToken from "../../hooks/useToken";
 function ProfileEdit() {
+
+  const {
+    getAccess,
+    getRefresh,
+  }=useToken();
+
   // 프로필 수정 state
   const [isEdit, setIsEdit] = useState(false);
   const [curruntImage, setCurruntImage] = useState();
@@ -37,13 +42,12 @@ function ProfileEdit() {
 
   const userInfo = useSelector((state) => state.UserInfo);
 
-  const access = useSelector((state) => state.AccessToken.accessToken);
-  const [cookie] = useCookies(["refresh"]);
-  const refresh = cookie.refresh;
+  const accessToken = getAccess()
+  const refreshToken = getRefresh();
 
   const { data, isLoading, isError, isSuccess } = useQuery(
     `Private${userInfo.sub}`,
-    () => getPrivateInfo({ access, refresh })
+    () => getPrivateInfo({ accessToken, refreshToken })
   );
 
   useEffect(() => {
@@ -69,7 +73,7 @@ function ProfileEdit() {
     },
   });
 
-  const sendEmailMutation = useMutation(() => sendEmail({ access, refresh }), {
+  const sendEmailMutation = useMutation(() => sendEmail({ accessToken, refreshToken }), {
     onSuccess: (data) => {
       setServerCode(data.split(" ")[2]);
       alert("인증 코드가 이메일로 전송되었습니다.");
@@ -83,8 +87,8 @@ function ProfileEdit() {
   const replacePasswordMutation = useMutation(
     () =>
       replacePassword({
-        access,
-        refresh,
+        accessToken,
+        refreshToken,
         newPassword,
         code,
       }),
@@ -121,7 +125,7 @@ function ProfileEdit() {
     const editPhone = editProfile.phone;
     // putEditInfo({access, refresh, editName, editPhone});
     setIsEdit(false);
-    editInfoMutation.mutate({ access, refresh, editName, editPhone });
+    editInfoMutation.mutate({ accessToken, refreshToken, editName, editPhone });
   };
 
   const handleSendEmail = () => {

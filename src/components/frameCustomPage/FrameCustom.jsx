@@ -18,13 +18,26 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { SetBackgroundImg } from "../../redux/modules/FrameInfo";
 import { StyledSpan14 } from "../common/styles/StyledSpan";
-import { useEffect } from "react";
 import MyFrameModal from './MyFrameModal'
-import { useCookies } from "react-cookie";
 import { useQuery } from "react-query";
 import { getMyFrame } from "../../api/myFrameFilter";
 import { SetImgFile } from "../../redux/modules/FrameInfo";
+import useToken from "../../hooks/useToken";
+
 const FrameCustomMake = () => {
+  
+  const {
+    getAccess,
+    getRefresh,
+  }=useToken();
+
+
+  const userInfo = useSelector((state)=>state.UserInfo);
+  const accessToken = getAccess()
+  const refreshToken = getRefresh()
+  
+  const {data} = useQuery(`myFrame${userInfo.sub}`, () => getMyFrame({accessToken, refreshToken}));
+  
   const thisGrid = useSelector((state) => state.image.images);
   const frame = useSelector((state) => state.FrameInfo);
   console.log("As",frame.image)
@@ -75,11 +88,6 @@ const FrameCustomMake = () => {
     setUploadedImg(null);
   };
 
-  useEffect(()=>{
-/*     dispatch(SetBackgroundImg(null));
-    dispatch(SetFrame(null)); */
-  },[])
-
 
   const moveBtnHandler = async() => {
     const colorData={ hue: color.h, saturation: color.s, lightness: color.l }
@@ -88,20 +96,19 @@ const FrameCustomMake = () => {
     navigate("/camera/capture/filter");
   };
 
-  const userInfo = useSelector((state)=>state.UserInfo);
-  const accessToken = useSelector((state)=>state.AccessToken.accessToken);
-  const [cookie] = useCookies(['refresh']);
-  const refreshToken = cookie.refresh;
-  const {data} = useQuery(`myFrame${userInfo.sub}`, () => getMyFrame({accessToken, refreshToken}));
+
+
   const openModalHandler = () => {
     if (accessToken) setOpenModal(true)
     else {
       window.confirm('로그인이 필요합니다.') &&  navigate(`../login`);
     }
   } 
+
   const closeModal = () => {
     setOpenModal(false);
   }
+
   const applyFrameBackground = (h, s, l, img) => {
     h && s && l && setColor({h,s,l});
     img ? setFrameImg(img) : setFrameImg(null);

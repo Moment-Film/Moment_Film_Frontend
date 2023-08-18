@@ -5,19 +5,26 @@ import { useCookies } from "react-cookie";
 import { SetAccessToken } from "../../../redux/modules/AccessToken";
 import { useNavigate } from "react-router";
 import { styled } from "styled-components";
+import useToken from "../../../hooks/useToken";
 
 const LogoutBtn = () => {
-  const [cookie, setCookie] = useCookies(["refresh"]);
+  const {
+    getAccess,
+    getRefresh
+  }=useToken();
+
+  const refreshToken = getRefresh()
+  const accessToken = getAccess()
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const ACToken = useSelector((state) => state.AccessToken.accessToken);
 
   const LogOut = async () => {
-    const res = await LogOutAPI(ACToken, cookie.refresh);
+    const res = await LogOutAPI(accessToken, refreshToken);
 
     await dispatch(SetAccessToken(null));
-    console.log(ACToken);
+    console.log(accessToken);
     navigate("/");
   };
 

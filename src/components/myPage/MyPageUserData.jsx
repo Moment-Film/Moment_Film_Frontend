@@ -6,30 +6,36 @@ import { Modal } from "../common/component/Modal";
 import { useState } from "react";
 import { FollowAPI } from "../../api/snsUser";
 import { useSelector } from "react-redux";
-import { useCookies } from "react-cookie";
 import Edit from "../assets/icons/Edit.png";
 import { StyledSpan24 } from "../common/styles/StyledSpan";
+import useToken from "../../hooks/useToken";
 
 const MyPageUserData = ({ lang, data }) => {
+  const {
+    getAccess,
+    getRefresh,
+  }=useToken();
+
   const userInfo = useSelector((state) => state.UserInfo);
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [fof, setFof] = useState("followerList");
-  const [isSelected, SetIsSelected] = useState();
 
   const clickHandler = (modalData) => {
     setShowModal(true);
     setFof(modalData);
   };
+
   const hideModalHandler = () => {
     setShowModal(false);
   };
+
   const fofToggle = () => {
     fof === "followerList" ? setFof("followingList") : setFof("followerList");
   };
-  const [cookie, setCookie] = useCookies(["refresh"]);
-  const accessToken = useSelector((state) => state.AccessToken.accessToken);
-  const refreshToken = cookie.refresh;
+
+  const accessToken = getAccess();
+  const refreshToken = getRefresh();
 
   const FollowHandler = () => {
     if (userInfo.sub) {

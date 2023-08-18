@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import commentEnter from "../../components/assets/icons/commentEnter.png";
 import Replay_comment from "../../components/assets/icons/replay_comment.png";
-import { useCookies } from "react-cookie";
 import { useSelector } from "react-redux";
 import { useMutation, useQueryClient } from "react-query";
 import { addComment } from "../../api/addComment";
@@ -10,9 +9,16 @@ import { useParams } from "react-router-dom";
 import { addReply } from "../../api/addComment";
 import { delComment } from "../../api/addComment";
 import { delReply } from "../../api/addComment";
+import useToken from "../../hooks/useToken";
 
 //input 태그를 따로 빼면 컴포넌트의 필요없는 랜더링을 줄일 수 있다
 const Comment = ({ data, isSuccess }) => {
+
+  const {
+    getAccess,
+    getRefresh,
+  }=useToken();
+
   console.log(data);
 
   //변수 선언부
@@ -24,9 +30,8 @@ const Comment = ({ data, isSuccess }) => {
     const [commentList, setCommentList] = useState(data);
     const [isReplyShow, setIsReplyShow] = useState([null]);
 
-    const accessToken = useSelector((state)=>state.AccessToken.accessToken)
-    const [cookie] = useCookies(['refresg']);
-    const refreshToken = cookie.refresh;
+    const accessToken = getAccess();
+    const refreshToken = getRefresh();
 
     useEffect(()=>{
       setCommentList(data)

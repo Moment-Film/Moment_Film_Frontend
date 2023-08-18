@@ -1,16 +1,24 @@
 import React from 'react';
-import { useCookies } from 'react-cookie';
-import { useSelector } from 'react-redux';
-
+import useToken from '../../../hooks/useToken';
 import { WithdrawalAPI } from '../../../api/snsUser';
 
 const WithdrawalBtn = () => {
-    const [cookie, setCookie] = useCookies(['refresh']);
-    const ACToken = useSelector((state) => state.AccessToken.accessToken);
+
+    const {
+        getAccess,
+        getRefresh,
+        saveAccessToken,
+        saveRefreshToken,
+      }=useToken();
+
+    const refreshToken=getRefresh();
+    const accessToken=getAccess()
 
     const Withdrawal = async () => {
-        const res = await WithdrawalAPI(ACToken, cookie.refresh);
+        const res = await WithdrawalAPI(accessToken, refreshToken);
         console.log(res);
+        saveAccessToken(null)
+        saveRefreshToken(null)
         alert("탈퇴되었습니다.")
     }
 
