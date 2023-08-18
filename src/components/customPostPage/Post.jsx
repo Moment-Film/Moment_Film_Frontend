@@ -12,10 +12,15 @@ function Post() {
   const params = useParams();
   const navigate=useNavigate();
   console.log(params.id);
-  let sort='';
+  const [sort,setSort]=useState('');
 
-  if(params.id==='view' || params.id==='likes' ||params.id==='recent') sort = params.id;
-  else alert("없는페이지로 보내자 ")
+
+  useEffect(()=>{
+    if(params.id==='view' || params.id==='likes' ||params.id==='recent') setSort(params.id);
+    else alert("없는페이지로 보내자 ")
+  },[params.id])
+
+
 
   const [pageNum, setPageNum] = useState(0);
   //정렬값에 맞는 포스트를 가져올 리엑트 쿼리 
@@ -82,7 +87,7 @@ function Post() {
         </PostNav>
 
         <PostWrapper>
-          <InfiniteScroll data={data} sort={sort}/>
+          <InfiniteScroll sort={sort}/>
         </PostWrapper>
 
       </PostPage>

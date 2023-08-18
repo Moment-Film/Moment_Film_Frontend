@@ -12,12 +12,19 @@ import { useCookies } from 'react-cookie';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { useMutation, useQueryClient } from 'react-query';
+import { applyFilter,applyFrame } from '../../api/myFrameFilter';
+import { useDispatch } from 'react-redux';
+import { SetFrame } from '../../redux/modules/FrameInfo';
+import { SetFilter } from '../../redux/modules/Filter';
+import { saveAs } from 'file-saver';
+
 const DetailContent = ({ data }) => {
   //필요한 변수 선언
   const param = useParams();
   const location = useLocation();
   const path = location.pathname
   const queryClient = useQueryClient();
+  const dispatch=useDispatch();
 
   console.log(data);
 
@@ -61,6 +68,33 @@ const DetailContent = ({ data }) => {
     getDetailMutation.mutate({ postId, accessToken, refreshToken });
   };
 
+  const useItemHandler = () => {
+    if(accessToken===null)
+    navigate('/login');
+    else if(!(selectFrame||selectFilter)){
+      alert("선택안함")
+    }
+    else{
+      if(selectFrame){
+        const frameId=data.frameId;
+        applyFrame({frameId, accessToken, refreshToken}).then((frame)=>{
+          console.log(frame)
+          dispatch(SetFrame(frame))
+        })
+      }
+      
+      if(selectFilter){
+        const filterId=data.filterId;
+        applyFilter({filterId, accessToken, refreshToken}).then((filter)=>{
+          console.log(filter)
+          dispatch(SetFilter(filter))
+        })
+      }  
+      navigate('/camera/frameSelect');
+    }
+    
+  };
+
   return (
     <div>
       <DetailHeader>
@@ -82,15 +116,15 @@ const DetailContent = ({ data }) => {
           </Detail>
 
           <OptionSection>
-            <CheckBox $bg={selectFrame} onMouseDown={() => setSelectFrame(!selectFrame)}>
+            <CheckBox $bg={selectFrame} onClick={() => setSelectFrame(!selectFrame)}>
               <span >프레임 사용하기</span>
               <input type="checkbox" value={selectFrame} checked={selectFrame} />
             </CheckBox>
-            <CheckBox $bg={selectFilter} onMouseDown={() => setSelectFilter(!selectFilter)}>
+            <CheckBox $bg={selectFilter} onClick={() => setSelectFilter(!selectFilter)}>
               <span >필터 사용하기</span>
               <input type="checkbox" value={selectFilter} checked={selectFilter} />
             </CheckBox>
-            <button>사용해보기</button>
+            <button onClick={useItemHandler}>사용해보기</button>
           </OptionSection>
 
                     <PostAction>

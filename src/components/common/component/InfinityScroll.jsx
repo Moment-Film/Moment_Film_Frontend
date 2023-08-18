@@ -9,6 +9,7 @@ import { async } from 'q';
 //통신연결후 스로틀링의 사용 전 후 성능 기록해놓을 것 
 const InfiniteScroll = ({ sort }) => {
     const [page, setPage] = useState(1);
+    const [prevPage, setPrevPage] = useState(1);
     const [newsList, setNewsList] = useState([]);
     const [isLast,setIsLast]=useState("");
 
