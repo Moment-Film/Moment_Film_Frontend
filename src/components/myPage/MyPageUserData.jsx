@@ -43,6 +43,8 @@ const MyPageUserData = ({ lang, data }) => {
           onToggle={fofToggle}
           data={data[fof]}
           title={fof}
+					id={data.id}
+					me={Number(userInfo.sub)}
         />
       )}
       <HeaderSection>

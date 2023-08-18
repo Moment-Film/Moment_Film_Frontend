@@ -97,6 +97,7 @@ export const FollowListItem = styled.div`
     div {
         display: flex;
         align-items: center;
+        cursor: pointer;
         
         img {
             width: 30px;

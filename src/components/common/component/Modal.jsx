@@ -3,8 +3,10 @@ import { useSelector } from "react-redux";
 import { useCookies } from "react-cookie";
 import { FollowAPI } from "../../../api/snsUser";
 import * as S from './modalStyle'
+import { useNavigate } from 'react-router-dom';
 
-export const Modal = ({onClose, onToggle, data, title}) => {
+export const Modal = ({onClose, onToggle, data, title, id, me}) => {
+    const navigate = useNavigate();
     const access = useSelector((state)=>state.AccessToken.accessToken);
     const [cookie] = useCookies(['refresh']);
     const deleteFollower = (id) => {
@@ -31,12 +33,14 @@ export const Modal = ({onClose, onToggle, data, title}) => {
                         {data.length > 0 && data.map((follow)=>{
                             return (
                             <S.FollowListItem key={follow.id}>
-                                <div>
+                                <div onClick={()=>{
+                                    navigate(`/profile/${follow.id}`)
+                                    onClose()}}>
                                     <img src={null} alt=""/>
                                     <span>{follow.username}</span>
                                 </div>
                                 <div>
-                                    {title==="followingList" &&
+                                    {title==="followingList" && me===id &&
                                     <button onClick={()=>deleteFollower(follow.id)}>
                                         언팔로우
                                     </button>
