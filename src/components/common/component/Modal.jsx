@@ -1,20 +1,25 @@
 import searchIcon from '../../assets/icons/searchIcon.svg'
-import { useSelector } from "react-redux";
-import { useCookies } from "react-cookie";
 import { FollowAPI } from "../../../api/snsUser";
 import * as S from './modalStyle'
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import useToken from '../../../hooks/useToken';
 
 export const Modal = ({onClose, onToggle, data, title, id, me}) => {
     const navigate = useNavigate();
-    const access = useSelector((state)=>state.AccessToken.accessToken);
-    const [cookie] = useCookies(['refresh']);
     const [isSearch, setIsSearch] = useState(false);
     const [thisData, setThisData] = useState(data);
     const [searchWord, setSearchWord] = useState("");
+    
+    const {
+        getAccess,
+        getRefresh
+      }=useToken();
+    
+    const refreshToken = getRefresh();
+    const accessToken = getAccess();
     const deleteFollower = (id) => {
-        FollowAPI(id,access,cookie);
+        FollowAPI(id,accessToken,refreshToken);
     }
     useEffect(()=>{
         setThisData(data);

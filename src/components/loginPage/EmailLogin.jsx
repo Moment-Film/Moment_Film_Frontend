@@ -1,28 +1,20 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { SetAccessToken } from "../../redux/modules/AccessToken";
-import { useDispatch } from "react-redux";
 import { ELogin } from "../../api/snsUser";
 import useInputValidation from "../../hooks/useInputValidation";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import StyledButton from "../common/component/StyledButton";
 import * as L from "../common/styles/StyledLink";
-import { useCookies } from "react-cookie";
 
-import base64 from "base-64";
-import { SetUserInfo } from "../../redux/modules/User";
 import right_arrow from "../assets/images/right_arrow.png";
 import inputDelete from "../assets/icons/inputDelete.svg";
 import useToken from "../../hooks/useToken";
 
-// import useRefreshToken from "../../hooks/useRefreshToken";
 
 const EmailLogin = () => {
   const [loginError, setLoginError] = useState(null);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [cookie, setCookie] = useCookies(["refresh"]);
 
   const {
     email,
@@ -38,6 +30,7 @@ const EmailLogin = () => {
   const {
     saveAccessToken,
     saveRefreshToken,
+    saveUserInfo
   }=useToken();
 
   const mutation = useMutation(ELogin, {
@@ -46,18 +39,12 @@ const EmailLogin = () => {
         console.log(response);
         const ACToken = response.headers.accesstoken;
 
+        //토큰 저장
         await saveAccessToken(ACToken);
-        saveRefreshToken(response.headers.refreshtoken);
+        await saveRefreshToken(response.headers.refreshtoken);
+        //토큰에서 유저정보 가져오기 
+        await saveUserInfo(ACToken);
 
-        const jwtPayload = ACToken.split(".")[1];
-        
-        // payload 부분을 복호화한다.JWT는 base64방식으로 암호화 되어 있으므로 base64.decode로 복호화한 뒤
-        // 복호화된 JSON 문자열을 쓸 수 있게 객체로 변환한다.
-        const decodedPayload = JSON.parse(base64.decode(jwtPayload));
-        console.log(decodedPayload);
-        dispatch(SetUserInfo(decodedPayload));
-        console.log("ac", ACToken);
-        console.log("rc", cookie);
         setLoginError(null);
         navigate(-1);
       }

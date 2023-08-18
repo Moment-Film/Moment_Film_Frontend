@@ -2,42 +2,37 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { socialLogin } from '../api/snsUser';
-import { useDispatch } from 'react-redux';
-import { useCookies } from 'react-cookie';
-import { SetAccessToken } from '../redux/modules/AccessToken';
-import base64 from "base-64"
-import { SetUserInfo } from '../redux/modules/User';
+import useToken from '../hooks/useToken';
 
 const RedirectPage = () => {
+
     const navigate=useNavigate();
-    const dispatch=useDispatch();
+
+    const {
+        saveAccessToken,
+        saveRefreshToken,
+        saveUserInfo
+      }=useToken();
 
     const code = new URL(window.location.toString()).searchParams.get("code")
     const social='kakao'
     const {data,isLoading,isError,isSuccess} = useQuery(`kakao`,()=>socialLogin({code,social}))
-    const [cookie,setCookie] = useCookies(['refresh']);
 
     const saveToken=async()=>{
-        console.log(data);
-        const accesstoken=data.headers.accesstoken;
-        const refreshtoken=data.headers.refreshtoken
 
-        setCookie('refresh',refreshtoken);
-        await dispatch(SetAccessToken(accesstoken));
-
-        const jwtPayload = accesstoken.split(".")[1];
-        const decodedPayload = JSON.parse(base64.decode(jwtPayload));
-        console.log(decodedPayload);
-        dispatch(SetUserInfo(decodedPayload))
-        console.log('ac',accesstoken)
-        console.log('rc',refreshtoken)
+        saveRefreshToken(data.headers.refreshtoken)
+        saveAccessToken(data.headers.accesstoken);
+        saveUserInfo(data.headers.accesstoken)
     }
 
-    if(isSuccess){
-        console.log(data);
-        saveToken()
-        navigate('/'); 
-    }
+    useEffect(()=>{
+        if(isSuccess){
+            console.log(data);
+            saveToken()
+            navigate('/'); 
+        }
+    },[isSuccess])
+
 
     if(isError){
         alert("로그인 에러입니다 다시 시도해주세요");

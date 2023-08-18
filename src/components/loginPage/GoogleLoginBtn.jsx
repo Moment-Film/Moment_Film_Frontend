@@ -4,19 +4,25 @@ import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { socialLogin } from '../../api/snsUser';
 import { useCookies } from 'react-cookie';
-import styled from 'styled-components';
-
 import {GoogleLogin} from "@react-oauth/google";
 import {GoogleOAuthProvider} from "@react-oauth/google";
-
+import useToken from '../../hooks/useToken';
 
 // 보안이 되는 폴더??? 그런게 있다면 옮겨보자 
 const clientId = '130079254258-jg9vkidldjsvjg5u1fkncj66hs5iep9v.apps.googleusercontent.com'
 
 const GoogleLoginBtn = ({width , height}) => {
 
+    const {
+        getRefresh,
+        saveRefreshToken,
+        saveUserInfo
+      }=useToken();
+
+
     const navigate = useNavigate();
     const [cookie,setCookie] = useCookies(['refresh']);
+    const refreshToken = getRefresh();
 
 
     const mutation = useMutation(socialLogin,{
