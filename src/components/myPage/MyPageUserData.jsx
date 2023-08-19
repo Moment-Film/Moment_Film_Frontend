@@ -1,4 +1,3 @@
-
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
@@ -8,25 +7,34 @@ import { FollowAPI } from "../../api/snsUser";
 import { useSelector } from "react-redux";
 import { useCookies } from "react-cookie";
 import Edit from "../assets/icons/Edit.png";
-import { StyledSpan24 } from "../common/styles/StyledSpan";
+import { Span28, StyledSpan24 } from "../common/styles/StyledSpan";
+import ProfileEdit from "./ProfileEdit";
 
 const MyPageUserData = ({ lang, data }) => {
+
   const userInfo = useSelector((state) => state.UserInfo);
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
+  const [onModal, setOnModal] = useState(false);
   const [fof, setFof] = useState("followerList");
-  const [isSelected, SetIsSelected] = useState();
+
+  const editModalHandler = () => {
+    setOnModal(!onModal);
+  };
 
   const clickHandler = (modalData) => {
     setShowModal(true);
     setFof(modalData);
   };
+
   const hideModalHandler = () => {
     setShowModal(false);
   };
+
   const fofToggle = () => {
     fof === "followerList" ? setFof("followingList") : setFof("followerList");
   };
+  
   const [cookie, setCookie] = useCookies(["refresh"]);
   const accessToken = useSelector((state) => state.AccessToken.accessToken);
   const refreshToken = cookie.refresh;
@@ -39,20 +47,24 @@ const MyPageUserData = ({ lang, data }) => {
       navigate(`/login`);
     }
   };
+
   return (
     <div>
+      {onModal && <ProfileEdit onClose={editModalHandler} />}
       {showModal && (
         <Modal
           onClose={hideModalHandler}
           onToggle={fofToggle}
           data={data[fof]}
           title={fof}
-					id={data.id}
-					me={Number(userInfo.sub)}
+          id={data.id}
+          me={Number(userInfo.sub)}
         />
       )}
       <HeaderSection>
-        <span>{"Mypage"}</span>
+        <Span28>
+          {data.id === Number(userInfo.sub) ? "MY PAGE" : "PROFILE PAGE"}
+        </Span28>
         <span>
           {data.username}
           {lang.greeting}
@@ -75,7 +87,7 @@ const MyPageUserData = ({ lang, data }) => {
           </StyledSpan24>
           <NameSection>
             {Number(userInfo.sub) === data.id ? (
-              <div onClick={() => navigate(`../profile/edit`)}>
+              <div onClick={editModalHandler}>
                 <img
                   src={Edit}
                   alt=""
@@ -94,11 +106,17 @@ const MyPageUserData = ({ lang, data }) => {
           </NameSection>
 
           {/* 다른이용자면 box-1가리고  */}
-          <div className="box-1">
-            <UserItem>{"포인트확인"}</UserItem>
-            <hr />
-            <UserItemResult>1000</UserItemResult>
-          </div>
+          {data.id === Number(userInfo.sub) ? (
+            <>
+              <div className="box-1">
+                <UserItem>{"포인트확인"}</UserItem>
+                <hr />
+                <UserItemResult>1000</UserItemResult>
+              </div>{" "}
+            </>
+          ) : (
+            <></>
+          )}
           <div className="box-2">
             <UserItem>{"게시물 수"}</UserItem>
             <hr />
