@@ -3,20 +3,29 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { socialLogin } from '../api/snsUser';
 import useToken from '../hooks/useToken';
+import { useLocation } from 'react-router-dom';
 
 const RedirectPage = () => {
+    let social=''
 
     const navigate=useNavigate();
+
+    const location=useLocation();
+    const searchParams = new URLSearchParams(location.search)
+    const code=searchParams.get('code');
+
+    useEffect(()=>{
+         if(location.pathname.includes('google')) social='google'
+        else if (location.pathname.includes('kakao')) social='kakao'
+    },[])
 
     const {
         saveAccessToken,
         saveRefreshToken,
         saveUserInfo
       }=useToken();
-
-    const code = new URL(window.location.toString()).searchParams.get("code")
-    const social='kakao'
-    const {data,isLoading,isError,isSuccess} = useQuery(`kakao`,()=>socialLogin({code,social}))
+    
+    const {data,isLoading,isError,isSuccess} = useQuery(`social`,()=>socialLogin({code,social}))
 
     const saveToken=async()=>{
 

@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 import { SetAccessToken } from '../redux/modules/AccessToken';
 import { useCookies } from 'react-cookie';
 import { useSelector } from 'react-redux';
-import CryptoJS from 'crypto-js'; // Correct import statement for crypto-js
+import CryptoJS from 'crypto-js'; 
 import base64 from "base-64";
 import { SetUserInfo } from '../redux/modules/User';
 
@@ -11,10 +11,12 @@ const useToken = () => {
     const [cookie, setCookie] = useCookies(['refresh']);
     const AccsessToken = useSelector((state) => state.AccessToken.accessToken);
 
+    //env 폴더로 이동시킬예정 
     const secretKey = 'u4v9TvHDCECamunpCEqv';
 
     // access 토큰 저장  
     const saveAccessToken = async (accessToken) => {
+        console.log(accessToken)
         if(accessToken){
             const ciphertext = CryptoJS.AES.encrypt(accessToken, secretKey).toString();
             await dispatch(SetAccessToken(ciphertext));
@@ -29,16 +31,17 @@ const useToken = () => {
     const saveRefreshToken = async (refreshToken) => {
         if(refreshToken){
             const ciphertext = CryptoJS.AES.encrypt(refreshToken, secretKey).toString();
-            await setCookie('refresh', ciphertext); // Set the encrypted refresh token in cookies
+            await setCookie('refresh', ciphertext); 
         }
         else{
-            await setCookie('refresh', null); // Set the encrypted refresh token in cookies
+            await setCookie('refresh', null); 
         } 
 
     };
 
     // access 토큰 가져오기  
     const getAccess = () => {
+        if(!AccsessToken) return null;
         const bytes = CryptoJS.AES.decrypt(AccsessToken, secretKey);
         const originalText = bytes.toString(CryptoJS.enc.Utf8);
         return originalText;
@@ -46,6 +49,7 @@ const useToken = () => {
 
     // refresh 토큰 가져오기  
     const getRefresh = () => {
+        if(!cookie.refresh) return null;
         const bytes = CryptoJS.AES.decrypt(cookie.refresh, secretKey);
         const originalText = bytes.toString(CryptoJS.enc.Utf8);
         return originalText;

@@ -6,8 +6,8 @@ import homeImg from "../assets/images/home_bgImg.png";
 import first from '../assets/images/first.svg';
 import third from '../assets/images/third.png'
 
-const Homepage = () => {
 
+const Homepage = () => {
 
   const navigate = useNavigate();
 

@@ -30,8 +30,7 @@ const Comment = ({ data, isSuccess }) => {
     const [commentList, setCommentList] = useState(data);
     const [isReplyShow, setIsReplyShow] = useState([null]);
 
-    const accessToken = getAccess();
-    const refreshToken = getRefresh();
+
 
     useEffect(()=>{
       setCommentList(data)
@@ -107,23 +106,35 @@ const Comment = ({ data, isSuccess }) => {
 
   // api 동작이 들어있는 함수
   const AddComment = () => {
+    const accessToken = getAccess();
+    const refreshToken = getRefresh();
+
     const postId = param.id;
     CommentMutation.mutate({ postId, accessToken, refreshToken, comment });
     setComment("");
   };
 
   const AddReply = (commentId) => {
+    const accessToken = getAccess();
+    const refreshToken = getRefresh();
+
     const replay = recomment[commentId];
     ReplyMutation.mutate({ commentId, accessToken, refreshToken, replay });
     setRecomment({ ...recomment, [commentId]: "" });
   };
 
   const DeleteComment = (commentId) => {
+    const accessToken = getAccess();
+    const refreshToken = getRefresh();
+
     const postId = param.id;
     DelCommentMutation.mutate({ commentId, accessToken, refreshToken, postId });
   };
 
   const DeleteReply = (commentId, replyId) => {
+    const accessToken = getAccess();
+    const refreshToken = getRefresh();
+    
     console.log(replyId);
     const postId = param.id;
     DelReplyMutation.mutate({
