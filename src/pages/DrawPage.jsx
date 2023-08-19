@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import { SetResultImage } from "../redux/modules/ResultImage";
 import { useNavigate } from "react-router-dom";
 import domtoimage from "dom-to-image";
+import Slider from "rc-slider";
+import "rc-slider/assets/index.css";
 
 import {
   HueSlider,
@@ -36,7 +38,7 @@ function DrawPage() {
   const [imageY, setImageY] = useState(0); // 이미지 y 좌표
 
   const [mode, setMode] = useState(false);
-
+  const [penWeight, setPenWeight] = useState(5);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -89,7 +91,7 @@ function DrawPage() {
     ctx.strokeStyle = `hsl(${color.h}, ${color.s}%, ${color.l}%)`;
     ctx.lineJoin = "round";
     ctx.lineCap = "round";
-    ctx.lineWidth = 5;
+    ctx.lineWidth = penWeight;
 
     ctx.beginPath();
     ctx.moveTo(lastX, lastY);
@@ -164,7 +166,25 @@ function DrawPage() {
       <button onClick={handleSave}>Save Drawing</button>
       <button onClick={chagemode}>mode</button>
 
-
+      <div>pen weight {penWeight}</div>
+      <Slider
+        style={{ width: "250px" }}
+        min={1}
+        max={20}
+        step={1}
+        value={penWeight}
+        onChange={(value) => setPenWeight(value)}
+        trackStyle={{ backgroundColor: "rgba(203, 221, 90, 1)" }}
+        handleStyle={{
+          borderColor: "rgba(203, 221, 90, 1)",
+          backgroundColor: "rgba(203, 221, 90, 1)",
+          borderRadius: "10%",
+          width: "10px",
+          height: "20px",
+          marginLeft: "-5px",
+          marginTop: "-9px",
+        }}
+      />
       <div>penColor</div>
       <div>색조</div>
       <HueSlider
