@@ -1,15 +1,32 @@
 import React from "react";
-import styled from "styled-components";
+import {styled, css} from "styled-components";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const MyPageNav = () => {
+  const [isSelected, SetIsSelected] = useState(0);
+
+  const selectHandler = (num) => {
+    SetIsSelected(num);
+  };
+
   return (
     <NavSection>
       <NavWrap>
         <hr />
-        <StyledLink>등록한 디자인</StyledLink>
+        <StyledLink
+          $type={isSelected === 0}
+          onClick={() => selectHandler(0)}
+        >
+          등록한 디자인
+        </StyledLink>
         <hr />
-        <StyledLink>관심있는 디자인</StyledLink>
+        <StyledLink
+          $type={isSelected === 1}
+          onClick={() => selectHandler(1)}
+        >
+          관심있는 디자인
+        </StyledLink>
         <hr />
       </NavWrap>
     </NavSection>
@@ -37,7 +54,13 @@ const NavWrap = styled.section`
 `;
 const StyledLink = styled(Link)`
   text-decoration: none;
-  height: 15px;
-  border-bottom: 2px solid var(--green5);
+  font-size: 16px;
+  line-height: 19px;
+  color: var(--lightGray);
   padding: 17px;
+  ${({ $type }) =>
+    $type && css`
+    border-bottom: 2px solid var(--green5);
+    color: var(--black);
+  `};
 `;
