@@ -45,6 +45,7 @@ const StyleInput = styled.div`
   padding: 11px 16px;
 `;
 
+/////
 const ModalBg = styled.div`
   position: fixed;
   top: 0;
@@ -64,6 +65,7 @@ const ProfileWrap = styled.div`
   box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.1);
   display: flex;
   /* flex-direction: colmn; */
+  /* justify-content: space-between; */
   background-color: white;
   z-index: 51;
   border-radius: 5px;
@@ -152,13 +154,14 @@ const Verify = styled.div`
 `;
 
 const TestBox = styled.div`
-  width: 310px;
+  width: 285px;
   height: 42px;
   background-color: var(--green0);
   border-bottom: 1px solid var(--green5);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0 10px 0 16px;
 `;
 
 const TestInput = styled.input`

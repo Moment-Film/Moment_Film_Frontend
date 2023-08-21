@@ -34,19 +34,11 @@ import useToken from "../../hooks/useToken";
 import useUserAPI from "../../api/withToken/user";
 
 function ProfileEdit({ onClose }) {
-  const{
-    sendEmail,
-    putEditInfo,
-    getPrivateInfo,
-    replacePassword
-}=useUserAPI();
+  const { sendEmail, putEditInfo, getPrivateInfo, replacePassword } =
+    useUserAPI();
 
+  const { getAccess, getRefresh } = useToken();
 
-  const {
-    getAccess,
-    getRefresh,
-  }=useToken();
-  
   // 프로필 수정 state
   const [isEdit, setIsEdit] = useState(false);
   const [curruntImage, setCurruntImage] = useState();
@@ -71,7 +63,7 @@ function ProfileEdit({ onClose }) {
   const profilePicRef = useRef();
 
   const userInfo = useSelector((state) => state.UserInfo);
-  const accessToken = getAccess()
+  const accessToken = getAccess();
   const refreshToken = getRefresh();
 
   const { data, isLoading, isError, isSuccess } = useQuery(
@@ -224,7 +216,7 @@ function ProfileEdit({ onClose }) {
                 <span>유저이름</span>
                 {!isEdit ? (
                   <StyleInput>
-                    <span>{userInfo.username}</span>
+                    <span>{data?.data.data.username}</span>
                   </StyleInput>
                 ) : (
                   <StyleInput>
@@ -273,42 +265,26 @@ function ProfileEdit({ onClose }) {
                 </div>
               </PwEditWrap>
               <PwEditContainor>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <div
-                      style={{
-                        width: "376px",
-                        display: "flex",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <div style={{ marginLeft: "34px" }}>인증코드 입력</div>
+              <div style={{ display: "flex", alignItems: "center" }}>
 
-                      <TestBox>
-                        <TestInput
-                          placeholder="인증코드를 입력해 주세요"
-                          value={code}
-                          onChange={(e) => setCode(e.target.value)}
-                        />
-                        <TestBtn onClick={handleVerifyCode}>확인</TestBtn>
-                      </TestBox>
-                    </div>
-                    <div>
-                      {!isVerified ? (
-                        <Verify isVerified={false}>인증코드 불일치</Verify>
-                      ) : (
-                        <Verify isVerified={true}>인증 확인되었습니다.</Verify>
-                      )}
-                    </div>
+
+                    <div style={{ marginLeft: "34px" }}>인증코드</div>
+
+                    <TestBox>
+                      <TestInput
+                        placeholder="인증코드를 입력해 주세요"
+                        value={code}
+                        onChange={(e) => setCode(e.target.value)}
+                      />
+                      <TestBtn onClick={handleVerifyCode}>확인</TestBtn>
+                    </TestBox>
                   </div>
-                </div>
 
+                {!isVerified ? (
+                  <Verify isVerified={false}>인증코드 불일치</Verify>
+                ) : (
+                  <Verify isVerified={true}>인증 확인되었습니다.</Verify>
+                )}
                 <div
                   style={{
                     display: "flex",
@@ -325,16 +301,15 @@ function ProfileEdit({ onClose }) {
                       value={newPassword}
                       type="password"
                       onChange={newPasswordChangeHandler}
-                      infoText="· 공백 없이 문자, 숫자 조합 필수 6 ~ 10자"
                     />
                     <TestBtn onClick={handlePasswordReset}>변경</TestBtn>
                   </TestBox>
-                  {!isVerified ? (
-                    <Verify isVerified={false}>인증코드 불일치</Verify>
-                  ) : (
-                    <Verify isVerified={true}>인증 확인되었습니다.</Verify>
-                  )}
                 </div>
+                {!isVerified ? (
+                  <Verify isVerified={false}>· 공백 없이 문자, 숫자 조합 필수 6 ~ 10자</Verify>
+                ) : (
+                  <Verify isVerified={true}>비밀번호가 변경되었습니다.</Verify>
+                )}
               </PwEditContainor>
             </PasswordEditSection>
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
@@ -360,11 +335,7 @@ function ProfileEdit({ onClose }) {
           </Infos>
         </ProfileSection>
         <CloseBtn>
-          <img
-            src={cancel}
-            alt=""
-            onClick={onClose}
-          />
+          <img src={cancel} alt="" onClick={onClose} />
         </CloseBtn>
       </ProfileWrap>
     </ModalBg>

@@ -1,6 +1,7 @@
 import React from 'react';
 import useToken from '../../../hooks/useToken';
 import { WithdrawalAPI } from '../../../api/nonToken/auth';
+import { styled } from 'styled-components';
 
 const WithdrawalBtn = () => {
 
@@ -23,10 +24,17 @@ const WithdrawalBtn = () => {
     }
 
     return (
-        <button onClick={Withdrawal}>
+        <WithdrawalBox onClick={Withdrawal}>
             회원탈퇴
-        </button>
+        </WithdrawalBox>
     );
 };
 
 export default WithdrawalBtn;
+
+const WithdrawalBox = styled.section`
+    text-decoration: underline;
+    color: var(--gray4);
+    font-size: 12px;
+    line-height: 14px;
+`
