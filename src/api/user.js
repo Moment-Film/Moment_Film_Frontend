@@ -46,11 +46,11 @@ export const putEditInfo = async ({ access, refresh, editName, editPhone }) => {
 };
 
 // 회원 이메일로 인증 코드 전송 api
-export const sendEmail = async ({ access, refresh }) => {
+export const sendEmail = async ({ accessToken, refreshToken }) => {
   const res = await axios.post(`/api/user/email`, null, {
     headers: {
-      accessToken: access,
-      refreshToken: refresh,
+      accessToken: accessToken,
+      refreshToken: refreshToken,
     },
   });
   return res.data.msg;
@@ -58,8 +58,8 @@ export const sendEmail = async ({ access, refresh }) => {
 
 // 회원 비밀번호 수정 api
 export const replacePassword = async ({
-  access,
-  refresh,
+  accessToken,
+  refreshToken,
   newPassword,
   code,
 }) => {
@@ -70,8 +70,8 @@ export const replacePassword = async ({
     },
     {
       headers: {
-        accessToken: access,
-        refreshToken: refresh,
+        accessToken: accessToken,
+        refreshToken: refreshToken,
       },
     }
   );

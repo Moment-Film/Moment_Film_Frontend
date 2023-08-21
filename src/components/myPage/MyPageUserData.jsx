@@ -5,12 +5,17 @@ import { Modal } from "../common/component/Modal";
 import { useState } from "react";
 import { FollowAPI } from "../../api/snsUser";
 import { useSelector } from "react-redux";
-import { useCookies } from "react-cookie";
 import Edit from "../assets/icons/Edit.png";
-import { Span28, StyledSpan24 } from "../common/styles/StyledSpan";
+
 import ProfileEdit from "./ProfileEdit";
+import { StyledSpan24 } from "../common/styles/StyledSpan";
+import useToken from "../../hooks/useToken";
 
 const MyPageUserData = ({ lang, data }) => {
+  const {
+    getAccess,
+    getRefresh,
+  }=useToken();
 
   const userInfo = useSelector((state) => state.UserInfo);
   const navigate = useNavigate();
@@ -36,8 +41,8 @@ const MyPageUserData = ({ lang, data }) => {
   };
   
   const [cookie, setCookie] = useCookies(["refresh"]);
-  const accessToken = useSelector((state) => state.AccessToken.accessToken);
-  const refreshToken = cookie.refresh;
+  const accessToken = getAccess();
+  const refreshToken = getRefresh();
 
   const FollowHandler = () => {
     if (userInfo.sub) {

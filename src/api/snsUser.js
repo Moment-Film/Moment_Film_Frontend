@@ -75,7 +75,6 @@ export const WithdrawalAPI = async (ACToken, REToken) => {
   }
 }
   
-
   //성공이면 로그인 화면 or 홈화면을 보내버리자
 //   if (response.status === 200) {
 //     return response;

@@ -8,7 +8,6 @@ import { FollowAPI } from "../../api/snsUser"
 import { likePost } from "../../api/likePost"
 import { getPostDetail, deletePost } from "../../api/post"
 import { useParams, useNavigate } from 'react-router-dom';
-import { useCookies } from 'react-cookie';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { useMutation, useQueryClient } from 'react-query';
@@ -17,8 +16,15 @@ import { useDispatch } from 'react-redux';
 import { SetFrame } from '../../redux/modules/FrameInfo';
 import { SetFilter } from '../../redux/modules/Filter';
 import { saveAs } from 'file-saver';
+import useToken from '../../hooks/useToken';
 
 const DetailContent = ({ data }) => {
+
+  const {
+    getAccess,
+    getRefresh,
+  }=useToken();
+
   //필요한 변수 선언
   const param = useParams();
   const location = useLocation();
@@ -35,17 +41,19 @@ const DetailContent = ({ data }) => {
   
 
   //액세스 토큰 리프레시 토큰 가져오는 부분 
-  const [cookie, setCookie] = useCookies(['refresh']);
-  const accessToken = useSelector((state) => state.AccessToken.accessToken);
-  const refreshToken = cookie.refresh
+
 
   // 기능 함수들 
 
   const FollowHandler = () => {
+    const accessToken = getAccess();
+    const refreshToken = getRefresh()
     FollowAPI(data.userId, accessToken, refreshToken);
   }
 
   const deleteHandler = async () => {
+    const accessToken = getAccess();
+    const refreshToken = getRefresh()
     await deletePost(data.id, accessToken, refreshToken)
     navigate(-1);
   }
@@ -64,11 +72,16 @@ const DetailContent = ({ data }) => {
 
   // api 동작이 들어있는 함수
   const postLikeHandler = () => {
+    const accessToken = getAccess();
+    const refreshToken = getRefresh()
     const postId = param.id;
     getDetailMutation.mutate({ postId, accessToken, refreshToken });
   };
 
   const useItemHandler = () => {
+    const accessToken = getAccess();
+    const refreshToken = getRefresh()
+    
     if(accessToken===null)
     navigate('/login');
     else if(!(selectFrame||selectFilter)){
@@ -133,7 +146,7 @@ const DetailContent = ({ data }) => {
                             <S.StyledSpan14>{data.likeCount}개</S.StyledSpan14>
                             <S.StyledSpan14 onClick={postLikeHandler}>하트</S.StyledSpan14>
                             <KakaoShareBtn path={path} data={data} ></KakaoShareBtn>
-                            <UrlShare></UrlShare>
+                            <UrlShare data={data.id}></UrlShare>
                             {
                               Number(userInfo.sub)===data.userId ?
                               <button onClick={deleteHandler}>게시글 삭제</button> :

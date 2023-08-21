@@ -3,17 +3,24 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { addPost } from "../api/post";
-import { useCookies } from "react-cookie";
 import { addFrame } from "../api/post";
 import { addFilter } from "../api/post";
 import { useNavigate } from "react-router-dom";
+import useToken from "../hooks/useToken";
 
 function PostWritePage() {
-  const [cookie, setCookie] = useCookies(["refresh"]);
+
+  const {
+    getAccess,
+    getRefresh,
+  }=useToken();
+
+  const refreshToken = getRefresh()
+  const accessToken = getAccess()
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const navigate = useNavigate();
-  // const [showModal, setShowModal] = useState(false);
+
   const resultImg = useSelector((state) => state.ResultImage);
   const Frame = useSelector((state) => state.FrameInfo);
 
@@ -21,7 +28,6 @@ function PostWritePage() {
 
   console.log(typeof(resultImg));
   console.log((resultImg));
-  const accessToken = useSelector((state)=>state.AccessToken.accessToken);
   const writerInfo = useSelector((state)=> state.UserInfo);
   const filterInfo =useSelector((state)=>state.Filter)  
   console.log(filterInfo)
@@ -47,8 +53,8 @@ function PostWritePage() {
 
     ////////////////////////////////////////////////////
     
-    const filterId = await addFilter(accessToken, cookie.refresh, filterInfo);
-    const frameId = await addFrame(accessToken, cookie.refresh, FrameForm);
+    const filterId = await addFilter(accessToken, refreshToken, filterInfo);
+    const frameId = await addFrame(accessToken, refreshToken, FrameForm);
 
 
     ////////////////////////////////////////////////////
@@ -72,7 +78,7 @@ function PostWritePage() {
 
     
     //게시글 등록
-    await addPost(accessToken, cookie.refresh, PostForm);
+    await addPost(accessToken, refreshToken, PostForm);
     
 //////////////////////////////////////////////////////////////////////////////////////////////
 

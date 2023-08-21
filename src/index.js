@@ -10,8 +10,8 @@ import store from './redux/config/ConfigStore'
 import persistStore from "redux-persist/es/persistStore";
 import { PersistGate } from "redux-persist/integration/react";
 
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
+const clientId = '130079254258-jg9vkidldjsvjg5u1fkncj66hs5iep9v.apps.googleusercontent.com'
 
 const queryClient = new QueryClient();
 const persistor = persistStore(store);
