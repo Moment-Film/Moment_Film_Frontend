@@ -3,20 +3,17 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "../common/component/Modal";
 import { useState } from "react";
-import { FollowAPI } from "../../api/snsUser";
 import { useSelector } from "react-redux";
 import Edit from "../assets/icons/Edit.png";
 
-import ProfileEdit from "./ProfileEdit";
+import useUserAPI from "../../api/withToken/user";
 import { Span28, StyledSpan24 } from "../common/styles/StyledSpan";
-import useToken from "../../hooks/useToken";
-import { useCookies } from "react-cookie";
+import ProfileEdit from "./ProfileEdit";
 
 const MyPageUserData = ({ lang, data }) => {
-  const {
-    getAccess,
-    getRefresh,
-  }=useToken();
+  const{
+    FollowAPI
+}=useUserAPI();
 
   const userInfo = useSelector((state) => state.UserInfo);
   const navigate = useNavigate();
@@ -40,14 +37,10 @@ const MyPageUserData = ({ lang, data }) => {
   const fofToggle = () => {
     fof === "followerList" ? setFof("followingList") : setFof("followerList");
   };
-  
-  const [cookie, setCookie] = useCookies(["refresh"]);
-  const accessToken = getAccess();
-  const refreshToken = getRefresh();
 
   const FollowHandler = () => {
     if (userInfo.sub) {
-      FollowAPI(data.id, accessToken, refreshToken);
+      FollowAPI(data.id);
     } else {
       alert("로그인이 필요합니다.");
       navigate(`/login`);

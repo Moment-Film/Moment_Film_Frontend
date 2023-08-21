@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
-// import { useCookies } from "react-cookie";
 import { useSelector } from "react-redux";
+
 import {
   ProfileSection,
   ProfilePic,
@@ -20,13 +20,8 @@ import {
   TestInput,
   TestBtn,
 } from "./profileEditStyle";
-import {
-  getPrivateInfo,
-  putEditInfo,
-  replacePassword,
-  sendEmail,
-} from "../../api/user";
 import * as a from "../frameCustomPage/style";
+
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 import WithdrawalBtn from "../common/component/WithdrawalBtn";
@@ -36,10 +31,22 @@ import imgEdit from "../assets/icons/imgEdit.png";
 import { AddressInput } from "../loginPage/EmailLogin";
 import useInputValidation from "../../hooks/useInputValidation";
 import useToken from "../../hooks/useToken";
+import useUserAPI from "../../api/withToken/user";
 
 function ProfileEdit({ onClose }) {
-  const { getAccess, getRefresh } = useToken();
+  const{
+    sendEmail,
+    putEditInfo,
+    getPrivateInfo,
+    replacePassword
+}=useUserAPI();
 
+
+  const {
+    getAccess,
+    getRefresh,
+  }=useToken();
+  
   // 프로필 수정 state
   const [isEdit, setIsEdit] = useState(false);
   const [curruntImage, setCurruntImage] = useState();
@@ -64,8 +71,7 @@ function ProfileEdit({ onClose }) {
   const profilePicRef = useRef();
 
   const userInfo = useSelector((state) => state.UserInfo);
-
-  const accessToken = getAccess();
+  const accessToken = getAccess()
   const refreshToken = getRefresh();
 
   const { data, isLoading, isError, isSuccess } = useQuery(

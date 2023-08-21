@@ -1,8 +1,13 @@
 import React from 'react'
 import styled from 'styled-components';
-import { applyFilter, applyFrame } from '../../api/myFrameFilter';
+import useCustomAPI from '../../api/withToken/useCustom';
 
 function MyFrameModal({onClose, data, title, accessToken, refreshToken, onApply}) {
+  const {
+    applyFrame,
+    applyFilter
+  } = useCustomAPI();
+
   const closeModalHandler = () => {
     onClose();
   }

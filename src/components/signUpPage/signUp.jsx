@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { register } from "../../api/user";
+import { register } from "../../api/nonToken/auth";
 import { useMutation } from "react-query";
 import useInputValidation from "../../hooks/useInputValidation";
 import StyledButton from "../common/component/StyledButton";
@@ -42,16 +42,23 @@ function SignUp() {
 
   const submitBtnHandler = async (event) => {
     event.preventDefault();
-    if (!userNameError && !phoneNumError && !emailError && !passwordError) {
-      const registerData = {
-        username: userName,
-        email,
-        password,
-        phone: phoneNum,
-      };
+    if (userNameError || phoneNumError || emailError || passwordError) {
+      let a = [userNameError, phoneNumError, emailError, passwordError]
+      let signUpError = a.filter((item) => item !== '').join('\n')
 
-      mutation.mutate(registerData);
+      alert(signUpError)
+      return 1;
     }
+
+    const registerData = {
+      username: userName,
+      email,
+      password,
+      phone: phoneNum,
+    };
+
+    mutation.mutate(registerData);
+
   };
 
   return (

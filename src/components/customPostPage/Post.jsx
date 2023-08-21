@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { StyledBoldSpan42 } from '../common/styles/StyledSpan'
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import { getAllPosts } from '../../api/post'
+
 
 function Post() {
   const a=[1,2,3,4];
@@ -22,10 +22,10 @@ function Post() {
 
 
 
-  const [pageNum, setPageNum] = useState(0);
+/*   const [pageNum, setPageNum] = useState(0);
   //정렬값에 맞는 포스트를 가져올 리엑트 쿼리 
-  const { isLoading, isError, data, isSuccess } = useQuery(`post${params.id}${pageNum}`, () => getAllPosts(sort));
-  console.log(data);
+  const { isLoading, isError, data, isSuccess } = useQuery(`post${params.id}${pageNum}`, () => getAllPosts({sort}));
+  console.log(data); */
 
   useEffect(() => {
     // setGetPosts(getAllPosts());
