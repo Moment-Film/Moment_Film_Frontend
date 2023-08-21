@@ -8,7 +8,7 @@ import Edit from "../assets/icons/Edit.png";
 
 import useUserAPI from "../../api/withToken/user";
 import { Span28, StyledSpan24 } from "../common/styles/StyledSpan";
-
+import ProfileEdit from "./ProfileEdit";
 
 const MyPageUserData = ({ lang, data }) => {
   const{

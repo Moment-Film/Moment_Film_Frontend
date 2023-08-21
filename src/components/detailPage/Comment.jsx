@@ -35,11 +35,6 @@ const Comment = ({ data, isSuccess }) => {
   const [isReplyShow, setIsReplyShow] = useState([null]);
 
 
-  const accessToken = useSelector((state) => state.AccessToken.accessToken);
-  const [cookie] = useCookies(["refresh"]);
-  const refreshToken = cookie.refresh;
-
-
   useEffect(() => {
     setCommentList(data);
   }, [data]);
@@ -116,14 +111,14 @@ const Comment = ({ data, isSuccess }) => {
     const refreshToken = getRefresh();
 
     const postId = param.id;
-    CommentMutation.mutate({ postId, accessToken, refreshToken, comment });
+    CommentMutation.mutate({ postId, comment });
     setComment("");
   };
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter" || e.keyCode === 13) {
       const postId = param.id;
-      CommentMutation.mutate({ postId, accessToken, refreshToken, comment });
+      CommentMutation.mutate({ postId,comment });
       setComment("");
     }
   };
