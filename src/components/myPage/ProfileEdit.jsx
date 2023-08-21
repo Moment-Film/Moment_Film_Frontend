@@ -102,16 +102,19 @@ function ProfileEdit({ onClose }) {
     },
   });
 
-  const sendEmailMutation = useMutation(() => sendEmail({ accessToken, refreshToken }), {
-    onSuccess: (data) => {
-      setServerCode(data.split(" ")[2]);
-      alert("인증 코드가 이메일로 전송되었습니다.");
-    },
-    onError: (error) => {
-      alert("이메일 전송에 실패했습니다.");
-      console.log(error);
-    },
-  });
+  const sendEmailMutation = useMutation(
+    () => sendEmail({ accessToken, refreshToken }),
+    {
+      onSuccess: (data) => {
+        setServerCode(data.split(" ")[2]);
+        alert("인증 코드가 이메일로 전송되었습니다.");
+      },
+      onError: (error) => {
+        alert("이메일 전송에 실패했습니다.");
+        console.log(error);
+      },
+    }
+  );
 
   const replacePasswordMutation = useMutation(
     () =>
@@ -189,14 +192,6 @@ function ProfileEdit({ onClose }) {
   return (
     <ModalBg onClick={onClose}>
       <ProfileWrap onClick={stopPropagation}>
-        <CloseBtn>
-          <img
-            src={cancel}
-            alt=""
-            onClick={onClose}
-            style={{ width: "20px" }}
-          />
-        </CloseBtn>
         <ProfileSection>
           <ProfilePic>
             <img src={curruntImage} alt="프로필 이미지" />
@@ -229,12 +224,12 @@ function ProfileEdit({ onClose }) {
                 <span>유저이름</span>
                 {!isEdit ? (
                   <StyleInput>
-                    <span>{data?.data.data.username}</span>
+                    <span>{userInfo.username}</span>
                   </StyleInput>
                 ) : (
                   <StyleInput>
                     <AddressInput
-                      placeholder={data?.data.data.username}
+                      placeholder={userInfo.username}
                       value={editProfile.username || ""}
                       onChange={(e) =>
                         editInputHandler("username", e.target.value)
@@ -288,7 +283,7 @@ function ProfileEdit({ onClose }) {
                   <div style={{ display: "flex", flexDirection: "column" }}>
                     <div
                       style={{
-                        width:"376px",
+                        width: "376px",
                         display: "flex",
                         justifyContent: "space-between",
                       }}
@@ -306,9 +301,9 @@ function ProfileEdit({ onClose }) {
                     </div>
                     <div>
                       {!isVerified ? (
-                        <Verify>인증코드 불일치</Verify>
+                        <Verify isVerified={false}>인증코드 불일치</Verify>
                       ) : (
-                        <Verify>인증 확인되었습니다.</Verify>
+                        <Verify isVerified={true}>인증 확인되었습니다.</Verify>
                       )}
                     </div>
                   </div>
@@ -334,7 +329,11 @@ function ProfileEdit({ onClose }) {
                     />
                     <TestBtn onClick={handlePasswordReset}>변경</TestBtn>
                   </TestBox>
-                  <p></p>
+                  {!isVerified ? (
+                    <Verify isVerified={false}>인증코드 불일치</Verify>
+                  ) : (
+                    <Verify isVerified={true}>인증 확인되었습니다.</Verify>
+                  )}
                 </div>
               </PwEditContainor>
             </PasswordEditSection>
@@ -360,6 +359,13 @@ function ProfileEdit({ onClose }) {
             </div>
           </Infos>
         </ProfileSection>
+        <CloseBtn>
+          <img
+            src={cancel}
+            alt=""
+            onClick={onClose}
+          />
+        </CloseBtn>
       </ProfileWrap>
     </ModalBg>
   );
