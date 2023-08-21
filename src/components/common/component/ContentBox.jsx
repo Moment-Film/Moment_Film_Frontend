@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const ContentBox = ({ data }) => {
     const navigate = useNavigate();
-
+    console.log(data)
     const Card = ({ item }) => {
         return (
             <ContentsItem onClick={()=>navigate(`/post/${item.id}`)}>

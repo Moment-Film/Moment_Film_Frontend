@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import ContentBox from './ContentBox';
 import _ from 'lodash'; // lodash 라이브러리 사용
-import { getAllPosts } from '../../../api/post'
-import { useQuery } from 'react-query';
-import { async } from 'q';
+import { getAllPosts } from '../../../api/nonToken/post';
+import { useQuery,useQueryClient } from 'react-query';
 
 
 //통신연결후 스로틀링의 사용 전 후 성능 기록해놓을 것 
 const InfiniteScroll = ({ sort }) => {
+
+    const queryClient = useQueryClient();
     const [page, setPage] = useState(1);
     const [prevPage, setPrevPage] = useState(1);
     const [newsList, setNewsList] = useState([]);
@@ -21,6 +22,7 @@ const InfiniteScroll = ({ sort }) => {
             enabled: !isLast, //마지막페이지면 멈춤
         }
     );
+    console.log(data);
 
     // 무한 스크롤 이벤트 처리 함수를 스로틀링하여 0.5초마다 한 번씩 실행되도록 설정
     const handleScroll = _.throttle(async() => {
@@ -51,6 +53,9 @@ const InfiniteScroll = ({ sort }) => {
 
     useEffect(() => {
         if (isSuccess) {
+            if(page===1){
+                setNewsList([])
+            }
             if (data && data.isLastPage) {
                 setIsLast(data.isLastPage);
             }
@@ -59,6 +64,13 @@ const InfiniteScroll = ({ sort }) => {
             }
         }
     }, [data]);
+
+    useEffect(() => {
+   
+          // Invalidate the query cache when sort changes
+          queryClient.invalidateQueries(`post${sort}${page}`);
+
+      }, [sort, page, queryClient,data]);
 
 
     return (

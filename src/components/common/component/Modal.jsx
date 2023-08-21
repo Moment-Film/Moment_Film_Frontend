@@ -1,11 +1,16 @@
 import searchIcon from '../../assets/icons/searchIcon.svg'
-import { FollowAPI } from "../../../api/snsUser";
+import { FollowAPI } from '../../../api/withToken/user';
 import * as S from './modalStyle'
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import useToken from '../../../hooks/useToken';
+import useUserAPI from '../../../api/withToken/user';
 
 export const Modal = ({onClose, onToggle, data, title, id, me}) => {
+    const{
+        FollowAPI
+    }=useUserAPI();
+
     const navigate = useNavigate();
     const [isSearch, setIsSearch] = useState(false);
     const [thisData, setThisData] = useState(data);
@@ -19,7 +24,7 @@ export const Modal = ({onClose, onToggle, data, title, id, me}) => {
     const refreshToken = getRefresh();
     const accessToken = getAccess();
     const deleteFollower = (id) => {
-        FollowAPI(id,accessToken,refreshToken);
+        FollowAPI(id);
     }
     useEffect(()=>{
         setThisData(data);

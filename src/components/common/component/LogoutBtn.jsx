@@ -1,5 +1,5 @@
 import React from "react";
-import { LogOutAPI } from "../../../api/snsUser";
+import { LogOutAPI } from "../../../api/nonToken/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { useCookies } from "react-cookie";
 import { SetAccessToken } from "../../../redux/modules/AccessToken";
