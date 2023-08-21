@@ -2,10 +2,10 @@ import React from "react";
 import InfiniteScroll from "../components/common/component/InfinityScroll";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
-import { searchUser } from "../api/searchUser";
 import { useEffect } from "react";
 import { useMutation } from "react-query";
 import { useQueryClient } from "react-query";
+import { searchUser } from "../api/nonToken/user";
 
 function SearchReseultpage() {
   

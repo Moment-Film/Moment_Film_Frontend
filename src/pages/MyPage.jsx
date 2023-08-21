@@ -7,7 +7,7 @@ import koData from '../languageData/ko_MyPage.json';
 import enData from '../languageData/en_MyPage.json';
 import PaginationComponent from '../components/common/component/PageNation'
 import { useQuery } from 'react-query';
-import { getProfile } from '../api/myPage';
+import { getProfile } from '../api/nonToken/user';
 import { useParams } from 'react-router-dom';
 
 function MyPage() {

@@ -20,12 +20,15 @@ import { SetBackgroundImg } from "../../redux/modules/FrameInfo";
 import { StyledSpan14 } from "../common/styles/StyledSpan";
 import MyFrameModal from './MyFrameModal'
 import { useQuery } from "react-query";
-import { getMyFrame } from "../../api/myFrameFilter";
 import { SetImgFile } from "../../redux/modules/FrameInfo";
 import useToken from "../../hooks/useToken";
+import usePostAPI from "../../api/withToken/post";
 
 const FrameCustomMake = () => {
-  
+  const{
+    getMyFrame
+  }=usePostAPI();
+
   const {
     getAccess,
     getRefresh,
@@ -36,7 +39,7 @@ const FrameCustomMake = () => {
   const accessToken = getAccess()
   const refreshToken = getRefresh()
   
-  const {data} = useQuery(`myFrame${userInfo.sub}`, () => getMyFrame({accessToken, refreshToken}));
+  const {data} = useQuery(`myFrame${userInfo.sub}`, () => getMyFrame());
   
   const thisGrid = useSelector((state) => state.image.images);
   const frame = useSelector((state) => state.FrameInfo);

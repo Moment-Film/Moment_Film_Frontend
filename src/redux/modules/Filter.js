@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 // 초기값 설정
 const initialState = {
-    filterName:"",
+    filterName:"aa",
     blur:0,
     brightness:0,
     saturate:0,

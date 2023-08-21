@@ -2,13 +2,17 @@ import React from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { addPost } from "../api/post";
-import { addFrame } from "../api/post";
-import { addFilter } from "../api/post";
 import { useNavigate } from "react-router-dom";
 import useToken from "../hooks/useToken";
+import usePostAPI from "../api/withToken/post";
 
 function PostWritePage() {
+
+  const {
+    addPost,
+    addFrame,
+    addFilter
+  }=usePostAPI();
 
   const {
     getAccess,
@@ -53,8 +57,8 @@ function PostWritePage() {
 
     ////////////////////////////////////////////////////
     
-    const filterId = await addFilter(accessToken, refreshToken, filterInfo);
-    const frameId = await addFrame(accessToken, refreshToken, FrameForm);
+    const filterId = await addFilter(filterInfo);
+    const frameId = await addFrame(FrameForm);
 
 
     ////////////////////////////////////////////////////
@@ -78,7 +82,7 @@ function PostWritePage() {
 
     
     //게시글 등록
-    await addPost(accessToken, refreshToken, PostForm);
+    await addPost(PostForm);
     
 //////////////////////////////////////////////////////////////////////////////////////////////
 

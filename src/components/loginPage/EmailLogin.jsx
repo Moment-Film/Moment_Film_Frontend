@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { ELogin } from "../../api/snsUser";
+import { ELogin } from "../../api/nonToken/auth";
 import useInputValidation from "../../hooks/useInputValidation";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";

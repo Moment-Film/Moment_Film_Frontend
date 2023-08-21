@@ -1,6 +1,6 @@
 import React from 'react';
 import useToken from '../../../hooks/useToken';
-import { WithdrawalAPI } from '../../../api/snsUser';
+import { WithdrawalAPI } from '../../../api/nonToken/auth';
 
 const WithdrawalBtn = () => {
 

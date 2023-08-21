@@ -1,19 +1,20 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useCookies } from "react-cookie";
 import { useSelector } from "react-redux";
 import { ProfileSection, ProfilePic, Infos } from "./profileEditStyle";
-import {
-  getPrivateInfo,
-  putEditInfo,
-  replacePassword,
-  sendEmail,
-} from "../../api/user";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import WithdrawalBtn from "../common/component/WithdrawalBtn";
 import useToken from "../../hooks/useToken";
+import useUserAPI from "../../api/withToken/user";
+
 function ProfileEdit() {
+  const{
+    sendEmail,
+    putEditInfo,
+    getPrivateInfo,
+    replacePassword
+}=useUserAPI();
 
   const {
     getAccess,
@@ -41,7 +42,6 @@ function ProfileEdit() {
   const profilePicRef = useRef();
 
   const userInfo = useSelector((state) => state.UserInfo);
-
   const accessToken = getAccess()
   const refreshToken = getRefresh();
 

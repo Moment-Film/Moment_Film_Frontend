@@ -1,11 +1,12 @@
 import { React } from "react"
 import styled from "styled-components"
 import { useParams } from "react-router-dom"
-import { getPostDetail } from "../api/post"
 import { useQuery } from "react-query"
 import { useNavigate } from "react-router-dom"
 import DetailContent from "../components/detailPage/DetailContent";
 import Comment from "../components/detailPage/Comment"
+import { getPostDetail } from "../api/nonToken/post"
+
 
 function DetailPage() {
 
