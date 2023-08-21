@@ -1,14 +1,39 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { ProfileSection, ProfilePic, Infos } from "./profileEditStyle";
+
+import {
+  ProfileSection,
+  ProfilePic,
+  Infos,
+  InfoSection,
+  StyleInput,
+  ModalBg,
+  ProfileWrap,
+  PasswordEditSection,
+  PwEditContainor,
+  EditBtn,
+  PwEditWrap,
+  CloseBtn,
+  SendBtn,
+  Verify,
+  TestBox,
+  TestInput,
+  TestBtn,
+} from "./profileEditStyle";
+import * as a from "../frameCustomPage/style";
+
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
-import { styled } from "styled-components";
 import WithdrawalBtn from "../common/component/WithdrawalBtn";
+import cancel from "../assets/icons/cancelx2.png";
+import lock from "../assets/icons/lock.png";
+import imgEdit from "../assets/icons/imgEdit.png";
+import { AddressInput } from "../loginPage/EmailLogin";
+import useInputValidation from "../../hooks/useInputValidation";
 import useToken from "../../hooks/useToken";
 import useUserAPI from "../../api/withToken/user";
 
-function ProfileEdit() {
+function ProfileEdit({ onClose }) {
   const{
     sendEmail,
     putEditInfo,
@@ -16,11 +41,12 @@ function ProfileEdit() {
     replacePassword
 }=useUserAPI();
 
+
   const {
     getAccess,
     getRefresh,
   }=useToken();
-
+  
   // 프로필 수정 state
   const [isEdit, setIsEdit] = useState(false);
   const [curruntImage, setCurruntImage] = useState();
@@ -36,6 +62,9 @@ function ProfileEdit() {
   const [isVerified, setIsVerified] = useState(false);
   const [serverCode, setServerCode] = useState("");
   const [isClicked, setIsClicked] = useState(false);
+
+  // 비밀번호 재설정 유효성 검사
+  const { handlePasswordChange } = useInputValidation();
 
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -135,6 +164,12 @@ function ProfileEdit() {
 
   const handlePasswordReset = () => {
     replacePasswordMutation.mutate();
+    setNewPassword("");
+  };
+
+  const newPasswordChangeHandler = (e) => {
+    setNewPassword(e.target.value);
+    handlePasswordChange(e);
   };
 
   const handleVerifyCode = () => {
@@ -147,111 +182,187 @@ function ProfileEdit() {
     }
   };
 
-  return (
-    <ProfileWrap>
-      <ProfileSection>
-        <ProfilePic>
-          <img src={curruntImage} alt="프로필 이미지" />
-          <input
-            type="file"
-            accept="image/*"
-            ref={profilePicRef}
-            onChange={UploadPic}
-          />
-        </ProfilePic>
-        <Infos>
-          <section>
-            <div>
-              <span>사용자번호</span>
-              <span>:</span>
-            </div>
-            <span>{userInfo.sub}</span>
-          </section>
-          <section>
-            <div>
-              <span>유저이름</span> <span>:</span>
-            </div>
-            {!isEdit ? (
-              <span>{data?.data.data.username}</span>
-            ) : (
-              <input
-                value={editProfile.username || ""}
-                onChange={(e) => editInputHandler("username", e.target.value)}
-              />
-            )}
-          </section>
-          <section>
-            <div>
-              <span>이메일</span> <span>:</span>
-            </div>
-            <span>{userInfo.email}</span>
-          </section>
-          <section>
-            <div>
-              <span>전화번호</span> <span>:</span>
-            </div>
-            {!isEdit ? (
-              <span>{data?.data.data.phone}</span>
-            ) : (
-              <input
-                value={editProfile.phone || ""}
-                onChange={(e) => editInputHandler("phone", e.target.value)}
-              />
-            )}
-          </section>
-        </Infos>
-        {!isEdit && <button onClick={() => setIsEdit(true)}>정보 수정</button>}
-        {isEdit && <button onClick={submitEdit}>정보 완료</button>}
-      </ProfileSection>
-      <PasswordEditSection>
-        <div>이메일 인증하기</div>
+  const stopPropagation = (e) => {
+    e.stopPropagation();
+  };
 
-        {!isVerified && (
-          <>
-            <button onClick={handleSendEmail}>
-              {isClicked ? "인증코드 재전송" : "인증코드 전송"}
-            </button>
-            <input
-              placeholder="인증코드를 입력해 주세요"
-              value={code}
-              onChange={(e) => setCode(e.target.value)}
+  return (
+    <ModalBg onClick={onClose}>
+      <ProfileWrap onClick={stopPropagation}>
+        <CloseBtn>
+          <img
+            src={cancel}
+            alt=""
+            onClick={onClose}
+            style={{ width: "20px" }}
+          />
+        </CloseBtn>
+        <ProfileSection>
+          <ProfilePic>
+            <img src={curruntImage} alt="프로필 이미지" />
+            <a.UploadInput
+              id="fileInput"
+              type="file"
+              accept="image/*"
+              ref={profilePicRef}
+              onChange={UploadPic}
             />
-          </>
-        )}
-        {!isVerified ? (
-          isClicked && <button onClick={handleVerifyCode}>입력</button>
-        ) : (
-          <p>인증코드가 일치합니다.</p>
-        )}
-        {isVerified && (
-          <>
-            <div>새 비밀번호 설정하기</div>
-            <input
-              placeholder="새 비밀번호를 입력해 주세요"
-              value={newPassword}
-              type="password"
-              onChange={(e) => setNewPassword(e.target.value)}
+            <label htmlFor="fileInput">
+              <img
+                src={imgEdit}
+                alt=""
+                style={{
+                  width: "36px",
+                  cursor: "pointer",
+                }}
+              />
+            </label>
+            <section>
+              <span>{userInfo.email}</span>
+            </section>
+            <WithdrawalBtn />
+          </ProfilePic>
+          <Infos>
+            <InfoSection>
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <img src={lock} alt="" style={{ width: "24px" }} />
+                <span>유저이름</span>
+                {!isEdit ? (
+                  <StyleInput>
+                    <span>{data?.data.data.username}</span>
+                  </StyleInput>
+                ) : (
+                  <StyleInput>
+                    <AddressInput
+                      placeholder={data?.data.data.username}
+                      value={editProfile.username || ""}
+                      onChange={(e) =>
+                        editInputHandler("username", e.target.value)
+                      }
+                    />
+                  </StyleInput>
+                )}
+              </div>
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <img src={lock} alt="" style={{ width: "24px" }} />
+                <span>전화번호</span>
+                {!isEdit ? (
+                  <StyleInput>{data?.data.data.phone}</StyleInput>
+                ) : (
+                  <StyleInput>
+                    <AddressInput
+                      placeholder={data?.data.data.phone}
+                      value={editProfile.phone || ""}
+                      onChange={(e) =>
+                        editInputHandler("phone", e.target.value)
+                      }
+                    />
+                  </StyleInput>
+                )}
+              </div>
+            </InfoSection>
+            <hr
+              style={{
+                width: "450px",
+                border: "1px solid var(--lightGray)",
+                margin: "19.5px 0 9.5px 0",
+              }}
             />
-            <button onClick={handlePasswordReset}>비밀번호 변경</button>
-          </>
-        )}
-      </PasswordEditSection>
-      <WithdrawalBtn />
-    </ProfileWrap>
+            <PasswordEditSection>
+              <PwEditWrap>
+                <div>비밀번호 변경</div>
+                <div>
+                  <SendBtn onClick={handleSendEmail}>
+                    {isClicked ? "인증코드 재전송" : "인증코드 전송"}
+                  </SendBtn>
+                </div>
+              </PwEditWrap>
+              <PwEditContainor>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <div
+                      style={{
+                        width:"376px",
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <div style={{ marginLeft: "34px" }}>인증코드 입력</div>
+
+                      <TestBox>
+                        <TestInput
+                          placeholder="인증코드를 입력해 주세요"
+                          value={code}
+                          onChange={(e) => setCode(e.target.value)}
+                        />
+                        <TestBtn onClick={handleVerifyCode}>확인</TestBtn>
+                      </TestBox>
+                    </div>
+                    <div>
+                      {!isVerified ? (
+                        <Verify>인증코드 불일치</Verify>
+                      ) : (
+                        <Verify>인증 확인되었습니다.</Verify>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <div style={{ width: "80px", marginLeft: "26px" }}>
+                    새 비밀번호
+                  </div>
+                  <TestBox style={{ marginLeft: "34px" }}>
+                    <TestInput
+                      placeholder="새 비밀번호를 입력해 주세요"
+                      value={newPassword}
+                      type="password"
+                      onChange={newPasswordChangeHandler}
+                      infoText="· 공백 없이 문자, 숫자 조합 필수 6 ~ 10자"
+                    />
+                    <TestBtn onClick={handlePasswordReset}>변경</TestBtn>
+                  </TestBox>
+                  <p></p>
+                </div>
+              </PwEditContainor>
+            </PasswordEditSection>
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              <EditBtn>
+                {!isEdit && (
+                  <div
+                    onClick={() => setIsEdit(true)}
+                    style={{ display: "flex", justifyContent: "flex-end" }}
+                  >
+                    수정하기
+                  </div>
+                )}
+                {isEdit && (
+                  <div
+                    onClick={submitEdit}
+                    style={{ display: "flex", justifyContent: "flex-end" }}
+                  >
+                    저장완료
+                  </div>
+                )}
+              </EditBtn>
+            </div>
+          </Infos>
+        </ProfileSection>
+      </ProfileWrap>
+    </ModalBg>
   );
 }
 
 export default ProfileEdit;
-
-const ProfileWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-const PasswordEditSection = styled.div`
-  border: 1px solid var(--black);
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  margin-bottom: 20px;
-`;

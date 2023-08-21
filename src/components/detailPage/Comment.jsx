@@ -7,6 +7,7 @@ import { useMutation, useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
 import useToken from "../../hooks/useToken";
 import usePostAPI from "../../api/withToken/post";
+
 //input 태그를 따로 빼면 컴포넌트의 필요없는 랜더링을 줄일 수 있다
 const Comment = ({ data, isSuccess }) => {
 
@@ -28,17 +29,20 @@ const Comment = ({ data, isSuccess }) => {
   const param = useParams();
   const queryClient = useQueryClient();
 
-    const [comment, setComment] = useState(null);
-    const [recomment, setRecomment] = useState({});
-    const [commentList, setCommentList] = useState(data);
-    const [isReplyShow, setIsReplyShow] = useState([null]);
+  const [comment, setComment] = useState(null);
+  const [recomment, setRecomment] = useState({});
+  const [commentList, setCommentList] = useState(data);
+  const [isReplyShow, setIsReplyShow] = useState([null]);
 
 
+  const accessToken = useSelector((state) => state.AccessToken.accessToken);
+  const [cookie] = useCookies(["refresh"]);
+  const refreshToken = cookie.refresh;
 
-    useEffect(()=>{
-      setCommentList(data)
-    },[data])
 
+  useEffect(() => {
+    setCommentList(data);
+  }, [data]);
 
   //일반 함수 부
   const showReplyHandler = (commentId) => {
@@ -56,7 +60,6 @@ const Comment = ({ data, isSuccess }) => {
   const InputReply = (e, id) => {
     setRecomment({ ...recomment, [id]: e.target.value });
   };
-
 
   // mutatin 함수 선언 부
   const CommentMutation = useMutation(addComment, {
@@ -98,7 +101,7 @@ const Comment = ({ data, isSuccess }) => {
   const DelReplyMutation = useMutation(delReply, {
     onSuccess: (response) => {
       console.log(response);
-  {
+      {
         queryClient.invalidateQueries(`Detail${param.id}`);
       }
     },
@@ -115,6 +118,14 @@ const Comment = ({ data, isSuccess }) => {
     const postId = param.id;
     CommentMutation.mutate({ postId, accessToken, refreshToken, comment });
     setComment("");
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter" || e.keyCode === 13) {
+      const postId = param.id;
+      CommentMutation.mutate({ postId, accessToken, refreshToken, comment });
+      setComment("");
+    }
   };
 
   const AddReply = (commentId) => {
@@ -148,7 +159,7 @@ const Comment = ({ data, isSuccess }) => {
       replyId,
     });
   };
-  const userInfo = useSelector((state)=>state.UserInfo);
+  const userInfo = useSelector((state) => state.UserInfo);
 
   return (
     <CommentSection>
@@ -159,7 +170,12 @@ const Comment = ({ data, isSuccess }) => {
             value={comment}
             onChange={CommentInput}
           />
-          <img src={commentEnter} alt="commentEnter" onClick={AddComment}></img>
+          <img
+            src={commentEnter}
+            alt="commentEnter"
+            onClick={AddComment}
+            onKeyPress={handleKeyPress}
+          ></img>
         </CommentInputDiv>
       </CommentInputArea>
       {commentList &&
@@ -192,31 +208,48 @@ const Comment = ({ data, isSuccess }) => {
                     </button>
                   )}
 
-                                    {comment.userId===Number(userInfo.sub) && <button onClick={() => DeleteComment(comment.id)}>댓글삭제</button>}
-                                </CommentMain>
-                            </CommentCard>
-                        </CommentsDetail>
-                        {isReplyShow.includes(comment.id) &&
-                         comment.subComments.slice().reverse().map((reply) => (
-                            <ReplayComment key={reply.id}>
-                                <CommentsDetail>
-                                    <img src={Replay_comment} alt="" />
-                                    <CommentCard>
-                                        <ProfilePic><img src="https://pbs.twimg.com/media/Fi3MBQvaMAAMymZ.jpg" alt="" /></ProfilePic>
-                                        <CommentMain>
-                                            <div>{reply.username}</div>
-                                            <div>{reply.content}</div>
-                                        </CommentMain>
-                                        {reply.userId===Number(userInfo.sub) && <button onClick={() => DeleteReply(comment.id, reply.id)}>대댓글삭제</button>}
-                                    </CommentCard>
-                                </CommentsDetail>
-                            </ReplayComment>
-                        ))}
-                    </CommentContainer>
+                  {comment.userId === Number(userInfo.sub) && (
+                    <button onClick={() => DeleteComment(comment.id)}>
+                      댓글삭제
+                    </button>
+                  )}
+                </CommentMain>
+              </CommentCard>
+            </CommentsDetail>
+            {isReplyShow.includes(comment.id) &&
+              comment.subComments
+                .slice()
+                .reverse()
+                .map((reply) => (
+                  <ReplayComment key={reply.id}>
+                    <CommentsDetail>
+                      <img src={Replay_comment} alt="" />
+                      <CommentCard>
+                        <ProfilePic>
+                          <img
+                            src="https://pbs.twimg.com/media/Fi3MBQvaMAAMymZ.jpg"
+                            alt=""
+                          />
+                        </ProfilePic>
+                        <CommentMain>
+                          <div>{reply.username}</div>
+                          <div>{reply.content}</div>
+                        </CommentMain>
+                        {reply.userId === Number(userInfo.sub) && (
+                          <button
+                            onClick={() => DeleteReply(comment.id, reply.id)}
+                          >
+                            대댓글삭제
+                          </button>
+                        )}
+                      </CommentCard>
+                    </CommentsDetail>
+                  </ReplayComment>
                 ))}
-        </CommentSection>
-    );
-
+          </CommentContainer>
+        ))}
+    </CommentSection>
+  );
 };
 
 export default Comment;

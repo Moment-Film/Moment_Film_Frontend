@@ -166,8 +166,8 @@ const InputWrap = styled.div`
   padding: 19px 18px;
 `;
 
-const AddressInput = styled.input`
-  width: 100%;
+export const AddressInput = styled.input`
+  width: 85%;
   font-size: 16px;
   line-height: 18px;
   background: none;
