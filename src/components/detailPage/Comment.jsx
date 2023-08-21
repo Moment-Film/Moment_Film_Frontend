@@ -10,6 +10,7 @@ import { addReply } from "../../api/addComment";
 import { delComment } from "../../api/addComment";
 import { delReply } from "../../api/addComment";
 import useToken from "../../hooks/useToken";
+import { useCookies } from "react-cookie";
 
 //input 태그를 따로 빼면 컴포넌트의 필요없는 랜더링을 줄일 수 있다
 const Comment = ({ data, isSuccess }) => {
