@@ -8,8 +8,9 @@ import { useSelector } from "react-redux";
 import Edit from "../assets/icons/Edit.png";
 
 import ProfileEdit from "./ProfileEdit";
-import { StyledSpan24 } from "../common/styles/StyledSpan";
+import { Span28, StyledSpan24 } from "../common/styles/StyledSpan";
 import useToken from "../../hooks/useToken";
+import { useCookies } from "react-cookie";
 
 const MyPageUserData = ({ lang, data }) => {
   const {
