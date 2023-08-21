@@ -4,6 +4,12 @@ import styled from "styled-components";
 //----------------------------------------------------------
 // font-weight : basic
 
+export const Span28 = styled.span`
+  font-size: 24px;
+  color: var(--black);
+  line-height: 30px;
+  font-family: "Abril Fatface", cursive;
+`;
 export const StyledSpan26 = styled.span`
   font-size: 26px;
   color: ${(props) => props.color};
