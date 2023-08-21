@@ -63,7 +63,7 @@ const ProfileWrap = styled.div`
   height: 415px;
   box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.1);
   display: flex;
-  flex-direction: column;
+  /* flex-direction: colmn; */
   background-color: white;
   z-index: 51;
   border-radius: 5px;
@@ -104,9 +104,11 @@ const PwEditWrap = styled.div`
 `;
 
 const CloseBtn = styled.div`
+  width: 20px;
+  height: 20px;
   display: flex;
   justify-content: flex-end;
-  position: absolute;
+  /* position: absolute; */
 `;
 
 const SubmitBtn = styled.div`
