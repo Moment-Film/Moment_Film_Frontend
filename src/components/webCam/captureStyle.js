@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 
 
 export const MainBody = styled.div`
@@ -8,6 +8,7 @@ export const MainBody = styled.div`
   background-color: white;
   width: 1170px;
   overflow: hidden;
+  padding-bottom: 121px;
 `
 export const Body = styled.div`
   display: flex;
@@ -15,7 +16,7 @@ export const Body = styled.div`
   align-items: end;
   justify-content: center;
   width: 100%;
-  padding: 70px 0 121px;
+  padding-top: 70px;
 `
 export const WebCamUI = styled.div`
   display: flex;
@@ -53,6 +54,7 @@ export const Video = styled.video`
   object-fit: cover;
   width: ${ props => props.width || 300}px;
   height: ${ props => props.height || 356}px;
+  display: ${props => props.show ? "block" : "none"};
 `
 export const MoveButton = styled.button`
   display: flex;
@@ -69,7 +71,7 @@ export const MoveButton = styled.button`
 export const PreviewSection = styled.section`
   overflow: hidden;
   width: 100%;
-  background-color: var(--lightGray);
+  background-color: var(--gray5);
 `
 export const PreviewSlider = styled.div`
   display: flex;
@@ -77,28 +79,36 @@ export const PreviewSlider = styled.div`
   width: 1232.6px;
   height: 108px;
   background-color: var(--lightGray);
+  margin: 0 308.4px;
 `
 export const PreviewImg = styled.div`
+  box-sizing: border-box;
   width: 153.2px;
   height: 108px;
   background-color: #333;
-  span{
-    position: relative;
-    display: block;
-    top: 5px;
-    left: 5px;
-    width: 36px;
-    height: 20px;
-    border-radius: 10px;
-    font-family: 'Pretendard';
-    box-sizing: border-box;
-    padding: 2px;
-    text-align: center;
-    font-size: 12px;
-    font-weight: 700;
-    line-height: 16px;
-    background-color: white;
-    opacity: 0.8;
+  background-image: url(${props=>props.src});
+  background-size: cover;
+  background-position: center;
+  ${({ $type }) =>
+    $type && css`
+    border: 3px solid var(--green3);
+    `};
+  div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: var(--black);
+    opacity: 0.6;
+    color: white;
+    p{
+      margin: 0;
+      padding: 0;
+      font-size: 13px;
+      line-height: 22px;
+    }
   }
 `
 export const FootSection = styled.section`
@@ -110,6 +120,7 @@ export const FootSection = styled.section`
   justify-content: space-between;
   align-items: center;
   .cam {
+    visibility: ${props=>props.view ? "hidden" : "block"};
     margin-left: -24px;
   }
 `
