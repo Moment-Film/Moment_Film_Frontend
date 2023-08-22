@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import mini_flower from "../assets/icons/mini_flower.svg";
 import info from "../assets/icons/info.png";
@@ -13,6 +13,7 @@ const steps = [
   { name: "photoSelect", text: "Photo Select" },
   { name: "frameSetting", text: "Frame Setting" },
   { name: "filter", text: "Filter" },
+  { name: "draw", text: "Draw" },
   { name: "finish", text: "Finish" },
 ];
 
@@ -35,20 +36,16 @@ const GridNav = ({ data, autoShowModal = false }) => {
 
       <StepWrap>
         <SelectStep>
-        {steps.map((step) => {
-            return data === step.name ? (
-              <div style={{ height: "45px" }} key={step.name}>
-                <StyledSpan15>{step.text}</StyledSpan15>
-                <StepTitle
-                  src={mini_flower}
-                  alt="mini_flower"
-                  style={{ paddingBottom: "10px" }}
-                />
-              </div>
-            ) : (
-              <StyledSpan15 style={{ opacity: "0.3" }} key={step.name}>{step.text}</StyledSpan15>
-            );
-          })}
+          <ProccessLine />
+          {steps.map((step, index) =>
+            <TitleCont proceeded={ index <= steps.findIndex(i=>i.name===data) } key={step.name}>
+              <StyledSpan15 select={step.name===data}>{step.text}</StyledSpan15>
+              {step.name===data && <StepTitle
+                src={mini_flower}
+                alt="mini_flower"
+              />}
+            </TitleCont>
+          )}
         </SelectStep>
         <div
           onClick={modalHideHandler}
@@ -86,23 +83,33 @@ const ModalBG = styled.div`
 `;
 
 const StepWrap = styled.div`
-  width: 970px;
+  width: 1142px;
   border-bottom: 1px solid var(--lightGray);
-  padding: 0 115px;
-  margin: 0 100px;
+  padding: 16px 60px 0 0;
   display: flex;
   justify-content: space-between;
-  padding-bottom: 15.5px;
-  padding-top: 50px;
 `;
-
+const ProccessLine = styled.div`
+  width: 100px;
+  height: 49px;
+  border-bottom: 2px solid var(--green5);
+`
 const SelectStep = styled.div`
-  height: 18px;
   display: flex;
   align-items: center;
-  gap: 30px;
 `;
-
+const TitleCont = styled.div`
+  ${({ proceeded }) =>
+    proceeded ? css`
+    border-bottom: 2px solid var(--green5);
+    ` : css`
+    border-bottom: 2px solid white;
+    `};
+  height: 18px;
+  padding: 15px;
+`;
 const StepTitle = styled.img`
+  position: absolute;
+  margin-top: -10px;
   height: 18px;
 `;

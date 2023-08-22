@@ -38,6 +38,7 @@ export const StyledSpan16 = styled.span`
 
 export const StyledSpan15 = styled.span`
   font-size: 15px;
+  opacity: ${(props)=> props.select ? 1 : 0.3};
   color: ${(props) => props.color};
   line-height: ${(props) => props.lineHeight};
   font-family: "Abril Fatface", cursive;
