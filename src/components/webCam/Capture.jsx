@@ -103,7 +103,7 @@ function Capture() {
         <S.MoveButton onClick={moveToPrevSlide}><img src={right_arrow} style={{scale:"-1"}}/></S.MoveButton>
         <S.WebCamUI>
           <S.HeadSection>
-            <span>3/4컷</span>
+            <span>{capturedImages.length}/8컷</span>
             <img src={onAir} />
           </S.HeadSection>
           <S.VideoSection>

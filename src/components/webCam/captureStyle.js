@@ -67,6 +67,7 @@ export const MoveButton = styled.button`
   border-radius: 19px;
   border: none;
   box-shadow: 0 0 30px rgba(0,0,0,0.15);
+  cursor: pointer;
 `
 export const PreviewSection = styled.section`
   overflow: hidden;

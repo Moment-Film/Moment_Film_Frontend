@@ -7,16 +7,14 @@ import GridNav from '../frameSelectPage/GridNav'
 import right_arrow from '../assets/images/right_arrow.png'
 import StyledButton from '../common/component/StyledButton'
 import {
-  CapturedPhotos,
-  MoveButton,
-  SlilderWrap,
-  ImageSlider,
   InnerGrids,
   GridContainer,
   GridBackground,
 } from './style'
 import * as S from '../common/styles/StyledSpan'
+import * as C from './captureStyle';
 import { useSelector } from 'react-redux';
+import LOGO from '../assets/images/LOGO.svg'
 
 const ImagePiece = ({ imageSrc, onDrop, isPlaced }) => {
   const [{ isDragging }, dragRef] = useDrag({
@@ -28,17 +26,19 @@ const ImagePiece = ({ imageSrc, onDrop, isPlaced }) => {
   });
 
   return (
-    <img
+    <div
       ref={dragRef}
-      src={imageSrc}
-      alt="CapturedImage"
+      alt=""
       style={{
         cursor: "pointer",
-        width: '168px',
+        width: "153.2px",
+        height: "108px",
         opacity: isDragging ? 0.5 : 1,
         display: isPlaced ? 'none' : 'block',
-        borderRight: "3px solid black",
-        borderLeft: "3px solid black",
+        backgroundColor: "var(--black)",
+        backgroundImage: `url(${imageSrc})`,
+        backgroundPosition: "center",
+        backgroundSize: "cover",
         boxSizing: "border-box"
       }}
     />
@@ -69,7 +69,7 @@ const GridInner = ({ onDrop, imageSrc, width, height }) => {
         justifyContent: 'center',
       }}
     >
-      {imageSrc && <img style={{width:width}}src={imageSrc} alt="Puzzle Piece" />}
+      {imageSrc && <img style={{width:width}}src={imageSrc} alt="" />}
     </div>
   );
 };
@@ -79,19 +79,17 @@ const SetCount = () => {
   const navigate = useNavigate();
   const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
   const [capturedImages] = useState([
-    { id: 1, src: localStorage.getItem(`image0`) },
-    { id: 2, src: localStorage.getItem(`image1`)  },
-    { id: 3, src: localStorage.getItem(`image2`)  },
-    { id: 4, src: localStorage.getItem(`image3`)  },
-    { id: 5, src: localStorage.getItem(`image4`)  },
-    { id: 6, src: localStorage.getItem(`image5`)  },
-    { id: 7, src: localStorage.getItem(`image6`)  },
-    { id: 8, src: localStorage.getItem(`image7`)  },
+    localStorage.getItem(`image0`),
+    localStorage.getItem(`image1`),
+    localStorage.getItem(`image2`),
+    localStorage.getItem(`image3`),
+    localStorage.getItem(`image4`),
+    localStorage.getItem(`image5`),
+    localStorage.getItem(`image6`),
+    localStorage.getItem(`image7`),
   ]);
 
   const thisGrid = useSelector((state)=>state.image.images)
-  
-  const [imgCnt, setImgCnt] = useState(capturedImages.length);
   const [currentImgOrder, setCurrentImgOrder] = useState(0);
   const [setImage, setSetImage] = useState(0);
 
@@ -108,24 +106,23 @@ const SetCount = () => {
   const setInnerImage = (index) => {
     if(boardImages[index]===null) {
       setSetImage(setImage+1);
-      setImgCnt(imgCnt-1);
     }
   }
-
   useEffect(() => {
     MoveSlider();
-  }, [currentImgOrder, imgCnt]);
+  }, [currentImgOrder]);
 
   const MoveSlider = () => {
     if (slideRef.current !== null) { //즉시할당이 안될수있어서 그냥 옵셔널체이닝 느낌
-      slideRef.current.style.transition = "all 0.5s ease-in-out"; //부드럽게 이동 
-      const size = imgCnt*173+15 // 내부슬라이더 요소의 가로길이 얻기 
-      const element = document.querySelector(SlilderWrap);
-      const slideWidth = element.offsetWidth? size-element.offsetWidth : null;
-      slideRef.current.style.transform = `translateX(-${(slideWidth) * currentImgOrder}px)`; //얻은 가로길이*페이지 로 x축 이동 
+      slideRef.current.style.transition = "all 0.5s ease-in-out";
+      const totalLength = (capturedImages.length-setImage)*153.2 + (capturedImages.length-setImage-1);
+      slideRef.current.style.transform = `translateX(-${(totalLength-770)*currentImgOrder}px)`; //얻은 가로길이*페이지 로 x축 이동 
     }
   }
   const finishButtonHandler = () => {
+    Array(8).map((_,index)=>{
+      localStorage.removeItem(`image${index}`)
+    })
     boardImages.map((item,index)=> localStorage.setItem(`image${index}`,item));
     navigate(`../camera/capture/frame`);
   }
@@ -141,12 +138,13 @@ const SetCount = () => {
 
   return (
     <DndProvider backend={isTouchDevice ? TouchBackend : HTML5Backend}>
-      <div style={{display:"flex", width:"1170px", flexDirection: "column", alignItems:" center", margin:"0 auto", backgroundColor: "white", overflow: "hidden"}}>
-        <GridNav data='photoSelect'/>
+      <C.MainBody>
+      <GridNav data='photoSelect'/>
+      <C.Body>
+      <C.MoveButton $hide={currentImgOrder===0} onClick={moveToPrevSlide}><img src={right_arrow} alt='' style={{ transform: "scale(-1)" }} /></C.MoveButton>
       <GridContainer>
-        <S.StyledSpan14 style={{color: "var(--gray)"}}>아래 사진을 드래그해 넣어보세요!</S.StyledSpan14>
         <GridBackground width={thisGrid.width} $gap={thisGrid.gap}$bottomText={thisGrid.id==='narrow' || thisGrid.id==='wide'}>
-          <S.StyledBoldSpan16>moment film</S.StyledBoldSpan16>
+          <img src={LOGO} alt="" />
           <InnerGrids>
           {boardImages.map((imageSrc, index) => (
             <GridInner
@@ -157,32 +155,24 @@ const SetCount = () => {
               height={thisGrid.innerHeight}></GridInner>
             ))}
           </InnerGrids>
+          
         </GridBackground>
-        <StyledButton func={finishButtonHandler} title={"완료하기"} width={'130px'} height={'49px'} fontSize={'16px'} />
-        <S.StyledSpan16 style={{lineHeight: "16px", margin:"0", }} onClick={()=>{
-          setBoardImages(Array(4).fill(null))
-          setImgCnt(8)}}>전체 다시 선택</S.StyledSpan16>
+          <C.PreviewSection>
+            <C.PreviewSlider style={{margin:0}}ref={slideRef}>
+              {capturedImages.map((item,index)=>{
+                return (
+                  <ImagePiece key={index} imageSrc={item} isPlaced={boardImages.includes(item)}/>
+              )})}
+            </C.PreviewSlider>
+          </C.PreviewSection>
       </GridContainer>
-      <div style={{textAlign:"center", marginBottom: "56px"}}>
-      {capturedImages.length > 0 && (
-        <CapturedPhotos>
-          {imgCnt>5 && <MoveButton $hide={currentImgOrder===0} onClick={moveToPrevSlide}><img src={right_arrow} alt='' style={{ transform: "scale(-1)" }} /></MoveButton>}
-          <SlilderWrap>{/* 전체 슬라이더 영역 범위 밖으로 넘어가면 안보여줄거임*/}
-          <ImageSlider ref={slideRef}> {/* 내부 슬라이더 영역 */}
-            {capturedImages?.map((image, index) => (
-              <ImagePiece
-                key={image.id}
-                imageSrc={image.src}
-                onDrop={handleDrop}
-                isPlaced={boardImages.includes(image.src)} />
-            ))}
-          </ImageSlider>
-          </SlilderWrap>
-          {imgCnt>5 && <MoveButton $hide={currentImgOrder===1} onClick={moveToNextSlide}><img src={right_arrow} alt='' /></MoveButton>}
-        </CapturedPhotos>
-        )}
-      </div>
-      </div>
+      <C.MoveButton onClick={moveToNextSlide}><img src={right_arrow} alt='' /></C.MoveButton>
+      </C.Body>
+      <StyledButton func={finishButtonHandler} title={"완료하기"} width={'130px'} height={'49px'} fontSize={'16px'} />
+      <S.StyledSpan16 style={{lineHeight: "16px", margin:"0", }}
+        onClick={()=>setBoardImages(Array(4).fill(null))}>전체 다시 선택</S.StyledSpan16>
+      </C.MainBody>
+        
     </DndProvider>
   );
 };
