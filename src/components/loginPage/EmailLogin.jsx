@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { ELogin } from "../../api/nonToken/auth";
 import useInputValidation from "../../hooks/useInputValidation";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
@@ -10,9 +9,15 @@ import * as L from "../common/styles/StyledLink";
 import right_arrow from "../assets/images/right_arrow.png";
 import inputDelete from "../assets/icons/inputDelete.svg";
 import useToken from "../../hooks/useToken";
+import useAuthAPI from "../../api/nonToken/auth";
 
 
 const EmailLogin = () => {
+  
+  const {
+    ELogin
+  } = useAuthAPI()
+
   const [loginError, setLoginError] = useState(null);
   const navigate = useNavigate();
 

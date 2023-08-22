@@ -48,13 +48,17 @@ function PostWritePage() {
       saturation:Frame.saturation,
       lightness:Frame.lightness
     };
+    console.log(Frame.image)
 
     // 이슈 블롭객체를 전송하려다 에러가 발생 서버에서는 파일객체를 지정했었음 타입을 잘 blob과 파일 객체에 대한 이해 필요
-    const FrameFile = new File([Frame.image], 'test.jpg', { type: 'image/jpeg' });
-    FrameForm.append("imageFile", FrameFile);
+    if(Frame.image!==null){
+      const FrameFile = new File([Frame.image], 'test.jpg', { type: 'image/jpeg' });
+      FrameForm.append("imageFile", FrameFile);
+    }
+
     FrameForm.append("data", new Blob([JSON.stringify(FrameData)], { type: "application/json" }))
 
-
+    console.log(FrameForm)
     ////////////////////////////////////////////////////
     
     const filterId = await addFilter(filterInfo);
