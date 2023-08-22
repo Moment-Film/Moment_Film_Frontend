@@ -83,7 +83,8 @@ const ModalBG = styled.div`
 `;
 
 const StepWrap = styled.div`
-  width: 1142px;
+  width: 100%;
+  box-sizing: border-box;
   border-bottom: 1px solid var(--lightGray);
   padding: 16px 60px 0 0;
   display: flex;
