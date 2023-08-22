@@ -1,130 +1,195 @@
 import styled from "styled-components";
 
-const ProfileSection = styled.div`
-  margin: 20px;
-  padding: 20px;
+const ModalBg = styled.div`
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  z-index: 50;
+`;
+
+const ProfileWrap = styled.div`
+  width: 730px;
+  height: 455px;
+  background-color: var(--white);
+  box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: fixed;
+  z-index: 51;
+  padding: 0 20px 20px 20px;
+`;
+
+const CloseSection = styled.section`
+  width: 100%;
   display: flex;
   justify-content: space-between;
+
+  section {
+    width: 98%;
+    height: 20px;
+  }
 `;
-const ProfilePic = styled.div`
+
+const CloseBtn = styled.div`
+  img {
+    width: 20px;
+    height: 20px;
+  }
+`;
+
+const ProfileSection = styled.section`
+  width: 100%;
+  height: 378px;
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  position: relative;
+`;
+
+const PicSection = styled.section`
+  width: 236px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-left: 20px;
+  padding-top: 25px;
+`;
+
+const PicBox = styled.div`
+  width: 200px;
+  height: 252px;
+  border: 3px solid;
+
   img {
-    max-width: 50%;
-    max-height: 100%;
-    border: 1px solid;
+    width: 200px;
+    height: 252px;
+    object-fit: cover;
   }
 `;
-const Infos = styled.div`
-  width: 450px;
+
+const EditBtn = styled.label`
+  img {
+    max-width: 36px;
+    max-height: 36px;
+    cursor: pointer;
+    position: absolute;
+    bottom: 88px;
+    left: 221px;
+  }
+`;
+
+const PicInfoSection = styled.section`
+  width: 236px;
+  height: 100px;
   display: flex;
   flex-direction: column;
-  hr {
-    width: 410px;
-    border: 1px solid var(--gray2);
+  align-items: center;
+  margin-top: 30px;
+
+  span {
+    font-size: 24px;
+    line-height: 30px;
+    color: var(--black);
+    font-weight: bold;
   }
+
+  div {
+    font-size: 14px;
+    line-height: 17px;
+    color: var(--gray4);
+    margin-top: 4px;
+    margin-bottom: 8px;
+  }
+`;
+
+const Info = styled.div`
+  width: 410px;
+  height: 377px;
+  display: flex;
+  flex-direction: column;
 `;
 
 const InfoSection = styled.section`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 10px;
+
   div {
+    width: 100%;
     display: flex;
+    align-items: center;
     justify-content: space-between;
+    padding-right: 5%;
+    margin-bottom: 19.5px;
+  }
+
+  span {
+    font-size: 14px;
+    line-height: 17px;
+  }
+
+  img {
+    width: 24px;
+    height: 24px;
+  }
+
+  hr {
+    width: 99.5%;
+    border: 1px solid var(--lightGray);
+    margin-bottom: 19.5px;
   }
 `;
 
-const StyleInput = styled.div`
-  width: 278px;
-  height: 20px;
+const InfoInput = styled.section`
+  width: 270px;
+  height: 19px;
   border-bottom: 1px solid var(--green5);
   background-color: var(--green0);
   padding: 11px 16px;
+
+  input {
+    width: 85%;
+    font-size: 16px;
+    line-height: 18px;
+    background: none;
+    border: none;
+
+    &:focus {
+      outline: none;
+      border: none;
+    }
+  }
 `;
 
-/////
-const ModalBg = styled.div`
-  position: fixed;
-  top: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.2);
-  z-index: 50;
-`;
-
-const ProfileWrap = styled.div`
-  position: fixed;
-  width: 730px;
-  height: 415px;
-  box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.1);
-  display: flex;
-  /* flex-direction: colmn; */
-  /* justify-content: space-between; */
-  background-color: white;
-  z-index: 51;
-  border-radius: 5px;
-  padding: 20px 20px 0 20px;
-`;
-
-const PasswordEditSection = styled.div`
+const PasswordSection = styled.section`
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
-  box-sizing: border-box;
 `;
 
-const PwEditContainor = styled.div`
-
-`
-
-const EditBtn = styled.div`
-  width: 49px;
-  height: 17px;
-  font-size: 14px;
-  line-height: 17px;
+const PasswordWrap = styled.section`
   display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid var(--green5);
-  border-radius: 5px;
-  background: var(--green1);
-  color: var(--green5);
-  padding: 5px 10px;
-`;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-top: 5px;
 
-const PwEditWrap = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-`;
+  section {
+    width: 370px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-const CloseBtn = styled.div`
-  width: 20px;
-  height: 20px;
-  display: flex;
-  justify-content: flex-end;
-  /* position: absolute; */
-`;
-
-const SubmitBtn = styled.div`
-  width: 45px;
-  height: 27px;
-  color: var(--gray4);
-  font-size: 14px;
-  line-height: 17px;
-  background-color: var(--white);
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  span {
+    font-size: 14px;
+    line-height: 17px;
+  }
 `;
 
 const SendBtn = styled.div`
@@ -139,23 +204,13 @@ const SendBtn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 10px;
+  margin: 5px 0 0 0;
   padding: 3px 5px;
 `;
 
-const Verify = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  margin: 3px 0;
-  font-size: 12px;
-  line-height: 14px;
-  color: ${(props) =>
-    props.isVerified ? "var(--green5)" : "var(--warningRed)"};
-`;
-
 const TestBox = styled.div`
-  width: 285px;
-  height: 42px;
+  width: 277px;
+  height: 41px;
   background-color: var(--green0);
   border-bottom: 1px solid var(--green5);
   display: flex;
@@ -174,6 +229,10 @@ const TestInput = styled.input`
     outline: none;
     border: none;
   }
+
+  &::placeholder {
+    font-size: 14px;
+  }
 `;
 
 const TestBtn = styled.div`
@@ -184,25 +243,54 @@ const TestBtn = styled.div`
   line-height: 17px;
   border: 1px solid var(--lightGray);
   border-radius: 5px;
+  background-color: var(--white);
   padding: 5px 10px;
 `;
 
+const Verify = styled.div`
+  font-size: 12px;
+  line-height: 14px;
+  color: ${(props) =>
+    props.isVerified ? "var(--green5)" : "var(--warningRed)"};
+  margin: 5px 0 0 0;
+  margin-bottom: ${(props) => props.marginBottom};
+`;
+
+const SaveBtn = styled.div`
+  width: 49px;
+  height: 17px;
+  font-size: 14px;
+  line-height: 17px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--green5);
+  border-radius: 5px;
+  background: var(--green1);
+  color: var(--green5);
+  padding: 5px 10px;
+  margin-top: 13px;
+`;
+
 export {
-  ProfileSection,
-  ProfilePic,
-  Infos,
-  InfoSection,
-  StyleInput,
   ModalBg,
   ProfileWrap,
-  PasswordEditSection,
-  PwEditContainor,
-  EditBtn,
-  PwEditWrap,
+  CloseSection,
   CloseBtn,
+  ProfileSection,
+  PicSection,
+  PicBox,
+  EditBtn,
+  PicInfoSection,
+  Info,
+  InfoSection,
+  InfoInput,
+  PasswordSection,
+  PasswordWrap,
   SendBtn,
-  Verify,
   TestBox,
   TestInput,
   TestBtn,
+  Verify,
+  SaveBtn,
 };

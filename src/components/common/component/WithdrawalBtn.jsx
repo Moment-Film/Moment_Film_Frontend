@@ -1,40 +1,32 @@
-import React from 'react';
-import useToken from '../../../hooks/useToken';
-import { WithdrawalAPI } from '../../../api/nonToken/auth';
-import { styled } from 'styled-components';
+import React from "react";
+import useToken from "../../../hooks/useToken";
+import { WithdrawalAPI } from "../../../api/nonToken/auth";
+import { styled } from "styled-components";
 
 const WithdrawalBtn = () => {
+  const { getAccess, getRefresh, saveAccessToken, saveRefreshToken } =
+    useToken();
 
-    const {
-        getAccess,
-        getRefresh,
-        saveAccessToken,
-        saveRefreshToken,
-      }=useToken();
+  const refreshToken = getRefresh();
+  const accessToken = getAccess();
 
-    const refreshToken=getRefresh();
-    const accessToken=getAccess()
+  const Withdrawal = async () => {
+    const res = await WithdrawalAPI(accessToken, refreshToken);
+    console.log(res);
+    saveAccessToken(null);
+    saveRefreshToken(null);
+    alert("탈퇴되었습니다.");
+  };
 
-    const Withdrawal = async () => {
-        const res = await WithdrawalAPI(accessToken, refreshToken);
-        console.log(res);
-        saveAccessToken(null)
-        saveRefreshToken(null)
-        alert("탈퇴되었습니다.")
-    }
-
-    return (
-        <WithdrawalBox onClick={Withdrawal}>
-            회원탈퇴
-        </WithdrawalBox>
-    );
+  return <WithdrawalBox onClick={Withdrawal}>회원탈퇴</WithdrawalBox>;
 };
 
 export default WithdrawalBtn;
 
 const WithdrawalBox = styled.section`
-    text-decoration: underline;
-    color: var(--gray4);
-    font-size: 12px;
-    line-height: 14px;
-`
+  text-decoration: underline;
+  color: var(--gray4);
+  font-size: 12px;
+  line-height: 14px;
+	margin-top: 12px;
+`;

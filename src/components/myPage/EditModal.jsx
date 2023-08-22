@@ -2,36 +2,37 @@ import React, { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
-// import {
-//   ProfileSection,
-//   ProfilePic,
-//   Infos,
-//   InfoSection,
-//   StyleInput,
-//   ModalBg,
-//   ProfileWrap,
-//   PasswordEditSection,
-//   PwEditContainor,
-//   EditBtn,
-//   PwEditWrap,
-//   CloseBtn,
-//   SendBtn,
-//   Verify,
-//   TestBox,
-//   TestInput,
-//   TestBtn,
-// } from "./profileEditStyle";
+import {
+  ModalBg,
+  ProfileWrap,
+  CloseSection,
+  CloseBtn,
+  ProfileSection,
+  PicSection,
+  PicBox,
+  EditBtn,
+  PicInfoSection,
+  Info,
+  InfoSection,
+  InfoInput,
+  PasswordSection,
+  PasswordWrap,
+  SendBtn,
+  TestBox,
+  TestInput,
+  TestBtn,
+  Verify,
+  SaveBtn,
+} from "./profileEditStyle";
 import * as a from "../frameCustomPage/style";
 
 import WithdrawalBtn from "../common/component/WithdrawalBtn";
 import cancel from "../assets/icons/cancelx2.png";
 import lock from "../assets/icons/lock.png";
 import imgEdit from "../assets/icons/imgEdit.png";
-import { AddressInput } from "../loginPage/EmailLogin";
 import useInputValidation from "../../hooks/useInputValidation";
 import useToken from "../../hooks/useToken";
 import useUserAPI from "../../api/withToken/user";
-import { styled } from "styled-components";
 
 function EditModal({ onClose }) {
   const { sendEmail, putEditInfo, getPrivateInfo, replacePassword } =
@@ -212,7 +213,120 @@ function EditModal({ onClose }) {
               <WithdrawalBtn />
             </PicInfoSection>
           </PicSection>
-          <InfoSection></InfoSection>
+          <Info>
+            <InfoSection>
+              <div>
+                <img src={lock} alt="" style={{ width: "24px" }} />
+                <span>유저이름</span>
+                {!isEdit ? (
+                  <InfoInput>
+                    <span>{data?.data.data.username}</span>
+                  </InfoInput>
+                ) : (
+                  <InfoInput>
+                    <input
+                      placeholder={userInfo.username}
+                      value={editProfile.username || ""}
+                      onChange={(e) =>
+                        editInputHandler("username", e.target.value)
+                      }
+                    />
+                  </InfoInput>
+                )}
+              </div>
+              <div>
+                <img src={lock} alt="" style={{ width: "24px" }} />
+                <span>전화번호</span>
+                {!isEdit ? (
+                  <InfoInput>
+                    <span>{data?.data.data.phone}</span>
+                  </InfoInput>
+                ) : (
+                  <InfoInput>
+                    <input
+                      placeholder={data?.data.data.phone}
+                      value={editProfile.phone || ""}
+                      onChange={(e) =>
+                        editInputHandler("phone", e.target.value)
+                      }
+                    />
+                  </InfoInput>
+                )}
+              </div>
+              <hr />
+            </InfoSection>
+            <PasswordSection>
+              <div>비밀번호 변경</div>
+              <PasswordWrap>
+                <section>
+                  <span>인증코드</span>
+                  <TestBox>
+                    <TestInput
+                      placeholder="인증코드를 입력해 주세요"
+                      value={code}
+                      onChange={(e) => setCode(e.target.value)}
+                    />
+                    <TestBtn onClick={handleVerifyCode}>확인</TestBtn>
+                  </TestBox>
+                </section>
+                <div>
+                  <SendBtn onClick={handleSendEmail}>
+                    {isClicked ? "인증코드 재전송" : "인증코드 전송"}
+                  </SendBtn>
+                </div>
+                <div>
+                  {!isVerified ? (
+                    <Verify isVerified={false} marginBottom={"19px"}>
+                      인증코드 불일치
+                    </Verify>
+                  ) : (
+                    <Verify isVerified={true}>인증 확인되었습니다.</Verify>
+                  )}
+                </div>
+                <section>
+                  <span>새비밀번호</span>
+                  <TestBox>
+                    <TestInput
+                      placeholder="새 비밀번호를 입력해 주세요"
+                      value={newPassword}
+                      type="password"
+                      onChange={newPasswordChangeHandler}
+                    />
+                    <TestBtn onClick={handlePasswordReset}>변경</TestBtn>
+                  </TestBox>
+                </section>
+                <div>
+                  {!isVerified ? (
+                    <Verify isVerified={false}>
+                      · 공백 없이 문자, 숫자 조합 필수 6 ~ 10자
+                    </Verify>
+                  ) : (
+                    <Verify isVerified={true}>
+                      비밀번호가 변경되었습니다.
+                    </Verify>
+                  )}
+                </div>
+                <SaveBtn>
+                  {!isEdit && (
+                    <div
+                      onClick={() => setIsEdit(true)}
+                      style={{ display: "flex", justifyContent: "flex-end" }}
+                    >
+                      수정하기
+                    </div>
+                  )}
+                  {isEdit && (
+                    <div
+                      onClick={submitEdit}
+                      style={{ display: "flex", justifyContent: "flex-end" }}
+                    >
+                      저장완료
+                    </div>
+                  )}
+                </SaveBtn>
+              </PasswordWrap>
+            </PasswordSection>
+          </Info>
         </ProfileSection>
       </ProfileWrap>
     </ModalBg>
@@ -220,120 +334,3 @@ function EditModal({ onClose }) {
 }
 
 export default EditModal;
-
-const ModalBg = styled.div`
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.2);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  z-index: 50;
-`;
-
-const ProfileWrap = styled.div`
-  width: 730px;
-  height: 415px;
-  background-color: var(--white);
-  box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: fixed;
-  z-index: 51;
-  padding: 20px;
-`;
-
-const CloseSection = styled.section`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  border: 1px solid;
-
-  section {
-    width: 98%;
-    height: 20px;
-  }
-`;
-
-const CloseBtn = styled.div`
-  img {
-    width: 20px;
-    height: 20px;
-  }
-`;
-
-const ProfileSection = styled.section`
-  width: 100%;
-  height: 378px;
-  display: flex;
-  gap: 40px;
-border: 1px solid;
-  margin-bottom: 20px;
-  position: relative;
-`;
-
-const PicSection = styled.section`
-width: 236px;
-height: 357px;
-border: 1px solid;
-display: flex;
-flex-direction: column;
-align-items: center;
-margin-left: 20px;
-padding-bottom: 20px;
-`;
-
-const PicBox = styled.div`
-  width: 200px;
-  height: 252px;
-  border: 3px solid;
-  margin: 20px 0;
-`;
-
-const EditBtn = styled.label`
-  img {
-    max-width: 36px;
-    max-height: 36px;
-    cursor: pointer;
-    position: absolute;
-    bottom: 102px;
-    /* top: 70px; */
-    left: 221px;
-    /* right: 5px; */
-  }
-`;
-
-const PicInfoSection = styled.section`
-width: 236px;
-height: 88px;
-border: 1px solid;
-display: flex;
-flex-direction: column;
-align-items: center;
-
-span {
-  font-size: 24px;
-  line-height: 30px;
-  color: var(--black);
-  font-weight: bold;
-}
-
-div {
-  font-size: 14px;
-  line-height: 17px;
-  color: var(--gray4);
-  margin-top: 4px;
-  margin-bottom: 8px;
-}
-
-`;
-
-const InfoSection = styled.section`
-width: 410px;
-height: 377px;
-border: 1px solid;
-`;
