@@ -1,4 +1,4 @@
-import Webcam from '../components/webCam/Webcam'
+import Capture from '../components/webCam/Capture'
 
 function CameraPage() {
   return(
@@ -8,7 +8,7 @@ function CameraPage() {
       alignItems: "center",
       backgroundColor: "var(--whiteGray)",
     }}>
-      <Webcam />
+      <Capture />
     </div>
   )
 }
