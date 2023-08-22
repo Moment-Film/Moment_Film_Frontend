@@ -1,8 +1,12 @@
 import React from 'react';
 import useToken from '../../../hooks/useToken';
-import { WithdrawalAPI } from '../../../api/nonToken/auth';
+import useAuthAPI from '../../../api/nonToken/auth';
 
 const WithdrawalBtn = () => {
+
+    const {
+        WithdrawalAPI
+    }=useAuthAPI()
 
     const {
         getAccess,

@@ -1,13 +1,17 @@
 import React from "react";
-import { LogOutAPI } from "../../../api/nonToken/auth";
-import { useDispatch, useSelector } from "react-redux";
-import { useCookies } from "react-cookie";
+import { useDispatch} from "react-redux";
 import { SetAccessToken } from "../../../redux/modules/AccessToken";
 import { useNavigate } from "react-router";
 import { styled } from "styled-components";
 import useToken from "../../../hooks/useToken";
+import useAuthAPI from "../../../api/nonToken/auth";
 
 const LogoutBtn = () => {
+
+  const {
+    LogOutAPI
+   }=useAuthAPI()
+
   const {
     getAccess,
     getRefresh

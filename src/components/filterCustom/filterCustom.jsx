@@ -31,7 +31,7 @@ const FilterCustom = () => {
     { key: "sepia", label: "세피아", max: 100, unit: "%" },
   ])
 
-  const [filterValue, setFilterValue] = useState({ filterName: "test" });
+  const [filterValue, setFilterValue] = useState( filter );
 
 
 
