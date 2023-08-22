@@ -1,8 +1,36 @@
 import axios from "axios";
 //try / catch 안 if 문을 사용하는게 좋을까?
-//인터셉터로 요청받은후 데이터를 암호화 및 복호해서 저장하는것을 여기서 진행할까? 
+import useToken from "../../hooks/useToken";
+
 // 회원가입 api
-export const register = async ({ username, password, email, phone }) => {
+const axiosInstance = axios.create();
+const useAuthAPI = () => {
+
+  const {
+    saveAccessToken,
+    saveRefreshToken,
+    saveUserInfo
+  } = useToken();
+
+
+  // 응답 인터셉터 설정
+  axiosInstance.interceptors.response.use(
+    (response) => {
+      // 응답에서 토큰 추출하여 처리
+      const accessToken = response.headers.accesstoken;
+      const refreshToken = response.headers.refreshtoken
+      saveAccessToken(accessToken)
+      saveRefreshToken(refreshToken)
+      saveUserInfo(accessToken)
+
+      return response;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
+
+  const register = async ({ username, password, email, phone }) => {
     try {
       const res = await axios.post("/api/user/signup", {
         username,
@@ -15,27 +43,15 @@ export const register = async ({ username, password, email, phone }) => {
       console.error("resitster api error", error);
       throw error;
     }
-};
+  };
 
-export const ELogin = async ({ email, password }) => {
-    const response = await axios.post('/api/user/login',
+  const ELogin = async ({ email, password }) => {
+    const response = await axiosInstance.post('/api/user/login',
       {
         email: email,
         password: password
       }
     );
-  
-    //성공이면 로그인 화면 or 홈화면을 보내버리자
-    if (response.status === 200) {
-      return response;
-    }
-    else
-      alert("로그인 실패한 이유")
-  }
-  
-  export const socialLogin = async ({ code, social }) => {
-  
-    const response = await axios.post(`/api/user/${social}/callback?code=${code}`);
 
     //성공이면 로그인 화면 or 홈화면을 보내버리자
     if (response.status === 200) {
@@ -44,8 +60,20 @@ export const ELogin = async ({ email, password }) => {
     else
       alert("로그인 실패한 이유")
   }
-  
-  export const LogOutAPI = async (ACToken, REToken) => {
+
+  const socialLogin = async ({ code, social }) => {
+
+    const response = await axiosInstance.post(`/api/user/${social}/callback?code=${code}`);
+
+    //성공이면 로그인 화면 or 홈화면을 보내버리자
+    if (response.status === 200) {
+      return response;
+    }
+    else
+      alert("로그인 실패한 이유")
+  }
+
+  const LogOutAPI = async (ACToken, REToken) => {
     console.log(ACToken, REToken)
     const response = await axios.post('/api/user/logout', null
       ,
@@ -56,7 +84,7 @@ export const ELogin = async ({ email, password }) => {
         },
       }
     );
-  
+
     //성공이면 로그인 화면 or 홈화면을 보내버리자
     if (response.status === 200) {
       return response;
@@ -64,8 +92,8 @@ export const ELogin = async ({ email, password }) => {
     else
       alert("로그인 실패한 이유")
   }
-  
-  export const WithdrawalAPI = async (ACToken, REToken) => {
+
+  const WithdrawalAPI = async (ACToken, REToken) => {
     try {
       const response = await axios.delete('/api/user/withdrawal',
         {
@@ -76,9 +104,19 @@ export const ELogin = async ({ email, password }) => {
         }
       );
       return response;
-    } catch(error) {
+    } catch (error) {
       return error;
     }
   }
 
-  
+  return {
+    register,
+    ELogin,
+    socialLogin,
+    LogOutAPI,
+    WithdrawalAPI,
+  };
+
+}
+
+export default useAuthAPI;

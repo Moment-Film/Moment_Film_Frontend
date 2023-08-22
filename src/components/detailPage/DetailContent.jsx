@@ -15,8 +15,13 @@ import useToken from '../../hooks/useToken';
 import useUserAPI from '../../api/withToken/user';
 import usePostAPI from '../../api/withToken/post';
 import useCustomAPI from '../../api/withToken/useCustom';
-const DetailContent = ({ data }) => {
+import useDownLoad from '../../hooks/useDownload';
 
+const DetailContent = ({ data }) => {
+/*   const {
+    handleDownload
+  } = useDownLoad()
+ */
   const {
     applyFrame,
     applyFilter
@@ -77,6 +82,10 @@ const DetailContent = ({ data }) => {
     },
   });
 
+  useEffect(() => {
+    if (selectFrame) alert('프레임 이미지는 사용하기 시 이미지가 다운로드됩니다.\n프레임을 첨부해서 사용해주세요.\n (자동 사용은 업데이트 예정)')
+  }, [selectFrame])
+
   // api 동작이 들어있는 함수
   const postLikeHandler = () => {
     const accessToken = getAccess();
@@ -97,9 +106,11 @@ const DetailContent = ({ data }) => {
     else {
       if (selectFrame) {
         const frameId = data.frameId;
-        applyFrame({ frameId, accessToken, refreshToken }).then((frame) => {
-          console.log(frame)
-          dispatch(SetFrame(frame))
+        applyFrame({ frameId, accessToken, refreshToken }).then(async (frame) => {
+          console.log({...frame,image:null})
+          dispatch(SetFrame({...frame,image:null}));
+   /*        handleDownload(frame.image, 'test') */
+
         })
       }
 
