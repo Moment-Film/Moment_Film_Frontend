@@ -1,11 +1,16 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import { socialLogin } from '../api/nonToken/auth';
 import useToken from '../hooks/useToken';
 import { useLocation } from 'react-router-dom';
+import useAuthAPI from '../api/nonToken/auth';
 
 const RedirectPage = () => {
+
+    const{
+        socialLogin
+    }=useAuthAPI()
+
     let social=''
 
     const navigate=useNavigate();

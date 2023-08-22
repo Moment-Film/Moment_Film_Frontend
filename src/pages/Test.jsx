@@ -1,6 +1,12 @@
 import React, { useRef, useEffect, useState } from 'react';
-
+import useDownLoad from '../hooks/useDownload';
 const Test = () => {
+    const{handleDownload}=useDownLoad()
+
+    const dd=()=>{
+        handleDownload("https://moment-film.s3.amazonaws.com//frame4711361c-3109-4e71-ac0f-f2fad860942d.jpg","test")
+    }
+
     const intersectionRef = useRef(null);
     const intersectionRef1 = useRef(null);
     const intersectionRef2 = useRef(null);
@@ -88,6 +94,9 @@ const Test = () => {
                 </div>
             </div>
         </div>
+
+        <div onClick={dd}>asdasdasdasdasd</div>
+
         </>
     );
 };

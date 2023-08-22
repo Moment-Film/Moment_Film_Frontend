@@ -23,35 +23,42 @@ import { useQuery } from "react-query";
 import { SetImgFile } from "../../redux/modules/FrameInfo";
 import useToken from "../../hooks/useToken";
 import usePostAPI from "../../api/withToken/post";
+import { useEffect } from "react";
+import useCustomAPI from '../../api/withToken/useCustom';
 
 const FrameCustomMake = () => {
-  const{
+
+  const {
+    applyFrame,
+    applyFilter
+  } = useCustomAPI();
+
+  const {
     getMyFrame
-  }=usePostAPI();
+  } = usePostAPI();
 
   const {
     getAccess,
     getRefresh,
-  }=useToken();
+  } = useToken();
 
 
-  const userInfo = useSelector((state)=>state.UserInfo);
+  const userInfo = useSelector((state) => state.UserInfo);
   const accessToken = getAccess()
   const refreshToken = getRefresh()
-  
-  const {data} = useQuery(`myFrame${userInfo.sub}`, () => getMyFrame());
-  
+
+  const { data } = useQuery(`myFrame${userInfo.sub}`, () => getMyFrame());
+
   const thisGrid = useSelector((state) => state.image.images);
   const frame = useSelector((state) => state.FrameInfo);
-  console.log("As",frame.image)
-  
+
   const [color, setColor] = useState({
-     h: frame.hue, 
-     s: frame.saturation, 
-     l: frame.lightness 
+    h: frame.hue,
+    s: frame.saturation,
+    l: frame.lightness
   });
 
-  const [frameImg, setFrameImg] = useState(frame.image);
+  const [frameImg, setFrameImg] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [uploadedImg, setUploadedImg] = useState(null);
   const frameImgRef = useRef();
@@ -59,7 +66,7 @@ const FrameCustomMake = () => {
   const navigate = useNavigate();
 
 
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
 
   const [innerImg] = useState([
     localStorage.getItem(`image0`),
@@ -77,14 +84,14 @@ const FrameCustomMake = () => {
     if (input.files && input.files[0]) {
       const file = input.files[0];
       const blob = new Blob([file], { type: file.type });
-  
+
       setFrameImg(URL.createObjectURL(blob));
       setUploadedImg(file.name);
       await dispatch(SetImgFile(blob));
     }
   };
-  
-  
+
+
 
   const imageDeleteHandler = () => {
     setFrameImg(null);
@@ -92,8 +99,8 @@ const FrameCustomMake = () => {
   };
 
 
-  const moveBtnHandler = async() => {
-    const colorData={ hue: color.h, saturation: color.s, lightness: color.l }
+  const moveBtnHandler = async () => {
+    const colorData = { hue: color.h, saturation: color.s, lightness: color.l }
     await dispatch(SetFrame(colorData));
     await frameImg && dispatch(SetBackgroundImg(frameImg))
     navigate("/camera/capture/filter");
@@ -104,18 +111,30 @@ const FrameCustomMake = () => {
   const openModalHandler = () => {
     if (accessToken) setOpenModal(true)
     else {
-      window.confirm('로그인이 필요합니다.') &&  navigate(`../login`);
+      window.confirm('로그인이 필요합니다.') && navigate(`../login`);
     }
-  } 
+  }
 
   const closeModal = () => {
     setOpenModal(false);
   }
 
   const applyFrameBackground = (h, s, l, img) => {
-    h && s && l && setColor({h,s,l});
+    h && s && l && setColor({ h, s, l });
     img ? setFrameImg(img) : setFrameImg(null);
   }
+
+  useEffect(() => {
+    const frameId = frame.id;
+    applyFrame({ frameId, accessToken, refreshToken })
+      .then(result => {
+        console.log(result);
+        applyFrameBackground(result.hue, result.saturation, result.lightness, result.image);
+        dispatch(SetImgFile(result.image));
+      })
+
+
+  }, [])
 
   return (
     <>
@@ -153,25 +172,25 @@ const FrameCustomMake = () => {
                           }}
                         >
                           {
-                            img==='null'
-                            ?
-                            <img
-                            style={{
-                              width: "100%",
-                              height: "100%",
-                            }}
-                            src={clear}
-                            alt=""
-                          />
-                          :
-                          <img
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                          }}
-                          src={img}
-                          alt=""
-                        />
+                            img === 'null'
+                              ?
+                              <img
+                                style={{
+                                  width: "100%",
+                                  height: "100%",
+                                }}
+                                src={clear}
+                                alt=""
+                              />
+                              :
+                              <img
+                                style={{
+                                  width: "100%",
+                                  height: "100%",
+                                }}
+                                src={img}
+                                alt=""
+                              />
                           }
                         </div>
                       );
@@ -181,15 +200,15 @@ const FrameCustomMake = () => {
               </a.LeftBox>
               <a.RightBox>
                 {openModal &&
-                  <MyFrameModal 
-                    onClose={closeModal} 
-                    data={data.data.data} 
-                    title="프레임" 
-                    accessToken={accessToken} 
+                  <MyFrameModal
+                    onClose={closeModal}
+                    data={data.data.data}
+                    title="프레임"
+                    accessToken={accessToken}
                     refreshToken={refreshToken}
                     onApply={applyFrameBackground}
-                    />}
-                <div style={{display :'flex', alignItems: "center"}}>
+                  />}
+                <div style={{ display: 'flex', alignItems: "center" }}>
                   <a.Title>Frame</a.Title>
                   <button onClick={openModalHandler}>MY</button>
                 </div>
@@ -204,7 +223,7 @@ const FrameCustomMake = () => {
                     <SaturationSlider
                       handleChangeColor={changeColorHandler}
                       color={color}
-                      
+
                     />
 
                     <div>밝기</div>
@@ -215,48 +234,48 @@ const FrameCustomMake = () => {
                     />
                   </a.SliderBox>
                 </a.Section>
-                <div style={{ width:'70%', display:'flex', flexDirection:'column', alignItems:'flex-end'}}>
+                <div style={{ width: '70%', display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
                   <a.UploadContainer>
-                  <a.UploadInput
-                    id="fileInput"
-                    accept="image/*"
-                    type="file"
-                    onChange={imageChangeHandler}
-                    ref={frameImgRef}
-                  />
-                  <a.UploadLabel>
-                    {uploadedImg 
-                    ? (
-                      <>
-                        <a.UploadedImg color="var(--green5)">
-                          {uploadedImg}
-                        </a.UploadedImg>
-                        <a.ImgDeleteBtn onClick={imageDeleteHandler}>
-                          x
-                        </a.ImgDeleteBtn>
-                      </>
-                    ) 
-                    : (
-                      <>
-                        <a.UploadedImg color="var(--gray)">
-                          이미지 불러오기
-                        </a.UploadedImg>
-                        <label htmlFor="fileInput">
-                          <img
-                            src={upload}
-                            alt=""
-                            style={{
-                              width: "16px",
-                              opacity: "0.5",
-                              cursor: "pointer",
-                            }}
-                          />
-                        </label>
-                      </>
-                    )}
-                  </a.UploadLabel>
-                </a.UploadContainer>
-                <StyledSpan14 style={{ margin: '12px 0 35px 0', color: 'var(--lightGray)'}}>300px * 447px를 권장합니다.</StyledSpan14>
+                    <a.UploadInput
+                      id="fileInput"
+                      accept="image/*"
+                      type="file"
+                      onChange={imageChangeHandler}
+                      ref={frameImgRef}
+                    />
+                    <a.UploadLabel>
+                      {uploadedImg
+                        ? (
+                          <>
+                            <a.UploadedImg color="var(--green5)">
+                              {uploadedImg}
+                            </a.UploadedImg>
+                            <a.ImgDeleteBtn onClick={imageDeleteHandler}>
+                              x
+                            </a.ImgDeleteBtn>
+                          </>
+                        )
+                        : (
+                          <>
+                            <a.UploadedImg color="var(--gray)">
+                              이미지 불러오기
+                            </a.UploadedImg>
+                            <label htmlFor="fileInput">
+                              <img
+                                src={upload}
+                                alt=""
+                                style={{
+                                  width: "16px",
+                                  opacity: "0.5",
+                                  cursor: "pointer",
+                                }}
+                              />
+                            </label>
+                          </>
+                        )}
+                    </a.UploadLabel>
+                  </a.UploadContainer>
+                  <StyledSpan14 style={{ margin: '12px 0 35px 0', color: 'var(--lightGray)' }}>300px * 447px를 권장합니다.</StyledSpan14>
                 </div>
                 <StyledButton
                   func={moveBtnHandler}

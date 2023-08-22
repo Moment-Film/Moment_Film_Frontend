@@ -2,14 +2,23 @@ import React from "react";
 import useToken from "../../../hooks/useToken";
 import { WithdrawalAPI } from "../../../api/nonToken/auth";
 import { styled } from "styled-components";
+import useAuthAPI from '../../../api/nonToken/auth';
 
 const WithdrawalBtn = () => {
-  const { getAccess, getRefresh, saveAccessToken, saveRefreshToken } =
-    useToken();
 
-  const refreshToken = getRefresh();
+    const {
+        WithdrawalAPI
+    }=useAuthAPI()
+
+    const {
+        getAccess,
+        getRefresh,
+        saveAccessToken,
+        saveRefreshToken,
+      }=useToken();
+
+const refreshToken = getRefresh();
   const accessToken = getAccess();
-
   const Withdrawal = async () => {
     const res = await WithdrawalAPI(accessToken, refreshToken);
     console.log(res);

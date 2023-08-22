@@ -27,13 +27,11 @@ const FilterCustom = () => {
     { key: "blur", label: "블러", max: 10, unit: "px" },
     { key: "brightness", label: "밝기", max: 5, unit: "" },
     { key: "saturate", label: "채도", max: 200, unit: "%" },
-    { key: "grayscale", label: "흑백", max: 100, unit: "%" },
     { key: "contrast", label: "대비", max: 200, unit: "%" },
-    { key: "huerotate", label: "hue-rotate", max: 360, unit: "deg" },
     { key: "sepia", label: "세피아", max: 100, unit: "%" },
   ])
 
-  const [filterValue, setFilterValue] = useState({ filterName: "test" });
+  const [filterValue, setFilterValue] = useState( filter );
 
 
 
@@ -73,7 +71,7 @@ const FilterCustom = () => {
       <s.Wrap>
         <s.Slider>
           <s.OptionWrap>
-            <GridNav data={"frameSetting"} />
+            <GridNav data={"filter"} />
             <a.BoxWrap>
               <a.LeftBox>
                 <a.FrameImg
@@ -107,9 +105,7 @@ const FilterCustom = () => {
                           $blur={filterValue.blur}
                           $brightness={filterValue.brightness}
                           $saturate={filterValue.saturate}
-                          $grayscale={filterValue.grayscale}
                           $contrast={filterValue.contrast}
-                          $huerotate={filterValue.huerotate}
                           $sepia={filterValue.sepia}
                         >
                           <img
@@ -185,8 +181,6 @@ const FilterImage = styled.div`
   filter: blur(${(props) => props.$blur || 0}px)
     saturate(${(props) => props.$saturate || 100}%)
     brightness(${(props) => props.$brightness || 1})
-    grayscale(${(props) => props.$grayscale || 0}%)
     contrast(${(props) => props.$contrast || 100}%)
-    hue-rotate(${(props) => props.$huerotate || 0}deg)
     sepia(${(props) => props.$sepia || 0}%);
 `;

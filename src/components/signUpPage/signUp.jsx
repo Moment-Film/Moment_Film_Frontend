@@ -1,13 +1,18 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { register } from "../../api/nonToken/auth";
 import { useMutation } from "react-query";
 import useInputValidation from "../../hooks/useInputValidation";
 import StyledButton from "../common/component/StyledButton";
 import InputField from "./InputField";
+import useAuthAPI from "../../api/nonToken/auth";
 
 function SignUp() {
+
+  const {
+    register
+  }=useAuthAPI()
+
   const navigate = useNavigate();
 
   const {
