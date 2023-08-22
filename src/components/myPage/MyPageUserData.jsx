@@ -8,7 +8,8 @@ import Edit from "../assets/icons/Edit.png";
 
 import useUserAPI from "../../api/withToken/user";
 import { Span28, StyledSpan24 } from "../common/styles/StyledSpan";
-import ProfileEdit from "./ProfileEdit";
+// import ProfileEdit from "./ProfileEdit";
+import EditModal from "./EditModal";
 
 const MyPageUserData = ({ lang, data }) => {
   const{
@@ -49,7 +50,7 @@ const MyPageUserData = ({ lang, data }) => {
 
   return (
     <div>
-      {onModal && <ProfileEdit onClose={editModalHandler} />}
+      {onModal && <EditModal onClose={editModalHandler} />}
       {showModal && (
         <Modal
           onClose={hideModalHandler}
