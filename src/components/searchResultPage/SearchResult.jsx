@@ -9,7 +9,7 @@ import { styled } from "styled-components";
 import character from "../assets/images/character.svg";
 import PaginationComponent from "../common/component/PageNation";
 
-function SearchReseult() {
+const SearchReseult = () => {
   const params = useParams();
   const username = params.id;
   const queryClient = useQueryClient();
