@@ -7,12 +7,18 @@ const useUserAPI = () => {
     getRefresh
   }=useToken();
 
+  //axios 객체 
+  const userAxios = axios.create();
   // axios 인터셉터 설정
-axios.interceptors.request.use(
+  userAxios.interceptors.request.use(
   function (config) {
       // 여기서 토큰을 가져와서 헤더에 삽입
       const refreshToken = getRefresh();
       const accessToken = getAccess();
+
+      console.log(accessToken)
+
+      console.log(refreshToken)
 
       if (refreshToken) {
           config.headers.refreshToken = refreshToken;
@@ -29,7 +35,7 @@ axios.interceptors.request.use(
   const FollowAPI = async (userId) => {
     console.log(userId)
     try { //팔로우가 되어있지않아서 팔로우할때
-      const response = await axios.post(`/api/follow/${userId}`, null,);
+      const response = await userAxios.post(`/api/follow/${userId}`, null,);
 
       alert(response.data.msg)
       return response;
@@ -38,7 +44,7 @@ axios.interceptors.request.use(
     catch (error) { //팔로우가 이미 되어있어서 팔로우취소할때
 
       if (error.response.data.msg === '이미 팔로우한 사용자입니다.') {
-        const CancelResponse = await axios.delete(`/api/follow/${userId}`,);
+        const CancelResponse = await userAxios.delete(`/api/follow/${userId}`,);
 
         alert(CancelResponse.data.msg)
         return CancelResponse;
@@ -50,14 +56,14 @@ axios.interceptors.request.use(
 
   // 회원정보 조회 api
 const getPrivateInfo = async () => {
-  const res = await axios.get(`/api/user/info`);
+  const res = await userAxios.get(`/api/user/info`);
   console.log(res);
   return res;
 };
 
 // 회원정보 수정 api
 const putEditInfo = async ({editName, editPhone }) => {
-  const res = await axios.put(
+  const res = await userAxios.put(
     `/api/user/info`,
     {
       username: editName,
@@ -69,7 +75,7 @@ const putEditInfo = async ({editName, editPhone }) => {
 
 // 회원 이메일로 인증 코드 전송 api
 const sendEmail = async ({ accessToken, refreshToken }) => {
-  const res = await axios.post(`/api/user/email`, null);
+  const res = await userAxios.post(`/api/user/email`, null);
   return res.data.msg;
 };
 
@@ -80,7 +86,7 @@ const replacePassword = async ({
   newPassword,
   code,
 }) => {
-  const res = await axios.put(
+  const res = await userAxios.put(
     `/api/user/password-reset?code=${code}`,
     {
       password: newPassword,
@@ -95,14 +101,14 @@ const replacePassword = async ({
   return res;
 };
 
-const likePost = async ( {postId ,accessToken ,refreshToken }) => {
+const likePost = async ( {postId }) => {
   try {
       console.log(postId)
-      console.log(accessToken)
+/*       console.log(accessToken)
 
-      console.log(refreshToken)
+      console.log(refreshToken) */
 
-      const res = await axios.post(`/api/post/${postId}/likes`,null);
+      const res = await userAxios.post(`/api/post/${postId}/likes`,null);
       console.log(res);
       return res.data.data;
 

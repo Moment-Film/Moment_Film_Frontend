@@ -7,8 +7,10 @@ const usePostAPI = () => {
         getRefresh
     } = useToken();
 
+      //axios 객체 생성
+  const postAxios = axios.create();
     // axios 인터셉터 설정
-    axios.interceptors.request.use(
+    postAxios.interceptors.request.use(
         function (config) {
             // 여기서 토큰을 가져와서 헤더에 삽입
             const refreshToken = getRefresh();
@@ -27,12 +29,12 @@ const usePostAPI = () => {
 
     const deletePost = async (postId) => {
         console.log(postId)
-        await axios.delete(`/api/post/${postId}`);
+        await postAxios.delete(`/api/post/${postId}`);
     }
 
     const addPost = async (formData) => {
         try {
-            await axios.post(`/api/post`, formData);
+            await postAxios.post(`/api/post`, formData);
             console.log("POST SUCCESS!!!!!!!!");
         }
         catch (error) {
@@ -42,7 +44,7 @@ const usePostAPI = () => {
 
     const addFrame = async (formData) => {
         try {
-            const response = await axios.post(`/api/frame`, formData);
+            const response = await postAxios.post(`/api/frame`, formData);
             console.log("Frame SUCCESS!!!!!!!!");
             console.log(response.data.data.id);
             return response.data.data.id
@@ -54,7 +56,7 @@ const usePostAPI = () => {
 
     const addFilter = async (formData) => {
         try {
-          const response =await axios.post(`/api/filter`, formData);
+          const response =await postAxios.post(`/api/filter`, formData);
           console.log("filter SUCCESS!!!!!!!!");
           console.log(response.data.data.id);
           return response.data.data.id
@@ -66,7 +68,7 @@ const usePostAPI = () => {
 
     const getMyFrame = async() => {
         try {
-          const response = await axios.get(`/api/frame`);
+          const response = await postAxios.get(`/api/frame`);
           return response;
         } catch (error) {
           return error;
@@ -81,7 +83,7 @@ const usePostAPI = () => {
       }) => {
         console.log(postId, comment);
         try {
-          const res = await axios.post(`/api/post/${postId}/comment`,{content:comment});
+          const res = await postAxios.post(`/api/post/${postId}/comment`,{content:comment});
       
           console.log(res);
           return res.data.data;
@@ -97,7 +99,7 @@ const usePostAPI = () => {
       }) => {
         console.log(commentId, replay);
         try {
-          const res = await axios.post(
+          const res = await postAxios.post(
             `/api/post/{postId}/comment/${commentId}/subcomment`,
             { content: replay });
       
@@ -118,7 +120,7 @@ const usePostAPI = () => {
       }) => {
         console.log(commentId, postId);
         try {
-          const res = await axios.delete(`/api/post/${postId}/comment/${commentId}`, {
+          const res = await postAxios.delete(`/api/post/${postId}/comment/${commentId}`, {
             headers: {
               accessToken: accessToken,
               refreshToken: refreshToken,
@@ -142,7 +144,7 @@ const usePostAPI = () => {
       }) => {
         console.log(commentId, postId, replyId);
         try {
-          const res = await axios.delete(
+          const res = await postAxios.delete(
             `/api/post/${postId}/comment/${commentId}/subcomment/${replyId}`,
             {
               headers: {
