@@ -8,6 +8,7 @@ body{
     --gray: #c7c7c7;
     --lightGray: #D9D9D9;
 	--whiteGray: #f5f5f5;
+    --gray5_a: #777777;
     --gray5:#505050;
     --gray4:#949494;
     --gray3:#CCCCCC;

@@ -20,6 +20,8 @@ import view from '../assets/icons/view.svg'
 import dots from '../assets/icons/dots.svg'
 import selectTrue from '../assets/images/selectTrue.svg'
 import selectFalse from '../assets/images/selectFalse.svg'
+import heartOff from '../assets/images/heartOff.svg'
+import heartOn from '../assets/images/heartOn.svg'
 
 const DetailContent = ({ data }) => {
 /*   const {
@@ -129,9 +131,10 @@ const DetailContent = ({ data }) => {
     }
 
   };
+  const [modalOpen, setModalOpen] = useState(false);
 
   return (
-      <DetailContents>
+      <DetailContents onClick={()=>setModalOpen(false)}>
         <DetailBody>
           <ImageSection>
             <div>
@@ -139,6 +142,11 @@ const DetailContent = ({ data }) => {
             </div>
           </ImageSection>
           <DetailSection>
+                {modalOpen && <OptionModal>
+                  <span>게시글 삭제</span>
+                  <span>링크 공유</span>
+                  <span>카카오톡 공유</span>
+                </OptionModal>}
             <TextDiv>
               <div className='views'>
                 <div>
@@ -146,11 +154,15 @@ const DetailContent = ({ data }) => {
                   <img src={view} alt='' />
                   <span>{data.viewCount}</span>
                 </div>
-                <button><img src={dots} alt='' /></button>
+                <button onClick={(e)=>{
+                  e.stopPropagation();
+                  setModalOpen(!modalOpen);
+                }}><img src={dots} alt=''/></button>
               </div>
               <div className='writer'>
                 <img src={null} alt='' />
                 <span>{data.username}</span>
+                { Number(userInfo.sub) !== data.userId && <button onClick={FollowHandler}>팔로우</button>}
               </div>
               <div className='title'>
                 <span>{data.title}</span>
@@ -170,24 +182,18 @@ const DetailContent = ({ data }) => {
               </Action>
               <button onClick={useItemHandler}>사용해보기</button>
             </UseActionsDiv>
-
-            <div>
-                <div>
-                <div>
-                  <S.StyledSpan14>좋아요 수</S.StyledSpan14>
-                  <S.StyledSpan14>{data.likeCount}개</S.StyledSpan14>
-                  <S.StyledSpan14 onClick={postLikeHandler}>하트</S.StyledSpan14>
+            <LikeDiv>
+              <span>좋아요  {data.likeCount}</span>
+              <img src={data.likeUserId.some(like => like.id === Number(userInfo.sub)) ? heartOn : heartOff}onClick={postLikeHandler} />
+            </LikeDiv>
+                  
                   <KakaoShareBtn path={path} data={data} ></KakaoShareBtn>
                   <UrlShare data={data.id}></UrlShare>
                   {
-                    Number(userInfo.sub) === data.userId ?
-                      <button onClick={deleteHandler}>게시글 삭제</button> :
-                      <button onClick={FollowHandler}>팔로우</button>
+                    Number(userInfo.sub) === data.userId &&
+                      <button onClick={deleteHandler}>게시글 삭제</button>
                   }
-                </div>
-              </div>
-              <S.StyledSpan14>{data.createdAt} </S.StyledSpan14>
-              </div>
+            <CreateAt>{data.createdAt}</CreateAt>
           </DetailSection>
         </DetailBody>
       </DetailContents>
@@ -270,6 +276,7 @@ const TextDiv = styled.div`
     button{
       background: none;
       border: none;
+      cursor: pointer;
     }
   }
   .writer {
@@ -344,80 +351,36 @@ const Action = styled.div`
   cursor: pointer;
   
 `
-
-// const FrameSection = styled.section`
-//   justify-content: flex-start;
-//   align-items: center;
-//   width: 370px;
-//   height: 648px;
-
-//   div{
-//     width:300px;
-//     height: 446px;
-//   }
- 
-//   //padding:20% 5% 20% 5%;
-//   img{
-//   }
-  
-// `
-// const DetailSection = styled.section`
-//   flex-direction:column;
-//   justify-content:space-between;
-//   height: 648px;
-
-//   gap:30px;
-//   padding:30px;
-// `
-// const Detail = styled.div`
-// /*   min-height:210px; */
-// `
-// const ViewCount = styled.div`
-//   margin-left:auto;
-// `
-// const OptionSection = styled.section`
-//   display:flex;
-//   align-items:center;
-//   flex-direction:column;
-//   gap:10px;
-
-//   button{
-//     width: 160px;
-//     height:46px;
-//     background-color: rgb(246, 250, 240);
-//     color:rgb(156, 217, 79);
-//     border:2px solid rgb(156, 217, 79);
-//     border-radius:5px;
-
-//   }
-
-// `
-// const CheckBox = styled.div`
-//   display: flex;
-//   justify-content:space-between;
-//   align-items:center;
-//   width: 100%;
-//   height: 38px;
-
-//   padding: 0 10px 0 10px;
-//   box-sizing:border-box;
-
-//   background-color: ${(props) => props.$bg ? 'var(--lightGreen)' : 'var(--lightGray)'};
-//   color:${(props) => props.bg ? 'var(--black)' : 'var(--whiteGray);'}; 
-//   label {
-//     width: 100%;
-//   }
-// `
-// const PostAction = styled.div`
-//   display:flex;
-//   flex-direction:row;
-
-//   justify-content:space-around;
-
-// `
-// const Action = styled.div`
-//   display:flex;
-//   flex-direction:row;
-//   gap:5px;
-
-// `
+const LikeDiv = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+  gap: 7px;
+  span {
+    font-size: 14px;
+    color: var(--gray5_a);
+  }
+`
+const CreateAt = styled.span`
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+  color: var(--gray4);
+  line-height: 23px;
+  margin-top: 18px;
+`
+const OptionModal = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  padding: 10px 29px;
+  gap: 17px;
+  border: 1px solid var(--green4);
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 6px 10px rgba(53, 60, 44, 0.05);
+  color: var(--green5);
+  font-size: 14px;
+`
