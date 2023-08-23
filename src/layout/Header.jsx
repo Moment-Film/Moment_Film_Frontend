@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
@@ -7,7 +7,8 @@ import LogoutBtn from "../components/common/component/LogoutBtn";
 import LOGO from "../components/assets/images/LOGO.svg";
 import Search from "../components/common/component/Search";
 
-function Header() {
+function Header({ onClose }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const navigate = useNavigate();
   // const dispatch = useDispatch();
@@ -16,15 +17,31 @@ function Header() {
   const userInfo = useSelector((state) => state.UserInfo);
   const ACToken = useSelector((state) => state.AccessToken.accessToken);
 
+  const handleHeaderClick = (e) => {
+
+    if (isModalOpen && !e.target.closest(".center")) {
+      setIsModalOpen(false);
+      if (onClose) {
+        onClose();
+      }
+    }
+  };
+
   return (
-    <HeaderSection>
+    <HeaderSection onClick={handleHeaderClick}>
       <HeaderWrap>
         <HeaderTitle>
           <div onClick={() => navigate(`/`)}>
             <img src={LOGO} alt="" />
           </div>
         </HeaderTitle>
-        <Search />
+        <Search
+          className="center"
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsModalOpen(true);
+          }}
+        />{" "}
         <LinkSection>
           <NavBtn onClick={() => navigate(`/camera/frameSelect`)}>
             촬영하기
@@ -60,9 +77,7 @@ function Header() {
               </NavBtn>
             </>
           )}
-          {/* <NavBtn onClick={() => navigate(`/search`)}>
-              <img src={main_search} alt="" />
-            </NavBtn> */}
+
           {/* <Btn
           onClick={() =>
             dispatch(SetLanguage(`${language === "ko" ? "en" : "ko"}`))
@@ -70,6 +85,7 @@ function Header() {
         >
           Language
         </Btn> */}
+
         </LinkSection>
       </HeaderWrap>
     </HeaderSection>
@@ -83,40 +99,32 @@ const HeaderSection = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
-
+  border-bottom: 1px solid var(--green5);
   background-color: var(--white);
   position: sticky;
+  top: 0px;
+  z-index: 1000;
 `;
 
 const HeaderWrap = styled.div`
   width: 1170px;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  align-items: center;
+  position: relative;
 
   span {
     width: 1px;
     height: 10px;
     background-color: var(--lightGray);
-    /* border: 0.5; */
   }
 `;
 
-// const LinkBox = styled.div`
-//   display: flex;
-//   align-items: center;
-//   /* gap: 28px; */
-// `;
-
-const HeaderTitle = styled.div``;
+const HeaderTitle = styled.section``;
 
 const LinkSection = styled.section`
   min-width: 309px;
   display: flex;
   align-items: center;
-
-  /* justify-content: space-between; */
   gap: 20px;
 `;
 

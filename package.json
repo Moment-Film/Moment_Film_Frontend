@@ -65,5 +65,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://52.78.24.117"
+  "proxy": "http://52.78.24.117:8080"
 }
