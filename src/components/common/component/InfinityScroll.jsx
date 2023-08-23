@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ContentBox from './ContentBox';
 import _ from 'lodash'; // lodash 라이브러리 사용
 import { getAllPosts } from '../../../api/nonToken/post';
-import { useQuery,useQueryClient } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 
 
 //통신연결후 스로틀링의 사용 전 후 성능 기록해놓을 것 
@@ -12,20 +12,21 @@ const InfiniteScroll = ({ sort }) => {
     const [page, setPage] = useState(1);
     const [prevPage, setPrevPage] = useState(1);
     const [newsList, setNewsList] = useState([]);
-    const [isLast,setIsLast]=useState("");
+    const [isLast, setIsLast] = useState(false);
 
     //검색결과를 가져올 리엑트 쿼리 
     const { isLoading, isError, data, isSuccess } = useQuery(
-        `post${sort}${page}`,
-        () => getAllPosts({sort,page}),
-        {
-            enabled: !isLast, //마지막페이지면 멈춤
-        }
+        [`post${sort}${page}`],
+        () => getAllPosts({ sort, page }),
+        /*       {
+                  enabled: !isLast, //마지막페이지면 멈춤
+              } */
     );
     console.log(data);
 
+
     // 무한 스크롤 이벤트 처리 함수를 스로틀링하여 0.5초마다 한 번씩 실행되도록 설정
-    const handleScroll = _.throttle(async() => {
+    const handleScroll = _.throttle(async () => {
         //현재스크롤 높이(스크롤 아래부분높이) : 내 뷰포트 높이(스크롤바 길이) + 스크롤한 높이  
         const scrollPosition = window.innerHeight + window.scrollY;
         //스크롤 전체 높이
@@ -33,17 +34,21 @@ const InfiniteScroll = ({ sort }) => {
 
         // 스크롤이 아래쪽 80% 정도에 도달했을 때 추가 게시글 로드
         if (scrollPosition > documentHeight * 0.8) {
-
-            // 페이지 바꿔서 요청보내버리기
-            setTimeout(() => {
-                if(!isLast) setPage(page + 1);
-              }, 500);
+            setTimeout(async () => {
+                console.log(data.isLastPage)
+                if (!data.isLastPage) await setPage(page + 1);
+                await setIsLast(data.isLastPage);
+            }, 1000);
         }
     }, 500); // 0.5초마다 한 번씩 이벤트 처리
 
     useEffect(() => {
-        // 스크롤 이벤트 리스너 등록
-        window.addEventListener('scroll', handleScroll);
+
+        if (!isLast) {
+            // 스크롤 이벤트 리스너 등록
+            window.addEventListener('scroll', handleScroll);
+        }
+
 
         return () => {
             // 컴포넌트 언마운트 시 이벤트 리스너 제거
@@ -51,26 +56,31 @@ const InfiniteScroll = ({ sort }) => {
         };
     }, [handleScroll]);
 
+    useEffect(()=>{
+        setPage(1);
+    },[sort])
+
     useEffect(() => {
+
+        // Invalidate the query cache when sort changes
+        queryClient.invalidateQueries([`post${sort}${page}`]);
+
+        if (data && data.isLastPage) {
+            setIsLast(false);
+            /*           setPage(1); */
+        }
+
         if (isSuccess) {
-            if(page===1){
+            if (page === 1) {
                 setNewsList([])
             }
-            if (data && data.isLastPage) {
-                setIsLast(data.isLastPage);
-            }
+
             if (data && data.responses) {
                 setNewsList((prevList) => [...prevList, ...data.responses]);
             }
         }
-    }, [data]);
 
-    useEffect(() => {
-   
-          // Invalidate the query cache when sort changes
-          queryClient.invalidateQueries(`post${sort}${page}`);
-
-      }, [sort, page, queryClient,data]);
+    }, [sort, page, queryClient, data]);
 
 
     return (

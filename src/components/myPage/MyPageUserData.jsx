@@ -236,6 +236,7 @@ justify-content: space-between;
     display:flex;
     height:178px;
     align-items:center;
+    justify-content:center;
     background-color:white;
     border:1px solid green;
     border-radius:5px;
@@ -243,7 +244,10 @@ justify-content: space-between;
       height:19.2px;
     }
     div{
-      margin-bottom:7.8px;
+      display:flex;
+      flex-direction:column;
+      gap:3px;
+
     }
  }
 `;
@@ -256,6 +260,8 @@ const UserItem = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-size:16px;
+  color:var(--gray5);
 `;
 const UserItemResult = styled.div`
   display: flex;

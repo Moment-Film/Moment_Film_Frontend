@@ -6,7 +6,8 @@ import { useMutation } from "react-query";
 import { useQueryClient } from "react-query";
 import { searchUser } from "../../api/nonToken/user";
 import { styled } from "styled-components";
-import { axios } from "axios";
+import character from "../assets/images/character.svg";
+import PaginationComponent from "../common/component/PageNation";
 
 function SearchReseult() {
   const params = useParams();
@@ -41,20 +42,24 @@ function SearchReseult() {
       <ResultSection>
         {Array.isArray(searchUserData) ? (
           <>
-            <ResultComment>
-              <div>
-                <span>"{params.id}"</span>에 대한 검색 결과입니다!
-              </div>
-            </ResultComment>
-            <hr />
+            <div className="resultExist">
+              <span>"{params.id}"</span>에 대한 검색 결과입니다!
+            </div>
+            <span className="resultLine" />
             <ResultMap>
               {searchUserData.map((item, index) => {
                 return <div key={index}>{item.username}</div>;
               })}
             </ResultMap>
+            <PaginationComponent data={searchUserData.postList} ItemNums={15} />
           </>
         ) : (
-          <>"{params.id}"에 대한 검색 결과를 찾을 수 없습니다.</>
+          <>
+            <img src={character} alt="" />
+            <div>
+              <span>"{params.id}"</span>에 대한 검색 결과를 찾을 수 없습니다.
+            </div>
+          </>
         )}
       </ResultSection>
     </ResultWrap>
@@ -69,30 +74,46 @@ const ResultWrap = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 70px;
+  background-color: yellow;
 `;
 
 const ResultSection = styled.section`
   width: 1170px;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
+  background-color: pink;
 
-  hr {
-    width: 100%;
+  .resultExist {
+    justify-content: flex-start;
   }
-`;
+  img {
+    width: 150px;
+    margin: 0 auto;
+  }
 
-const ResultComment = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  font-size: 28px;
-  line-height: 130%;
   div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    line-height: 130%;
+
     span {
       color: var(--green5);
+      background-color: none;
       font-weight: bold;
     }
   }
+
+  .resultLine {
+    width: 1170px;
+    height: 1px;
+    background-color: var(--lightGray);
+  }
+`;
+
+const Character = styled.img`
+  width: 150px;
 `;
 
 const ResultMap = styled.section``;
