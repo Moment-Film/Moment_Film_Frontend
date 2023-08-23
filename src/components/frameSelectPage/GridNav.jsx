@@ -52,6 +52,7 @@ const GridNav = ({ data, autoShowModal = false }) => {
           style={{
             display: "flex",
             alignItems: "center",
+            height: "49px",
             cursor: "pointer",
             gap: "11px",
           }}

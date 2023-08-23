@@ -9,19 +9,24 @@ const Wrap = styled.div`
 `;
 
 const Slider = styled.div`
-  width: 1200px;
+  width: 1170px;
   background-color: #ffffff;
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
   z-index: 0;
 `;
 
 const OptionWrap = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 50px;
+  padding-bottom: ${props=>props.bottom || "50px"};
   position: relative;
+  background-image: url(${props=>props.url});
+  background-size: cover;
 `;
 
 const ArrowWrap = styled.div`

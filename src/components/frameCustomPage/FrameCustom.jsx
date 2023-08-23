@@ -140,8 +140,8 @@ const FrameCustomMake = () => {
     <>
       <s.Wrap>
         <s.Slider>
+          <GridNav data={"frameSetting"} />
           <s.OptionWrap>
-            <GridNav data={"frameSetting"} />
             <a.BoxWrap>
               <a.LeftBox>
                 <a.FrameImg
