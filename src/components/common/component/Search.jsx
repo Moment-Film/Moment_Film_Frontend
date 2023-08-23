@@ -93,7 +93,9 @@ export default Search;
 const SearchInputDiv = styled.div`
   display: flex;
   align-items: center;
-  width: 370px;
+  max-width: 370px;
+  width:30%;
+
   height: 40px;
   /* background-color: var(--green0); */
   border-bottom: 2px solid var(--green5);

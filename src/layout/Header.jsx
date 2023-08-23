@@ -6,7 +6,7 @@ import { SetLanguage } from "../redux/modules/Language";
 import LogoutBtn from "../components/common/component/LogoutBtn";
 import LOGO from "../components/assets/images/LOGO.svg";
 import Search from "../components/common/component/Search";
-
+import { Link } from "react-router-dom";
 function Header() {
 
   const navigate = useNavigate();
@@ -18,12 +18,19 @@ function Header() {
 
   return (
     <HeaderSection>
+      <HeaderTitle>
+        <div onClick={() => navigate(`/`)}>
+          <img src={LOGO} alt="" />
+        </div>
+      </HeaderTitle>
+
+      <Small>
+        <StyledLink to={'/'}>홈</StyledLink>
+        <Search />
+        <StyledLink>마이페이지</StyledLink>
+      </Small>
+
       <HeaderWrap>
-        <HeaderTitle>
-          <div onClick={() => navigate(`/`)}>
-            <img src={LOGO} alt="" />
-          </div>
-        </HeaderTitle>
         <Search />
         <LinkSection>
           <NavBtn onClick={() => navigate(`/camera/frameSelect`)}>
@@ -37,12 +44,6 @@ function Header() {
 
           {ACToken ? (
             <>
-              <NavBtn onClick={() => navigate(`/camera/frameSelect`)}>
-                촬영하기
-              </NavBtn>
-              <NavBtn onClick={() => navigate(`/postlist/recent`)}>
-                전체글보기
-              </NavBtn>
               <LogoutBtn />
               <NavBtn
                 onClick={() => navigate(`/profile/${userInfo.sub}`)}
@@ -91,7 +92,6 @@ const HeaderSection = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
-
   background-color: var(--white);
   position: sticky;
 `;
@@ -109,6 +109,12 @@ const HeaderWrap = styled.div`
     background-color: var(--lightGray);
     /* border: 0.5; */
   }
+
+  @media (max-width: 700px) {
+    display:none;
+
+}
+
 `;
 
 // const LinkBox = styled.div`
@@ -126,6 +132,12 @@ const LinkSection = styled.section`
 
   /* justify-content: space-between; */
   gap: 20px;
+
+ @media (max-width: 900px) {
+    gap: 10px;
+
+}
+
 `;
 
 export const NavBtn = styled.div`
@@ -140,3 +152,30 @@ export const NavBtn = styled.div`
     background-color: var(--lightGray);
   }
 `;
+
+const Small = styled.div`
+  @media only screen and (min-width: 700px) {
+    display:none;
+  }
+
+  @media only screen and (max-width: 700px) {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:20%;
+    position:fixed;
+    height:50px;
+    width:100vw;
+    bottom:0;
+  
+    background-color:var(--white);
+
+    border-top:1px solid black;
+    font-size:20px;
+  }
+
+`
+
+const StyledLink = styled(Link)`
+  text-decoration:none;
+`

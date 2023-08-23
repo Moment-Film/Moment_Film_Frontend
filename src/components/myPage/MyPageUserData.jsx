@@ -153,6 +153,13 @@ const UserInfoSection = styled.section`
   gap: 30px;
   padding: 74px 0 74px 0;
   background-color: var(--whiteGray);
+
+  @media (max-width: 700px) {
+        align-items:center;
+        flex-direction:column;
+        padding:0;
+}
+
 `;
 
 const UserProfileSection = styled.section`
@@ -232,7 +239,7 @@ flex-direction:column;
 flex-wrap:wrap;
 justify-content: space-between;
  .box-2{
-  padding: 0 100px 0 100px;
+  padding: 0 20% 0 20%;
     display:flex;
     height:178px;
     align-items:center;

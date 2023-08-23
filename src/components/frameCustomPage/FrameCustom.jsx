@@ -53,7 +53,7 @@ const FrameCustomMake = () => {
 
   const thisGrid = useSelector((state) => state.image.images);
   const frame = useSelector((state) => state.FrameInfo);
-  console.log(frame)
+
   const [color, setColor] = useState({
     h: frame.hue,
     s: frame.saturation,
@@ -128,7 +128,7 @@ const FrameCustomMake = () => {
   }
 
   useEffect(() => {
-    /*     if(frame.id){
+       if(frame.id){
           const frameId = frame.id;
           applyFrame({ frameId, accessToken, refreshToken })
             .then(result => {
@@ -138,7 +138,7 @@ const FrameCustomMake = () => {
               //요게 문제임 
               dispatch(SetImgFile(result.image));
             })
-        } */
+        } 
   }, [])
 
   return (
