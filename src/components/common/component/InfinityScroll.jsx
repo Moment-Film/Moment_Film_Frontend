@@ -17,12 +17,10 @@ const InfiniteScroll = ({ sort }) => {
     //검색결과를 가져올 리엑트 쿼리 
     const { isLoading, isError, data, isSuccess } = useQuery(
         [`post${sort}${page}`],
-        () => getAllPosts({ sort, page }),
-        /*       {
-                  enabled: !isLast, //마지막페이지면 멈춤
-              } */
+        () => getAllPosts({ sort, page })
     );
     console.log(data);
+    console.log(isLast)
 
 
     // 무한 스크롤 이벤트 처리 함수를 스로틀링하여 0.5초마다 한 번씩 실행되도록 설정
@@ -38,7 +36,7 @@ const InfiniteScroll = ({ sort }) => {
                 console.log(data.isLastPage)
                 if (!data.isLastPage) await setPage(page + 1);
                 await setIsLast(data.isLastPage);
-            }, 1000);
+            }, 500);
         }
     }, 500); // 0.5초마다 한 번씩 이벤트 처리
 
@@ -49,7 +47,6 @@ const InfiniteScroll = ({ sort }) => {
             window.addEventListener('scroll', handleScroll);
         }
 
-
         return () => {
             // 컴포넌트 언마운트 시 이벤트 리스너 제거
             window.removeEventListener('scroll', handleScroll);
@@ -57,6 +54,7 @@ const InfiniteScroll = ({ sort }) => {
     }, [handleScroll]);
 
     useEffect(()=>{
+        setIsLast(false)
         setPage(1);
     },[sort])
 
