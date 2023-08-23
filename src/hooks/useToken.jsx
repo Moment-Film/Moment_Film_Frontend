@@ -42,6 +42,7 @@ const useToken = () => {
 
     // access 토큰 가져오기  
     const getAccess = () => {
+        console.log(AccsessToken)
         if(!AccsessToken) return null;
         const bytes = CryptoJS.AES.decrypt(AccsessToken, secretKey);
         const originalText = bytes.toString(CryptoJS.enc.Utf8);

@@ -6,9 +6,11 @@ const useCustomAPI = () => {
     getAccess,
     getRefresh
   }=useToken();
-
+  
+  //axios 객체 생성
+  const customAxios = axios.create();
   // axios 인터셉터 설정
-axios.interceptors.request.use(
+  customAxios.interceptors.request.use(
   function (config) {
       // 여기서 토큰을 가져와서 헤더에 삽입
       const refreshToken = getRefresh();
@@ -27,7 +29,7 @@ axios.interceptors.request.use(
 
 const getMyFilter = async() => {
     try {
-      const response = await axios.get(`/api/filter`);
+      const response = await customAxios.get(`/api/filter`);
       return response;
     } catch (error) {
       return error;
@@ -36,7 +38,7 @@ const getMyFilter = async() => {
 
   const applyFrame = async({frameId, accessToken, refreshToken}) => {
     try {
-      const response = await axios.post(`/api/frame/${frameId}`,null)
+      const response = await customAxios.post(`/api/frame/${frameId}`,null)
       return response.data.data;
     } catch (error) {
       console.log("error", error.response.data);
@@ -45,7 +47,7 @@ const getMyFilter = async() => {
 
   const applyFilter = async({filterId, accessToken, refreshToken}) => {
     try {
-      const response = await axios.post(`/api/filter/${filterId}`,null)
+      const response = await customAxios.post(`/api/filter/${filterId}`,null)
       return response.data.data;
     } catch (error) {
       console.log("error", error.response.data);
