@@ -43,8 +43,8 @@ function App() {
           <Route path="/search/reseult/:id" element={<SearchReseultpage />} />
           <Route path="/signup" element={<SignUpPage />} />
 
-          <Route path="/api/user/kakao/login" element={<RedirectPage />} />
-          <Route path="/api/user/google/callback" element={<RedirectPage />} />
+          <Route path="/user/kakao/callback" element={<RedirectPage />} />
+          <Route path="/user/google/callback" element={<RedirectPage />} />
           <Route path="/test" element={<Test />} />
           <Route path="/DrawPage" element={<DrawPage />} />
           
