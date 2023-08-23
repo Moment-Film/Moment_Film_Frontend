@@ -53,9 +53,9 @@ const InputField = ({
           </div>
         )}
       </div>
-      <CheckBtn style={{ visibility: checkBtn ? "visible" : "hidden" }}>
+{/*       <CheckBtn style={{ visibility: checkBtn ? "visible" : "hidden" }}>
         중복확인
-      </CheckBtn>
+      </CheckBtn> */}
     </ValueWrap>
   );
 };

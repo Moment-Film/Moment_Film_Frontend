@@ -9,7 +9,6 @@ import * as S from "../common/styles/StyledSpan";
 
 const Login = () => {
   return (
-    <ContentWrap>
       <LoginSection>
         <Wrap>
           <S.StyledBoldSpan20 margin={"50px 0 58px 0"}>
@@ -22,55 +21,58 @@ const Login = () => {
           <Img src={line} /> <S.StyledSpan16>또는</S.StyledSpan16>
           <Img src={line} />
         </BoundaryLine>
+        
+        <SocialWrap>
         <GoogleLoginBtn width="380px" height="60px" />
         <KakaoLoginBtn width="380px" height="60px" />
+        </SocialWrap>
       </LoginSection>
-    </ContentWrap>
   );
 };
 
 export default Login;
 
-const ContentWrap = styled.div`
-  width: 100%;
-  background-color: #f5f5f5;
-  display: flex;
-  justify-content: center;
-`;
-
 const LoginSection = styled.section`
-  width: 50%;
   display: flex;
   flex-direction: column;
+  background-color: #f5f5f5;
   align-items: center;
   padding-top: 50px;
   padding-bottom: 75px;
-  height: 100vh;
+
   gap: 20px;
 `;
 
 const Wrap = styled.div`
-  width: 470px;
-  height: 550px;
+  width: 370px;
+  height: 522px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 520px;
   gap: 10px;
 
   background-color: #ffff;
   border-radius: 10px;
+  
 `;
 
 const BoundaryLine = styled.div`
   display: flex;
-  width: 37%;
+  width: 370px;
   align-items: center;
   gap: 15px;
+  margin-top:38.5px;
+  margin-bottom:42.5px;
 `;
 
 const Img = styled.img`
   height: 1px;
   width: 0;
   flex-grow: 1;
+`;
+
+const SocialWrap = styled.div`
+  display:flex;
+  flex-direction:column;
+  gap:23px;
 `;

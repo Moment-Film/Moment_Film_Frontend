@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 ///안전한 폴더에서 모아서 관리 해보자 
 const Rest_api_key ='2e877086c066dea8246d1b0796d4c68f'
-const redirect_uri='http://localhost:3000/api/user/kakao/login'
+const redirect_uri='https://view-teal.vercel.app/user/kakao/callback'
 const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`
 
 const KakaoLoginBtn = ({width, height}) => {
@@ -21,7 +21,7 @@ const KakaoLoginBtn = ({width, height}) => {
     }
 
     return (
-            <KakaoBtn onClick={handleLogin} width={width} height={height}>{'카카오로 바로시작'}</KakaoBtn>
+            <KakaoBtn onClick={handleLogin} >{'카카오로 바로시작'}</KakaoBtn>
     );
 };
 
@@ -31,7 +31,8 @@ export default KakaoLoginBtn;
 const KakaoBtn = styled.button`
     background-color: yellow;
     color : black;
-    width: ${(props=>props.width)};
-    height: ${(props=>props.height)};
-    border:none;
+    width: 320px;
+    height: 52px;
+    border :1px solid gray;
+    border-radius: 5px;
 `

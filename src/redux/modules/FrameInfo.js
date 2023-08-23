@@ -9,7 +9,6 @@ const initialState = {
   hue: 180,
   saturation: 100,
   lightness: 100,
-
 };
 
 const FrameSlice = createSlice({

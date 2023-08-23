@@ -10,11 +10,12 @@ import useUserAPI from "../../api/withToken/user";
 import { Span28, StyledSpan24 } from "../common/styles/StyledSpan";
 // import ProfileEdit from "./ProfileEdit";
 import EditModal from "./EditModal";
+import LogoutBtn from '../common/component/LogoutBtn'
 
 const MyPageUserData = ({ lang, data }) => {
-  const{
+  const {
     FollowAPI
-}=useUserAPI();
+  } = useUserAPI();
 
   const userInfo = useSelector((state) => state.UserInfo);
   const navigate = useNavigate();
@@ -61,15 +62,6 @@ const MyPageUserData = ({ lang, data }) => {
           me={Number(userInfo.sub)}
         />
       )}
-      <HeaderSection>
-        <Span28>
-          {data.id === Number(userInfo.sub) ? "MY PAGE" : "PROFILE PAGE"}
-        </Span28>
-        <span>
-          {data.username}
-          {lang.greeting}
-        </span>
-      </HeaderSection>
 
       <UserInfoSection>
         <UserProfileSection>
@@ -81,56 +73,69 @@ const MyPageUserData = ({ lang, data }) => {
         </UserProfileSection>
 
         <UserDataSection>
-          <StyledSpan24>
-            {data.username}
-            {" 님     "}
-          </StyledSpan24>
           <NameSection>
             {Number(userInfo.sub) === data.id ? (
-              <div onClick={editModalHandler}>
-                <img
-                  src={Edit}
-                  alt=""
-                  style={{ width: "25px", padding: "2.5px" }}
-                />
-              </div>
+              <>
+                <div className="item-1">
+                  <StyledSpan24>
+                    {data.username}
+                  </StyledSpan24>
+                  <span className="point">+600P</span>
+                </div>
+
+                <div className="item-2">
+                  <div className="option" onClick={editModalHandler}>
+                    <span>개인정보 수정</span>
+                    <img src={Edit} alt="" />
+                  </div>
+                  <div className="option">
+                    <LogoutBtn />
+                    <img src={Edit} alt="" />
+                  </div>
+                </div>
+              </>
+
             ) : (
-              <button onClick={FollowHandler}>
-                {data.followerList.some(
-                  (follower) => follower.id === Number(userInfo.sub)
-                )
-                  ? "언팔로우"
-                  : "팔로우"}
-              </button>
+              <>
+                <div className="item-1">
+                  <StyledSpan24>
+                    {data.username}
+                  </StyledSpan24>
+                  <span className="subSpan">{" 님의 프로필"}</span>
+                
+                    {
+                      data.followerList.some(
+                        (follower) => follower.id === Number(userInfo.sub)
+                      )
+                        ?   <FollowBtn state={true} onClick={FollowHandler}>ㆍ언팔로우 </FollowBtn>
+                        :   <FollowBtn state={false} onClick={FollowHandler}>ㆍ팔로우</FollowBtn>
+                    }
+                 
+                </div>
+
+                <div className="item-2">
+                  <div className="option">
+                    <LogoutBtn />
+                    <img src={Edit} alt="" />
+                  </div>
+                </div>
+              </>
             )}
           </NameSection>
-
-          {/* 다른이용자면 box-1가리고  */}
-          {data.id === Number(userInfo.sub) ? (
-            <>
-              <div className="box-1">
-                <UserItem>{"포인트확인"}</UserItem>
-                <hr />
-                <UserItemResult>1000</UserItemResult>
-              </div>{" "}
-            </>
-          ) : (
-            <></>
-          )}
           <div className="box-2">
-            <UserItem>{"게시물 수"}</UserItem>
-            <hr />
-            <UserItemResult>{data.postList.length}</UserItemResult>
-          </div>
-          <div className="box-3">
-            <div onClick={() => clickHandler("followerList")}>
+            <div onClick={() => clickHandler("followingList")}>
               <UserItem>{"팔로워"}</UserItem>
+              <UserItemResult>{data.followingList.length}</UserItemResult>
+            </div>
+            <hr />
+            <div onClick={() => clickHandler("followerList")}>
+              <UserItem>{"팔로우"}</UserItem>
               <UserItemResult>{data.followerList.length}</UserItemResult>
             </div>
             <hr />
-            <div onClick={() => clickHandler("followingList")}>
-              <UserItem>{"팔로우"}</UserItem>
-              <UserItemResult>{data.followingList.length}</UserItemResult>
+            <div>
+              <UserItem>{"게시글 수"}</UserItem>
+              <UserItemResult>{data.postList.length}</UserItemResult>
             </div>
           </div>
         </UserDataSection>
@@ -141,33 +146,13 @@ const MyPageUserData = ({ lang, data }) => {
 
 export default MyPageUserData;
 
-const HeaderSection = styled.section`
-  display: flex;
-  padding-left: 20%;
-  flex-direction: column;
-  justify-content: center;
-
-  height: 80px;
-`;
 
 const UserInfoSection = styled.section`
   display: flex;
-
-  flex-direction: row;
-  gap: 5%;
-
-  padding: 74px 0 74px 20%;
-
+  justify-content:center;
+  gap: 30px;
+  padding: 74px 0 74px 0;
   background-color: var(--whiteGray);
-
-  @media only screen and (max-width: 800px) {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 50px;
-
-    padding: 74px 0 74px 0;
-  }
 `;
 
 const UserProfileSection = styled.section`
@@ -175,102 +160,122 @@ const UserProfileSection = styled.section`
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  width: 170px;
-  height: 140px;
-
-  padding-bottom: 20px;
-
-  background-color: var(--white);
+  width: 198px;
+  height: 250px;
+  border :3px solid black;
 `;
+
+const FollowBtn = styled.button`
+    background-color:rgb(96, 161, 14);
+    color:${(props)=>props.state ? "var(--green5)" : "white"};
+    background-color:${(props)=>props.state ? "rgb(246, 250, 240)" : "green" };
+    border-radius:5px;
+    border:1px solid rgb(96, 161, 14);
+    padding:0 10px 0 10px;
+`
 
 const NameSection = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  .item-1{
+    display:flex;
+    gap: 10px;
+    padding-top:30px;
+    
+    .point{
+      padding-top:10px;
+      font-size: 16px;
+  font-weight: bold;
+  color: var(--green5);
+    }
+
+    .subSpan{
+    padding-top:10px;
+  }
+    
+  }
+  .item-2{
+    display:flex;
+    align-items:center;
+    gap: 10px;
+    img{
+      width:22px;
+    }
+
+    .option{
+      display:flex;
+      align-items:center;
+      padding-bottom:30px;
+      gap:5px;
+    }
+  }
+/*   justify-content: space-between;
+  image{
+    width:20px;
+  }
+  .leftOptions{
+    display:flex;
+    gap:20px;
+  }
+  .box-1{
+    display:flex;
+    width:126px;
+    height:37px;
+  } */
 `;
 
 const UserDataSection = styled.section`
-  display: grid;
-  width: 40%;
-  grid-template-columns: 48% 48%;
-  grid-template-rows: 40% 35% 45%;
-  grid-row-gap: 5%;
-  grid-column-gap: 2%;
-  .box-1 {
-    grid-column: 1;
-    display: flex;
-    background-color: var(--white);
-    min-width: 150px;
-    align-items: center;
-    hr {
-      height: 30px;
-      border: 1px solid var(--lightGray);
+display:flex;
+width:60%;
+max-width:550px;
+flex-direction:column;
+flex-wrap:wrap;
+justify-content: space-between;
+ .box-2{
+  padding: 0 100px 0 100px;
+    display:flex;
+    height:178px;
+    align-items:center;
+    justify-content:center;
+    background-color:white;
+    border:1px solid green;
+    border-radius:5px;
+    hr{
+      height:19.2px;
     }
-  }
-  .box-2 {
-    //다른사용자면 1/3으로
-    grid-column: 2;
-    display: flex;
-    background-color: var(--white);
-    min-width: 150px;
-    align-items: center;
-    hr {
-      height: 30px;
-      border: 1px solid var(--lightGray);
+    div{
+      display:flex;
+      flex-direction:column;
+      gap:3px;
+
     }
-  }
-  .box-3 {
-    grid-column: 1/3;
-    display: flex;
-    align-items: center;
-    background-color: var(--white);
-    min-width: 150px;
-    padding: 5px 20% 5px 20%;
-
-    div {
-      display: flex;
-      width: 100%;
-      flex-direction: column;
-      gap: 10px;
-      background-color: var(--white);
-    }
-
-    hr {
-      height: 15px;
-      border: 1px solid var(--lightGray);
-    }
-  }
-
-  /*     @media only screen and (max-width: 500px) {
-        grid-template-columns: 40% 40%;
-        grid-template-rows: 8% 8% 8% 8% 8% 8%;
-
-  } */
+ }
 `;
 
 const UserItem = styled.div`
   display: flex;
-  width: 70%;
-  max-width: 100%;
   justify-content: center;
   align-items: center;
 
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-size:16px;
+  color:var(--gray5);
 `;
 const UserItemResult = styled.div`
   display: flex;
-  width: 50%;
   justify-content: center;
   align-items: center;
 
-  background-color: var(--white);
   font-size: 24px;
   font-weight: bold;
   color: var(--green5);
-  line-height: 21px;
+
 `;
 
 const Img = styled.img`
-  width: 100%;
+    width:100%;
+    height:100%;
+    object-fit:cover;
 `;

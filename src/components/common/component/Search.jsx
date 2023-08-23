@@ -51,6 +51,7 @@ const Search = () => {
   };
 
   const searchBtnHandler = () => {
+
     if (username.trim() === "") {
       alert("공백 문자열은 검색할 수 없습니다.");
     } else {

@@ -63,7 +63,8 @@ function PostWritePage() {
     
     const filterId = await addFilter(filterInfo);
     const frameId = await addFrame(FrameForm);
-
+    console.log(filterId)
+    console.log(frameId)
 
     ////////////////////////////////////////////////////
     // 게시글등록을 위한 폼데이터 생성

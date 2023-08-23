@@ -7,6 +7,7 @@ import point from "../assets/images/point.svg";
 import { useSelector } from "react-redux";
 import { redirect, useNavigate } from "react-router";
 import { saveAs } from "file-saver";
+import finishBG from '../assets/images/finishBG.jpg'
 
 const CustomFinish = () => {
   const navigate = useNavigate();
@@ -20,22 +21,22 @@ const CustomFinish = () => {
     <>
       <s.Wrap>
         <s.Slider>
-          <s.OptionWrap>
-            <GridNav data={"finish"} />
+          <GridNav data={"finish"} />
+          <s.OptionWrap url={finishBG} bottom="102px">
             <ContentWrap>
               <TextWrap>
                 <div>Finish!</div>
                 <span>
-                  친구들에게 자랑해 보아요! 공유할 시 포인트가 지급됩니다.
+                  친구들에게 자랑해 보아요! 게시글 등록 시 포인트가 지급됩니다.
                 </span>
               </TextWrap>
               <ImgWrap>
                 <CustomImg><img src={objectURL} alt="" /></CustomImg>
                 <BtnWrap>
-                  <MoveBtn onClick={save}>이미지 다운로드</MoveBtn>
-                  <MoveBtn onClick={()=>navigate('write')}>게시글 등록</MoveBtn>
+                  <button className="down" onClick={save}>이미지 다운로드</button>
+                  <button className="up" onClick={()=>navigate('write')}>게시글 등록</button>
+                  <Point src={point} alt="point"></Point>
                 </BtnWrap>
-                <Point src={point} alt="point"></Point>
               </ImgWrap>
             </ContentWrap>
           </s.OptionWrap>
@@ -50,29 +51,29 @@ const CustomFinish = () => {
 export default CustomFinish;
 
 const ContentWrap = styled.div`
-  width: 80%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px;
 `;
 
 const TextWrap = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  gap: 5px;
+  margin-top: 21.5px;
 
   div {
     font-size: 52px;
-    line-height: 70px;
+    line-height: 68px;
     font-family: "Abril Fatface", cursive;
   }
 
   span {
     font-size: 14px;
     line-height: 17px;
-    margin-bottom: 75px;
+    margin-bottom: 71px;
   }
 `;
 
@@ -85,13 +86,16 @@ const ImgWrap = styled.div`
 
 const Point = styled.img`
   position: absolute;
-  bottom: 28.7px;
-  right: 490px;
+  left: 50%;
+  margin-top: -20px;
+  margin-left: 160px;
 `;
 
 const CustomImg = styled.div`
-  height: 450px;
+  height: 446px;
+  border-radius: 5px;
   margin-bottom: 32px;
+  box-shadow: 0 0 40px rgba(0,0,0,0.1);
 `;
 
 const BtnWrap = styled.div`
@@ -99,18 +103,23 @@ const BtnWrap = styled.div`
   height: 40px;
   display: flex;
   gap: 15px;
-`;
 
-const MoveBtn = styled.div`
-  font-size: 14px;
-  width: 145px;
-  height: 40px;
-  color: var(--green6);
-  background-color: var(--green1);
-  border: 1px solid var(--green4);
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
+  button {
+    box-sizing: border-box;
+    width: 145px;
+    height: 40px;
+    color: var(--green6);
+    border: 2px solid var(--green5);
+    font-family: "Pretendard";
+    line-height: 17px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .down {
+    background-color: var(--green1);
+  }
+  .up {
+    background-color: #CBE7A1;
+  }
 `;

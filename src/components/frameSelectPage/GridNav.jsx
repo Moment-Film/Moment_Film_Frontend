@@ -52,6 +52,7 @@ const GridNav = ({ data, autoShowModal = false }) => {
           style={{
             display: "flex",
             alignItems: "center",
+            height: "49px",
             cursor: "pointer",
             gap: "11px",
           }}
@@ -88,6 +89,7 @@ const StepWrap = styled.div`
   border-bottom: 1px solid var(--lightGray);
   padding: 16px 60px 0 0;
   display: flex;
+  align-items: flex-end;
   justify-content: space-between;
 `;
 const ProccessLine = styled.div`
@@ -97,7 +99,7 @@ const ProccessLine = styled.div`
 `
 const SelectStep = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-end;
 `;
 const TitleCont = styled.div`
   ${({ proceeded }) =>
