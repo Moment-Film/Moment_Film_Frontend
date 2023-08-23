@@ -7,8 +7,13 @@ import LogoutBtn from "../components/common/component/LogoutBtn";
 import LOGO from "../components/assets/images/LOGO.svg";
 import Search from "../components/common/component/Search";
 
+import { Link } from "react-router-dom";
+function Header() {
+
+
 function Header({ onClose }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
 
   const navigate = useNavigate();
   // const dispatch = useDispatch();
@@ -28,6 +33,23 @@ function Header({ onClose }) {
   };
 
   return (
+
+    <HeaderSection>
+      <HeaderTitle>
+        <div onClick={() => navigate(`/`)}>
+          <img src={LOGO} alt="" />
+        </div>
+      </HeaderTitle>
+
+      <Small>
+        <StyledLink to={'/'}>홈</StyledLink>
+        <Search />
+        <StyledLink>마이페이지</StyledLink>
+      </Small>
+
+      <HeaderWrap>
+        <Search />
+
     <HeaderSection onClick={handleHeaderClick}>
       <HeaderWrap>
         <HeaderTitle>
@@ -42,6 +64,7 @@ function Header({ onClose }) {
             setIsModalOpen(true);
           }}
         />{" "}
+
         <LinkSection>
           <NavBtn onClick={() => navigate(`/camera/frameSelect`)}>
             촬영하기
@@ -98,7 +121,9 @@ const HeaderSection = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
+
   border-bottom: 1px solid var(--green5);
+
   background-color: var(--white);
   position: sticky;
   top: 0px;
@@ -116,6 +141,12 @@ const HeaderWrap = styled.div`
     height: 10px;
     background-color: var(--lightGray);
   }
+
+  @media (max-width: 700px) {
+    display:none;
+
+}
+
 `;
 
 const HeaderTitle = styled.section``;
@@ -125,6 +156,12 @@ const LinkSection = styled.section`
   display: flex;
   align-items: center;
   gap: 20px;
+
+ @media (max-width: 900px) {
+    gap: 10px;
+
+}
+
 `;
 
 export const NavBtn = styled.div`
@@ -139,3 +176,30 @@ export const NavBtn = styled.div`
     background-color: var(--lightGray);
   }
 `;
+
+const Small = styled.div`
+  @media only screen and (min-width: 700px) {
+    display:none;
+  }
+
+  @media only screen and (max-width: 700px) {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:20%;
+    position:fixed;
+    height:50px;
+    width:100vw;
+    bottom:0;
+  
+    background-color:var(--white);
+
+    border-top:1px solid black;
+    font-size:20px;
+  }
+
+`
+
+const StyledLink = styled(Link)`
+  text-decoration:none;
+`
