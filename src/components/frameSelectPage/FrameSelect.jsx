@@ -70,11 +70,11 @@ const FrameSelect = () => {
   return (
     <s.Wrap onClick={onOutsideClickHandler}>
       <s.Slider>
+        <GridNav
+          data={"gridSelect"}
+          autoShowModal={true} 
+        />
         <s.OptionWrap>
-          <GridNav
-            data={"gridSelect"}
-            autoShowModal={true} 
-          />
           <StyledSpan15 style={{ fontSize: "30px", marginTop: "50px" }}>Pick One!</StyledSpan15>
           <p style={{color:'#949494'}}>그리드를 선택하세요.</p>
           <s.ArrowWrap>

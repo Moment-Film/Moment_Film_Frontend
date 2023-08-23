@@ -63,7 +63,7 @@ export const MoveButton = styled.button`
   align-items: center;
   width: 38px;
   height: 38px;
-  margin-bottom: 142px;
+  margin-bottom: ${props=>props.bottom || "142px"};
   border-radius: 19px;
   border: none;
   box-shadow: 0 0 30px rgba(0,0,0,0.15);

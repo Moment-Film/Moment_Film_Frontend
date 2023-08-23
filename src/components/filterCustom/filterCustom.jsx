@@ -70,8 +70,8 @@ const FilterCustom = () => {
     <>
       <s.Wrap>
         <s.Slider>
+          <GridNav data={"filter"} />
           <s.OptionWrap>
-            <GridNav data={"filter"} />
             <a.BoxWrap>
               <a.LeftBox>
                 <a.FrameImg
