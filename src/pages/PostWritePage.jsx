@@ -32,7 +32,6 @@ function PostWritePage() {
 
   console.log(typeof(resultImg));
   console.log((resultImg));
-  const writerInfo = useSelector((state)=> state.UserInfo);
   const filterInfo =useSelector((state)=>state.Filter)  
   console.log(filterInfo)
 
@@ -99,54 +98,56 @@ function PostWritePage() {
 
   return (
     <ViewBody>
-      <WriteBody>
-        <WritePageTitle>
-          <span>Write Page</span>
-        </WritePageTitle>
         <WriteForm>
           <ImgSection>
             <img src={objectUrl} alt="ResultImage" />
           </ImgSection>
           <InputSection>
-            <Writer>
-              <img src={null} alt="" />
-              <span>
-                <strong>{writerInfo.username}</strong> 님
-              </span>
-            </Writer>
             <section>
               <InputHead>
                 <span>제목</span>
-                <span
+                <span className="count"
                   style={{
                     color:
                       title.length === 45
                         ? "var(--warningRed)"
-                        : "var(--black)",
+                        : "var(--gray)",
                   }}
                 >
-                  {title.length}/45자
+                  {title.length}/45
                 </span>
               </InputHead>
               <TitleInput
                 value={title}
                 maxLength={44}
+                placeholder="제목을 입력하세요."
                 onChange={(e) => setTitle(e.target.value)}
               />
             </section>
             <section>
               <InputHead>
                 <span>본문</span>
+                <span className="count"
+                  style={{
+                    color:
+                    content.length === 500
+                        ? "var(--warningRed)"
+                        : "var(--gray)",
+                  }}
+                >
+                  {content.length}/500
+                </span>
               </InputHead>
               <ContentInput
                 value={content}
+                maxLength={500}
+                placeholder="내용을 입력해보세요."
                 onChange={(e) => setContent(e.target.value)}
               />
             </section>
             <SubmitButton onClick={onSubmitHandler}>저장하기</SubmitButton>
           </InputSection>
         </WriteForm>
-      </WriteBody>
       {/* { showModal && <PointModal />} */}
     </ViewBody>
   );
@@ -160,56 +161,45 @@ const ViewBody = styled.div`
   height: 100%;
   background-color: var(--whiteGray);
 `;
-const WriteBody = styled.div`
-  width: 1170px;
-  background-color: white;
-`;
-const WritePageTitle = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  height: 166px;
-  box-sizing: border-box;
-  span {
-    font-size: 28px;
-    line-height: 38px;
-    font-family: "Abril Fatface", cursive;
-    padding: 83px 0 45px 0;
-  }
-`;
 const WriteForm = styled.div`
   display: flex;
-  width: 100%;
-  height: 626px;
-  border-top: 1px solid var(--gray1);
-  border-bottom: 1px solid var(--gray1);
+  align-items: center;
+  justify-content: space-between;
+  width: 1170px;
+  height: 756px;
+  box-sizing: border-box;
+  padding: 54px 200px;
   margin-bottom: 70px;
 `;
 const ImgSection = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 57%;
-  height: 100%;
-  background-color: #e9e9e9;
+  width: 300px;
+  height: 446px;
   img {
-    box-shadow: 0 0 40px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
   }
 `;
 const InputSection = styled.div`
   display: flex;
-  width: 43%;
+  width: 370px;
+  height: 100%;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   box-sizing: border-box;
-  margin: 0 48px;
+  background-color: white;
+  border-radius: 5px;
+  padding: 30px;
+  border: 1px solid var(--lightGray);
   section {
     width: 100%;
     border-radius: 5px;
     box-sizing: border-box;
     border: 1px solid #d9d9d9;
-    padding: 10px 20px 5px;
+    padding: 7px 17px 10px;
     margin-bottom: 20px;
     textarea {
       width: 100%;
@@ -218,50 +208,49 @@ const InputSection = styled.div`
       resize: none;
       text-align: start;
       font-family: "Pretendard-Regular";
-    }
-  }
-`;
-const Writer = styled.div`
-  margin: 30px 0 22px;
-  display: flex;
-  width: 100%;
-  justify-content: flex-start;
-  align-items: center;
-  height: 35px;
-  img {
-    width: 35px;
-    height: 35px;
-    background-color: var(--lightGray);
-    border-radius: 50%;
-    margin-right: 10px;
-  }
-  span {
-    font-size: 14px;
-    strong {
-      font-size: 18px;
+      &::placeholder {
+        color: var(--gray4);
+      }
+      &::-webkit-scrollbar{
+        width: 10px;
+      }
+      &::-webkit-scrollbar-thumb{
+        box-sizing: border-box;
+        background-color: var(--green1);
+        border: 2px solid var(--green4);
+      }
+      &::-webkit-scrollbar-track{
+        background-color: var(--whiteGray);
+      }
     }
   }
 `;
 const InputHead = styled.div`
   display: flex;
   width: 100%;
-  height: 32px;
+  height: 18px;
   justify-content: space-between;
+  margin-bottom: 7px;
   span {
     font-size: 14px;
-    line-height: 32px;
+    line-height: 18px;
     color: var(--gray4);
+  }
+  .count {
+    color: var(--gray)
   }
 `;
 const TitleInput = styled.textarea`
   height: 63px;
   font-size: 20px;
-  font-weight: 900;
+  font-weight: 500;
+  color: var(--black);
+  line-height: 31.2px;
 `;
 const ContentInput = styled.textarea`
-  height: 200px;
+  height: 280px;
   font-size: 16px;
-  color: var(--gray4);
+  color: var(--black);
 `;
 const SubmitButton = styled.button`
   margin-top: 33px;
