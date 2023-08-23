@@ -1,10 +1,10 @@
 import React from "react";
-import SearchUser from "../components/searchPage/SearchUser";
+// import SearchUser from "../components/searchPage/SearchUser";
 
 function Searchpage() {
   return (
     <div style={{background:'var(--whiteGray)'}}>
-      <SearchUser/>
+      {/* <SearchUser/> */}
     </div>
   );
 }

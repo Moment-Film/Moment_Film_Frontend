@@ -1,12 +1,14 @@
+import React from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { SetLanguage } from "../redux/modules/Language";
 import LogoutBtn from "../components/common/component/LogoutBtn";
-import main_search from "../components/assets/icons/main_search.svg";
 import LOGO from "../components/assets/images/LOGO.svg";
+import Search from "../components/common/component/Search";
 
 function Header() {
+
   const navigate = useNavigate();
   // const dispatch = useDispatch();
 
@@ -17,23 +19,22 @@ function Header() {
   return (
     <HeaderSection>
       <HeaderWrap>
-        <LinkBox>
-
-        </LinkBox>
-
         <HeaderTitle>
-          <span onClick={() => navigate(`/`)}>
+          <div onClick={() => navigate(`/`)}>
             <img src={LOGO} alt="" />
-          </span>
+          </div>
         </HeaderTitle>
-        
-        <section className="searchWrap">
-        <NavBtn onClick={() => navigate(`/search`)}>
-          <img src={main_search} alt="" />
-        </NavBtn>
-        </section>
+        <Search />
+        <LinkSection>
+          <NavBtn onClick={() => navigate(`/camera/frameSelect`)}>
+            촬영하기
+          </NavBtn>
+          <NavBtn onClick={() => navigate(`/postlist/recent`)}>
+            전체글보기
+          </NavBtn>
 
-        <LinkBox>
+          <span />
+
           {ACToken ? (
             <>
               <NavBtn onClick={() => navigate(`/camera/frameSelect`)}>
@@ -43,27 +44,32 @@ function Header() {
                 전체글보기
               </NavBtn>
               <LogoutBtn />
-              <NavBtn onClick={() => navigate(`/profile/${userInfo.sub}`)}>
+              <NavBtn
+                onClick={() => navigate(`/profile/${userInfo.sub}`)}
+                color={"#505050"}
+              >
                 마이페이지
               </NavBtn>
             </>
           ) : (
             <>
-              <NavBtn onClick={() => navigate(`/camera/frameSelect`)}>
-                촬영하기
-              </NavBtn>
-              <NavBtn onClick={() => navigate(`/postlist/recent`)}>
-                전체글보기
-              </NavBtn>
-              <NavBtn onClick={() => { navigate(`/login`); }}>
+              <NavBtn
+                onClick={() => {
+                  navigate(`/login`);
+                }}
+                color={"#505050"}
+              >
                 로그인
               </NavBtn>
-              <NavBtn onClick={() => navigate(`/signup`)}>
+              <NavBtn onClick={() => navigate(`/signup`)} color={"#505050"}>
                 회원가입
               </NavBtn>
             </>
           )}
 
+          {/* <NavBtn onClick={() => navigate(`/search`)}>
+              <img src={main_search} alt="" />
+            </NavBtn> */}
 
           {/* <Btn
           onClick={() =>
@@ -72,7 +78,7 @@ function Header() {
         >
           Language
         </Btn> */}
-        </LinkBox>
+        </LinkSection>
       </HeaderWrap>
     </HeaderSection>
   );
@@ -86,7 +92,8 @@ const HeaderSection = styled.header`
   justify-content: center;
   align-items: center;
 
-  background-color: rgba(238, 238, 238, 1);
+  background-color: var(--white);
+  position: sticky;
 `;
 
 const HeaderWrap = styled.div`
@@ -95,15 +102,31 @@ const HeaderWrap = styled.div`
   align-items: center;
   justify-content: space-between;
   align-items: center;
+
+  span {
+    width: 1px;
+    height: 10px;
+    background-color: var(--lightGray);
+    /* border: 0.5; */
+  }
 `;
 
-const LinkBox = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 28px;
-`;
+// const LinkBox = styled.div`
+//   display: flex;
+//   align-items: center;
+//   /* gap: 28px; */
+// `;
 
 const HeaderTitle = styled.div``;
+
+const LinkSection = styled.section`
+  min-width: 309px;
+  display: flex;
+  align-items: center;
+
+  /* justify-content: space-between; */
+  gap: 20px;
+`;
 
 export const NavBtn = styled.div`
   font-size: 14px;
@@ -111,6 +134,7 @@ export const NavBtn = styled.div`
   cursor: pointer;
   background-color: none;
   transition: background-color 0.5s;
+  color: ${(props) => props.color};
 
   &:hover {
     background-color: var(--lightGray);

@@ -237,6 +237,7 @@ const FrameCustomMake = () => {
                     handleChangeColor={changeColorHandler}
                     color={color}
                   />
+
                 </div>
                 <p className="optionName">밝기</p>
                 <div className="progess">
