@@ -39,7 +39,7 @@ const NavSection = styled.section`
     max-width:1170px;
   justify-content: center;
   gap: 20px;
-  border-bottom: 1px solid var(--black);
+  border-bottom: 1px solid var(--gray2);
 `;
 
 const NavWrap = styled.section`
@@ -48,7 +48,7 @@ const NavWrap = styled.section`
   align-items: center;
   hr {
     height: 10px;
-    border: 1px solid var(--lightGray);
+    border: 1px solid var(--gray2);
   }
 `;
 const StyledLink = styled(Link)`

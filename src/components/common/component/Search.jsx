@@ -22,16 +22,16 @@ const Search = () => {
     } else {
       recentSearches = [];
     }
-  
+
     const index = recentSearches.indexOf(term);
     if (index > -1) {
       recentSearches.splice(index, 1); // 중복 검색어 제거
     }
-  
-    if (recentSearches.length >= 5) { 
+
+    if (recentSearches.length >= 5) {
       recentSearches.pop(); // 5개 이상이면 가장 오래된 항목 제거
     }
-  
+
     recentSearches.unshift(term); // 최근 검색어를 맨 앞에 추가
     localStorage.setItem("recentSearches", JSON.stringify(recentSearches));
   };
@@ -50,9 +50,18 @@ const Search = () => {
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter" || e.keyCode === 13) {
-      navigate(`/search/reseult/${username}`);
-      saveSearchTermToLocalStorage(username);
-      setModalOpen(false);
+      console.log(username === "")
+
+      const regex = /^\S+.*$/;
+
+      if (regex.test(username)) {
+        navigate(`/search/reseult/${username}`);
+        saveSearchTermToLocalStorage(username);
+        setModalOpen(false);
+      } else {
+        alert("공백만 입력되었습니다")
+      }
+
       setUsername("")
 
     }

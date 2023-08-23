@@ -10,6 +10,7 @@ body{
 	--whiteGray: #f5f5f5;
     --gray5:#505050;
     --gray4:#949494;
+    --gray2:#D9D9D9;
 	--gray1:#f5f5f5;
 
     --warningRed: #FC5B70;

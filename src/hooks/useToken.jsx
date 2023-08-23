@@ -8,7 +8,7 @@ import { SetUserInfo } from '../redux/modules/User';
 
 const useToken = () => {
     const dispatch = useDispatch();
-    const [cookie, setCookie] = useCookies(['refresh']);
+    const [cookie, setCookie,removeCookie] = useCookies(['refresh']);
     const AccsessToken = useSelector((state) => state.AccessToken.accessToken);
 
     //env 폴더로 이동시킬예정 
@@ -30,6 +30,7 @@ const useToken = () => {
     // refresh 토큰 저장  
     const saveRefreshToken = async (refreshToken) => {
         if(refreshToken){
+            removeCookie('refresh')
             const ciphertext = CryptoJS.AES.encrypt(refreshToken, secretKey).toString();
             await setCookie('refresh', ciphertext); 
         }
