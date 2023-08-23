@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components';
 import MyPageNav from '../components/myPage/MyPageNav';
 import MyPageUserData from '../components/myPage/MyPageUserData';
@@ -19,6 +19,8 @@ function MyPage() {
   const { data, isLoading, isError } = useQuery(`User${userId}`, () => getProfile(userId))
   //언어 변경 
   const language = useSelector((state) => state.Language.language)
+  //nav => 내 게시물 0 좋아요한 게시물 1
+  const [isSelected, SetIsSelected] = useState(true);
 
   //쿼리 상태 처리 
   if (isLoading) {
@@ -33,8 +35,8 @@ function MyPage() {
     <MyPageSection>
       <MyPageUserData lang={language === 'ko' ? koData : enData} data={data}></MyPageUserData>
       <Contents>
-        <MyPageNav />
-        <PaginationComponent data={data.postList} ItemNums={15} />
+        <MyPageNav isSelected={isSelected} SetIsSelected={SetIsSelected} />
+        <PaginationComponent data={isSelected ? data.postList : data.likePosts } ItemNums={15} />
       </Contents>
     </MyPageSection>
   );

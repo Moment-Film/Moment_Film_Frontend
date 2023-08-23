@@ -76,13 +76,12 @@ const Section = styled.div`
   box-sizing: border-box;
   padding: 30px;
   margin-bottom: 30px;
-  border-top: 1px solid var(--lightGray);
-  border-bottom: 1px solid var(--lightGray);
   gap: 10px;
 `;
 
 const SliderBox = styled.div`
   width: 100%;
+  font-size:10px
 `;
 
 const UploadContainer = styled.div`
@@ -108,6 +107,7 @@ const UploadLabel = styled.div`
 
 const UploadInput = styled.input`
   display: none;
+  height:35px;
 `;
 
 const UploadedImg = styled.div`
