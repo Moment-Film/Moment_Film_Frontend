@@ -34,8 +34,9 @@ function SearchReseult() {
   });
 
   useEffect(() => {
+    queryClient.invalidateQueries('searchUser');
     searchUserMutation.mutate({ username });
-  }, []);
+  }, [username]);
 
   return (
     <ResultWrap>
@@ -51,7 +52,7 @@ function SearchReseult() {
                 return <div key={index}>{item.username}</div>;
               })}
             </ResultMap>
-            <PaginationComponent data={searchUserData.postList} ItemNums={15} />
+            {/* <PaginationComponent data={searchUserData.postList} ItemNums={15} /> */}
           </>
         ) : (
           <>
