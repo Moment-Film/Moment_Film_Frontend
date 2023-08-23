@@ -143,9 +143,12 @@ const DetailContent = ({ data }) => {
           </ImageSection>
           <DetailSection>
                 {modalOpen && <OptionModal>
-                  <span>게시글 삭제</span>
-                  <span>링크 공유</span>
-                  <span>카카오톡 공유</span>
+                  { Number(userInfo.sub) === data.userId && <span onClick={deleteHandler}>게시글 삭제</span>}
+                  <span>공유하기</span>
+                  <div>
+                    <KakaoShareBtn path={path} data={data} ></KakaoShareBtn>
+                    <UrlShare data={data.id}></UrlShare>
+                  </div>
                 </OptionModal>}
             <TextDiv>
               <div className='views'>
@@ -186,13 +189,6 @@ const DetailContent = ({ data }) => {
               <span>좋아요  {data.likeCount}</span>
               <img src={data.likeUserId.some(like => like.id === Number(userInfo.sub)) ? heartOn : heartOff}onClick={postLikeHandler} />
             </LikeDiv>
-                  
-                  <KakaoShareBtn path={path} data={data} ></KakaoShareBtn>
-                  <UrlShare data={data.id}></UrlShare>
-                  {
-                    Number(userInfo.sub) === data.userId &&
-                      <button onClick={deleteHandler}>게시글 삭제</button>
-                  }
             <CreateAt>{data.createdAt}</CreateAt>
           </DetailSection>
         </DetailBody>
@@ -313,7 +309,18 @@ const TextDiv = styled.div`
       font-size: 15px;
       color: var(--gray5);
     }
-    //overflow-y: scroll;
+    overflow-y: auto;
+    &::-webkit-scrollbar{
+        width: 10px;
+      }
+    &::-webkit-scrollbar-thumb{
+      box-sizing: border-box;
+      background-color: var(--green1);
+      border: 2px solid var(--green4);
+    }
+    &::-webkit-scrollbar-track{
+      background-color: var(--whiteGray);
+    }
   }
 `
 const UseActionsDiv = styled.div`
@@ -383,4 +390,14 @@ const OptionModal = styled.div`
   box-shadow: 0 6px 10px rgba(53, 60, 44, 0.05);
   color: var(--green5);
   font-size: 14px;
+  left: 50%;
+  top: 190px;
+  margin-left: 220px;
+  cursor: pointer;
+  div {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    flex-direction: row;
+  }
 `
