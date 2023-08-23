@@ -18,7 +18,7 @@ const GoogleLoginBtn = ({width , height}) => {
     }
             
     return (
-            <GoogleBtn onClick={googleSocialLogin} width={width} height={height} >구글로 바로시작</GoogleBtn>
+            <GoogleBtn onClick={googleSocialLogin}  >구글로 바로시작</GoogleBtn>
     );
 };
 
@@ -27,7 +27,8 @@ export default GoogleLoginBtn;
 const GoogleBtn = styled.button`
     background-color: var(--lightGray);
     color : black;
-    width: ${(props=>props.width)};
-    height: ${(props=>props.height)};
-    border:none;
+    width: 320px;
+    height: 52px;
+    border :1px solid gray;
+    border-radius: 5px;
 `

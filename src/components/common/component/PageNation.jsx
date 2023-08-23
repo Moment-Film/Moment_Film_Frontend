@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import ContentBox from './ContentBox';
 
 const PaginationComponent = ({ data ,ItemNums }) => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -15,33 +16,11 @@ const PaginationComponent = ({ data ,ItemNums }) => {
         setCurrentPage(pageNumber);
     };
 
-    const Card = ({ item }) => {
-        return (
-            <ContentsItem>
-                <StyledLink to={`/post/${item.id}`}>
-                    <Img src={item.image}></Img>
-                </StyledLink>
-                <ItemInfo>
-                    <OptionCount>
-                        <div>아이디 {item.id}</div>
-                        {/* <div>C {'123'}</div> */}
-                    </OptionCount>
-                    <div>제목 {item.title}</div>
-                </ItemInfo>
-            </ContentsItem>
-        )
-    }
-
 
     return (
         <PageNationSection>
             <ContentsSection>
-                {/* 데이터 렌더링 */}
-                {
-                    currentItems.map((item, index) => {
-                        return <Card item={item} key={index}></Card>
-                    })
-                }
+                <ContentBox data={currentItems}></ContentBox>
             </ContentsSection>
 
 
@@ -65,62 +44,23 @@ export default PaginationComponent;
 
 const PageNationSection = styled.div`
     display:flex;
-    width:60%;
-    flex-direction:column;
+    justify-content:center;
     align-items:center;
+    width:90%;
+    max-width:1170px;
+    flex-direction:column;
+
 `
 
-
-const StyledLink = styled(Link)`
-text-decoration:none;
-    
-`
 const ContentsSection = styled.section`
     display:flex;
+    align-items:center;
+    justify-content:center;
     flex-wrap:wrap;
     gap:2%;
 `
 
-const ContentsItem = styled.div`
-    display:flex;
 
-    flex-direction:column;
-
-    width:100%;
-    height: 285px;
-    
-    @media only screen and (min-width: 500px) {
-        width:49%;
-
-  }
-    @media only screen and (min-width: 1000px) {
-        width:23.5%;
-
-  }
-
-  @media only screen and (min-width: 1600px) {
-        width:18.4%;
-
-  }
-
-  background-color:var(--whiteGray);
-margin-bottom:43px;
-border-top-right-radius:5px;
-  border-top-left-radius:5px;
-`
-const Img = styled.img`
-   width:100%;
-   height:228px;
-   border-top-right-radius:10px;
-  border-top-left-radius:10px;
-`
-
-const ItemInfo = styled.div`
-display:flex;
-flex-direction:column;
-padding:0 10px 0 10px;
-
-`
 
 const PageBtnSection = styled.div`
     padding:10px;
@@ -132,12 +72,3 @@ const PageBtnSection = styled.div`
 `
 
 
-
-const OptionCount = styled.div`
-display:flex;
-gap:5px;
-font-size:12px;
-font-weight:normal;
-margin-left:auto;
-
-`

@@ -2,10 +2,8 @@ import { React, useEffect, useState } from 'react'
 import InfiniteScroll from '../common/component/InfinityScroll'
 import styled from 'styled-components'
 import { Link, useNavigate } from 'react-router-dom'
-import { StyledBoldSpan42 } from '../common/styles/StyledSpan'
 import { useParams } from 'react-router-dom';
-import { useQuery } from 'react-query';
-
+import mini_flower from '../assets/icons/mini_flower.svg'
 
 function Post() {
   const a=[1,2,3,4];
@@ -50,26 +48,12 @@ function Post() {
 
   return (
     <>
-      <PostTitle>
-        <StyledBoldSpan42>How About</StyledBoldSpan42>
-        <span>인기 크리에이터의 작품과 모먼트 필름의 그리드 방향을 추천합니다</span>
-      </PostTitle>
       <PostPage>
-
         <PostHeaderSection>
-          <PostHeader>
-            <SImg src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmJcGGiZhQYnrTUPV1Wpcxp04QT-XnCMq2a1N43NouznMPcJeFp0IMLUZPShxbUSOQHqA&usqp=CAU' />
-            <PostTop5>
-              {
-                a.map((item, index) => {
-                  return (<Card key={index}>asd</Card>)
-                })
-              }
-            </PostTop5>
-          </PostHeader>
+
         </PostHeaderSection>
         <PostNav>
-          <div>게시글</div>
+          <div className='postTitle'>Post Page <img src={mini_flower}/></div>
           <SortItem>
             <div>
               정렬방식
@@ -103,45 +87,16 @@ const PostPage = styled.div`
   align-items:center;
   flex-direction:column;
 `
-const PostTitle = styled.div`
-  display:flex;
-  flex-direction:column;
-  padding:48px 0 20px 20%;
-  
-`
+
 const PostHeaderSection = styled.div`
   display:flex;
   justify-content:center;
   align-items:center;
   width:100%;
-  height:708px;
+  height:614px;
   background-color:var(--gray1);
 `
 
-const PostHeader = styled.div`
-  display: flex;
-  width:55%;
-  gap: 29px;
-
-  margin-top:59px;
-  margin-bottom:59px;
-
-`
-const SImg = styled.img`
-  width:40%;
-  height:590px;
-`
-
-const PostTop5 = styled.div`
-  display: grid;
-  grid-template-columns: 49% 49%;
-  grid-template-rows: 45% 45%;
-  width: 100%;
-
-  grid-row-gap: 10%;
- grid-column-gap:4%;
-
-`
 const StyledLink = styled(Link)`
 text-decoration:none;
     
@@ -170,10 +125,11 @@ const ItemInfo = styled.div`
     
 `
 
-
 const PostWrapper = styled.div`
     display:flex;
-    width:60%;
+    justify-content:center;
+    width:90%;
+    max-width:1170px;
 
 `
 
@@ -181,17 +137,26 @@ const PostNav = styled.div`
     display:flex;
     flex-direction:column;
     justify-content:space-between;
-    width:60%;
-    height:60px;
+    gap:30px;
+    width:90%;
+    max-width:1170px;
     border-bottom:1px solid black;
+
+
+    .postTitle{
+      margin:auto;
+      font-size:28px;
+      font-weight:bold;
+    }
 
 `
 
 const SortItem = styled.div`
     display:flex;
     margin-left:auto;
-    gap:10px;
+    gap:22px;
     padding-bottom:10px;
+    height:17px;
 
 `
 

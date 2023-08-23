@@ -37,6 +37,12 @@ function Header() {
 
           {ACToken ? (
             <>
+              <NavBtn onClick={() => navigate(`/camera/frameSelect`)}>
+                촬영하기
+              </NavBtn>
+              <NavBtn onClick={() => navigate(`/postlist/recent`)}>
+                전체글보기
+              </NavBtn>
               <LogoutBtn />
               <NavBtn
                 onClick={() => navigate(`/profile/${userInfo.sub}`)}
@@ -60,9 +66,11 @@ function Header() {
               </NavBtn>
             </>
           )}
+
           {/* <NavBtn onClick={() => navigate(`/search`)}>
               <img src={main_search} alt="" />
             </NavBtn> */}
+
           {/* <Btn
           onClick={() =>
             dispatch(SetLanguage(`${language === "ko" ? "en" : "ko"}`))

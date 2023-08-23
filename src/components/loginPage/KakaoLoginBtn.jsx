@@ -21,7 +21,7 @@ const KakaoLoginBtn = ({width, height}) => {
     }
 
     return (
-            <KakaoBtn onClick={handleLogin} width={width} height={height}>{'카카오로 바로시작'}</KakaoBtn>
+            <KakaoBtn onClick={handleLogin} >{'카카오로 바로시작'}</KakaoBtn>
     );
 };
 
@@ -31,7 +31,8 @@ export default KakaoLoginBtn;
 const KakaoBtn = styled.button`
     background-color: yellow;
     color : black;
-    width: ${(props=>props.width)};
-    height: ${(props=>props.height)};
-    border:none;
+    width: 320px;
+    height: 52px;
+    border :1px solid gray;
+    border-radius: 5px;
 `
