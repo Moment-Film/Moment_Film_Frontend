@@ -1,5 +1,5 @@
 import React from "react";
-import InfiniteScroll from "../components/common/component/InfinityScroll";
+// import InfiniteScroll from "../components/common/component/InfinityScroll";
 import SearchReseult from "../components/searchResultPage/SearchResult";
 
 function SearchReseultpage() {
@@ -7,7 +7,7 @@ function SearchReseultpage() {
   return (
     <>
       <SearchReseult />
-      <InfiniteScroll /> 
+      {/* <InfiniteScroll />  */}
     </>
   );
 }

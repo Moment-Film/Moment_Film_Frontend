@@ -28,20 +28,17 @@ function DetailPage() {
   }
 
   return (
-    <DetailSection style={{ backgroundColor: "var(--whiteGray)" }}>
+    <Detail>
       <DetailContent data={data} isSuccess={isSuccess}/>
       <Comment data={data.commentList} isSuccess={isSuccess} />
-    </DetailSection>
+    </Detail>
   )
 }
 
 export default DetailPage
 
-const DetailSection = styled.section`
-  display:flex;
-  max-width: 1170px;
-  margin: 0 auto;
-  flex-direction:column;
-  align-items:center;
-  background-color: white;
+const Detail = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `

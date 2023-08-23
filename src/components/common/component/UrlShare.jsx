@@ -1,4 +1,5 @@
 import React from 'react';
+import urlShare from '../../assets/images/urlShare.png'
 
 const UrlShare = ({data}) => {
 
@@ -12,11 +13,7 @@ const UrlShare = ({data}) => {
         }
       };
 
-    return (
-        <button onClick={handleCopyClipBoard}>
-          링크복사
-        </button>
-    );
+    return <img style={{height: "30px"}} src={urlShare} alt='' onClick={handleCopyClipBoard}/>
 };
 
 export default UrlShare;
