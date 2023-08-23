@@ -8,7 +8,6 @@ import LOGO from "../components/assets/images/LOGO.svg";
 import Search from "../components/common/component/Search";
 
 import { Link } from "react-router-dom";
-function Header() {
 
 
 function Header({ onClose }) {
@@ -34,29 +33,20 @@ function Header({ onClose }) {
 
   return (
 
-    <HeaderSection>
-      <HeaderTitle>
-        <div onClick={() => navigate(`/`)}>
-          <img src={LOGO} alt="" />
-        </div>
-      </HeaderTitle>
-
+    <HeaderSection onClick={handleHeaderClick}>
       <Small>
         <StyledLink to={'/'}>홈</StyledLink>
         <Search />
         <StyledLink>마이페이지</StyledLink>
       </Small>
-
-      <HeaderWrap>
-        <Search />
-
-    <HeaderSection onClick={handleHeaderClick}>
-      <HeaderWrap>
-        <HeaderTitle>
+      
+      <HeaderTitle>
           <div onClick={() => navigate(`/`)}>
             <img src={LOGO} alt="" />
           </div>
         </HeaderTitle>
+      <HeaderWrap>
+
         <Search
           className="center"
           onClick={(e) => {
@@ -131,10 +121,10 @@ const HeaderSection = styled.header`
 `;
 
 const HeaderWrap = styled.div`
-  width: 1170px;
+  width: 100%;
   display: flex;
-  justify-content: space-between;
-  position: relative;
+
+  justify-content: flex-end;
 
   span {
     width: 1px;
@@ -149,7 +139,11 @@ const HeaderWrap = styled.div`
 
 `;
 
-const HeaderTitle = styled.section``;
+const HeaderTitle = styled.section`
+padding-left:10%;
+
+`
+
 
 const LinkSection = styled.section`
   min-width: 309px;
@@ -186,7 +180,7 @@ const Small = styled.div`
     display:flex;
     align-items:center;
     justify-content:center;
-    gap:20%;
+    gap:60%;
     position:fixed;
     height:50px;
     width:100vw;
