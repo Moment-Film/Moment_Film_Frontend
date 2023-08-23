@@ -18,12 +18,7 @@ function Header() {
     <HeaderSection>
       <HeaderWrap>
         <LinkBox>
-          <NavBtn onClick={() => navigate(`/camera/frameSelect`)}>
-            촬영하기
-          </NavBtn>
-          <NavBtn onClick={() => navigate(`/postlist/recent`)}>
-            전체글보기
-          </NavBtn>
+
         </LinkBox>
 
         <HeaderTitle>
@@ -31,10 +26,22 @@ function Header() {
             <img src={LOGO} alt="" />
           </span>
         </HeaderTitle>
+        
+        <section className="searchWrap">
+        <NavBtn onClick={() => navigate(`/search`)}>
+          <img src={main_search} alt="" />
+        </NavBtn>
+        </section>
 
         <LinkBox>
           {ACToken ? (
             <>
+              <NavBtn onClick={() => navigate(`/camera/frameSelect`)}>
+                촬영하기
+              </NavBtn>
+              <NavBtn onClick={() => navigate(`/postlist/recent`)}>
+                전체글보기
+              </NavBtn>
               <LogoutBtn />
               <NavBtn onClick={() => navigate(`/profile/${userInfo.sub}`)}>
                 마이페이지
@@ -42,19 +49,22 @@ function Header() {
             </>
           ) : (
             <>
-              <NavBtn
-                onClick={() => {
-                  navigate(`/login`);
-                }}
-              >
+              <NavBtn onClick={() => navigate(`/camera/frameSelect`)}>
+                촬영하기
+              </NavBtn>
+              <NavBtn onClick={() => navigate(`/postlist/recent`)}>
+                전체글보기
+              </NavBtn>
+              <NavBtn onClick={() => { navigate(`/login`); }}>
                 로그인
               </NavBtn>
-              <NavBtn onClick={() => navigate(`/signup`)}>회원가입</NavBtn>
+              <NavBtn onClick={() => navigate(`/signup`)}>
+                회원가입
+              </NavBtn>
             </>
           )}
-          <NavBtn onClick={() => navigate(`/search`)}>
-            <img src={main_search} alt="" />
-          </NavBtn>
+
+
           {/* <Btn
           onClick={() =>
             dispatch(SetLanguage(`${language === "ko" ? "en" : "ko"}`))

@@ -207,7 +207,7 @@ function DrawPage() {
 							type="file"
 							onChange={handleImageChange} />
 						<button onClick={handleSave}>Save Drawing</button>
-						<buttonon Click={chagemode}>mode</buttonon>
+						<button onClick={chagemode}>mode</button>
 						<div>
 							pen weight{" "}
 							{penWeight}
@@ -278,14 +278,18 @@ const DrawSection = styled.div`
 `;
 const LeftBox = styled.div`
 	height: 100%;
-  width: 60%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  	width: 60%;
+  	display: flex;
+  	align-items: center;
+  	justify-content: center;
 	background: var(--lightGray);
 `;
 const RightBox = styled.div`
-  width: 40%;
+	display:flex;
+	flex-direction:column;
+	justify-content:center;
+	gap:10px;
+	width: 40%;
 	height: 100%;
 	background-color: white;
 `;

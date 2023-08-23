@@ -117,14 +117,14 @@ const EmailLogin = () => {
       >
         {loginError && <ValidateResult>{loginError}</ValidateResult>}
       </div>
-      <div style={{ width: "370px", marginBottom: "24px" }}>
+      <ButtonWrap  style={{ width: "370px", marginBottom: "41px" }}>
         <StyledButton
           func={LoginHandler}
           title={"로그인"}
-          width={"97%"}
-          height={"45px"}
+          width={"128px"}
+          height={"39px"}
         />
-      </div>
+      </ButtonWrap>
 
       <FindInfoSection>
         <div>{"아이디를 잊으셨나요?"}</div>
@@ -155,6 +155,7 @@ const InputSection = styled.section`
 
 const LinkBox = styled.div`
   margin-left: auto;
+  margin-bottom: 34.6px;
 `;
 
 const InputWrap = styled.div`
@@ -172,7 +173,7 @@ const InputWrap = styled.div`
 `;
 
 export const AddressInput = styled.input`
-  width: 85%;
+
   font-size: 16px;
   line-height: 18px;
   background: none;
@@ -186,9 +187,8 @@ export const AddressInput = styled.input`
 const FindInfoSection = styled.section`
   display: flex;
   gap: 15px;
-  padding-bottom: 20px;
   text-decoration: none;
-
+  height:64px;
   div {
     font-size: 16px;
     text-align: center;
@@ -198,7 +198,10 @@ const FindInfoSection = styled.section`
 
 const ValidateResult = styled.div`
   font-size: 16px;
-  /* padding: 5px 0 5px 10px; */
-  margin-bottom: 5px;
   color: rgba(252, 91, 112, 1);
+`;
+
+const ButtonWrap = styled.div`
+  display:flex;
+  justify-content:center;
 `;
