@@ -142,7 +142,7 @@ const DetailContent = ({ data }) => {
             </div>
           </ImageSection>
           <DetailSection>
-                {modalOpen && <OptionModal>
+                {modalOpen && <OptionModal onClick={(e)=>e.stopPropagation()}>
                   { Number(userInfo.sub) === data.userId && <span onClick={deleteHandler}>게시글 삭제</span>}
                   <span>공유하기</span>
                   <div>
@@ -304,7 +304,8 @@ const TextDiv = styled.div`
   }
   .contents {
     width: 100%;
-    height: 126px;
+    height: 135px;
+    margin-bottom: 24px;
     span{
       font-size: 15px;
       color: var(--gray5);
