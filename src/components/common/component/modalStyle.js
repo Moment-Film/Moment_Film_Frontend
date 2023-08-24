@@ -56,7 +56,6 @@ export const SearchSection = styled.div`
     margin-bottom: 23px;
 
     input {
-        font-family: 'Pretendard-Regular';
         background: none;
         border: none;
         outline: none;
@@ -64,7 +63,6 @@ export const SearchSection = styled.div`
         font-size: 16px;
         color: var(--green5);
         &::placeholder {
-            font-family: 'Pretendard-Regular';
             color: var(--green5);
         }
     }

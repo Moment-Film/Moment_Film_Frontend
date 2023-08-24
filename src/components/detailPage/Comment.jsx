@@ -9,7 +9,6 @@ import commentImg from '../assets/images/comment.png';
 import dots from '../assets/icons/dots.svg'
 import downArrow from '../assets/images/downArrow.svg'
 import cloud from '../assets/images/cloud.svg'
-import replyArrow from '../assets/images/replyArrow.svg'
 
 //input 태그를 따로 빼면 컴포넌트의 필요없는 랜더링을 줄일 수 있다
 const Comment = ({ data }) => {
@@ -184,7 +183,7 @@ const Comment = ({ data }) => {
       </CommentInputArea>
       {commentList &&
         commentList.map((comment) => (
-          <>
+          <CommentBorderGreen>
           <CommentContainer key={comment.id}>
             <CommentMain>
               <ProfileSection>
@@ -205,7 +204,7 @@ const Comment = ({ data }) => {
                 </span>}
                 <span className="write" onClick={()=>writeReplyHandler(comment.id)}>답글 작성<img src={cloud} alt=""/> </span>
               </BottomSection>
-              {isReplyWrite.includes(comment.id) && <CommentInputDiv>
+              {isReplyWrite.includes(comment.id) && <CommentInputDiv className="replyWrite">
                 <textarea
                   placeholder="대댓글 작성"
                   rows={1}
@@ -222,10 +221,9 @@ const Comment = ({ data }) => {
                 .slice()
                 .reverse()
                 .map((reply) => (
-                <CommentContainer key={reply.id}>
+                <CommentContainer className="recomment" key={reply.id}>
                   <CommentMain>
                     <ProfileSection>
-                      <img className="reply" src={replyArrow} alt="" />
                       <img className="profilePic"
                         src="https://pbs.twimg.com/media/Fi3MBQvaMAAMymZ.jpg"
                         alt=""
@@ -243,7 +241,7 @@ const Comment = ({ data }) => {
                   </CommentMain>
                 </CommentContainer>
                 ))}
-                </>
+                </CommentBorderGreen>
         ))}
     </CommentSection>
   );
@@ -256,8 +254,11 @@ const CommentSection = styled.section`
   width: 970px;
   flex-direction: column;
   align-items: center;
-  font-family: "Pretendard-Regular";
-  line-height: 130%;
+  line-height: 150%;
+  .recomment {
+    margin-left: 5%;
+    width: 921.5px;
+  }
 `;
 const CommentInputArea = styled.div`
   display: flex;
@@ -265,7 +266,7 @@ const CommentInputArea = styled.div`
   align-items: center;
   width: 100%;
   padding-bottom: 30px;
-  border-bottom: 2px solid var(--lightGray);
+  border-bottom: 1px solid var(--green4);
   .comment-count {
     margin-top: 34px;
     display: flex;
@@ -281,6 +282,11 @@ const CommentInputArea = styled.div`
     }
   }
 `;
+const CommentBorderGreen = styled.div`
+  width: 100%;
+  border-top: 1px solid var(--green4);
+  border-bottom: 1px solid var(--green4);
+`
 const CommentInputDiv = styled.div`
   display: flex;
   flex-direction: row;
@@ -296,12 +302,11 @@ const CommentInputDiv = styled.div`
   margin-top: 13px;
   margin-bottom: 10px;
   textarea {
-    font-family: "Pretendard-Regular";
     overflow-y: auto;
     border-radius: 5px;
     padding: 10px 0 10px 10px;
     resize: none;
-    line-height: 130%;
+    line-height: 150%;
     max-height: 76px;
     width: 100%;
     border: none;
@@ -343,7 +348,7 @@ const CommentContainer = styled.div`
   display: flex;
   width: 100%;
   padding: 20px 0;
-  border-bottom: 2px solid var(--lightGray);
+  border-bottom: 1px solid var(--lightGray);
 `;
 const ProfileSection = styled.div`
   display: flex;
@@ -364,7 +369,7 @@ const ProfileSection = styled.div`
     margin-right: auto;
     cursor: pointer;
     font-size: 14px;
-    color: var(--gray4);
+    font-weight: 600;
   }
   img {
     cursor: pointer;
@@ -401,5 +406,16 @@ const CommentMain = styled.div`
     font-size: 16px;
     color: var(--gray5);
     margin-bottom: 20px;
+  }
+  .replyWrite {
+    border: 1px solid var(--gray4);
+    button{
+      color: var(--gray4);
+      font-size: 16px;
+      height: 21px;
+      &:hover{
+        background-color: var(--gray2);
+      }
+    }
   }
 `;
