@@ -1,6 +1,5 @@
 import { styled } from "styled-components";
 
-
 const Wrap = styled.div`
   background-color: var(--whiteGray);
   display: flex;
@@ -23,10 +22,32 @@ const OptionWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: ${props=>props.bottom || "50px"};
+  padding-bottom: ${(props) => props.bottom || "50px"};
   position: relative;
-  background-image: url(${props=>props.url});
+  background-image: url(${(props) => props.url});
   background-size: cover;
+
+  span {
+    opacity: 1;
+    color: var(--black);
+    margin-top: 50px;
+    font-size: 30px;
+  }
+
+  .Select {
+    color: #949494;
+    font-weight: 400;
+  }
+`;
+
+const NonSelect = styled.p`
+  color: #fc5b70;
+  visibility: ${(props) =>
+    props.selectedImage === null ? "visible" : "hidden"};
+  font-weight: 500;
+  margin: 0;
+  margin-bottom: 10px;
+  line-height: 150%;
 `;
 
 const ArrowWrap = styled.div`
@@ -41,7 +62,7 @@ const ArrowWrap = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 20px;
-  margin-bottom: 90px;
+  margin-bottom: 30px;
   gap: 10px;
 `;
 
@@ -66,21 +87,23 @@ const FrameImg = styled.img`
   display: inline-block;
   width: ${(props) => props.width};
   height: 270px;
+  border: ${(props) => (props.$isSelected ? "2px solid var(--green5)" : "")};
+  border-radius: 5px;
   background-image: url(${(props) => props.src});
   background-size: cover;
   background-position: center;
-  box-shadow: ${(props) => (props.$isSelected ? '0px 0px 40px 10px rgba(135, 206, 46, 0.05)' : '0px 0px 40px 10px rgba(0, 0, 0, 0.05)')};
+  box-shadow: 0px 0px 40px 10px rgba(0, 0, 0, 0.05);
   transition: transform 0.4s ease-in-out;
-  transform: ${(props) => (props.$isSelected ? 'scale(1.15)' : 'scale(1)')};
+  transform: ${(props) => (props.$isSelected ? "scale(1.15)" : "scale(1)")};
   transform-origin: bottom;
-  opacity: ${(props) => (props.$isHovered || props.$isSelected ? '1' : '0.3')};
+  opacity: ${(props) => (props.$isHovered || props.$isSelected ? "1" : "0.3")};
 
   &:hover {
-    transform: scale(1.15);
+    /* transform: scale(1.15); */
   }
 
   &::before {
-    content: '';
+    content: "";
     display: block;
     width: 100%;
     height: 100%;
@@ -96,4 +119,5 @@ export {
   DiaAlign,
   FrameWrap,
   FrameImg,
-}
+  NonSelect,
+};

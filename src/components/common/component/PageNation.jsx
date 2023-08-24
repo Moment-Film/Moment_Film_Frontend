@@ -3,8 +3,13 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import ContentBox from './ContentBox';
 
-const PaginationComponent = ({ data ,ItemNums }) => {
+const PaginationComponent = ({ data = [] ,ItemNums }) => {
+
     const [currentPage, setCurrentPage] = useState(1);
+    
+    if (!Array.isArray(data) || data.length === 0) {
+        return null;  // 또는 유효하지 않은 데이터에 대한 처리나 기본 메시지를 반환할 수 있습니다.
+    }
 
     // 현재 페이지에 보여줄 데이터 계산
     const LastIndex = currentPage * ItemNums;
