@@ -151,8 +151,11 @@ const DetailContent = ({ data }) => {
           {modalOpen && (
             <OptionModal>
               {Number(userInfo.sub) === data.userId && (
-                <span onClick={deleteHandler}>게시글 삭제</span>
+                <span onClick={deleteHandler} className="delete">게시글 삭제</span>
               )}
+              <div>
+                
+              </div>
               <span>공유하기</span>
               <div>
                 <KakaoShareBtn path={path} data={data}></KakaoShareBtn>
@@ -176,12 +179,9 @@ const DetailContent = ({ data }) => {
                 <img src={dots} alt="" />
               </button>
             </div>
-            <div className="writer">
+            <div className="writer" onClick={()=>navigate(`/profile/${data.userId}`)}>
               <img src={null} alt="" />
               <span>{data.username}</span>
-              {Number(userInfo.sub) !== data.userId && (
-                <button onClick={FollowHandler}>팔로우</button>
-              )}
             </div>
             <div className="title">
               <span>{data.title}</span>
@@ -265,10 +265,11 @@ const ImageSection = styled.section`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 300px;
-    height: 446px;
+    width: 100%;
+    height: 552px;
     img {
-      border-radius: 5px;
+      height: 100%;
+      border-radius: 7px;
       box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
     }
   }
@@ -311,6 +312,7 @@ const TextDiv = styled.div`
     }
   }
   .writer {
+    cursor: pointer;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -340,6 +342,7 @@ const TextDiv = styled.div`
   .contents {
     width: 100%;
     height: 126px;
+    margin-bottom: 24px;
     span{
       font-size: 15px;
       color: var(--gray5);
@@ -393,10 +396,11 @@ const Action = styled.div`
   cursor: pointer;
 `;
 const LikeDiv = styled.div`
+  height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 30px;
+  margin-top: 26px;
   gap: 7px;
   span {
     font-size: 14px;
@@ -439,15 +443,15 @@ const CreateAt = styled.span`
   font-size: 14px;
   color: var(--gray4);
   line-height: 23px;
-  margin-top: 18px;
+  margin-top: 40px;
 `;
 const OptionModal = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
   position: absolute;
-  padding: 10px 29px;
-  gap: 17px;
+  padding: 10px 29px 15px;
+  gap: 7px;
   border: 1px solid var(--green4);
   background-color: white;
   border-radius: 5px;
@@ -457,11 +461,15 @@ const OptionModal = styled.div`
   left: 50%;
   top: 190px;
   margin-left: 220px;
-  cursor: pointer;
+  .delete {
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
   div {
     display: flex;
     gap: 5px;
     align-items: center;
     flex-direction: row;
+    cursor: pointer;
   }
 `;

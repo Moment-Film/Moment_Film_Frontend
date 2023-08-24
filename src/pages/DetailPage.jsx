@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom"
 import DetailContent from "../components/detailPage/DetailContent";
 import Comment from "../components/detailPage/Comment"
 import { getPostDetail } from "../api/nonToken/post"
+import { useState } from "react"
+import { useEffect } from "react"
 
 
 function DetailPage() {
@@ -13,9 +15,13 @@ function DetailPage() {
   const param = useParams();
   const navigate = useNavigate();
   console.log(param.id)
+  const [dataComment, setDataComment] = useState(null);
   //리액트 쿼리
   const { data, isLoading, isError, isSuccess } = useQuery(`Detail${param.id}`, () => getPostDetail(param.id));
   console.log(data);
+  useEffect(()=>{
+    isSuccess && setDataComment(data.commentList.reverse());
+  },[isSuccess,data]);
 
   //리액트 쿼리 상태 처리 부분 
   if (isLoading) {
@@ -30,7 +36,7 @@ function DetailPage() {
   return (
     <Detail>
       <DetailContent data={data} isSuccess={isSuccess}/>
-      <Comment data={data.commentList} isSuccess={isSuccess} />
+      <Comment data={dataComment}/>
     </Detail>
   )
 }
