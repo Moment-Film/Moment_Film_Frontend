@@ -110,7 +110,6 @@ const BtnWrap = styled.div`
     height: 40px;
     color: var(--green6);
     border: 2px solid var(--green5);
-    font-family: "Pretendard";
     line-height: 17px;
     font-size: 14px;
     font-weight: 600;

@@ -156,14 +156,14 @@ const SectionTitle = styled.div`
   section {
     width: 150px;
     font-size: 18px;
-    line-height: 130%;
+    line-height: 150%;
     font-weight: 500;
   }
 
   div {
     font-size: 12px;
     font-weight: 600;
-    line-height: 130%;
+    line-height: 150%;
     color: var(--gray4);
     border: 1px solid var(--gray3);
     border-radius: 20px;
@@ -230,7 +230,7 @@ const RecentSection = styled.section`
     color: var(--gray3);
     font-size: 16px;
     font-weight: 400;
-    line-height: 130%;
+    line-height: 150%;
   }
 `;
 

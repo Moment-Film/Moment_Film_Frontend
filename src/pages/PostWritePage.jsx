@@ -208,7 +208,6 @@ const InputSection = styled.div`
       outline: none;
       resize: none;
       text-align: start;
-      font-family: "Pretendard-Regular";
       &::placeholder {
         color: var(--gray4);
       }
@@ -261,7 +260,6 @@ const SubmitButton = styled.button`
   border: 2px solid var(--green5);
   background-color: var(--green1);
   color: green6;
-  font-family: "Pretendard-Regular";
   font-weight: 900;
   cursor: pointer;
 `;

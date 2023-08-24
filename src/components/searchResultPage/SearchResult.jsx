@@ -110,8 +110,8 @@ const ResultSection = styled.section`
     justify-content: center;
     align-items: center;
     font-size: 28px;
-    line-height: 130%;
-    /* background-color: blue; */
+    line-height: 150%;
+
     span {
       color: var(--green5);
       background-color: none;
