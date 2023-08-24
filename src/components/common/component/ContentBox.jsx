@@ -56,7 +56,7 @@ const ContentsSection = styled.section`
     padding-left:30px;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 650px) {
         width:300px;
         justify-content: center;
 }
