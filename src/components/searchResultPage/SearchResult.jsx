@@ -20,24 +20,9 @@ const SearchReseult = () => {
     isLoading,
     isError,
     error,
-  } = useQuery("searchUser", () => searchUser({ username }));
-
-  const searchUserMutation = useMutation(searchUser, {
-    onSuccess: (response) => {
-      console.log(response);
-      {
-        queryClient.invalidateQueries(`searchUser`);
-      }
-    },
-    onError: (error) => {
-      alert("에러");
-    },
+  } = useQuery(["searchUser", username], () => searchUser({ username }), {
+    staleTime: 0,
   });
-
-  useEffect(() => {
-    queryClient.invalidateQueries("searchUser");
-    searchUserMutation.mutate({ username });
-  }, [username]);
 
   return (
     <ResultWrap>
@@ -61,12 +46,7 @@ const SearchReseult = () => {
                   </div>
                 );
               })}
-              <PaginationComponent
-                data={searchUserData?.postList || []}
-                ItemNums={15}
-              />
             </ResultMap>
-            {/* <PaginationComponent data={searchUserData.postList} ItemNums={15} /> */}
           </>
         ) : (
           <>
@@ -77,7 +57,6 @@ const SearchReseult = () => {
             <RecommendSection>
               <div className="recommendMent">이런 크리에이터는 어떠세요?</div>
               <span className="resultLine" />
-              {/* <PaginationComponent data={searchUserData?.postList || []} ItemNums={15} /> */}
             </RecommendSection>
           </>
         )}
@@ -96,14 +75,12 @@ const ResultWrap = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 40px;
-  background-color: yellow;
 `;
 
 const ResultSection = styled.section`
   width: 1170px;
   display: flex;
   flex-direction: column;
-  /* background-color: pink; */
 
   .resultExist {
     display: flex;
