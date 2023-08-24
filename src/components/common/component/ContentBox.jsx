@@ -26,6 +26,7 @@ const ContentBox = ({ data }) => {
     }
 
     return (
+
         <ContentsSection>
             {
                 data.map((item, index) => {
@@ -33,22 +34,39 @@ const ContentBox = ({ data }) => {
                 })
             }
         </ContentsSection>
+
     );
 };
 
 export default ContentBox;
 
+
 const ContentsSection = styled.section`
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
     gap:2%;
+
+@media (max-width: 1299px) {
+    width:900px;
+}
+
+@media (max-width: 936px) {
+    width:600px;
+    padding-left:30px;
+}
+
+@media (max-width: 650px) {
+        width:300px;
+        justify-content: center;
+}
+
+
 `
 
 const ContentsItem = styled.div`
     display:flex;
     flex-direction:column;
-
     width:270px;
     height: 502px;
 
@@ -80,6 +98,7 @@ const ItemInfo = styled.div`
         margin-top:10px;
         font-size:16px;
     }
+
 `
 
 const OptionCount = styled.div`

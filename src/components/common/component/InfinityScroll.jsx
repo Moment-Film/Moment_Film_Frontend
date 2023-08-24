@@ -33,9 +33,8 @@ const InfiniteScroll = ({ sort }) => {
         // 스크롤이 아래쪽 80% 정도에 도달했을 때 추가 게시글 로드
         if (scrollPosition > documentHeight * 0.8) {
             setTimeout(async () => {
-                console.log(data.isLastPage)
-                if (!data.isLastPage) await setPage(page + 1);
-                await setIsLast(data.isLastPage);
+                if (!isLast) await setPage(page + 1);
+                await setIsLast(data?.isLastPage);
             }, 500);
         }
     }, 500); // 0.5초마다 한 번씩 이벤트 처리
@@ -60,13 +59,7 @@ const InfiniteScroll = ({ sort }) => {
 
     useEffect(() => {
 
-        // Invalidate the query cache when sort changes
         queryClient.invalidateQueries([`post${sort}${page}`]);
-
-        if (data && data.isLastPage) {
-            setIsLast(false);
-            /*           setPage(1); */
-        }
 
         if (isSuccess) {
             if (page === 1) {
@@ -77,6 +70,7 @@ const InfiniteScroll = ({ sort }) => {
                 setNewsList((prevList) => [...prevList, ...data.responses]);
             }
         }
+        
 
     }, [sort, page, queryClient, data]);
 

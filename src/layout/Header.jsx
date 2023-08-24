@@ -7,8 +7,12 @@ import LogoutBtn from "../components/common/component/LogoutBtn";
 import LOGO from "../components/assets/images/LOGO.svg";
 import Search from "../components/common/component/Search";
 
+import { Link } from "react-router-dom";
+
+
 function Header({ onClose }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
 
   const navigate = useNavigate();
   // const dispatch = useDispatch();
@@ -28,13 +32,21 @@ function Header({ onClose }) {
   };
 
   return (
+
     <HeaderSection onClick={handleHeaderClick}>
-      <HeaderWrap>
-        <HeaderTitle>
+      <Small>
+        <StyledLink to={'/'}>홈</StyledLink>
+        <Search />
+        <StyledLink>마이페이지</StyledLink>
+      </Small>
+      
+      <HeaderTitle>
           <div onClick={() => navigate(`/`)}>
             <img src={LOGO} alt="" />
           </div>
         </HeaderTitle>
+      <HeaderWrap>
+
         <Search
           className="center"
           onClick={(e) => {
@@ -42,6 +54,7 @@ function Header({ onClose }) {
             setIsModalOpen(true);
           }}
         />{" "}
+
         <LinkSection>
           <NavBtn onClick={() => navigate(`/camera/frameSelect`)}>
             촬영하기
@@ -54,12 +67,6 @@ function Header({ onClose }) {
 
           {ACToken ? (
             <>
-              <NavBtn onClick={() => navigate(`/camera/frameSelect`)}>
-                촬영하기
-              </NavBtn>
-              <NavBtn onClick={() => navigate(`/postlist/recent`)}>
-                전체글보기
-              </NavBtn>
               <LogoutBtn />
               <NavBtn
                 onClick={() => navigate(`/profile/${userInfo.sub}`)}
@@ -99,12 +106,13 @@ function Header({ onClose }) {
 export default Header;
 
 const HeaderSection = styled.header`
-  width: 100vw;
   height: 84px;
   display: flex;
   justify-content: center;
   align-items: center;
+
   border-bottom: 1px solid var(--green5);
+
   background-color: var(--white);
   position: sticky;
   top: 0px;
@@ -112,25 +120,45 @@ const HeaderSection = styled.header`
 `;
 
 const HeaderWrap = styled.div`
-  width: 1170px;
+  width: 100%;
   display: flex;
-  justify-content: space-between;
-  position: relative;
+
+  justify-content: flex-end;
 
   span {
     width: 1px;
     height: 10px;
     background-color: var(--lightGray);
   }
+
+  @media (max-width: 700px) {
+    display:none;
+
+}
+
 `;
 
-const HeaderTitle = styled.section``;
+const HeaderTitle = styled.section`
+padding-left:10%;
+@media (max-width: 700px) {
+    padding:0;
+
+}
+
+`
+
 
 const LinkSection = styled.section`
   min-width: 309px;
   display: flex;
   align-items: center;
   gap: 20px;
+
+ @media (max-width: 900px) {
+    gap: 10px;
+
+}
+
 `;
 
 export const NavBtn = styled.div`
@@ -145,3 +173,30 @@ export const NavBtn = styled.div`
     background-color: var(--lightGray);
   }
 `;
+
+const Small = styled.div`
+  @media only screen and (min-width: 700px) {
+    display:none;
+  }
+
+  @media only screen and (max-width: 700px) {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:60%;
+    position:fixed;
+    height:50px;
+    width:100vw;
+    bottom:0;
+  
+    background-color:var(--white);
+
+    border-top:1px solid black;
+    font-size:20px;
+  }
+
+`
+
+const StyledLink = styled(Link)`
+  text-decoration:none;
+`
