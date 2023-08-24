@@ -106,7 +106,6 @@ function Header({ onClose }) {
 export default Header;
 
 const HeaderSection = styled.header`
-  width: 100vw;
   height: 84px;
   display: flex;
   justify-content: center;
@@ -141,6 +140,10 @@ const HeaderWrap = styled.div`
 
 const HeaderTitle = styled.section`
 padding-left:10%;
+@media (max-width: 700px) {
+    padding:0;
+
+}
 
 `
 
