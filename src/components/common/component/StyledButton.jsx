@@ -1,17 +1,21 @@
+import React from "react";
+import styled from "styled-components";
 
-import React from 'react';
-import styled from 'styled-components';
-
-const StyledButton = ({ func, title, width, height, fontSize }) => {
-    return (
-        <Outline>
-            <WhiteBox width={width} height={height} />
-            <MainBox onClick={func} width={width} height={height} fontSize={fontSize}>
-                {title}
-            </MainBox>
-        </Outline>
-    );
-
+const StyledButton = ({ func, title, width, height, fontSize, fontWeight }) => {
+  return (
+    <Outline>
+      <WhiteBox width={width} height={height} />
+      <MainBox
+        onClick={func}
+        width={width}
+        height={height}
+        fontSize={fontSize}
+        fontWeight={fontWeight}
+      >
+        {title}
+      </MainBox>
+    </Outline>
+  );
 };
 
 export default StyledButton;
@@ -22,33 +26,33 @@ const Outline = styled.div`
   position: relative;
 `;
 const WhiteBox = styled.div`
-    margin-left: 10px;
-  
-    width:${props => (props.width)};
-    height:${props => (props.height)};
-    background-color: #fff;
-    border:2px solid black;
-    position:absolute;
-    z-index: 0;
-    box-sizing: border-box;
-    max-width:470px;
+  margin-left: 10px;
 
-`
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
+  background-color: #fff;
+  border: 2px solid black;
+  position: absolute;
+  z-index: 0;
+  box-sizing: border-box;
+  max-width: 470px;
+`;
 const MainBox = styled.div`
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    margin-top:10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
 
-    width:${props => (props.width)};
-    height:${props => (props.height)};
-    font-size:${props => (props.fontSize)};
-    border:2px solid black;
-    background-color:var(--lightGreen);
-    box-sizing: border-box;
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
+  font-size: ${(props) => props.fontSize};
+  font-weight: ${(props) => props.fontWeight};
+  border: 2px solid black;
+  background-color: var(--lightGreen);
+  box-sizing: border-box;
 
-    max-width:470px;
-    cursor: pointer;
-    
-    z-index: 1;
-`
+  max-width: 470px;
+  cursor: pointer;
+
+  z-index: 1;
+`;

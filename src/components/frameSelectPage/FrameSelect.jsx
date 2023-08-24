@@ -53,7 +53,7 @@ const FrameSelect = () => {
   };
 
   const onGridImgClickHandler = (image, e) => {
-    setSelectedID(image.id)
+    setSelectedID(image.id);
 
     setSelectedImage(image.src);
     e.stopPropagation(); // 이벤트의 전파를 막습니다.
@@ -70,13 +70,10 @@ const FrameSelect = () => {
   return (
     <s.Wrap onClick={onOutsideClickHandler}>
       <s.Slider>
-        <GridNav
-          data={"gridSelect"}
-          autoShowModal={true} 
-        />
+        <GridNav data={"gridSelect"} autoShowModal={true} />
         <s.OptionWrap>
-          <StyledSpan15 style={{ fontSize: "30px", marginTop: "50px" }}>Pick One!</StyledSpan15>
-          <p style={{color:'#949494'}}>그리드를 선택하세요.</p>
+          <StyledSpan15>Pick One!</StyledSpan15>
+          <p className="Select">그리드를 선택하세요.</p>
           <s.ArrowWrap>
             <s.DiaAlign>
               <img src={bigDIA} alt="top_bigDIA" />
@@ -114,21 +111,15 @@ const FrameSelect = () => {
               </div>
             </s.DiaAlign>
           </s.ArrowWrap>
-          <p
-            style={{
-              color: "#FC5B70",
-              visibility: selectedImage === null ? "visible" : "hidden",
-            }}
-          >
-            그리드가 선택되지 않았습니다!
-          </p>
+          <s.NonSelect selectedImage={selectedImage}>그리드가 선택되지 않았습니다!</s.NonSelect>
 
           <StyledButton
             func={() => selectedImage !== null && moveBtnHandler()}
             title={"촬영하러 가기"}
-            width={"174px"}
-            height={"52px"}
+            width={"134px"}
+            height={"40px"}
             fontSize={"18px"}
+            fontWeight={"500"}
           />
         </s.OptionWrap>
       </s.Slider>
