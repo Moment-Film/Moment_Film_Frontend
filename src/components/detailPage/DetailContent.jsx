@@ -254,8 +254,7 @@ const DetailBody = styled.div`
     height: 648px;
   }
   span {
-    font-family: "Pretendard";
-    line-height: 130%;
+    line-height: 150%;
   }
 `;
 const ImageSection = styled.section`
@@ -290,10 +289,12 @@ const TextDiv = styled.div`
   .views {
     display: flex;
     width: 100%;
+    align-items: center;
     justify-content: space-between;
     margin-bottom: 24px;
     span {
       font-size: 14px;
+      color: var(--gray3);
     }
     div {
       height: 23px;
