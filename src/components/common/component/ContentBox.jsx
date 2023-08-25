@@ -48,6 +48,7 @@ const ContentsSection = styled.section`
   justify-content: flex-start;
   gap: 20px;
 
+
 @media (max-width: 1299px) {
     width:850px;
 }
@@ -59,9 +60,8 @@ const ContentsSection = styled.section`
 @media (max-width: 650px) {
     width:270px;
     justify-content: center;
+
 }
-
-
 `
 
 const ContentsItem = styled.div`

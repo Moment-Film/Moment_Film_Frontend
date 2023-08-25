@@ -47,6 +47,9 @@ function Header({ onClose }) {
         </HeaderTitle>
       <HeaderWrap>
 
+
+
+        <LinkSection>
         <Search
           className="center"
           onClick={(e) => {
@@ -54,8 +57,6 @@ function Header({ onClose }) {
             setIsModalOpen(true);
           }}
         />{" "}
-
-        <LinkSection>
           <NavBtn onClick={() => navigate(`/camera/frameSelect`)}>
             촬영하기
           </NavBtn>
