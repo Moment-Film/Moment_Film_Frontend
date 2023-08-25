@@ -18,6 +18,8 @@ import {
 	LightnessSlider,
 } from "react-slider-color-picker";
 
+import SlideComponent from "./slider/slider";
+
 function DrawPage() {
 	const thisbackGround = useSelector((state) => state.ResultImage);
 	const FrameSize = useSelector((state) => state.image.images);
@@ -40,7 +42,7 @@ function DrawPage() {
 
 	const [imageData, setImageData] = useState([]);
 
-
+	const [eraser, setEraser] = useState(false);
 	const [selectedImage, setSelectedImage] = useState(null); // 선택된 이미지 파일
 
 
@@ -129,10 +131,21 @@ function DrawPage() {
 		if (!isDrawing) return;
 		const canvas = drawingCanvasRef.current;
 		const ctx = canvas.getContext("2d");
+		console.log(eraser)
 		ctx.strokeStyle = `hsl(${color.h}, ${color.s}%, ${color.l}%)`;
 		ctx.lineJoin = "round";
 		ctx.lineCap = "round";
 		ctx.lineWidth = penWeight;
+
+		//지우개 모드일때
+		if (eraser) {
+			ctx.globalCompositeOperation = "destination-out"; //투명하게
+			ctx.lineWidth = penWeight;
+		} else {
+			ctx.globalCompositeOperation = "source-over"; //원래대로
+			ctx.strokeStyle = `hsl(${color.h}, ${color.s}%, ${color.l}%)`;
+			ctx.lineWidth = penWeight;
+		}
 
 		ctx.beginPath();
 		ctx.moveTo(lastX, lastY);
@@ -155,8 +168,11 @@ function DrawPage() {
 		setSelectedImage(index);
 	};
 
+
 	const handleImageChange = (e) => {
+		console.log(1)
 		if (e.target.files.length > 0) {
+			console.log(imageData.length)
 			const newImages = Array.from(e.target.files);
 			const newImageData = newImages.map((image) => ({
 				image,
@@ -255,14 +271,14 @@ function DrawPage() {
 								}
 
 								onTouchStart={
-									mode 
-										? startMoving 
+									mode
+										? startMoving
 										: startDrawing
 								}
-								
+
 								onTouchMove={
-									mode 
-										? handleImageMove 
+									mode
+										? handleImageMove
 										: draw
 								}
 
@@ -296,8 +312,8 @@ function DrawPage() {
 								}
 
 								onMouseMove={
-									mode 
-										? (e) => handleImageMove(e, 0) 
+									mode
+										? (e) => handleImageMove(e, 0)
 										: draw
 								}
 
@@ -306,19 +322,19 @@ function DrawPage() {
 								}
 
 								onTouchStart={
-									mode 
-										? startMoving 
+									mode
+										? startMoving
 										: startDrawing
 								}
 
 								onTouchMove={
-									mode 
-										? handleImageMove 
+									mode
+										? handleImageMove
 										: draw
 								}
-								
+
 								onTouchEnd={endDrawing}
-								
+
 								style={{
 									cursor: mode
 										? "move"
@@ -331,176 +347,189 @@ function DrawPage() {
 								}}
 							/>
 						</div>
+
+						{/* 슬라이더 위치 */}
+						{/* 			<SlideComponent data={imageData} /> */}
+
 					</LeftBox>
 					<RightBox>
 						<OptionSection>
-							<section className="rangeSlider">
-								<div className="optionHeader">
-									<span >프레임 커스텀</span>
-								</div>
-								<p className="optionName">색조</p>
-								<div className="progess">
-									<img src={hueImg} />
-									<HueSlider
-										handleChangeColor={changeColorHandler}
-										color={color}
-									/>
-								</div>
-								<p className="optionName">채도</p>
-								<div className="progess">
-									<img src={saturationImg} />
-									<SaturationSlider
-										handleChangeColor={changeColorHandler}
-										color={color}
-									/>
-								</div>
-								<p className="optionName">밝기</p>
-								<div className="progess">
-									<img src={lightnessImg} />
-									<LightnessSlider
-										handleChangeColor={changeColorHandler}
-										color={color}
-									/>
-								</div>
-								<p className="optionName">굵기</p>
-								<div className="progess">
-									<img src={lightnessImg} />
-									<Slider
-										min={1}
-										max={20}
-										step={1}
-										value={penWeight}
-										onChange={(value) => setPenWeight(value)
-										}
-										trackStyle={{
-											backgroundColor:
-												"rgba(203, 221, 90, 1)",
-											height: "13px"
-
-										}}
-										handleStyle={{
-											borderColor: "white",
-											border: "5px solid white",
-											boxShadow: "1px 1px 1px gray",
-											backgroundColor: "rgba(203, 221, 90, 1)",
-											borderRadius: "50%",
-											width: "25px",
-											height: "25px",
-											marginLeft: "-5px",
-											marginTop: "-9px",
-										}}
-									/>
-								</div>
-							</section>
-
-
 							<section className="mode">
 								<div className="optionHeader">
 									<span >모드</span>
 								</div>
 								<div className="modeBtn">
-									<ModeBtn state={mode} onClick={() => setMode(false)}>그리기</ModeBtn>
-									<ModeBtn state={!mode} onClick={() => setMode(true)}>사진 옮기기</ModeBtn>
+									<ModeBtn state={eraser} onClick={() => setEraser(!eraser)}>지우개</ModeBtn>
+									<ModeBtn state={!mode} onClick={() => setMode(false)}>그리기</ModeBtn>
+									<ModeBtn state={mode} onClick={() => setMode(true)}>사진 옮기기</ModeBtn>
 								</div>
 							</section>
 
+							{
+								!mode
 
+									? <section className="rangeSlider">
+										<div className="optionHeader">
+											<span >프레임 커스텀</span>
+										</div>
+										<p className="optionName">색조</p>
+										<div className="progess">
+											<img src={hueImg} />
+											<HueSlider
+												handleChangeColor={changeColorHandler}
+												color={color}
+											/>
+										</div>
+										<p className="optionName">채도</p>
+										<div className="progess">
+											<img src={saturationImg} />
+											<SaturationSlider
+												handleChangeColor={changeColorHandler}
+												color={color}
+											/>
+										</div>
+										<p className="optionName">밝기</p>
+										<div className="progess">
+											<img src={lightnessImg} />
+											<LightnessSlider
+												handleChangeColor={changeColorHandler}
+												color={color}
+											/>
+										</div>
+										<p className="optionName">굵기</p>
+										<div className="progess">
+											<img src={lightnessImg} />
+											<Slider
+												min={1}
+												max={20}
+												step={1}
+												value={penWeight}
+												onChange={(value) => setPenWeight(value)
+												}
+												trackStyle={{
+													backgroundColor:
+														"rgba(203, 221, 90, 1)",
+													height: "13px"
 
-							<StickerSection className="mode">
-								<div className="optionHeader">
-									<span >스티커</span>
-								</div>
+												}}
+												handleStyle={{
+													borderColor: "white",
+													border: "5px solid white",
+													boxShadow: "1px 1px 1px gray",
+													backgroundColor: "rgba(203, 221, 90, 1)",
+													borderRadius: "50%",
+													width: "25px",
+													height: "25px",
+													marginLeft: "-5px",
+													marginTop: "-9px",
+												}}
+											/>
+										</div>
+									</section>
 
-								<div className="StickerInput">
-									<input
-										type="file"
-										onChange={handleImageChange} />
-								</div>
+									:
 
-								<p className="optionName">스티커크기</p>
-								<div className="progess">
-									<img src={lightnessImg} />
-									<Slider
-										min={50}
-										max={200}
-										step={1}
-										value={imageData[selectedImage]?.width}
-										onChange={(value) => handleStickerSize(value, "x")
-										}
-										trackStyle={{
-											backgroundColor:
-												"rgba(203, 221, 90, 1)",
-											height: "13px"
+									<StickerSection className="mode">
+										<div className="optionHeader">
+											<span >스티커</span>
+										</div>
 
-										}}
-										handleStyle={{
-											borderColor: "white",
-											border: "5px solid white",
-											boxShadow: "1px 1px 1px gray",
-											backgroundColor: "rgba(203, 221, 90, 1)",
-											borderRadius: "50%",
-											width: "25px",
-											height: "25px",
-											marginLeft: "-5px",
-											marginTop: "-9px",
-										}}
-									/>
-									{/* 		{
-										console.log(imageData[selectedImage].height)
-									} */}
-									<Slider
-										min={50}
-										max={100}
-										step={1}
-										value={imageData[selectedImage]?.height}
-										onChange={(value) => handleStickerSize(value, "y")
-										}
-										trackStyle={{
-											backgroundColor:
-												"rgba(203, 221, 90, 1)",
-											height: "13px"
+										<div className="StickerInput">
+											<input
+												type="file"
+												onChange={handleImageChange} />
+										</div>
 
-										}}
-										handleStyle={{
-											borderColor: "white",
-											border: "5px solid white",
-											boxShadow: "1px 1px 1px gray",
-											backgroundColor: "rgba(203, 221, 90, 1)",
-											borderRadius: "50%",
-											width: "25px",
-											height: "25px",
-											marginLeft: "-5px",
-											marginTop: "-9px",
-										}}
-									/>
-								</div>
-							</StickerSection>
+										<p className="optionName">스티커크기</p>
+										<div className="progess">
+											가로
+											<img src={lightnessImg} />
+											<Slider
+												min={50}
+												max={200}
+												step={1}
+												value={imageData[selectedImage]?.width}
+												onChange={(value) => handleStickerSize(value, "x")
+												}
+												trackStyle={{
+													backgroundColor:
+														"rgba(203, 221, 90, 1)",
+													height: "13px"
 
-							<div className="selectImage" >
+												}}
+												handleStyle={{
+													borderColor: "white",
+													border: "5px solid white",
+													boxShadow: "1px 1px 1px gray",
+													backgroundColor: "rgba(203, 221, 90, 1)",
+													borderRadius: "50%",
+													width: "25px",
+													height: "25px",
+													marginLeft: "-5px",
+													marginTop: "-9px",
+												}}
+											/>
+										</div>
+										<div className="progess">
+											세로
+											<img src={lightnessImg} />
+											<Slider
+												min={50}
+												max={100}
+												step={1}
+												value={imageData[selectedImage]?.height}
+												onChange={(value) => handleStickerSize(value, "y")
+												}
+												trackStyle={{
+													backgroundColor:
+														"rgba(203, 221, 90, 1)",
+													height: "13px"
 
-								<div style={{ display: "flex" }}>
-									{
-										imageData.map((image, index) => (
-											<div key={index} className="selectedImage">
-												<img src={URL.createObjectURL(image.image)} alt={`Selected ${index}`} />
-												<button onClick={() => removeImage(index)}>Remove</button>
+												}}
+												handleStyle={{
+													borderColor: "white",
+													border: "5px solid white",
+													boxShadow: "1px 1px 1px gray",
+													backgroundColor: "rgba(203, 221, 90, 1)",
+													borderRadius: "50%",
+													width: "25px",
+													height: "25px",
+													marginLeft: "-5px",
+													marginTop: "-9px",
+												}}
+											/>
+										</div>
+
+										<div className="selectImage" style={{ display: "flex", justifyContent: "center", height: "200px" }} >
+
+											<div >
+												{
+													imageData.map((image, index) => (
+														<div key={index} className="selectedImage">
+															<img src={URL.createObjectURL(image.image)} alt={`Selected ${index}`} />
+															<button onClick={() => removeImage(index)}>Remove</button>
+														</div>
+													))
+												}
 											</div>
-										))
-									}
-								</div>
 
-								<div style={{ display: "flex" }}>
-									{
-										imageData.map((image, index) => (
-											<div key={index} className="selectedImage">
-												<img src={URL.createObjectURL(image.image)} alt={`Selected ${index}`} />
-												<button onClick={() => selectImage(index)}>선택</button>
+											<div >
+												{
+													imageData.map((image, index) => (
+														<div key={index} className="selectedImage">
+															<img src={URL.createObjectURL(image.image)} alt={`Selected ${index}`} />
+															<button onClick={() => selectImage(index)}>선택</button>
+														</div>
+													))
+												}
 											</div>
-										))
-									}
-								</div>
 
-							</div>
+										</div>
+
+									</StickerSection>
+							}
+
+
 							<section className="saveBtn">
 								<StyledButton
 									width={"130px"}
@@ -540,6 +569,7 @@ const OptionSection = styled.section`
   }
   .progess{
     display:flex;
+	width:90%;
     align-items:center;
     gap:10px;
   }
@@ -558,7 +588,9 @@ const OptionSection = styled.section`
   }
 
   .rangeSlider{
-    padding :41px 0 41px 0;
+	display:flex;
+	flex-direction:column;
+	align-items:center;
   }
 
 
@@ -574,8 +606,8 @@ const OptionSection = styled.section`
   .saveBtn{
 	display:flex;
 	justify-content:center;
+	padding-top:10%;
   }
-
 
 
 `;
@@ -590,19 +622,16 @@ const StickerSection = styled.div`
 	display:flex;
 	justify-content:center;
 
-
   }
 `;
-
-
 
 const ModeBtn = styled.button`
 	width:100px;
 	height:27px;
 	border-radius:5px;
 	border: 1px solid var(--green5);
-	background-color:${(props) => props.state ? 'var(--green1)' : 'var(--green5)'};
-	color:${(props) => props.state ? 'var(--green5)' : 'var(--green1)'};
+	background-color:${(props) => props.state ? 'var(--green5)' : 'var(--green1)'};
+	color:${(props) => props.state ? 'var(--green1)' : 'var(--green5)'};
 
 `;
 
@@ -622,14 +651,16 @@ const DrawSection = styled.div`
 	display: flex;
 `;
 const LeftBox = styled.div`
-  height:863px;
-  	width: 60%;
+	height:60vh;
+  	max-width: 800px;
+	width:69%;
   	display: flex;
+	flex-direction:column;
   	align-items: center;
   	justify-content: center;
+	padding:67px 0 67px 0;
+
 	background: var(--lightGray);
-
-
 `;
 
 const DrawCanvas = styled.canvas`
@@ -646,8 +677,8 @@ const RightBox = styled.div`
 	display:flex;
 	justify-content:center;
 	gap:10px;
-	width: 40%;
-  height:863px;
+	width: 31%;
+	max-width:370px;
 	background-color: white;
 
   .optionHeader{
@@ -663,3 +694,8 @@ const RightBox = styled.div`
     }
   }
 `;
+
+
+
+
+//////////////////////
