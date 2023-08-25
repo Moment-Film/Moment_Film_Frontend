@@ -5,12 +5,12 @@ import { useNavigate } from "react-router";
 import { styled } from "styled-components";
 import useToken from "../../../hooks/useToken";
 import useAuthAPI from "../../../api/nonToken/auth";
+import { SetUserInfo } from "../../../redux/modules/User";
 
 const LogoutBtn = () => {
   const { LogOutAPI } = useAuthAPI();
 
-  const { getAccess, getRefresh } = useToken();
-
+  const { getAccess, getRefresh, saveUserInfo } = useToken();
   const refreshToken = getRefresh();
   const accessToken = getAccess();
 
@@ -21,6 +21,7 @@ const LogoutBtn = () => {
     const res = await LogOutAPI(accessToken, refreshToken);
 
     await dispatch(SetAccessToken(null));
+    await dispatch(SetUserInfo(null));
     console.log(accessToken);
     navigate("/");
   };
