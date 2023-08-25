@@ -29,7 +29,7 @@ const Comment = ({ data }) => {
   const param = useParams();
   const queryClient = useQueryClient();
 
-  const [comment, setComment] = useState(null);
+  const [comment, setComment] = useState("");
   const [recomment, setRecomment] = useState({});
   const [commentList, setCommentList] = useState(data);
   const [isReplyShow, setIsReplyShow] = useState([null]);
@@ -72,19 +72,20 @@ const Comment = ({ data }) => {
       }
     },
     onError: (error) => {
-      alert("에러");
+      const errormsg = error.response?.data;
+      alert(errormsg);
     },
   });
 
   const ReplyMutation = useMutation(addReply, {
     onSuccess: (response) => {
-      console.log(response);
       {
         queryClient.invalidateQueries(`Detail${param.id}`);
       }
     },
     onError: (error) => {
-      alert("에러");
+      const errormsg = error.response?.data;
+      alert(errormsg);
     },
   });
 
@@ -152,7 +153,6 @@ const Comment = ({ data }) => {
     const accessToken = getAccess();
     const refreshToken = getRefresh();
     
-    console.log(replyId);
     const postId = param.id;
     DelReplyMutation.mutate({
       commentId,
@@ -183,8 +183,8 @@ const Comment = ({ data }) => {
       </CommentInputArea>
       {commentList &&
         commentList.map((comment) => (
-          <CommentBorderGreen>
-          <CommentContainer key={comment.id}>
+          <CommentBorderGreen key={comment.id}>
+          <CommentContainer>
             <CommentMain>
               <ProfileSection>
                 <img className="profilePic"
@@ -256,8 +256,8 @@ const CommentSection = styled.section`
   align-items: center;
   line-height: 150%;
   .recomment {
-    margin-left: 5%;
-    width: 921.5px;
+    padding-left: 5%;
+    box-sizing: border-box;
   }
 `;
 const CommentInputArea = styled.div`
@@ -270,9 +270,11 @@ const CommentInputArea = styled.div`
   .comment-count {
     margin-top: 34px;
     display: flex;
-    font-size: 16px;
-    color: var(--gray4);
-    font-weight: 600;
+    span{
+      font-size: 16px;
+      color: var(--gray4);
+      font-weight: 600;
+    }
     width: 100%;
     justify-content: flex-end;
     align-items: center;
