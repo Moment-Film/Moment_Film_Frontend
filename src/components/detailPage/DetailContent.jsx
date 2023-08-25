@@ -26,10 +26,10 @@ import { ReactComponent as HeartOff } from "../assets/icons/svgHeartOff.svg";
 import { ReactComponent as HeartOn } from "../assets/icons/svgHeartOn.svg";
 
 const DetailContent = ({ data }) => {
-  /*   const {
+    const {
     handleDownload
   } = useDownLoad()
- */
+
   const { applyFrame, applyFilter } = useCustomAPI();
 
   const { FollowAPI, likePost } = useUserAPI();
@@ -83,12 +83,12 @@ const DetailContent = ({ data }) => {
     },
   });
 
-  useEffect(() => {
+/*   useEffect(() => {
     if (selectFrame)
       alert(
         "프레임 이미지는 사용하기 시 이미지가 다운로드됩니다.\n프레임을 첨부해서 사용해주세요.\n (자동 사용은 업데이트 예정)"
       );
-  }, [selectFrame]);
+  }, [selectFrame]); */
 
   // api 동작이 들어있는 함수
   // const postLikeHandler = () => {
@@ -116,16 +116,6 @@ const DetailContent = ({ data }) => {
     else if (!(selectFrame || selectFilter)) {
       alert("선택안함");
     } else {
-      if (selectFrame) {
-        const frameId = data.frameId;
-        applyFrame({ frameId, accessToken, refreshToken }).then(
-          async (frame) => {
-            console.log({ ...frame, image: null });
-            dispatch(SetFrame({ ...frame, image: null }));
-            /*        handleDownload(frame.image, 'test') */
-          }
-        );
-      }
 
       if (selectFilter) {
         const filterId = data.filterId;
@@ -134,7 +124,21 @@ const DetailContent = ({ data }) => {
           dispatch(SetFilter(filter));
         });
       }
-      navigate("/camera/frameSelect");
+
+
+      if (selectFrame) {
+        const frameId = data.frameId;
+        applyFrame({ frameId, accessToken, refreshToken }).then(
+          async (frame) => {
+            console.log(frame);
+            dispatch(SetFrame(frame));
+/*             handleDownload(frame.image, 'test') 
+ */          }
+        );
+      }
+
+
+       navigate("/camera/frameSelect"); 
     }
   };
   const [modalOpen, setModalOpen] = useState(false);

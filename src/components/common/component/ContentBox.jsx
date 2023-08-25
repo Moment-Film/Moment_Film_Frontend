@@ -44,24 +44,21 @@ export default ContentBox;
 const ContentsSection = styled.section`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
     gap:2%;
 
 @media (max-width: 1299px) {
-    width:900px;
+    width:850px;
 }
 
 @media (max-width: 936px) {
-    width:600px;
-    padding-left:30px;
+    width:560px;
 }
 
 @media (max-width: 650px) {
-        width:300px;
+        width:270px;
         justify-content: center;
 }
-
-
 `
 
 const ContentsItem = styled.div`

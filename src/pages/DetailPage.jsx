@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom"
 import DetailContent from "../components/detailPage/DetailContent";
 import Comment from "../components/detailPage/Comment"
 import { getPostDetail } from "../api/nonToken/post"
+import { useEffect } from "react"
 
 
 function DetailPage() {

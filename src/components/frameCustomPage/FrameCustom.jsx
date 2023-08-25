@@ -128,7 +128,31 @@ const FrameCustomMake = () => {
   }
 
   useEffect(() => {
-       if(frame.id){
+/*     if(frame){
+      console.log(frame.image)
+      applyFrameBackground(frame.hue, frame.saturation, frame.lightness, frame.image);
+      const file = frame.image;
+      const blob = new Blob([frame.image], { type: file.type });
+     dispatch(SetImgFile(blob));
+
+    }  */
+
+    if(frame){
+      fetch(frame.image)
+  .then(response => response.blob())
+  .then(blob => {
+    dispatch(SetImgFile(blob));
+    applyFrameBackground(frame.hue, frame.saturation, frame.lightness, frame.image);
+
+  })
+  .catch(error => {
+    console.error("Error fetching or processing image:", error);
+  });
+    }
+
+
+
+/*        if(frame.id){
           const frameId = frame.id;
           applyFrame({ frameId, accessToken, refreshToken })
             .then(result => {
@@ -138,7 +162,7 @@ const FrameCustomMake = () => {
               //요게 문제임 
               dispatch(SetImgFile(result.image));
             })
-        } 
+        }  */
   }, [])
 
   return (
@@ -213,6 +237,7 @@ const FrameCustomMake = () => {
                   refreshToken={refreshToken}
                   onApply={applyFrameBackground}
                 />}
+                
               <div className="useMy">
                 <button onClick={openModalHandler}>MY</button>
                 <span>내 커스텀</span>
