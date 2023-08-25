@@ -113,7 +113,6 @@ const likePost = async ( {postId }) => {
       return res.data.data;
 
   } catch (error) {
-      console.error("likePost api error", error);
       throw error;
   }
 };

@@ -73,22 +73,24 @@ const DetailContent = ({ data }) => {
 
   const getDetailMutation = useMutation(likePost, {
     onSuccess: (response) => {
+      setIsLiked(!isLiked);
       console.log(response);
       {
         queryClient.invalidateQueries(`Detail${param.id}`);
       }
     },
     onError: (error) => {
-      alert("에러");
+      const errorMsg = error.response?.data;
+      alert(errorMsg);
     },
   });
 
-  useEffect(() => {
-    if (selectFrame)
-      alert(
-        "프레임 이미지는 사용하기 시 이미지가 다운로드됩니다.\n프레임을 첨부해서 사용해주세요.\n (자동 사용은 업데이트 예정)"
-      );
-  }, [selectFrame]);
+  // useEffect(() => {
+  //   if (selectFrame)
+  //     alert(
+  //       "프레임 이미지는 사용하기 시 이미지가 다운로드됩니다.\n프레임을 첨부해서 사용해주세요.\n (자동 사용은 업데이트 예정)"
+  //     );
+  // }, [selectFrame]);
 
   // api 동작이 들어있는 함수
   // const postLikeHandler = () => {
@@ -104,7 +106,6 @@ const DetailContent = ({ data }) => {
     const refreshToken = getRefresh();
     const postId = param.id;
 
-    setIsLiked(!isLiked); // 토글 상태
     getDetailMutation.mutate({ postId, accessToken, refreshToken });
   };
 
@@ -112,9 +113,12 @@ const DetailContent = ({ data }) => {
     const accessToken = getAccess();
     const refreshToken = getRefresh();
 
-    if (accessToken === null) navigate("/login");
-    else if (!(selectFrame || selectFilter)) {
-      alert("선택안함");
+    if (!(selectFrame || selectFilter)) {
+      alert("사용해 볼 커스텀이 선택되지 않았습니다.");
+    }
+    else if (accessToken === null) {
+      alert("로그인이 필요합니다.");
+      navigate("/login");
     } else {
       if (selectFrame) {
         const frameId = data.frameId;
@@ -393,7 +397,10 @@ const Action = styled.div`
   border: 2px solid;
   border-radius: 5px;
   font-size: 14px;
-  color: ${({ $bg }) => ($bg ? "var(--green5)" : "var(--gray3)")};
+  span {
+    color: ${({ $bg }) => ($bg ? "var(--green4)" : "var(--gray3)")};
+  }
+  color: ${({ $bg }) => ($bg ? "var(--green4)" : "var(--gray3)")};
   cursor: pointer;
 `;
 const LikeDiv = styled.div`
