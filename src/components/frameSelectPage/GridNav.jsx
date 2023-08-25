@@ -27,12 +27,7 @@ const GridNav = ({ data, autoShowModal = false }) => {
 
   return (
     <>
-      {showGuide && (
-        <GuideModal>
-          <CaptureGuidePage onClose={modalHideHandler} />
-        </GuideModal>
-      )}
-      {showGuide && <ModalBG onClick={modalHideHandler} />}
+      {showGuide && <CaptureGuidePage onClose={modalHideHandler} />}
 
       <StepWrap>
         <SelectStep>
@@ -66,22 +61,6 @@ const GridNav = ({ data, autoShowModal = false }) => {
 };
 
 export default GridNav;
-
-const GuideModal = styled.div`
-  position: fixed;
-  top: 176px;
-  z-index: 100;
-`;
-
-const ModalBG = styled.div`
-  position: fixed;
-  z-index: 99;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.15);
-  /* margin-top: -60px; */
-  top: 0;
-`;
 
 const StepWrap = styled.div`
   width: 100%;
