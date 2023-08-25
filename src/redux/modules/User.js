@@ -14,8 +14,19 @@ const UserSlice = createSlice({
   initialState,
   reducers:{
     SetUserInfo: (state,action)=>{
+      if(action.payload===null){
+        return {
+          sub: null,
+          username:null,
+          email:null,
+          exp:null,
+          iat:null,
+        }
+      }
+      else{
         console.log(action.payload)
         return {...state ,...action.payload }
+      }
     },
   }
 });

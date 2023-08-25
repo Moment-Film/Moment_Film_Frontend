@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useMutation } from "react-query";
@@ -6,14 +6,24 @@ import useInputValidation from "../../hooks/useInputValidation";
 import StyledButton from "../common/component/StyledButton";
 import InputField from "./InputField";
 import useAuthAPI from "../../api/nonToken/auth";
+import useToken from "../../hooks/useToken";
 
 function SignUp() {
+  const navigate = useNavigate();
+
+  const {
+    getAccess,
+  }=useToken();
+  const access = getAccess();
+  
+  useEffect(()=>{
+    if(access!==null) navigate('/');
+  },[]);
 
   const {
     register
   }=useAuthAPI()
 
-  const navigate = useNavigate();
 
   const {
     userName,

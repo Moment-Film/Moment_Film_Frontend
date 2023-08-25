@@ -11,7 +11,7 @@ const Login = () => {
   return (
       <LoginSection>
         <Wrap>
-          <S.StyledBoldSpan20 margin={"50px 0 58px 0"}>
+          <S.StyledBoldSpan20 $margin={"50px 0 58px 0"}>
             {"로그인"}
           </S.StyledBoldSpan20>
           <EmailLogin />

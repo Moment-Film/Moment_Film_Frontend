@@ -42,10 +42,12 @@ export default ContentBox;
 
 
 const ContentsSection = styled.section`
+  width: 1140px;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-    gap:2%;
+  gap: 20px;
+
 
 @media (max-width: 1299px) {
     width:850px;
@@ -56,8 +58,9 @@ const ContentsSection = styled.section`
 }
 
 @media (max-width: 650px) {
-        width:270px;
-        justify-content: center;
+    width:270px;
+    justify-content: center;
+
 }
 `
 

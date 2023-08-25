@@ -34,11 +34,11 @@ function Header({ onClose }) {
   return (
 
     <HeaderSection onClick={handleHeaderClick}>
-      <Small>
+      {/* <Small>
         <StyledLink to={'/'}>홈</StyledLink>
         <Search />
         <StyledLink>마이페이지</StyledLink>
-      </Small>
+      </Small> */}
       
       <HeaderTitle>
           <div onClick={() => navigate(`/`)}>

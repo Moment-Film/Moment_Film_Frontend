@@ -73,15 +73,18 @@ const DetailContent = ({ data }) => {
 
   const getDetailMutation = useMutation(likePost, {
     onSuccess: (response) => {
+      setIsLiked(!isLiked);
       console.log(response);
       {
         queryClient.invalidateQueries(`Detail${param.id}`);
       }
     },
     onError: (error) => {
-      alert("에러");
+      const errorMsg = error.response?.data;
+      alert(errorMsg);
     },
   });
+
 
 /*   useEffect(() => {
     if (selectFrame)
@@ -89,6 +92,7 @@ const DetailContent = ({ data }) => {
         "프레임 이미지는 사용하기 시 이미지가 다운로드됩니다.\n프레임을 첨부해서 사용해주세요.\n (자동 사용은 업데이트 예정)"
       );
   }, [selectFrame]); */
+
 
   // api 동작이 들어있는 함수
   // const postLikeHandler = () => {
@@ -104,7 +108,6 @@ const DetailContent = ({ data }) => {
     const refreshToken = getRefresh();
     const postId = param.id;
 
-    setIsLiked(!isLiked); // 토글 상태
     getDetailMutation.mutate({ postId, accessToken, refreshToken });
   };
 
@@ -112,9 +115,12 @@ const DetailContent = ({ data }) => {
     const accessToken = getAccess();
     const refreshToken = getRefresh();
 
-    if (accessToken === null) navigate("/login");
-    else if (!(selectFrame || selectFilter)) {
-      alert("선택안함");
+    if (!(selectFrame || selectFilter)) {
+      alert("사용해 볼 커스텀이 선택되지 않았습니다.");
+    }
+    else if (accessToken === null) {
+      alert("로그인이 필요합니다.");
+      navigate("/login");
     } else {
 
       if (selectFilter) {
@@ -155,8 +161,11 @@ const DetailContent = ({ data }) => {
           {modalOpen && (
             <OptionModal>
               {Number(userInfo.sub) === data.userId && (
-                <span onClick={deleteHandler}>게시글 삭제</span>
+                <span onClick={deleteHandler} className="delete">게시글 삭제</span>
               )}
+              <div>
+                
+              </div>
               <span>공유하기</span>
               <div>
                 <KakaoShareBtn path={path} data={data}></KakaoShareBtn>
@@ -180,12 +189,9 @@ const DetailContent = ({ data }) => {
                 <img src={dots} alt="" />
               </button>
             </div>
-            <div className="writer">
+            <div className="writer" onClick={()=>navigate(`/profile/${data.userId}`)}>
               <img src={null} alt="" />
               <span>{data.username}</span>
-              {Number(userInfo.sub) !== data.userId && (
-                <button onClick={FollowHandler}>팔로우</button>
-              )}
             </div>
             <div className="title">
               <span>{data.title}</span>
@@ -258,8 +264,7 @@ const DetailBody = styled.div`
     height: 648px;
   }
   span {
-    font-family: "Pretendard";
-    line-height: 130%;
+    line-height: 150%;
   }
 `;
 const ImageSection = styled.section`
@@ -269,10 +274,11 @@ const ImageSection = styled.section`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 300px;
-    height: 446px;
+    width: 100%;
+    height: 552px;
     img {
-      border-radius: 5px;
+      height: 100%;
+      border-radius: 7px;
       box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
     }
   }
@@ -293,10 +299,12 @@ const TextDiv = styled.div`
   .views {
     display: flex;
     width: 100%;
+    align-items: center;
     justify-content: space-between;
     margin-bottom: 24px;
     span {
       font-size: 14px;
+      color: var(--gray3);
     }
     div {
       height: 23px;
@@ -315,6 +323,7 @@ const TextDiv = styled.div`
     }
   }
   .writer {
+    cursor: pointer;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -344,7 +353,8 @@ const TextDiv = styled.div`
   .contents {
     width: 100%;
     height: 126px;
-    span {
+    margin-bottom: 24px;
+    span{
       font-size: 15px;
       color: var(--gray5);
     }
@@ -393,14 +403,18 @@ const Action = styled.div`
   border: 2px solid;
   border-radius: 5px;
   font-size: 14px;
-  color: ${({ $bg }) => ($bg ? "var(--green5)" : "var(--gray3)")};
+  span {
+    color: ${({ $bg }) => ($bg ? "var(--green4)" : "var(--gray3)")};
+  }
+  color: ${({ $bg }) => ($bg ? "var(--green4)" : "var(--gray3)")};
   cursor: pointer;
 `;
 const LikeDiv = styled.div`
+  height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 30px;
+  margin-top: 26px;
   gap: 7px;
   span {
     font-size: 14px;
@@ -443,15 +457,15 @@ const CreateAt = styled.span`
   font-size: 14px;
   color: var(--gray4);
   line-height: 23px;
-  margin-top: 18px;
+  margin-top: 40px;
 `;
 const OptionModal = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
   position: absolute;
-  padding: 10px 29px;
-  gap: 17px;
+  padding: 10px 29px 15px;
+  gap: 7px;
   border: 1px solid var(--green4);
   background-color: white;
   border-radius: 5px;
@@ -461,11 +475,15 @@ const OptionModal = styled.div`
   left: 50%;
   top: 190px;
   margin-left: 220px;
-  cursor: pointer;
+  .delete {
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
   div {
     display: flex;
     gap: 5px;
     align-items: center;
     flex-direction: row;
+    cursor: pointer;
   }
 `;
