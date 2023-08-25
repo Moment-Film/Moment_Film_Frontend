@@ -11,7 +11,7 @@ const InfiniteScroll = ({ sort }) => {
     const queryClient = useQueryClient();
     const [page, setPage] = useState(1);
     const [prevPage, setPrevPage] = useState(1);
-    const [newsList, setNewsList] = useState([]);
+    const [dataList, setDataList] = useState([]);
     const [isLast, setIsLast] = useState(false);
 
     //검색결과를 가져올 리엑트 쿼리 
@@ -37,7 +37,7 @@ const InfiniteScroll = ({ sort }) => {
                 await setIsLast(data?.isLastPage);
             }, 500);
         }
-    }, 2000); // 0.5초마다 한 번씩 이벤트 처리
+    }, 500); // 0.5초마다 한 번씩 이벤트 처리
 
     useEffect(() => {
 
@@ -57,13 +57,13 @@ const InfiniteScroll = ({ sort }) => {
         setPage(1);
     },[sort])
 
-    const getNewsList=async()=>{
+    const getDataList=async()=>{
         if (page === 1) {
-            await setNewsList([])
+            await setDataList([])
         }
 
         if (data && data.responses) {
-            await setNewsList((prevList) => [...prevList, ...data.responses]);
+            await setDataList((prevList) => [...prevList, ...data.responses]);
         }
     }
 
@@ -72,7 +72,7 @@ const InfiniteScroll = ({ sort }) => {
         queryClient.invalidateQueries([`post${sort}${page}`]);
 
         if (isSuccess) {
-            getNewsList()
+            getDataList()
         }
 
     }, [sort, page, queryClient, data]);
@@ -80,8 +80,8 @@ const InfiniteScroll = ({ sort }) => {
 
     return (
         <div>
-        {newsList.length}
-            {newsList?.length > 0 && <ContentBox data={newsList}></ContentBox>}
+        {dataList.length}
+            {dataList?.length > 0 && <ContentBox data={dataList}></ContentBox>}
         </div>
     );
 };
