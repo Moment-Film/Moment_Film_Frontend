@@ -128,7 +128,7 @@ const SearchInputDiv = styled.div`
     outline: none;
     font-size: 16px;
     background: none;
-    color: #60a10e;
+    color: var(--black);
 
     &::placeholder {
       color: var(--gray4);
