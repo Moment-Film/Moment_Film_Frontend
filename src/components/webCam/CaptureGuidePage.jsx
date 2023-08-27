@@ -89,7 +89,8 @@ const GuideBox = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  width: 700px;
+  max-width: 700px;
+  width: 90%;
   height: 400px;
   background-color: white;
   border-radius: 5px;
@@ -127,6 +128,9 @@ const FlexGuide = styled.div`
   margin-top: 30px;
   gap: 40px;
   margin-bottom: 15px;
+  @media (max-width: 700px) {
+      gap: 5px;
+  }
   img {
     width: 350px;
     height: 214px;

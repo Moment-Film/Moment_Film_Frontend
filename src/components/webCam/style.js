@@ -6,7 +6,8 @@ const GridContainer = styled.div`
   justify-content: flex-end;
   align-items: center;
   text-align: center;
-  width: 770px;
+  max-width: 770px;
+  width: 90%;
   height: 622px;
   background-color: var(--gray5);
   box-sizing: border-box;

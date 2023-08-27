@@ -142,25 +142,32 @@ const Comment = ({ data }) => {
   };
 
   const DeleteComment = (commentId) => {
-    const accessToken = getAccess();
-    const refreshToken = getRefresh();
+    const deleteSure = window.confirm('댓글을 삭제하시겠습니까?');
+    if(deleteSure){
+      const accessToken = getAccess();
+      const refreshToken = getRefresh();
 
-    const postId = param.id;
-    DelCommentMutation.mutate({ commentId, accessToken, refreshToken, postId });
+      const postId = param.id;
+      DelCommentMutation.mutate({ commentId, accessToken, refreshToken, postId });
+    }
   };
 
   const DeleteReply = (commentId, replyId) => {
-    const accessToken = getAccess();
-    const refreshToken = getRefresh();
+    const deleteSure = window.confirm('댓글을 삭제하시겠습니까?');
+    if(deleteSure){
+      const accessToken = getAccess();
+      const refreshToken = getRefresh();
+      
+      const postId = param.id;
+      DelReplyMutation.mutate({
+        commentId,
+        accessToken,
+        refreshToken,
+        postId,
+        replyId,
+      });
+    }
     
-    const postId = param.id;
-    DelReplyMutation.mutate({
-      commentId,
-      accessToken,
-      refreshToken,
-      postId,
-      replyId,
-    });
   };
   const userInfo = useSelector((state) => state.UserInfo);
 
@@ -181,7 +188,7 @@ const Comment = ({ data }) => {
           <button onClick={AddComment}>등록</button>
         </CommentInputDiv>
       </CommentInputArea>
-      {commentList &&
+      {commentList?.length>0 ?
         commentList.map((comment) => (
           <CommentBorderGreen key={comment.id}>
           <CommentContainer>
@@ -193,7 +200,7 @@ const Comment = ({ data }) => {
                 />
                 <span>{comment.username}</span>
                 {comment.userId === Number(userInfo.sub) &&
-                  <img src={dots} alt="" onClick={() => DeleteComment(comment.id)}/>}
+                  <button onClick={() => DeleteComment(comment.id)}>삭제</button>}
               </ProfileSection>
               <div className="comment">{comment.content}</div>
               <BottomSection>
@@ -230,7 +237,7 @@ const Comment = ({ data }) => {
                       />
                       <span>{reply.username}</span>
                       {reply.userId === Number(userInfo.sub) &&
-                        <img src={dots} alt="" onClick={() => DeleteReply(comment.id, reply.id)}/>}
+                        <button onClick={() => DeleteReply(comment.id, reply.id)}>삭제</button>}
                     </ProfileSection>
                     <CommentMain>
                       <div className="comment">{reply.content}</div>
@@ -241,8 +248,9 @@ const Comment = ({ data }) => {
                   </CommentMain>
                 </CommentContainer>
                 ))}
-                </CommentBorderGreen>
-        ))}
+              </CommentBorderGreen>
+        ))
+      : <span className="noComment">아직 작성된 댓글이 없습니다. 첫 댓글을 남겨보세요!</span>}
     </CommentSection>
   );
 };
@@ -251,13 +259,20 @@ export default Comment;
 
 const CommentSection = styled.section`
   display: flex;
-  width: 970px;
+  max-width: 770px;
+  width: 90%;
   flex-direction: column;
   align-items: center;
   line-height: 150%;
+  margin-bottom: 50px;
   .recomment {
-    padding-left: 5%;
+    padding-left: 50px;
     box-sizing: border-box;
+  }
+  .noComment {
+    margin-top: 20px;
+    font-size: 14px;
+    color: var(--gray3);
   }
 `;
 const CommentInputArea = styled.div`
@@ -266,7 +281,7 @@ const CommentInputArea = styled.div`
   align-items: center;
   width: 100%;
   padding-bottom: 30px;
-  border-bottom: 1px solid var(--green4);
+  //border-bottom: 1px solid var(--green4);
   .comment-count {
     margin-top: 34px;
     display: flex;
@@ -286,8 +301,8 @@ const CommentInputArea = styled.div`
 `;
 const CommentBorderGreen = styled.div`
   width: 100%;
-  border-top: 1px solid var(--green4);
-  border-bottom: 1px solid var(--green4);
+  //border-top: 1px solid var(--green4);
+  border-bottom: 2px solid var(--green5);
 `
 const CommentInputDiv = styled.div`
   display: flex;
@@ -350,7 +365,7 @@ const CommentContainer = styled.div`
   display: flex;
   width: 100%;
   padding: 20px 0;
-  border-bottom: 1px solid var(--lightGray);
+  border-bottom: 1px solid var(--gray2);
 `;
 const ProfileSection = styled.div`
   display: flex;
@@ -373,8 +388,15 @@ const ProfileSection = styled.div`
     font-size: 14px;
     font-weight: 600;
   }
-  img {
+  button {
     cursor: pointer;
+    border: none;
+    background: none;
+    margin-right: 5px;
+    color: var(--gray3);
+    &:hover{
+      color: var(--warningRed);
+    }
   }
 `;
 const BottomSection = styled.div`
