@@ -28,6 +28,7 @@ import useCustomAPI from '../../api/withToken/useCustom';
 import hueImg from '../assets/icons/hue.png'
 import saturationImg from '../assets/icons/saturation.png';
 import lightnessImg from '../assets/icons/lightness.png';
+import LOGO from '../assets/images/LOGO.svg'
 const FrameCustomMake = () => {
 
   const {
@@ -180,14 +181,7 @@ const FrameCustomMake = () => {
               $frameImg={frameImg}
               gap={thisGrid.gap}
             >
-              <p
-                style={{
-                  color: color.l > 50 ? "var(--black)" : "var(--whiteGray)",
-                  fontFamily: "'Abril Fatface', cursive",
-                }}
-              >
-                moment film
-              </p>
+              <img src={LOGO} alt="" style={{filter: color.l<50 &&"invert(100%)"}}/>
               <a.InnerImgWrap>
                 {innerImg.map((img, index) => {
                   return (

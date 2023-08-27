@@ -166,6 +166,7 @@ export const PreviewImg = styled.div`
     border: 3px solid var(--green3);
     `};
   div {
+    cursor: pointer;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -175,7 +176,12 @@ export const PreviewImg = styled.div`
     background-color: var(--black);
     opacity: 0.6;
     color: white;
+    img{
+      cursor: pointer;
+    }
     p{
+      cursor: pointer;
+      color: white;
       margin: 0;
       padding: 0;
       font-size: 13px;
@@ -191,6 +197,7 @@ export const FootSection = styled.section`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
   .cam {
     visibility: ${props=>props.view ? "hidden" : "block"};
     margin-left: -24px;

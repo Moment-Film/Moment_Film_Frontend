@@ -43,6 +43,7 @@ const GridBackground = styled.div`
   box-sizing: border-box;
   img {
     width: 148px;
+    margin: 5px auto;
   }
 `
 
