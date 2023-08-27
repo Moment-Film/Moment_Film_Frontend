@@ -104,6 +104,18 @@ export const Video = styled.video`
       height: ${height*0.329}px;
     `}
   }
+  @media (max-width: 300px) {
+    ${({width, height})=> width===270 && css`
+      width: ${width*0.933}px;
+      height: ${height*0.933}px;
+    `}
+  }
+  @media (max-width: 288px) {
+    ${({width, height})=> width===257 && css`
+      width: ${width*0.98}px;
+      height: ${height*0.98}px;
+    `}
+  }
 `
 export const ButtonWrap = styled.div`
   display: flex;
@@ -137,8 +149,9 @@ export const PreviewSlider = styled.div`
   gap: 1px;
   width: 1232.6px;
   height: 108px;
-  background-color: var(--lightGray);
-  margin: 0 308.4px;
+  background-color: var(--gray5);
+  padding-left: 50%;
+  margin-left: -76.6px;
 `
 export const PreviewImg = styled.div`
   box-sizing: border-box;
