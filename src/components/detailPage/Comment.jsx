@@ -430,6 +430,7 @@ const CommentMain = styled.div`
     font-size: 16px;
     color: var(--gray5);
     margin-bottom: 20px;
+    white-space: pre-wrap;
   }
   .replyWrite {
     border: 1px solid var(--gray4);

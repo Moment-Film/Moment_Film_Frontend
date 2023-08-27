@@ -355,6 +355,7 @@ const TextDiv = styled.div`
       line-height: 31.2px;
       font-size: 24px;
       font-weight: 500;
+      white-space: pre-wrap;
     }
     margin-bottom: 40px;
   }
@@ -365,6 +366,7 @@ const TextDiv = styled.div`
     span{
       font-size: 15px;
       color: var(--gray5);
+      white-space: pre-wrap;
     }
     overflow-y: auto;
     &::-webkit-scrollbar {
