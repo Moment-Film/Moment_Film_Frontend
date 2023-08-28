@@ -3,12 +3,12 @@ import { useNavigate } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import StyledButton from "../common/component/StyledButton";
 
-// import homeImg from "../assets/images/home_bgImg.png";
-// import first from "../assets/images/first.svg";
-// import third from "../assets/images/third.png";
+import homeImg from "../assets/images/home_bgImg.png";
+import first from "../assets/images/first.svg";
+import third from "../assets/images/third.png";
 
-// import FirstSec from "../assets/home/FirstSec.png";
-// import Fir_back from "../assets/home/Fir_back.jpg";
+import FirstSec from "../assets/home/FirstSec.png";
+import Fir_back from "../assets/home/Fir_back.jpg";
 import Fir_check from "../assets/home/Fir_check.png";
 import Fir_img from "../assets/home/Fir_img.png";
 import DIA40 from "../assets/home/40DIA.png";
@@ -97,7 +97,7 @@ const Homepage = () => {
         </SecondContent>
       </SecondAlign>
 
-      <ThirdAlign>
+      {/* <ThirdAlign>
         <ThirdLeft>
           <h1>Your own <br />Custom Design</h1>
 
@@ -119,7 +119,7 @@ const Homepage = () => {
 
         </ThirdLeft>
         <img src={third}></img>
-      </ThirdAlign>
+      </ThirdAlign> */}
 
 
     </ContentContainor>
@@ -267,11 +267,11 @@ const Imgwrap = styled.div`
   height: 25px;
   margin-left: auto;
   margin: -25px 0 0 auto;
-
+`
 const CardSection = styled.div`
-display:flex;
-justify-content:center;
-gap:20px;
+  display:flex;
+  justify-content:center;
+  gap:20px;
 `;
 
 const Img = styled.img`
