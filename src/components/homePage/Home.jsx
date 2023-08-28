@@ -3,12 +3,12 @@ import { useNavigate } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import StyledButton from "../common/component/StyledButton";
 
-// import homeImg from "../assets/images/home_bgImg.png";
-// import first from "../assets/images/first.svg";
-// import third from "../assets/images/third.png";
+import homeImg from "../assets/images/home_bgImg.png";
+import first from "../assets/images/first.svg";
+import third from "../assets/images/third.png";
 
-// import FirstSec from "../assets/home/FirstSec.png";
-// import Fir_back from "../assets/home/Fir_back.jpg";
+import FirstSec from "../assets/home/FirstSec.png";
+import Fir_back from "../assets/home/Fir_back.jpg";
 import Fir_check from "../assets/home/Fir_check.png";
 import Fir_img from "../assets/home/Fir_img.png";
 import DIA40 from "../assets/home/40DIA.png";
@@ -97,29 +97,6 @@ const Homepage = () => {
         </SecondContent>
       </SecondAlign>
 
-      <ThirdAlign>
-        <ThirdLeft>
-          <h1>Your own <br />Custom Design</h1>
-
-          <Des>
-            <div>Custom</div>
-            1991년에 첫 번째 사이트가 게시된 이후 웹 디자인이 생기기까지는 오랜 시간이 걸렸습니다.<br />
-            오늘날 인터넷에 10억 개 이상의 웹사이트가 운영되고 있는 가운데, <br />
-            웹디자인 산업이 성장하고 있는 것은 놀랄 일도 아닙니다. <br />
-            Wix는 수천 명의 웹사이트 디자인전문가, 매니아 및 디자이너들이 업계에서 새로운 일을 성취할 수 있도록 힘을 실어주는 놀라운 곳입니다.<br />
-            따라서 웹 디자인의 세계에
-          </Des>
-          <StyledButton
-            func={camBtnClickHandler}
-            title={"촬영하러 가기"}
-            width={"228px"}
-            height={"72px"}
-            fontSize={"24px"}
-          />
-
-        </ThirdLeft>
-        <img src={third}></img>
-      </ThirdAlign>
 
 
     </ContentContainor>
@@ -267,7 +244,7 @@ const Imgwrap = styled.div`
   height: 25px;
   margin-left: auto;
   margin: -25px 0 0 auto;
-
+`
 const CardSection = styled.div`
 display:flex;
 justify-content:center;

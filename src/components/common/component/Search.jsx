@@ -108,7 +108,7 @@ const SearchInputDiv = styled.div`
   width:30%;
 
   height: 40px;
-  border-bottom: 3px solid var(--green5);
+  border-bottom: 2px solid var(--green5);
   border-radius: 5px 5px 0px 0px;
   box-sizing: border-box;
   margin-left: -185px;
