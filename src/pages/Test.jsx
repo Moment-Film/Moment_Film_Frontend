@@ -70,7 +70,7 @@ const Test = () => {
         <div style={{ height: '100vh', display: "flex", alignItems: "center"}}  ></div>
         <div style={{ height: '200vh', display: "flex" ,gap:"5%"}}   ref={intersectionRef}>
             <div style={{ height: '100vh', display: "flex", alignItems: "center" }}  ref={intersectionRef}>
-                <div style={{ fontSize: "30px",border:"1px solid black"}} ref={aaaRef} >
+                <div style={{ fontSize: "30px",border:"1px solid var(--black)"}} ref={aaaRef} >
                     <div>디자이너님 이겁니까??</div>
                     <div>디자이너님 이겁니까??</div>
                     <div>디자이너님 이겁니까??</div>
