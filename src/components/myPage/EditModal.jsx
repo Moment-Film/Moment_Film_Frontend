@@ -35,9 +35,13 @@ import useInputValidation from "../../hooks/useInputValidation";
 import useToken from "../../hooks/useToken";
 import useUserAPI from "../../api/withToken/user";
 
-function EditModal({ onClose }) {
+function EditModal({ onClose, profileImg }) {
   const { sendEmail, putEditInfo, getPrivateInfo, replacePassword } =
     useUserAPI();
+
+  // const { data, isLoading, isError } = useQuery(`User${userId}`, () =>
+  //   getProfile(userId)
+  // );
 
   const { getAccess, getRefresh } = useToken();
 
@@ -78,7 +82,6 @@ function EditModal({ onClose }) {
       setEditProfile({
         ["phone"]: data.data.data.phone,
         ["username"]: data.data.data.username,
-        // ["image"]: data.data.data.image,
       });
     }
   }, [data]);
@@ -200,7 +203,7 @@ function EditModal({ onClose }) {
   const stopPropagation = (e) => {
     e.stopPropagation();
   };
-
+console.log(profileImg)
   return (
     <ModalBg onClick={onClose}>
       <ProfileWrap onClick={stopPropagation}>
@@ -214,11 +217,17 @@ function EditModal({ onClose }) {
           <PicSection>
             <PicBox>
               <img
-                src={curruntImage ? curruntImage : nullImg}
+                src={
+                  curruntImage
+                    ? curruntImage
+                    : (profileImg
+                    ? profileImg
+                    : nullImg)
+                }
                 alt="프로필 이미지"
               />
             </PicBox>
-            {/* 제가 기본 이미지를 설정해놨는데 조건문을 걸어서 렌더링을 바꿔야겟어요!! 원래는 커런트이미지가 들어가잇엇습니다 기본적으로는 nullImg를 보여주고 수정 버튼을 눌ㄹ러서 이미지를 불러오면 그 이미지로 보여야하는디 으떠카죠 */}
+
             <a.UploadInput
               id="fileInput"
               type="file"

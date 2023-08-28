@@ -10,12 +10,16 @@ import useUserAPI from "../../api/withToken/user";
 import { Span28, StyledSpan24 } from "../common/styles/StyledSpan";
 // import ProfileEdit from "./ProfileEdit";
 import EditModal from "./EditModal";
-import LogoutBtn from '../common/component/LogoutBtn'
+import LogoutBtn from "../common/component/LogoutBtn";
+import nullImg from "../assets/images/nullProfile.svg";
+import { useQuery } from "react-query";
+import { getProfile } from "../../api/nonToken/user";
 
-const MyPageUserData = ({ lang, data }) => {
-  const {
-    FollowAPI
-  } = useUserAPI();
+const MyPageUserData = ({ lang, data, }) => {
+  const { FollowAPI } = useUserAPI();
+
+  // const { data:profileData, error, isLoading } = useQuery(['profile', userId], () => getProfile(userId));
+
 
   const userInfo = useSelector((state) => state.UserInfo);
   const navigate = useNavigate();
@@ -51,7 +55,7 @@ const MyPageUserData = ({ lang, data }) => {
 
   return (
     <div>
-      {onModal && <EditModal onClose={editModalHandler} />}
+      {onModal && <EditModal onClose={editModalHandler} profileImg={data.image} />}
       {showModal && (
         <Modal
           onClose={hideModalHandler}
@@ -65,11 +69,7 @@ const MyPageUserData = ({ lang, data }) => {
 
       <UserInfoSection>
         <UserProfileSection>
-          <Img
-            src={
-              "https://image.imnews.imbc.com/news/2022/enter/article/__icsFiles/afieldfile/2022/03/13/20220313215345_rwTp2delOQ6W637828051274144183.jpg"
-            }
-          ></Img>
+        <Img src={data.image ? data.image : nullImg} />
         </UserProfileSection>
 
         <UserDataSection>
@@ -77,9 +77,7 @@ const MyPageUserData = ({ lang, data }) => {
             {Number(userInfo.sub) === data.id ? (
               <>
                 <div className="item-1">
-                  <StyledSpan24>
-                    {data.username}
-                  </StyledSpan24>
+                  <StyledSpan24>{data.username}</StyledSpan24>
                   <span className="point">+600P</span>
                 </div>
 
@@ -94,23 +92,23 @@ const MyPageUserData = ({ lang, data }) => {
                   </div>
                 </div>
               </>
-
             ) : (
               <>
                 <div className="item-1">
-                  <StyledSpan24>
-                    {data.username}
-                  </StyledSpan24>
+                  <StyledSpan24>{data.username}</StyledSpan24>
                   <span className="subSpan">{" 님의 프로필"}</span>
-                
-                    {
-                      data.followerList.some(
-                        (follower) => follower.id === Number(userInfo.sub)
-                      )
-                        ?   <FollowBtn state={true} onClick={FollowHandler}>ㆍ언팔로우 </FollowBtn>
-                        :   <FollowBtn state={false} onClick={FollowHandler}>ㆍ팔로우</FollowBtn>
-                    }
-                 
+
+                  {data.followerList.some(
+                    (follower) => follower.id === Number(userInfo.sub)
+                  ) ? (
+                    <FollowBtn state={true} onClick={FollowHandler}>
+                      ㆍ언팔로우{" "}
+                    </FollowBtn>
+                  ) : (
+                    <FollowBtn state={false} onClick={FollowHandler}>
+                      ㆍ팔로우
+                    </FollowBtn>
+                  )}
                 </div>
 
                 <div className="item-2">
@@ -146,20 +144,18 @@ const MyPageUserData = ({ lang, data }) => {
 
 export default MyPageUserData;
 
-
 const UserInfoSection = styled.section`
   display: flex;
-  justify-content:center;
+  justify-content: center;
   gap: 30px;
   padding: 74px 0 74px 0;
   background-color: var(--whiteGray);
 
   @media (max-width: 700px) {
-        align-items:center;
-        flex-direction:column;
-        padding:0;
-}
-
+    align-items: center;
+    flex-direction: column;
+    padding: 0;
+  }
 `;
 
 const UserProfileSection = styled.section`
@@ -169,54 +165,54 @@ const UserProfileSection = styled.section`
   gap: 10px;
   width: 198px;
   height: 250px;
-  border :3px solid black;
+  border: 3px solid black;
 `;
 
 const FollowBtn = styled.button`
-    background-color:rgb(96, 161, 14);
-    color:${(props)=>props.state ? "var(--green5)" : "white"};
-    background-color:${(props)=>props.state ? "rgb(246, 250, 240)" : "green" };
-    border-radius:5px;
-    border:1px solid rgb(96, 161, 14);
-    padding:0 10px 0 10px;
-`
+  background-color: rgb(96, 161, 14);
+  color: ${(props) => (props.state ? "var(--green5)" : "white")};
+  background-color: ${(props) =>
+    props.state ? "rgb(246, 250, 240)" : "green"};
+  border-radius: 5px;
+  border: 1px solid rgb(96, 161, 14);
+  padding: 0 10px 0 10px;
+`;
 
 const NameSection = styled.div`
   display: flex;
   justify-content: space-between;
-  .item-1{
-    display:flex;
+  .item-1 {
+    display: flex;
     gap: 10px;
-    padding-top:30px;
-    
-    .point{
-      padding-top:10px;
+    padding-top: 30px;
+
+    .point {
+      padding-top: 10px;
       font-size: 16px;
-  font-weight: bold;
-  color: var(--green5);
+      font-weight: bold;
+      color: var(--green5);
     }
 
-    .subSpan{
-    padding-top:10px;
+    .subSpan {
+      padding-top: 10px;
+    }
   }
-    
-  }
-  .item-2{
-    display:flex;
-    align-items:center;
+  .item-2 {
+    display: flex;
+    align-items: center;
     gap: 10px;
-    img{
-      width:22px;
+    img {
+      width: 22px;
     }
 
-    .option{
-      display:flex;
-      align-items:center;
-      padding-bottom:30px;
-      gap:5px;
+    .option {
+      display: flex;
+      align-items: center;
+      padding-bottom: 30px;
+      gap: 5px;
     }
   }
-/*   justify-content: space-between;
+  /*   justify-content: space-between;
   image{
     width:20px;
   }
@@ -232,31 +228,30 @@ const NameSection = styled.div`
 `;
 
 const UserDataSection = styled.section`
-display:flex;
-width:60%;
-max-width:550px;
-flex-direction:column;
-flex-wrap:wrap;
-justify-content: space-between;
- .box-2{
-  padding: 0 20% 0 20%;
-    display:flex;
-    height:178px;
-    align-items:center;
-    justify-content:center;
-    background-color:white;
-    border:1px solid green;
-    border-radius:5px;
-    hr{
-      height:19.2px;
+  display: flex;
+  width: 60%;
+  max-width: 550px;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  .box-2 {
+    padding: 0 20% 0 20%;
+    display: flex;
+    height: 178px;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border: 1px solid green;
+    border-radius: 5px;
+    hr {
+      height: 19.2px;
     }
-    div{
-      display:flex;
-      flex-direction:column;
-      gap:3px;
-
+    div {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
     }
- }
+  }
 `;
 
 const UserItem = styled.div`
@@ -267,8 +262,8 @@ const UserItem = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size:16px;
-  color:var(--gray5);
+  font-size: 16px;
+  color: var(--gray5);
 `;
 const UserItemResult = styled.div`
   display: flex;
@@ -278,11 +273,10 @@ const UserItemResult = styled.div`
   font-size: 24px;
   font-weight: bold;
   color: var(--green5);
-
 `;
 
 const Img = styled.img`
-    width:100%;
-    height:100%;
-    object-fit:cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
