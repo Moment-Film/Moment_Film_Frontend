@@ -30,6 +30,7 @@ import WithdrawalBtn from "../common/component/WithdrawalBtn";
 import cancel from "../assets/icons/cancelx2.png";
 import lock from "../assets/icons/lock.png";
 import imgEdit from "../assets/icons/imgEdit.png";
+import nullImg from "../assets/images/nullProfile.svg";
 import useInputValidation from "../../hooks/useInputValidation";
 import useToken from "../../hooks/useToken";
 import useUserAPI from "../../api/withToken/user";
@@ -43,7 +44,7 @@ function EditModal({ onClose }) {
   // 프로필 수정 state
   const [isEdit, setIsEdit] = useState(false);
   const [curruntImage, setCurruntImage] = useState();
-  const [UploadImage, setUploadImage] = useState();
+  const [UploadImage, setUploadImage] = useState(null);
   const [editProfile, setEditProfile] = useState({
     username: "",
     phone: "",
@@ -77,6 +78,7 @@ function EditModal({ onClose }) {
       setEditProfile({
         ["phone"]: data.data.data.phone,
         ["username"]: data.data.data.username,
+        // ["image"]: data.data.data.image,
       });
     }
   }, [data]);
@@ -140,17 +142,34 @@ function EditModal({ onClose }) {
       // curruntImage - 이미지 src용 url / uploadImage - file객체
     }
   };
+
   const editInputHandler = (key, value) => {
     const newInfo = { ...editProfile };
     newInfo[key] = value;
     setEditProfile(newInfo);
   };
+
   const submitEdit = () => {
+    const profileData = new FormData();
+
     const editName = editProfile.username;
     const editPhone = editProfile.phone;
-    // putEditInfo({access, refresh, editName, editPhone});
+
+    const editProfileData = { username: editName, phone: editPhone };
+
+    if (UploadImage !== null) {
+      // const FrameFile = new File([UploadImage], 'test.jpg', { type: 'image/jpeg' });
+      profileData.append("imageFile", UploadImage);
+    }
+    profileData.append(
+      "data",
+      new Blob([JSON.stringify(editProfileData)], { type: "application/json" })
+    );
+
+    // const editImage = editProfile.image;
+    putEditInfo({ accessToken, refreshToken, profileData });
     setIsEdit(false);
-    editInfoMutation.mutate({ accessToken, refreshToken, editName, editPhone });
+    editInfoMutation.mutate({ accessToken, refreshToken, profileData });
   };
 
   const handleSendEmail = () => {
@@ -194,8 +213,12 @@ function EditModal({ onClose }) {
         <ProfileSection>
           <PicSection>
             <PicBox>
-              <img src={curruntImage} alt="프로필 이미지" />
+              <img
+                src={curruntImage ? curruntImage : nullImg}
+                alt="프로필 이미지"
+              />
             </PicBox>
+            {/* 제가 기본 이미지를 설정해놨는데 조건문을 걸어서 렌더링을 바꿔야겟어요!! 원래는 커런트이미지가 들어가잇엇습니다 기본적으로는 nullImg를 보여주고 수정 버튼을 눌ㄹ러서 이미지를 불러오면 그 이미지로 보여야하는디 으떠카죠 */}
             <a.UploadInput
               id="fileInput"
               type="file"
@@ -204,7 +227,7 @@ function EditModal({ onClose }) {
               onChange={UploadPic}
             />
             <EditBtn htmlFor="fileInput">
-              <img src={imgEdit} alt="" />
+              {isEdit && <img src={imgEdit} alt="" />}
             </EditBtn>
 
             <PicInfoSection>
