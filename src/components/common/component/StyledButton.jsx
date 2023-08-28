@@ -35,13 +35,17 @@ const WhiteBox = styled.div`
   position: absolute;
   z-index: 0;
   box-sizing: border-box;
-  max-width: 470px;
+  max-width: 133px;
+  max-height: 39px;
 `;
 const MainBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 10px;
+
+  max-width: 133px;
+  max-height: 39px;
 
   width: ${(props) => props.width};
   height: ${(props) => props.height};
@@ -51,7 +55,6 @@ const MainBox = styled.div`
   background-color: var(--lightGreen);
   box-sizing: border-box;
 
-  max-width: 470px;
   cursor: pointer;
 
   z-index: 1;
