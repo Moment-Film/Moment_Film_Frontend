@@ -19,6 +19,9 @@ const useAuthAPI = () => {
       // 응답에서 토큰 추출하여 처리
       const accessToken = response.headers.accesstoken;
       const refreshToken = response.headers.refreshtoken
+      console.log("ac",accessToken);
+      console.log("rc",refreshToken);
+
       saveAccessToken(accessToken)
       saveRefreshToken(refreshToken)
       saveUserInfo(accessToken)

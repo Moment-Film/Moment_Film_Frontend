@@ -17,6 +17,8 @@ import {
 	SaturationSlider,
 	LightnessSlider,
 } from "react-slider-color-picker";
+import uploadImg from '../components/assets/icons/upload.svg'
+import delImg from '../components/assets/icons/delete.svg'
 
 import SlideComponent from "./slider/slider";
 
@@ -354,21 +356,19 @@ function DrawPage() {
 					</LeftBox>
 					<RightBox>
 						<OptionSection>
-							<section className="mode">
-								<div className="optionHeader">
-									<span >모드</span>
-								</div>
-								<div className="modeBtn">
-									<ModeBtn state={eraser} onClick={() => setEraser(!eraser)}>지우개</ModeBtn>
-									<ModeBtn state={!mode} onClick={() => setMode(false)}>그리기</ModeBtn>
-									<ModeBtn state={mode} onClick={() => setMode(true)}>사진 옮기기</ModeBtn>
-								</div>
-							</section>
+							<div className="modeBtn">
+								<ModeBtn state={!mode} onClick={() => setMode(false)}>그리기</ModeBtn>
+								<ModeBtn state={mode} onClick={() => setMode(true)}>사진 옮기기</ModeBtn>
+							</div>
+
 
 							{
 								!mode
 
 									? <section className="rangeSlider">
+										
+										<EraserBtn state={eraser} onClick={() => setEraser(!eraser)}>지우개</EraserBtn>
+
 										<div className="optionHeader">
 											<span >프레임 커스텀</span>
 										</div>
@@ -429,102 +429,97 @@ function DrawPage() {
 
 									:
 
-									<StickerSection className="mode">
-										<div className="optionHeader">
-											<span >스티커</span>
-										</div>
+									<StickerSection >
 
-										<div className="StickerInput">
+										<StickerInput className="StickerInput">
+											<span>이미지 불러오기 </span>
 											<input
 												type="file"
 												onChange={handleImageChange} />
+											<img src={uploadImg}></img>
+										</StickerInput>
+
+
+										<div className="optionHeader">
+											<span >스티커 선택</span>
 										</div>
 
-										<p className="optionName">스티커크기</p>
-										<div className="progess">
-											가로
-											<img src={lightnessImg} />
-											<Slider
-												min={50}
-												max={200}
-												step={1}
-												value={imageData[selectedImage]?.width}
-												onChange={(value) => handleStickerSize(value, "x")
-												}
-												trackStyle={{
-													backgroundColor:
-														"rgba(203, 221, 90, 1)",
-													height: "13px"
-
-												}}
-												handleStyle={{
-													borderColor: "white",
-													border: "5px solid white",
-													boxShadow: "1px 1px 1px gray",
-													backgroundColor: "rgba(203, 221, 90, 1)",
-													borderRadius: "50%",
-													width: "25px",
-													height: "25px",
-													marginLeft: "-5px",
-													marginTop: "-9px",
-												}}
-											/>
-										</div>
-										<div className="progess">
-											세로
-											<img src={lightnessImg} />
-											<Slider
-												min={50}
-												max={100}
-												step={1}
-												value={imageData[selectedImage]?.height}
-												onChange={(value) => handleStickerSize(value, "y")
-												}
-												trackStyle={{
-													backgroundColor:
-														"rgba(203, 221, 90, 1)",
-													height: "13px"
-
-												}}
-												handleStyle={{
-													borderColor: "white",
-													border: "5px solid white",
-													boxShadow: "1px 1px 1px gray",
-													backgroundColor: "rgba(203, 221, 90, 1)",
-													borderRadius: "50%",
-													width: "25px",
-													height: "25px",
-													marginLeft: "-5px",
-													marginTop: "-9px",
-												}}
-											/>
-										</div>
-
-										<div className="selectImage" style={{ display: "flex", justifyContent: "center", height: "200px" }} >
-
-											<div >
-												{
-													imageData.map((image, index) => (
-														<div key={index} className="selectedImage">
-															<img src={URL.createObjectURL(image.image)} alt={`Selected ${index}`} />
-															<button onClick={() => removeImage(index)}>Remove</button>
+										<SelectedSection>
+											{
+												imageData.map((image, index) => (
+													<div key={index} className="InputImage">
+														<div className="removeBtnWrap">
+															<button className="removeBtn" onClick={() => removeImage(index)}>
+																<img src={delImg}></img>
+															</button>
 														</div>
-													))
-												}
-											</div>
 
-											<div >
-												{
-													imageData.map((image, index) => (
-														<div key={index} className="selectedImage">
-															<img src={URL.createObjectURL(image.image)} alt={`Selected ${index}`} />
-															<button onClick={() => selectImage(index)}>선택</button>
-														</div>
-													))
-												}
-											</div>
+														<img src={URL.createObjectURL(image.image)} alt={`${index}`} onClick={() => selectImage(index)} />
+													</div>
+												))
+											}
+										</SelectedSection>
 
+										<div className="optionHeader">
+											<span >크기 조정</span>
 										</div>
+
+										<section className="sizeSection">
+											<div className="sizeProgress">
+												<span>가로</span>
+												<Slider
+													min={50}
+													max={200}
+													step={1}
+													value={imageData[selectedImage]?.width}
+													onChange={(value) => handleStickerSize(value, "x")
+													}
+													trackStyle={{
+														backgroundColor:
+															"var(--green5)",
+
+
+													}}
+													handleStyle={{
+														borderColor: "var(--green5)",
+														border: "2px solid var(--green5)",
+														boxShadow: "1px 1px 1px gray",
+														borderRadius: "50%",
+														width: "12px",
+														height: "12px",
+														marginLeft: "-5px",
+														marginTop: "-5px",
+													}}
+												/>
+											</div>
+											<div className="sizeProgress">
+												<span>세로</span>
+												<Slider
+													min={50}
+													max={100}
+													step={1}
+													value={imageData[selectedImage]?.height}
+													onChange={(value) => handleStickerSize(value, "y")
+													}
+													trackStyle={{
+														backgroundColor:
+															"var(--green5)",
+
+													}}
+													handleStyle={{
+														borderColor: "var(--green5)",
+														border: "2px solid var(--green5)",
+														boxShadow: "1px 1px 1px gray",
+														borderRadius: "50%",
+														width: "12px",
+														height: "12px",
+														marginLeft: "-5px",
+														marginTop: "-5px",
+													}}
+												/>
+											</div>
+										</section>
+
 
 									</StickerSection>
 							}
@@ -554,8 +549,8 @@ export default DrawPage;
 const OptionSection = styled.section`
   display: flex;
   flex-direction: column;
-
-  padding-top: 30px;
+  width:70%;
+  padding-top: 52px;
 
   .doneBtn{
     margin-top:87px;
@@ -573,6 +568,17 @@ const OptionSection = styled.section`
     align-items:center;
     gap:10px;
   }
+  .sizeProgress{
+	display:flex;
+	flex-direction:column;
+	width:60%;
+    gap:10px;
+  }
+  .sizeSection{
+	display:flex;
+	gap:20px;
+	width:90%;
+  }
   img{
     width:38px;
   }
@@ -588,25 +594,27 @@ const OptionSection = styled.section`
   }
 
   .rangeSlider{
+	padding-top:23.5px;
 	display:flex;
 	flex-direction:column;
 	align-items:center;
   }
 
 
+
 .modeBtn{
-	padding-top:19.5px;
-	padding-bottom:40px;
 	display:flex;
+	flex-wrap:wrap;
 	justify-content:center;
 	gap:20px;
+	border-bottom:1px solid rgb(217, 217, 217);
 
   }
   
   .saveBtn{
 	display:flex;
 	justify-content:center;
-	padding-top:10%;
+	margin-top:30%;
   }
 
 
@@ -616,23 +624,55 @@ const OptionSection = styled.section`
 const StickerSection = styled.div`
 	display: flex;
 	flex-direction:column;
+	align-items:center;
+  	padding-top: 35.5px;
 
 	.StickerInput{
-		padding-top:19.5px;
-	display:flex;
-	justify-content:center;
+		box-sizing:border-box;
+		display:flex;
+		width:100%;
+		height:35px;
+		align-items:center;
+		padding: 0 10px 0  10px;
+		justify-content:space-between;
+		background-color:var(--gray1);
 
-  }
+		span{
+			font-size:12px;
+			color:rgb(204, 204, 204)
+		}
+
+		img{
+			width:16px;
+		}
+
+  	}
 `;
 
 const ModeBtn = styled.button`
-	width:100px;
+	width:80px;
 	height:27px;
-	border-radius:5px;
-	border: 1px solid var(--green5);
-	background-color:${(props) => props.state ? 'var(--green5)' : 'var(--green1)'};
-	color:${(props) => props.state ? 'var(--green1)' : 'var(--green5)'};
+	border:none;
+	background:none;
+/* 	border-radius:5px; */
+	border-bottom: 2.5px solid ${(props) => props.state ? 'var(--green5)' : 'var(--green1)'};
+/* 	background-color:${(props) => props.state ? 'var(--green5)' : 'var(--green1)'};
+ */	
+	color:${(props) => props.state ? 'var(--green5)' : 'var(--black)'};
+	z-index:10px;
+`;
 
+const EraserBtn = styled.button`
+	width:80px;
+	height:27px;
+
+    color:${(props)=>props.state ? "var(--green5)" : "white"};
+    background-color:${(props)=>props.state ? "rgb(246, 250, 240)" : "green" };
+    border-radius:5px;
+    border:1px solid rgb(96, 161, 14);
+    padding:0 10px 0 10px;
+	margin-left:auto;
+	margin-bottom:10px;
 `;
 
 
@@ -651,14 +691,14 @@ const DrawSection = styled.div`
 	display: flex;
 `;
 const LeftBox = styled.div`
-	height:60vh;
-  	max-width: 800px;
 	width:69%;
+  	max-width: 800px;
+	max-height:863px;
   	display: flex;
 	flex-direction:column;
   	align-items: center;
-  	justify-content: center;
-	padding:67px 0 67px 0;
+	padding-top:13%;
+
 
 	background: var(--lightGray);
 `;
@@ -677,17 +717,28 @@ const RightBox = styled.div`
 	display:flex;
 	justify-content:center;
 	gap:10px;
+
 	width: 31%;
 	max-width:370px;
+	max-height:863px;
+	height:863px;
 	background-color: white;
 
   .optionHeader{
     display:flex;
-    width:290px;
+    width:100%;
     justify-content:space-between;
     border-bottom:1px solid rgb(217, 217, 217);
     padding-bottom:9px;
-    font-size:16px;
+	margin-bottom:14px;
+
+
+
+	span{
+		font-size:14px;
+		font-weight: 500;
+		color:var(--green5);
+	}
 
     img{
       width:21px;
@@ -695,7 +746,78 @@ const RightBox = styled.div`
   }
 `;
 
+const StickerInput = styled.div`
+	width:100%;
+	border-bottom: 1px solid var(--green5);
+  	display:flex;
+  	margin-bottom:20px;
 
+	justify-content:space-between;
+
+	input{
+		position:absolute;
+		opacity:0;
+		background-color: var(--gray1)
+	}
+`
+const SelectedSection = styled.div`
+	display: flex;
+	justify-content:flex-start;
+	width:100%;
+	height:280px;
+	flex-wrap:wrap;
+	gap:30px;
+
+	overflow-y: scroll;
+	height: 150px;
+	margin-top: 30px;
+	position:relative;
+
+	margin-bottom: 40px;
+
+	&::-webkit-scrollbar{
+      width: 10px;
+    }
+    &::-webkit-scrollbar-thumb{
+      box-sizing: border-box;
+      background-color: var(--green1);
+      border: 2px solid var(--green4);
+    }
+    &::-webkit-scrollbar-track{
+      background-color: var(--white);
+    }
+	
+	
+	.InputImage{
+		img{
+			width:70px;
+			height:80px;
+		}
+
+		.removeBtnWrap{
+			width:100%;
+			display:flex;
+			margin-left:auto;
+			justify-content: flex-end; 
+
+
+			.removeBtn{
+				position:absolute;
+				border-radius:50%;
+
+				img{
+					width:20px;
+					height:20px;
+				}
+			}
+		}
+
+
+
+	}
+
+
+`
 
 
 //////////////////////

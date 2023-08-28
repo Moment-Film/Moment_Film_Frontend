@@ -30,20 +30,25 @@ import WithdrawalBtn from "../common/component/WithdrawalBtn";
 import cancel from "../assets/icons/cancelx2.png";
 import lock from "../assets/icons/lock.png";
 import imgEdit from "../assets/icons/imgEdit.png";
+import nullImg from "../assets/images/nullProfile.svg";
 import useInputValidation from "../../hooks/useInputValidation";
 import useToken from "../../hooks/useToken";
 import useUserAPI from "../../api/withToken/user";
 
-function EditModal({ onClose }) {
+function EditModal({ onClose, profileImg }) {
   const { sendEmail, putEditInfo, getPrivateInfo, replacePassword } =
     useUserAPI();
+
+  // const { data, isLoading, isError } = useQuery(`User${userId}`, () =>
+  //   getProfile(userId)
+  // );
 
   const { getAccess, getRefresh } = useToken();
 
   // 프로필 수정 state
   const [isEdit, setIsEdit] = useState(false);
   const [curruntImage, setCurruntImage] = useState();
-  const [UploadImage, setUploadImage] = useState();
+  const [UploadImage, setUploadImage] = useState(null);
   const [editProfile, setEditProfile] = useState({
     username: "",
     phone: "",
@@ -131,7 +136,8 @@ function EditModal({ onClose }) {
       },
     }
   );
-
+ 
+  
   const UploadPic = (e) => {
     const input = e.target;
     if (input.files && input.files[0]) {
@@ -140,17 +146,34 @@ function EditModal({ onClose }) {
       // curruntImage - 이미지 src용 url / uploadImage - file객체
     }
   };
+
   const editInputHandler = (key, value) => {
     const newInfo = { ...editProfile };
     newInfo[key] = value;
     setEditProfile(newInfo);
   };
+
   const submitEdit = () => {
+    const profileData = new FormData();
+
     const editName = editProfile.username;
     const editPhone = editProfile.phone;
-    // putEditInfo({access, refresh, editName, editPhone});
+
+    const editProfileData = { username: editName, phone: editPhone };
+
+    if (UploadImage !== null) {
+      // const FrameFile = new File([UploadImage], 'test.jpg', { type: 'image/jpeg' });
+      profileData.append("imageFile", UploadImage);
+    }
+    profileData.append(
+      "data",
+      new Blob([JSON.stringify(editProfileData)], { type: "application/json" })
+    );
+
+    // const editImage = editProfile.image;
+    putEditInfo({ accessToken, refreshToken, profileData });
     setIsEdit(false);
-    editInfoMutation.mutate({ accessToken, refreshToken, editName, editPhone });
+    editInfoMutation.mutate({ accessToken, refreshToken, profileData });
   };
 
   const handleSendEmail = () => {
@@ -181,7 +204,7 @@ function EditModal({ onClose }) {
   const stopPropagation = (e) => {
     e.stopPropagation();
   };
-
+console.log(profileImg)
   return (
     <ModalBg onClick={onClose}>
       <ProfileWrap onClick={stopPropagation}>
@@ -194,8 +217,18 @@ function EditModal({ onClose }) {
         <ProfileSection>
           <PicSection>
             <PicBox>
-              <img src={curruntImage} alt="프로필 이미지" />
+              <img
+                src={
+                  curruntImage
+                    ? curruntImage
+                    : (profileImg
+                    ? profileImg
+                    : nullImg)
+                }
+                alt="프로필 이미지"
+              />
             </PicBox>
+
             <a.UploadInput
               id="fileInput"
               type="file"
@@ -204,7 +237,7 @@ function EditModal({ onClose }) {
               onChange={UploadPic}
             />
             <EditBtn htmlFor="fileInput">
-              <img src={imgEdit} alt="" />
+              {isEdit && <img src={imgEdit} alt="" />}
             </EditBtn>
 
             <PicInfoSection>
