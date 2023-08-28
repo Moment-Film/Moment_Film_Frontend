@@ -201,7 +201,6 @@ export const ButtonWrap = styled.div`
   width: 95%;
   max-width: 900px;
   top: ${({top})=>top||660}px;
-  z-index: 200;
   justify-content: space-between;
 `
 export const MoveButton = styled.button`
@@ -229,6 +228,7 @@ export const PreviewSlider = styled.div`
   background-color: var(--gray5);
   padding-left: 50%;
   margin-left: -76.6px;
+  z-index: 10;
 `
 export const PreviewImg = styled.div`
   box-sizing: border-box;
