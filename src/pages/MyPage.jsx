@@ -11,8 +11,6 @@ import { getProfile } from '../api/nonToken/user';
 import { useParams } from 'react-router-dom';
 
 function MyPage() {
-  const a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 123, 123, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 123, 123, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 123, 123];
-
   const userId = useParams().id;
 
   // 유저 정보 불러오는 쿼리

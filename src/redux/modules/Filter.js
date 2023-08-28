@@ -6,9 +6,7 @@ const initialState = {
     blur:0,
     brightness:0,
     saturate:0,
-    grayscale:0,
     contrast:0,
-    huerotate:0,
     sepia:0,
 };
 

@@ -2,7 +2,13 @@ import axios from "axios";
 import useToken from "../../hooks/useToken";
 
 const useUserAPI = () => {
-  const { getAccess, getRefresh } = useToken();
+
+  const {
+    getAccess,
+    getRefresh,
+    saveAccessToken
+  } = useToken();
+
 
   //axios 객체
   const userAxios = axios.create();
@@ -27,6 +33,32 @@ const useUserAPI = () => {
       return Promise.reject(error);
     }
   );
+
+  userAxios.interceptors.response.use(
+    function (response) {
+      console.log(response.headers.accessToken)
+/*       const timestampInSeconds = 1693186240; // 주어진 유닉스 타임스탬프 (초 단위)
+      const timestampInMilliseconds = timestampInSeconds * 1000; // 밀리초 단위로 변환
+
+      const date = new Date(timestampInMilliseconds);
+      const dateInKoreaTimeZone = new Date(date.getTime() + (9 * 60 * 60 * 1000)); // 한국 표준시로 변환 (GMT+0900)
+
+      console.log(dateInKoreaTimeZone); */
+
+      if (response.headers.accessToken) {
+        alert("변경됨")
+        const accessToken = response.headers.accesstoken;
+        saveAccessToken(accessToken)
+      }
+       return response;
+    },
+    function (error) {
+      return Promise.reject(error);
+    }
+  );
+
+
+
 
   //팔로우 요청 및 취소
   const FollowAPI = async (userId) => {
@@ -59,8 +91,16 @@ const useUserAPI = () => {
   };
 
   // 회원정보 수정 api
-  const putEditInfo = async ({ profileData }) => {
-    const res = await userAxios.put(`/api/user/info`, profileData);
+
+  const putEditInfo = async ({ editName, editPhone }) => {
+    const res = await userAxios.put(
+      `/api/user/info`,
+      {
+        username: editName,
+        phone: editPhone,
+      },
+    );
+
     return res;
   };
 
@@ -94,18 +134,15 @@ const useUserAPI = () => {
 
   const likePost = async ({ postId }) => {
     try {
-      console.log(postId);
-      /*       console.log(accessToken)
-
-      console.log(refreshToken) */
-
       const res = await userAxios.post(`/api/post/${postId}/likes`, null);
       console.log(res);
       return res.data.data;
+
     } catch (error) {
       throw error;
     }
   };
+
 
   return {
     FollowAPI,
