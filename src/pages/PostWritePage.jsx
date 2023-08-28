@@ -59,7 +59,7 @@ function PostWritePage() {
 
     console.log(FrameForm)
     ////////////////////////////////////////////////////
-    
+
     const filterId = await addFilter(filterInfo);
     const frameId = await addFrame(FrameForm);
     console.log(filterId)

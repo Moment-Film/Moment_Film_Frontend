@@ -133,7 +133,8 @@ function EditModal({ onClose }) {
       },
     }
   );
-
+ 
+  
   const UploadPic = (e) => {
     const input = e.target;
     if (input.files && input.files[0]) {

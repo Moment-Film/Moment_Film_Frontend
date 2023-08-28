@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { Link, useNavigate } from 'react-router-dom'
 import { useParams } from 'react-router-dom';
 import mini_flower from '../assets/icons/mini_flower.svg'
-
+import bannerImg from '../assets/images/banner.svg'
 function Post() {
   const a=[1,2,3,4];
   const params = useParams();
@@ -50,7 +50,7 @@ function Post() {
     <>
       <PostPage>
         <PostHeaderSection>
-
+            <img src={bannerImg} alt="" />
         </PostHeaderSection>
         <PostNav>
           <div className='postTitle'>Post Page <img src={mini_flower}/></div>
@@ -93,8 +93,13 @@ const PostHeaderSection = styled.div`
   justify-content:center;
   align-items:center;
   width:100%;
-  height:614px;
   background-color:var(--gray1);
+  
+  img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }
 `
 
 const StyledLink = styled(Link)`
@@ -148,6 +153,11 @@ const PostNav = styled.div`
       font-size:28px;
       font-weight:bold;
     }
+
+    div{
+      cursor:pointer;
+    }
+    
 
 `
 

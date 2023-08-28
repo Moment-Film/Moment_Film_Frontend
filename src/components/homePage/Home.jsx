@@ -29,6 +29,7 @@ const Homepage = () => {
 
   return (
     <ContentContainor>
+
       {/*        <video width="100%" height="auto" autoplay loop muted controls style={{position:"absolute" }} >
         <source src="https://finalimgbucket.s3.ap-northeast-2.amazonaws.com/61bd94a0-39e9-4aff-a677-dfc4167be03b" type="video/mp4"/>
         대체 텍스트
@@ -79,10 +80,48 @@ const Homepage = () => {
       </FirstAlign>
 
       <SecondAlign>
-        <SecondContent></SecondContent>
+        <SecondContent>
+          <h1 style={{ justifyContent: "left", width: "100%" }}>WHY HAVE <br /> TO MOMENT</h1>
+          <CardSection>
+            <Img src={first}></Img>
+            <Img src={first}></Img>
+            <Img src={first}></Img>
+            <Img src={first}></Img>
+          </CardSection>
+          <CardSection>
+            <Img src={first}></Img>
+            <Img src={first}></Img>
+            <Img src={first}></Img>
+            <Img src={first}></Img>
+          </CardSection>
+        </SecondContent>
       </SecondAlign>
 
-      <ThirdAlign></ThirdAlign>
+      <ThirdAlign>
+        <ThirdLeft>
+          <h1>Your own <br />Custom Design</h1>
+
+          <Des>
+            <div>Custom</div>
+            1991년에 첫 번째 사이트가 게시된 이후 웹 디자인이 생기기까지는 오랜 시간이 걸렸습니다.<br />
+            오늘날 인터넷에 10억 개 이상의 웹사이트가 운영되고 있는 가운데, <br />
+            웹디자인 산업이 성장하고 있는 것은 놀랄 일도 아닙니다. <br />
+            Wix는 수천 명의 웹사이트 디자인전문가, 매니아 및 디자이너들이 업계에서 새로운 일을 성취할 수 있도록 힘을 실어주는 놀라운 곳입니다.<br />
+            따라서 웹 디자인의 세계에
+          </Des>
+          <StyledButton
+            func={camBtnClickHandler}
+            title={"촬영하러 가기"}
+            width={"228px"}
+            height={"72px"}
+            fontSize={"24px"}
+          />
+
+        </ThirdLeft>
+        <img src={third}></img>
+      </ThirdAlign>
+
+
     </ContentContainor>
   );
 };
@@ -229,6 +268,17 @@ const Imgwrap = styled.div`
   margin-left: auto;
   margin: -25px 0 0 auto;
 
+const CardSection = styled.div`
+display:flex;
+justify-content:center;
+gap:20px;
+`;
+
+const Img = styled.img`
+max-width:250px;
+width:20%;
+box-shadow: 0px 0px 40px -5px rgba(0, 0, 0, 0.5);
+
   .flowImg {
     width: 50px;
     height: 50px;
@@ -243,6 +293,7 @@ const SecondAlign = styled.div`
   justify-content: center;
   align-items: center;
   gap: 10px;
+
 `;
 
 const SecondContent = styled.div`
