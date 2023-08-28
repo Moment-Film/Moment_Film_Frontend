@@ -50,18 +50,41 @@ export const VideoSection = styled.section`
   width: 100%;
   height: 356px;
   background-color: var(--gray4);
+  @media (max-width: 770px) {
+    ${({gridId})=>gridId==='wide'&&css`
+      img{
+        width: 100%;
+      }
+    `}
+  }
+  @media (max-width: 742px) {
+    ${({gridId})=>gridId==='narrow'&&css`
+      img{
+        width: 100%;
+      }
+    `}
+  }
+  @media (max-width: 302px) {
+    ${({gridId})=>gridId==='down'&&css`
+      img{
+        width: 100%;
+      }
+    `}
+  }
+  @media (max-width: 285px) {
+    ${({gridId})=>gridId==='up'&&css`
+      img{
+        width: 100%;
+      }
+    `}
+  }
 `
 export const Video = styled.video`
   object-fit: cover;
   width: ${ props => props.width || 300}px;
   height: ${ props => props.height || 356}px;
   display: ${props => props.show ? "block" : "none"};
-  /* @media (max-width: 770px) {
-    ${({width, height})=> height<356 && css`
-      width: ${width*0.6}px;
-      height: ${height*0.6}px;
-    `} 
-  }*/
+
   @media (max-width: 852px) {
     ${({width, height})=> height<356 && css`
       width: ${width*0.9}px;
@@ -70,8 +93,14 @@ export const Video = styled.video`
   }
   @media (max-width: 766px) {
     ${({width, height})=> height<356 && css`
-      width: ${width*0.8}px;
-      height: ${height*0.8}px;
+      width: ${width*0.9}px;
+      height: ${height*0.9}px;
+    `}
+  }
+  @media (max-width: 742px) {
+    ${({width,height})=>width===668&&css`
+      width: ${width*0.9}px;
+      height: ${height*0.9}px;
     `}
   }
   @media (max-width: 681px) {
@@ -80,8 +109,26 @@ export const Video = styled.video`
       height: ${height*0.7}px;
     `}
   }
+  @media (max-width: 668px) {
+    ${({width, height})=> width===668 && css`
+      width: ${width*0.8}px;
+      height: ${height*0.8}px;
+    `}
+  }
   @media (max-width: 596px) {
     ${({width, height})=> height<356 && css`
+      width: ${width*0.6}px;
+      height: ${height*0.6}px;
+    `}
+  }
+  @media (max-width: 593px) {
+    ${({width, height})=> width===668 && css`
+      width: ${width*0.7}px;
+      height: ${height*0.7}px;
+    `}
+  }
+  @media (max-width: 520px) {
+    ${({width, height})=> width===668 && css`
       width: ${width*0.6}px;
       height: ${height*0.6}px;
     `}
@@ -92,8 +139,20 @@ export const Video = styled.video`
       height: ${height*0.5}px;
     `}
   }
+  @media (max-width: 444px) {
+    ${({width, height})=> width===668 && css`
+      width: ${width*0.5}px;
+      height: ${height*0.5}px;
+    `}
+  }
   @media (max-width: 426px) {
     ${({width, height})=> height<356 && css`
+      width: ${width*0.4}px;
+      height: ${height*0.4}px;
+    `}
+  }
+  @media (max-width: 372px) {
+    ${({width, height})=> width===668 && css`
       width: ${width*0.4}px;
       height: ${height*0.4}px;
     `}
@@ -104,16 +163,34 @@ export const Video = styled.video`
       height: ${height*0.329}px;
     `}
   }
-  @media (max-width: 300px) {
+  @media (max-width: 317px) {
     ${({width, height})=> width===270 && css`
+      width: ${width*0.9}px;
+      height: ${height*0.9}px;
+    `}
+  }
+  @media (max-width: 300px) {
+    ${({width, height})=> width===257 && css`
       width: ${width*0.933}px;
       height: ${height*0.933}px;
     `}
   }
+  @media (max-width: 298px) {
+    ${({width, height})=> width===668 && css`
+      width: ${width*0.377}px;
+      height: ${height*0.377}px;
+    `}
+  }
   @media (max-width: 288px) {
     ${({width, height})=> width===257 && css`
-      width: ${width*0.98}px;
-      height: ${height*0.98}px;
+      width: ${width*0.92}px;
+      height: ${height*0.92}px;
+    `}
+  }
+  @media (max-width: 286px) {
+    ${({width, height})=> width===270 && css`
+      width: ${width*0.876}px;
+      height: ${height*0.876}px;
     `}
   }
 `
