@@ -216,6 +216,13 @@ const NameSection = styled.div`
       gap:5px;
     }
   }
+
+  @media (max-width: 700px) {
+        align-items:center;
+        flex-direction:column;
+
+}
+
 /*   justify-content: space-between;
   image{
     width:20px;
