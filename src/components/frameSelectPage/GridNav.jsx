@@ -47,7 +47,7 @@ const GridNav = ({ data, autoShowModal = false }) => {
           style={{
             display: "flex",
             alignItems: "center",
-            height: "49px",
+            height: "20px",
             cursor: "pointer",
             gap: "11px",
           }}
@@ -68,17 +68,34 @@ const StepWrap = styled.div`
   border-bottom: 1px solid var(--lightGray);
   padding: 16px 60px 0 0;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
+  @media (max-width : 870px) {
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    align-items: end;
+    padding: 16px 0 0 0;
+    font-size: 13px;
+    span{
+      font-size: 13px;
+    }
+  }
 `;
 const ProccessLine = styled.div`
   width: 100px;
   height: 49px;
   border-bottom: 2px solid var(--green5);
+  @media (max-width : 970px) {
+    display: none;
+  }
+  @media (max-width : 870px) {
+    display: block;
+  }
 `
 const SelectStep = styled.div`
   display: flex;
   align-items: flex-end;
+  justify-content: flex-start;
 `;
 const TitleCont = styled.div`
   ${({ proceeded }) =>

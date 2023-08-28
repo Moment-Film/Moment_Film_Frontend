@@ -141,7 +141,10 @@ const SetCount = () => {
       <C.MainBody>
       <GridNav data='photoSelect'/>
       <C.Body>
-      <C.MoveButton $hide={currentImgOrder===0} onClick={moveToPrevSlide} bottom="70px" ><img src={right_arrow} alt='' style={{ transform: "scale(-1)" }} /></C.MoveButton>
+        <C.ButtonWrap top={772} >
+          <C.MoveButton $hide={currentImgOrder===0} onClick={moveToPrevSlide}><img src={right_arrow} alt='' style={{ transform: "scale(-1)" }} /></C.MoveButton>
+          <C.MoveButton onClick={moveToNextSlide}><img src={right_arrow} alt='' /></C.MoveButton>
+        </C.ButtonWrap>
       <GridContainer>
         <GridBackground width={thisGrid.width} $gap={thisGrid.gap}$bottomText={thisGrid.id==='narrow' || thisGrid.id==='wide'}>
           <img src={LOGO} alt="" />
@@ -166,7 +169,6 @@ const SetCount = () => {
             </C.PreviewSlider>
           </C.PreviewSection>
       </GridContainer>
-      <C.MoveButton onClick={moveToNextSlide} bottom="70px" ><img src={right_arrow} alt='' /></C.MoveButton>
       </C.Body>
       <StyledButton func={finishButtonHandler} title={"완료하기"} width={'130px'} height={'49px'} fontSize={'16px'} />
       <S.StyledSpan16 style={{lineHeight: "16px", margin:"0", }}

@@ -123,14 +123,14 @@ const MyPageUserData = ({ lang, data }) => {
             )}
           </NameSection>
           <div className="box-2">
-            <div onClick={() => clickHandler("followingList")}>
+            <div onClick={() => clickHandler("followerList")}>
               <UserItem>{"팔로우"}</UserItem>
-              <UserItemResult>{data.followingList.length}</UserItemResult>
+              <UserItemResult>{data.followerList.length}</UserItemResult>
             </div>
             <hr />
-            <div onClick={() => clickHandler("followerList")}>
+            <div onClick={() => clickHandler("followingList")}>
               <UserItem>{"팔로잉"}</UserItem>
-              <UserItemResult>{data.followerList.length}</UserItemResult>
+              <UserItemResult>{data.followingList.length}</UserItemResult>
             </div>
             <hr />
             <div>

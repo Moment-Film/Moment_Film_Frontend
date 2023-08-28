@@ -1,22 +1,30 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { styled } from "styled-components";
+import styled, { keyframes } from "styled-components";
 import StyledButton from "../common/component/StyledButton";
-import homeImg from "../assets/images/home_bgImg.png";
-import first from '../assets/images/first.svg';
-import third from '../assets/images/third.png'
 
+// import homeImg from "../assets/images/home_bgImg.png";
+// import first from "../assets/images/first.svg";
+// import third from "../assets/images/third.png";
+
+// import FirstSec from "../assets/home/FirstSec.png";
+// import Fir_back from "../assets/home/Fir_back.jpg";
+import Fir_check from "../assets/home/Fir_check.png";
+import Fir_img from "../assets/home/Fir_img.png";
+import DIA40 from "../assets/home/40DIA.png";
+import DIA56 from "../assets/home/56DIA.png";
+import DIA_yel from "../assets/home/DIA_YEL.png";
+import SPIN_FLOWER from "../assets/home/SPIN.png";
+
+import recycle from "../assets/home/recycle.svg";
+
+import ThirdSec from "../assets/home/ThirdSec.png";
 
 const Homepage = () => {
-
   const navigate = useNavigate();
 
   const camBtnClickHandler = () => {
     navigate("/camera/frameSelect");
-  };
-
-  const customBtnClickHandler = () => {
-    navigate("/camera/capture/frame");
   };
 
   return (
@@ -28,25 +36,46 @@ const Homepage = () => {
     </video> */}
 
       <FirstAlign>
+        <Div />
+        <img src={Fir_img} alt="" className="obj" />
         <FirstContentWrap>
           <LeftContent>
-            <LeftH $minWidth={"347px"}>Take Your Moment at Best Time</LeftH>
-            <LeftTxt>
-              dummy text 2dummy text 2dummy text 2dummy text 2dummy text 2dummy
-              text 2dummy text 2dummy text 2dummy text 2dummy text 2dummy text
-              2dummy text 2dummy text 2dummy text 2dummy text 2dummy text 2dummy
-              text 2dummy text 2dummy text 2dummy text 2
-            </LeftTxt>
+            <LeftSpan>
+              <span className="smallSpan">At Best Time</span>
+              <span className="bigSpan">Take Your Moment</span>
+              <img src={DIA40} alt="" className="DIA40" />
+              <img src={DIA_yel} alt="" className="DIA_yel" />
+            </LeftSpan>
 
-            <StyledButton
-              func={camBtnClickHandler}
-              title={"촬영하러 가기"}
-              width={"228px"}
-              height={"72px"}
-              fontSize={"24px"}
-            />
+            <LeftTxt>
+              <Imgwrap>
+                <img className="flowImg" src={SPIN_FLOWER} alt="" />
+              </Imgwrap>
+
+              <div className="ment">당신의 디자인을 만들어 보세요.</div>
+              <div className="comment">
+                <p>
+                  당신의 순간을 기록하고 자랑해 보세요. 추억을 지절하고 자신만의
+                  작품을 만들어 포토크리에이터로 활동해보아요! 나의 작품을
+                  확인하고 공유하고 포인트를 적립할 수 있습니다.
+                  포토크리에이터로 활동해 보세요!
+                </p>
+                <p>
+                  나의 작품을 확인하고 공유하고 포인트를 적립할 수 있습니다.
+                  포토크리에이터로 활동해보아요! 나의 작품을 확인하고 공유하고
+                  포인트를 적립할 수 있습니다.
+                </p>
+              </div>
+              <StyledButton
+                func={camBtnClickHandler}
+                title={"촬영하기"}
+                width={"133px"}
+                height={"39px"}
+                fontSize={"18px"}
+                fontWeight={"500"}
+              />
+            </LeftTxt>
           </LeftContent>
-          <RightImg src="" />
         </FirstContentWrap>
       </FirstAlign>
 
@@ -92,6 +121,7 @@ const Homepage = () => {
         <img src={third}></img>
       </ThirdAlign>
 
+
     </ContentContainor>
   );
 };
@@ -99,19 +129,37 @@ const Homepage = () => {
 export default Homepage;
 
 const ContentContainor = styled.div`
-  width: 100%;
+  max-width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
 `;
 
 const FirstAlign = styled.div`
-  width: 100%;
-  height:1080px;
-  background-image: url(${homeImg});
-  background-size: cover;
+  max-width: 100%;
+  height: 120vh;
+  background: linear-gradient(to top, #f2f1f2, #f6f2fe);
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  position: relative;
+
+  .obj {
+    max-width: 101%;
+    height: 113vh;
+    position: absolute;
+    z-index: 11;
+    top: 7vh;
+  }
+`;
+
+const Div = styled.div`
+  display: flex;
+  width: 100%;
+  height: 120vh;
+  background-image: url(${Fir_check});
+  position: absolute;
+  background-size: contain;
+  background-repeat: repeat;
 `;
 
 const FirstContentWrap = styled.div`
@@ -119,58 +167,106 @@ const FirstContentWrap = styled.div`
   width: 1170px;
   height: 20%;
   display: flex;
-  justify-content: center;
-  padding: 100px 0;
+  width: 100%;
+  padding-top: 9.5vh;
   gap: 5%;
+  z-index: 12;
 `;
 
-//////////////////////////////////////////
-
 const LeftContent = styled.div`
-  width: 50%;
+  margin-left: 40vh;
+  width: 30%;
+  height: 650px;
   display: flex;
   flex-direction: column;
   border: 1px solid lightgray;
-  margin-bottom: 50px;
-  padding: 50px;
 `;
 
-const LeftH = styled.div`
-  min-width: ${(props) => props.minWidth};
-  max-width: ${(props) => props.maxWidth};
-  min-height: 267px;
-  font-size: 64px;
-  /* font-weight: bold; */
-  font-family: "Abril Fatface", cursive;
-  line-height: 89px;
+const LeftSpan = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  .smallSpan {
+    font-size: 36px;
+    line-height: 150%;
+    font-family: "Abril Fatface", cursive;
+  }
+
+  .bigSpan {
+    font-size: 52px;
+    line-height: 150%;
+    font-family: "Abril Fatface", cursive;
+    margin-bottom: 65px;
+  }
+
+  .DIA40 {
+    width: 40px;
+    position: absolute;
+    top: 1vh;
+    left: 51vh;
+  }
+
+  .DIA_yel {
+    width: 56px;
+    position: absolute;
+    top: 6vh;
+    left: 56vh;
+  }
 `;
 
 const LeftTxt = styled.div`
-  width: 68%;
-  min-width: 243px;
-  min-height: 222px;
-`;
-
-const RightImg = styled.div`
-  width: 45%;
-  border: 1px solid lightgray;
-  margin-bottom: 50px;
-`;
-
-const SecondAlign = styled.div`
-  height:1280px;
-  background-color: #a3e784;
+  width: 370px;
+  border: 1px solid var(--black);
+  border-radius: 5px;
+  background-color: var(--white);
   display: flex;
-  justify-content:center;
-  align-items:center;
-  gap:10px;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 0 35px 0;
+
+  .ment {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 150%;
+    border-bottom: 1px solid var(--black);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 60px;
+  }
+
+  .comment {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px 0 35px 0;
+    p {
+      padding: 0 30px;
+      margin: 0;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 150%;
+    }
+  }
 `;
 
-const SecondContent = styled.div`
-  display: flex;
-  flex-direction:column;
-  gap:20px;
+const spinAnimation = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 `;
+
+const Imgwrap = styled.div`
+  display: flex;
+  width: 20px;
+  height: 25px;
+  margin-left: auto;
+  margin: -25px 0 0 auto;
 
 const CardSection = styled.div`
 display:flex;
@@ -182,30 +278,34 @@ const Img = styled.img`
 max-width:250px;
 width:20%;
 box-shadow: 0px 0px 40px -5px rgba(0, 0, 0, 0.5);
+
+  .flowImg {
+    width: 50px;
+    height: 50px;
+    animation: ${spinAnimation} 10s linear infinite;
+  }
+`;
+
+const SecondAlign = styled.div`
+  height: 1280px;
+  /* background-color: #a3e784; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+`;
+
+const SecondContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 `;
 
 const ThirdAlign = styled.div`
-  height:1080px;
+  height: 1080px;
   background-color: #a34;
   display: flex;
-  justify-content:center;
-  align-items:center;
-
-`;
-
-const ThirdLeft = styled.div`
-  height:800px;
-  width:30%;
-  display: flex;
-  align-items:center;
-  flex-direction:column;
-  justify-content:space-between;
-`;
-
-const Des = styled.div`
-  width:50%;
-  word-break:break-all;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
+  justify-content: center;
+  align-items: center;
 `;

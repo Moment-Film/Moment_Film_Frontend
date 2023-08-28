@@ -100,7 +100,11 @@ function Capture() {
     <S.MainBody>
       <GridNav data="photoGraphy" />
       <S.Body>
-        <S.MoveButton onClick={moveToPrevSlide}><img src={right_arrow} style={{scale:"-1"}}/></S.MoveButton>
+        <S.ButtonWrap>
+          <S.MoveButton onClick={moveToPrevSlide}><img src={right_arrow} style={{scale:"-1"}}/></S.MoveButton>
+          <S.MoveButton onClick={moveToNextSlide}><img src={right_arrow}/></S.MoveButton>
+        </S.ButtonWrap>
+        
         <S.WebCamUI>
           <S.HeadSection>
             <span>{capturedImages.length}/8컷</span>
@@ -142,7 +146,6 @@ function Capture() {
             }}/>
           </S.FootSection>
         </S.WebCamUI>
-        <S.MoveButton onClick={moveToNextSlide}><img src={right_arrow}/></S.MoveButton>
       </S.Body>
       <StyledButton width="134px" height="40px" title="완료하기" fontSize="18px" func={() => navigate(`option`)}/>
       <canvas

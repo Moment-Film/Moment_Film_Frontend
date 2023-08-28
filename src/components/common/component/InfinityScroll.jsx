@@ -80,7 +80,7 @@ const InfiniteScroll = ({ sort }) => {
 
     return (
         <div>
-        {dataList.length}
+        {/* {dataList.length} */}
             {dataList?.length > 0 && <ContentBox data={dataList}></ContentBox>}
         </div>
     );

@@ -22,7 +22,8 @@ export const WebCamUI = styled.div`
   display: flex;
   flex-direction: column;
   align-items: end;
-  width: 770px;
+  max-width: 770px;
+  width: 90%;
   background-color: white;
   box-shadow: 0 0 30px rgba(0,0,0,0.1);
   border-radius: 5px;
@@ -55,6 +56,76 @@ export const Video = styled.video`
   width: ${ props => props.width || 300}px;
   height: ${ props => props.height || 356}px;
   display: ${props => props.show ? "block" : "none"};
+  /* @media (max-width: 770px) {
+    ${({width, height})=> height<356 && css`
+      width: ${width*0.6}px;
+      height: ${height*0.6}px;
+    `} 
+  }*/
+  @media (max-width: 852px) {
+    ${({width, height})=> height<356 && css`
+      width: ${width*0.9}px;
+      height: ${height*0.9}px;
+    `}
+  }
+  @media (max-width: 766px) {
+    ${({width, height})=> height<356 && css`
+      width: ${width*0.8}px;
+      height: ${height*0.8}px;
+    `}
+  }
+  @media (max-width: 681px) {
+    ${({width, height})=> height<356 && css`
+      width: ${width*0.7}px;
+      height: ${height*0.7}px;
+    `}
+  }
+  @media (max-width: 596px) {
+    ${({width, height})=> height<356 && css`
+      width: ${width*0.6}px;
+      height: ${height*0.6}px;
+    `}
+  }
+  @media (max-width: 511px) {
+    ${({width, height})=> height<356 && css`
+      width: ${width*0.5}px;
+      height: ${height*0.5}px;
+    `}
+  }
+  @media (max-width: 426px) {
+    ${({width, height})=> height<356 && css`
+      width: ${width*0.4}px;
+      height: ${height*0.4}px;
+    `}
+  }
+  @media (max-width: 340px) {
+    ${({width, height})=> height<356 && css`
+      width: ${width*0.329}px;
+      height: ${height*0.329}px;
+    `}
+  }
+  @media (max-width: 300px) {
+    ${({width, height})=> width===270 && css`
+      width: ${width*0.933}px;
+      height: ${height*0.933}px;
+    `}
+  }
+  @media (max-width: 288px) {
+    ${({width, height})=> width===257 && css`
+      width: ${width*0.98}px;
+      height: ${height*0.98}px;
+    `}
+  }
+`
+export const ButtonWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  width: 95%;
+  max-width: 900px;
+  top: ${({top})=>top||660}px;
+  z-index: 200;
+  justify-content: space-between;
 `
 export const MoveButton = styled.button`
   display: flex;
@@ -63,7 +134,6 @@ export const MoveButton = styled.button`
   align-items: center;
   width: 38px;
   height: 38px;
-  margin-bottom: ${props=>props.bottom || "142px"};
   border-radius: 19px;
   border: none;
   box-shadow: 0 0 30px rgba(0,0,0,0.15);
@@ -79,8 +149,9 @@ export const PreviewSlider = styled.div`
   gap: 1px;
   width: 1232.6px;
   height: 108px;
-  background-color: var(--lightGray);
-  margin: 0 308.4px;
+  background-color: var(--gray5);
+  padding-left: 50%;
+  margin-left: -76.6px;
 `
 export const PreviewImg = styled.div`
   box-sizing: border-box;
@@ -95,6 +166,7 @@ export const PreviewImg = styled.div`
     border: 3px solid var(--green3);
     `};
   div {
+    cursor: pointer;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -104,7 +176,12 @@ export const PreviewImg = styled.div`
     background-color: var(--black);
     opacity: 0.6;
     color: white;
+    img{
+      cursor: pointer;
+    }
     p{
+      cursor: pointer;
+      color: white;
       margin: 0;
       padding: 0;
       font-size: 13px;
@@ -120,6 +197,7 @@ export const FootSection = styled.section`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
   .cam {
     visibility: ${props=>props.view ? "hidden" : "block"};
     margin-left: -24px;

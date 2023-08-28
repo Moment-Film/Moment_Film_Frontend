@@ -18,12 +18,16 @@ const LogoutBtn = () => {
   const navigate = useNavigate();
 
   const LogOut = async () => {
-    const res = await LogOutAPI(accessToken, refreshToken);
+    const logoutSure = window.confirm("로그아웃하시겠습니까?");
+    if(logoutSure) {
+      const res = await LogOutAPI(accessToken, refreshToken);
 
-    await dispatch(SetAccessToken(null));
-    await dispatch(SetUserInfo(null));
-    console.log(accessToken);
-    navigate("/");
+      await dispatch(SetAccessToken(null));
+      await dispatch(SetUserInfo(null));
+      console.log(accessToken);
+      alert(res.data);
+      navigate("/");
+    }
   };
 
   return <NavBtn onClick={LogOut} color={"#505050"}>로그아웃</NavBtn>;

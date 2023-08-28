@@ -2,13 +2,15 @@ import axios from "axios";
 import useToken from "../../hooks/useToken";
 
 const useUserAPI = () => {
+
   const {
     getAccess,
     getRefresh,
     saveAccessToken
   } = useToken();
 
-  //axios 객체 
+
+  //axios 객체
   const userAxios = axios.create();
   // axios 인터셉터 설정
   userAxios.interceptors.request.use(
@@ -17,9 +19,9 @@ const useUserAPI = () => {
       const refreshToken = getRefresh();
       const accessToken = getAccess();
 
-      console.log(accessToken)
+      console.log(accessToken);
 
-      console.log(refreshToken)
+      console.log(refreshToken);
 
       if (refreshToken) {
         config.headers.refreshToken = refreshToken;
@@ -57,28 +59,29 @@ const useUserAPI = () => {
 
 
 
-  //팔로우 요청 및 취소 
+
+  //팔로우 요청 및 취소
   const FollowAPI = async (userId) => {
-    console.log(userId)
-    try { //팔로우가 되어있지않아서 팔로우할때
-      const response = await userAxios.post(`/api/follow/${userId}`, null,);
+    console.log(userId);
+    try {
+      //팔로우가 되어있지않아서 팔로우할때
+      const response = await userAxios.post(`/api/follow/${userId}`, null);
 
-      alert(response.data.msg)
+      alert(response.data.msg);
       return response;
+    } catch (error) {
+      //팔로우가 이미 되어있어서 팔로우취소할때
 
-    }
-    catch (error) { //팔로우가 이미 되어있어서 팔로우취소할때
+      if (error.response.data.msg === "이미 팔로우한 사용자입니다.") {
+        const CancelResponse = await userAxios.delete(`/api/follow/${userId}`);
 
-      if (error.response.data.msg === '이미 팔로우한 사용자입니다.') {
-        const CancelResponse = await userAxios.delete(`/api/follow/${userId}`,);
-
-        alert(CancelResponse.data.msg)
+        alert(CancelResponse.data.msg);
         return CancelResponse;
       }
 
-      alert(error.response.data)
+      alert(error.response.data);
     }
-  }
+  };
 
   // 회원정보 조회 api
   const getPrivateInfo = async () => {
@@ -88,6 +91,7 @@ const useUserAPI = () => {
   };
 
   // 회원정보 수정 api
+
   const putEditInfo = async ({ editName, editPhone }) => {
     const res = await userAxios.put(
       `/api/user/info`,
@@ -96,6 +100,7 @@ const useUserAPI = () => {
         phone: editPhone,
       },
     );
+
     return res;
   };
 
@@ -129,11 +134,6 @@ const useUserAPI = () => {
 
   const likePost = async ({ postId }) => {
     try {
-      console.log(postId)
-      /*       console.log(accessToken)
-      
-            console.log(refreshToken) */
-
       const res = await userAxios.post(`/api/post/${postId}/likes`, null);
       console.log(res);
       return res.data.data;
@@ -150,8 +150,7 @@ const useUserAPI = () => {
     putEditInfo,
     sendEmail,
     replacePassword,
-    likePost
+    likePost,
   };
-
 };
 export default useUserAPI;
