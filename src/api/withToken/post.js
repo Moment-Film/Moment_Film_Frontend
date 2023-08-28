@@ -28,8 +28,8 @@ const usePostAPI = () => {
     );
 
     const deletePost = async (postId) => {
-        console.log(postId)
-        await postAxios.delete(`/api/post/${postId}`);
+        const res = await postAxios.delete(`/api/post/${postId}`);
+        alert(res.data.msg);
     }
 
     const addPost = async (formData) => {
