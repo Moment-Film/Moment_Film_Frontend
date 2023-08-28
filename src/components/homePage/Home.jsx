@@ -3,9 +3,11 @@ import { useNavigate } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import StyledButton from "../common/component/StyledButton";
 
-import homeImg from "../assets/images/home_bgImg.png";
-import first from "../assets/images/first.svg";
-import third from "../assets/images/third.png";
+
+// import homeImg from "../assets/images/home_bgImg.png";
+ import first from "../assets/images/first.svg";
+// import third from "../assets/images/third.png";
+
 
 import FirstSec from "../assets/home/FirstSec.png";
 import Fir_back from "../assets/home/Fir_back.jpg";
@@ -39,7 +41,6 @@ const Homepage = () => {
         <Div />
         <img src={Fir_img} alt="" className="obj" />
         <FirstContentWrap>
-          <LeftContent>
             <LeftSpan>
               <span className="smallSpan">At Best Time</span>
               <span className="bigSpan">Take Your Moment</span>
@@ -69,13 +70,12 @@ const Homepage = () => {
               <StyledButton
                 func={camBtnClickHandler}
                 title={"촬영하기"}
-                width={"133px"}
+                width={"15vw"}
                 height={"39px"}
                 fontSize={"18px"}
                 fontWeight={"500"}
               />
             </LeftTxt>
-          </LeftContent>
         </FirstContentWrap>
       </FirstAlign>
 
@@ -113,16 +113,14 @@ const ContentContainor = styled.div`
 `;
 
 const FirstAlign = styled.div`
-  max-width: 100%;
-  height: 120vh;
+  max-width: 100vw;
   background: linear-gradient(to top, #f2f1f2, #f6f2fe);
   display: flex;
-  flex-direction: column;
   position: relative;
+  height: 54vw;
 
   .obj {
-    max-width: 101%;
-    height: 113vh;
+    max-width: 100%;
     position: absolute;
     z-index: 11;
     top: 7vh;
@@ -132,7 +130,7 @@ const FirstAlign = styled.div`
 const Div = styled.div`
   display: flex;
   width: 100%;
-  height: 120vh;
+  height:100%;
   background-image: url(${Fir_check});
   position: absolute;
   background-size: contain;
@@ -141,13 +139,14 @@ const Div = styled.div`
 
 const FirstContentWrap = styled.div`
   height: 100vh;
-  width: 1170px;
   height: 20%;
   display: flex;
-  width: 100%;
-  padding-top: 9.5vh;
+  flex-direction:column;
+  padding-top: 5%;
+  padding-left: 10%;
   gap: 5%;
   z-index: 12;
+ /*  background-color:red; */
 `;
 
 const LeftContent = styled.div`
@@ -166,16 +165,16 @@ const LeftSpan = styled.div`
   position: relative;
 
   .smallSpan {
-    font-size: 36px;
+    font-size: 3vw;
     line-height: 150%;
     font-family: "Abril Fatface", cursive;
   }
 
   .bigSpan {
-    font-size: 52px;
+    font-size: 4vw;
     line-height: 150%;
     font-family: "Abril Fatface", cursive;
-    margin-bottom: 65px;
+    margin-bottom: 5%;
   }
 
   .DIA40 {
@@ -194,7 +193,7 @@ const LeftSpan = styled.div`
 `;
 
 const LeftTxt = styled.div`
-  width: 370px;
+  width: 30vw;
   border: 1px solid var(--black);
   border-radius: 5px;
   background-color: var(--white);
@@ -204,25 +203,22 @@ const LeftTxt = styled.div`
   padding: 0 0 35px 0;
 
   .ment {
-    font-size: 20px;
+    font-size: 2vw;
     font-weight: 600;
     line-height: 150%;
     border-bottom: 1px solid var(--black);
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px 60px;
+    padding: 5% 8%;
   }
 
   .comment {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
     margin: 20px 0 35px 0;
     p {
       padding: 0 30px;
       margin: 0;
-      font-size: 16px;
+      font-size: 0.1vw;
       font-weight: 400;
       line-height: 150%;
     }
