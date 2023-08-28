@@ -15,6 +15,7 @@ import { SetFilter } from "../../redux/modules/Filter";
 import StyledButton from '../common/component/StyledButton'
 import filterImg from '../assets/icons/filter.png'
 import resetImg from '../assets/icons/reset.png';
+import LOGO from '../assets/images/LOGO.svg'
 
 const FilterCustom = () => {
   const picRef = useRef();
@@ -96,15 +97,7 @@ const FilterCustom = () => {
               $frameImg={Frame.imageUrl}
               $gap={thisGrid.gap}
             >
-              <p
-                style={{
-                  color:
-                    Frame.lightness > 50 ? "var(--black)" : "var(--whiteGray)",
-                  fontFamily: "'Abril Fatface', cursive",
-                }}
-              >
-                moment film
-              </p>
+              <img src={LOGO} alt="" style={{filter: Frame.lightness<50 &&"invert(100%)"}}/>
               <a.InnerImgWrap>
                 {innerImg.map((img, index) => {
                   return (

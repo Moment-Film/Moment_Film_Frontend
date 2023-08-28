@@ -7,7 +7,9 @@ const ContentBox = ({ data }) => {
     const Card = ({ item }) => {
         return (
             <ContentsItem onClick={() => navigate(`/post/${item.id}`)}>
-                <Img src={item.image}></Img>
+                <ImgSection>
+                    <img src={item.image}/>
+                </ImgSection>
                 <ItemInfo>
                     <InfoHeader>
                         <Circle></Circle>
@@ -75,11 +77,18 @@ const ContentsItem = styled.div`
     border-top-right-radius:5px;
     border-top-left-radius:5px;
 `
-const Img = styled.img`
+const ImgSection = styled.div`
     width:100%;
     height:400px;
     border-top-right-radius:10px;
     border-top-left-radius:10px;
+    display: flex;
+    justify-content: center;
+    background-color: var(--gray2);
+    img{
+        height: 100%;
+        border-radius: 5px;
+    }
 `
 
 const ItemInfo = styled.div`

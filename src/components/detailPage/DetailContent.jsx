@@ -248,10 +248,14 @@ const DetailContents = styled.div`
   align-items: center;
   justify-content: center;
   height: 756px;
-  width: 100vw;
+  width: 100%;
   background-color: var(--whiteGray);
   border-top: 2px solid var(--lightGray);
   border-bottom: 2px solid var(--lightGray);
+  
+  @media (max-width: 770px) {
+    height: 1400px;
+  }
 `;
 const DetailBody = styled.div`
   display: flex;
@@ -265,6 +269,10 @@ const DetailBody = styled.div`
   }
   span {
     line-height: 150%;
+  }
+  @media (max-width: 770px) {
+    flex-direction: column;
+    justify-content: center;
   }
 `;
 const ImageSection = styled.section`
@@ -347,6 +355,7 @@ const TextDiv = styled.div`
       line-height: 31.2px;
       font-size: 24px;
       font-weight: 500;
+      white-space: pre-wrap;
     }
     margin-bottom: 40px;
   }
@@ -357,6 +366,7 @@ const TextDiv = styled.div`
     span{
       font-size: 15px;
       color: var(--gray5);
+      white-space: pre-wrap;
     }
     overflow-y: auto;
     &::-webkit-scrollbar {
