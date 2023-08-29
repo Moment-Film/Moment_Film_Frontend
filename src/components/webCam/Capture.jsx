@@ -110,7 +110,7 @@ function Capture() {
             <span>{capturedImages.length}/8컷</span>
             <img src={onAir} />
           </S.HeadSection>
-          <S.VideoSection>
+          <S.VideoSection gridId={thisGrid.id}>
             <S.Video show={isCapturing} width={thisGrid.innerWidth} height={thisGrid.innerHeight} ref={videoRef} autoPlay />
             {!isCapturing && <img src={capturedImages[currentImgOrder]} alt=''/>}
           </S.VideoSection>
