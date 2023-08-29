@@ -75,5 +75,3 @@ const PageBtnSection = styled.div`
         height:50px;
     }
 `
-
-

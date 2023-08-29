@@ -14,6 +14,7 @@ body{
     --gray4:#949494;
     --gray3:#ccc;
     --gray2:#f0f0f0;
+    --gray2_a: #EBEBEB;
 	--gray1:#f8f8f8;
 
     --warningRed: #FC5B70;

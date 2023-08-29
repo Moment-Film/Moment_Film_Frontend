@@ -56,31 +56,55 @@ const SearchReseult = () => {
                       <InfoBoxWrap>
                         <div className="infobox">
                           <div className="infowrap">
-                            <span>팔로워</span>
+                            <span className="value">팔로워</span>
                             <span className="bar" />
                           </div>
-                          <span className="measure">{item.follower > 999 ? `${item.follower % 100}K명` : `${item.follower}명`}</span>
+                          <span className="measure">
+                            {item.follower > 999
+                              ? `${item.follower % 100}K명`
+                              : `${item.follower}명`}
+                          </span>
                         </div>
 
                         <div className="infobox">
                           <div className="infowrap">
-                            <span>게시글</span>
+                            <span className="value">게시글</span>
                             <span className="bar" />
                           </div>
-                          <span className="measure">{item.postListCnt > 999 ? `${item.postListCnt % 100}K개` : `${item.postListCnt}개`}</span>
+                          <span className="measure">
+                            {item.postListCnt > 999
+                              ? `${item.postListCnt % 100}K개`
+                              : `${item.postListCnt}개`}
+                          </span>
                         </div>
                       </InfoBoxWrap>
                     </ProfileWrap>
 
-                    <PostWrap>
-                      {item.postList.map((item) => {
-                        return (
-                          <ImgWrap>
-                            <img src={item.image} alt="" />
-                          </ImgWrap>
-                        );
-                      })}
-                    </PostWrap>
+                    {item.postList.length === 0 ? (
+                      <div className="nullComment">{`아직 작품이 충분하지 않아요 :)`}</div>
+                    ) : (
+                        <PostWrap>
+                          {item.postList.map((postItem, postIndex) => (
+                            <ImgWrap key={postIndex}>
+                              <img
+                                src={postItem.image}
+                                alt=""
+                                onClick={() => {
+                                  navigate(`/post/${postItem.id}`);
+                                }}
+                              />
+                            </ImgWrap>
+                          ))}
+                          {item.postList.length < 3 &&
+                            Array(3 - item.postList.length)
+                              .fill()
+                              .map((_, index) => (
+                                <div key={index} className="semiNull">
+                                  <div className="nullComment">{`아직 작품이 충분하지 않아요 :)`}</div>
+                                </div>
+                              ))}
+                        </PostWrap>
+                    )}
                   </ResultUser>
                 );
               })}
@@ -143,8 +167,8 @@ const ResultSection = styled.section`
     width: 1170px;
     height: 1px;
     background-color: var(--lightGray);
-    margin-top: 40px;
-    margin-bottom: 60px;
+    margin-top: 30px;
+    margin-bottom: 50px;
   }
 `;
 
@@ -161,13 +185,23 @@ const RecommendSection = styled.section`
 const ResultUser = styled.div`
   width: 970px;
   height: 332px;
-  border: 1px solid var(--gray5_a);
+  border: 1px solid var(--gray2);
   background-color: var(--gray1);
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   margin-bottom: 40px;
   padding: 40px 70px;
+
+    .nullComment {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 150%;
+  }
 `;
 
 const ProfileWrap = styled.div`
@@ -196,12 +230,19 @@ const ProfileWrap = styled.div`
     height: 10px;
     background-color: var(--gray3);
   }
+
+  .username {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 150%;
+  }
 `;
 
 const InfoBoxWrap = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+
   .measure {
     font-size: 20px;
     font-weight: 600;
@@ -220,6 +261,12 @@ const InfoBoxWrap = styled.div`
     justify-content: space-between;
     padding: 7px 21px;
 
+    .value {
+      font-size: 13px;
+      font-weight: 150%;
+      color: var(--gray5_a);
+    }
+
     .infowrap {
       display: flex;
       align-items: center;
@@ -235,21 +282,42 @@ const InfoBoxWrap = styled.div`
 `;
 
 const PostWrap = styled.div`
+width: 100%;
   display: flex;
   gap: 30px;
+
+  .semiNull {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+        font-size: 12px;
+    font-weight: 400;
+    line-height: 150%;
+  }
 `;
 
 const ImgWrap = styled.div`
   width: 168px;
-  border: 1px solid var(--gray3);
+  border: 1px solid var(--gray2);
   border-radius: 5px;
+  background: var(--white);
   box-sizing: border-box;
   display: flex;
   justify-content: center;
+  align-items: center;
 
   img {
     height: 100%;
     border: none;
     border-radius: 5px;
+  }
+
+  .nullComment {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 150%;
   }
 `;
