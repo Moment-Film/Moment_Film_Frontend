@@ -12,39 +12,24 @@ import PaginationComponent from "../common/component/PageNation";
 import nullImg from "../assets/images/nullProfile.svg";
 import { Span28 } from "./../common/styles/StyledSpan";
 
-const SearchReseult = () => {
+const SearchUserData = ({data, popularUserData}) => {
   const navigate = useNavigate();
   const params = useParams();
   const username = params.id;
   const queryClient = useQueryClient();
 
-  const {
-    data: searchUserData,
-    isLoading,
-    isError,
-    error,
-  } = useQuery(["searchUser", username], () => searchUser({ username }), {
-    staleTime: 0,
-  });
-
-  const { data: popularUserData } = useQuery("popularUser", () =>
-    popularUser()
-  );
-
-  // console.log(popularUserData);
-  console.log(searchUserData)
-
-  return (
+  console.log(data)
+    return (
     <ResultWrap>
       <ResultSection>
-        {Array.isArray(searchUserData) && searchUserData.length > 0 ? (
+        {Array.isArray(data) && data.length > 0 ? (
           <>
             <div className="resultExist">
               <span>"{params.id}"</span>에 대한 검색 결과입니다!
             </div>
             <span className="resultLine" />
             <div>
-              {searchUserData.map((item, index) => {
+              {data.map((item, index) => {
                 return (
                   <ResultUser>
                     <ProfileWrap  marginRight={"62px"}>
@@ -186,14 +171,12 @@ const SearchReseult = () => {
           </>
         )}
       </ResultSection>
-      <PaginationComponent data={searchUserData} category={"result"} ItemNums={6} />
-
     </ResultWrap>
     
   );
 };
 
-export default SearchReseult;
+export default SearchUserData;
 
 const ResultWrap = styled.div`
   width: 100vw;
