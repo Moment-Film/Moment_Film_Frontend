@@ -13,6 +13,7 @@ body{
     --gray5_a:#777;
     --gray4:#949494;
     --gray3:#ccc;
+    --gray2_a:#EBEBEB;
     --gray2:#f0f0f0;
 	--gray1:#f8f8f8;
 

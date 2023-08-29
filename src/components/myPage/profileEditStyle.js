@@ -9,7 +9,15 @@ const ModalBg = styled.div`
   align-items: center;
   position: fixed;
   top: 0;
-  z-index: 50;
+  z-index: 19;
+`;
+const WithdrawalBtn = styled.section`
+  text-decoration: underline;
+  color: var(--gray4);
+  font-size: 12px;
+  line-height: 14px;
+	margin-top: 12px;
+  cursor: pointer;
 `;
 
 const ProfileWrap = styled.div`
@@ -22,7 +30,7 @@ const ProfileWrap = styled.div`
   flex-direction: column;
   justify-content: center;
   position: fixed;
-  z-index: 51;
+  z-index: 20;
   padding: 0 20px 20px 20px;
 `;
 
@@ -282,6 +290,7 @@ export {
   PicBox,
   EditBtn,
   PicInfoSection,
+  WithdrawalBtn,
   Info,
   InfoSection,
   InfoInput,

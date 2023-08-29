@@ -19,6 +19,14 @@ const LeftBox = styled.div`
   justify-content: center;
   align-items: center;
 `;
+export const WithdrawalBtn = styled.section`
+  text-decoration: underline;
+  color: var(--gray4);
+  font-size: 12px;
+  line-height: 14px;
+	margin-top: 12px;
+`;
+
 
 // const FrameImg = styled.div`
 //   width: ${(props) => props.width};
