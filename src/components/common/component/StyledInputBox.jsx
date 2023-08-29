@@ -17,7 +17,7 @@ const StyledInput=styled.div`
     display:flex;
     width:380px;
     align-items:center;
-    border-bottom:2px solid black;
+    border-bottom:2px solid var(--black);
     padding : 0 16px 16px 16px;
 
     input{

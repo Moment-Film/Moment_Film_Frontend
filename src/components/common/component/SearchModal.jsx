@@ -54,7 +54,7 @@ const SearchModal = ({ onClose, username }) => {
           {popularUserData &&
             popularUserData.slice(0, 5).map((item, index) => {
               return (
-                <RecommendItem>
+                <RecommendItem key={item.id}>
                   <div className="popularWrap">
                     {index < 3 ? (
                       <div className="grade">{index + 1}위</div>

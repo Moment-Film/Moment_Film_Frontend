@@ -192,7 +192,7 @@ const Small = styled.div`
   
     background-color:var(--white);
 
-    border-top:1px solid black;
+    border-top:1px solid var(--black);
     font-size:20px;
   }
 

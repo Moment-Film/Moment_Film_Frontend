@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import StyledButton from "../common/component/StyledButton";
 
+
 // import homeImg from "../assets/images/home_bgImg.png";
  import first from "../assets/images/first.svg";
 // import third from "../assets/images/third.png";

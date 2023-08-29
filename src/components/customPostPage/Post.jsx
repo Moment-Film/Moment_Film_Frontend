@@ -145,7 +145,7 @@ const PostNav = styled.div`
     gap:30px;
     width:90%;
     max-width:1170px;
-    border-bottom:1px solid black;
+    border-bottom:1px solid var(--black);
 
 
     .postTitle{

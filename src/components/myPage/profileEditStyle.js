@@ -66,7 +66,7 @@ const PicSection = styled.section`
 const PicBox = styled.div`
   width: 200px;
   height: 252px;
-  border: 3px solid;
+  border: 2px solid;
 
   img {
     width: 200px;
