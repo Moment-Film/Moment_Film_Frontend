@@ -67,8 +67,11 @@ const DetailContent = ({ data }) => {
   };
 
   const deleteHandler = async () => {
-    await deletePost(data.id);
-    navigate(-1);
+    const deleteSure = window.confirm("게시글을 삭제하시겠습니까?");
+    if (deleteSure){   
+      await deletePost(data.id);
+      navigate(-1);
+    }
   };
 
   const getDetailMutation = useMutation(likePost, {

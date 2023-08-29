@@ -53,11 +53,10 @@ const usePostAPI = () => {
       return Promise.reject(error);
     }
   );
-
-  const deletePost = async (postId) => {
-    console.log(postId)
-    await postAxios.delete(`/api/post/${postId}`);
-  }
+    const deletePost = async (postId) => {
+        const res = await postAxios.delete(`/api/post/${postId}`);
+        alert(res.data.msg);
+    }
 
   const addPost = async (formData) => {
     try {

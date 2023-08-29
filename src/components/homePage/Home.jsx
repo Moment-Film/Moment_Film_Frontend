@@ -8,7 +8,6 @@ import StyledButton from "../common/component/StyledButton";
  import first from "../assets/images/first.svg";
 // import third from "../assets/images/third.png";
 
-
 import FirstSec from "../assets/home/FirstSec.png";
 import Fir_back from "../assets/home/Fir_back.jpg";
 import Fir_check from "../assets/home/Fir_check.png";
@@ -242,9 +241,9 @@ const Imgwrap = styled.div`
   margin: -25px 0 0 auto;
 `
 const CardSection = styled.div`
-display:flex;
-justify-content:center;
-gap:20px;
+  display:flex;
+  justify-content:center;
+  gap:20px;
 `;
 
 const Img = styled.img`

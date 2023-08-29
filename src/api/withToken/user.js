@@ -85,7 +85,6 @@ const useUserAPI = () => {
 
   const putEditInfo = async ({ profileData }) => {
     const res = await userAxios.put(`/api/user/info`, profileData);
-
     return res;
   };
 

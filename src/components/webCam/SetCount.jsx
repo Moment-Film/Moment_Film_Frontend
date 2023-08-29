@@ -16,7 +16,7 @@ import * as C from './captureStyle';
 import { useSelector } from 'react-redux';
 import LOGO from '../assets/images/LOGO.svg'
 
-const ImagePiece = ({ imageSrc, onDrop, isPlaced }) => {
+const ImagePiece = ({ imageSrc, onDrop, isPlaced, width, height }) => {
   const [{ isDragging }, dragRef] = useDrag({
     type: 'imagePiece',
     item: { imageSrc },
@@ -39,7 +39,8 @@ const ImagePiece = ({ imageSrc, onDrop, isPlaced }) => {
         backgroundImage: `url(${imageSrc})`,
         backgroundPosition: "center",
         backgroundSize: "cover",
-        boxSizing: "border-box"
+        boxSizing: "border-box",
+        zIndex:11,
       }}
     />
   );
@@ -161,10 +162,10 @@ const SetCount = () => {
           
         </GridBackground>
           <C.PreviewSection>
-            <C.PreviewSlider style={{margin:0}}ref={slideRef}>
+            <C.PreviewSlider style={{padding:0, margin:0}}ref={slideRef}>
               {capturedImages.map((item,index)=>{
                 return (
-                  <ImagePiece key={index} imageSrc={item} isPlaced={boardImages.includes(item)}/>
+                  <ImagePiece key={index} width={thisGrid.innerWidth} height={thisGrid.innerHeight} imageSrc={item} isPlaced={boardImages.includes(item)}/>
               )})}
             </C.PreviewSlider>
           </C.PreviewSection>
