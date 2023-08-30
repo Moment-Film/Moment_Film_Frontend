@@ -5,10 +5,10 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import useToken from "../../../hooks/useToken";
 import del from "../../assets/icons/delete.png";
+import tear from "../../assets/icons/tear.svg";
 
 const SearchModal = ({ onClose, username }) => {
   const [recentSearches, setRecentSearches] = useState([]);
-  const [isRemove, setIsRemove] = useState(false);
 
   const navigate = useNavigate();
 
@@ -67,8 +67,12 @@ const SearchModal = ({ onClose, username }) => {
                       }}
                       className="userName"
                     >
-                      {/* {index < 2 || item.username === "zlzonKing" ? "👑" : ""} */}
-                      {item.username}
+                      {index < 3 && (
+                        <>
+                          <img src={tear} alt="" />
+                        </>
+                      )}
+                      <>{item.username}</>
                     </div>
                   </div>
                   <div className="followerWrap">
@@ -182,7 +186,7 @@ const RecommendItem = styled.div`
 
   .popularWrap {
     display: flex;
-    gap: 20px;
+    gap: 10px;
 
     div {
       color: var(--green5);
@@ -196,6 +200,8 @@ const RecommendItem = styled.div`
     .userName {
       color: var(--gray5_a);
       font-weight: 500;
+      display: flex;
+      gap: 5px;
     }
   }
 
