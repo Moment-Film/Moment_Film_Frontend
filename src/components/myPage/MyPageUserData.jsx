@@ -5,7 +5,7 @@ import { Modal } from "../common/component/Modal";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import Edit from "../assets/icons/Edit.png";
-
+import out from "../assets/icons/goOut.svg"
 import useUserAPI from "../../api/withToken/user";
 import { Span28, StyledSpan24 } from "../common/styles/StyledSpan";
 // import ProfileEdit from "./ProfileEdit";
@@ -88,7 +88,7 @@ const MyPageUserData = ({ lang, data, }) => {
                   </div>
                   <div className="option">
                     <LogoutBtn />
-                    <img src={Edit} alt="" />
+                    <img src={out} alt="" />
                   </div>
                 </div>
               </>
