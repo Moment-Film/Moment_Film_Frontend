@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import ContentBox from "./ContentBox";
-import SearchUserData from "../../searchResultPage/SearchUserData";
+
+import double_left from "../../assets/icons/double_left.svg";
+import mono_left from "../../assets/icons/mono_left.svg";
+import double_right from "../../assets/icons/double_right.svg";
+import mono_right from "../../assets/icons/mono_right.svg";
 
 const PaginationComponent = ({ data, ItemNums, category }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,33 +24,45 @@ const PaginationComponent = ({ data, ItemNums, category }) => {
     setCurrentPage(pageNumber);
   };
 
-	console.log(data)
-
   return (
     <PageNationSection>
-      {category === "result" 
-      ? (
-        <SearchUserData data={currentItems} />
-      ) 
-      : (
-        <ContentsSection>
-          <ContentBox data={currentItems}></ContentBox>
-        </ContentsSection>
-      )}
+      <ContentsSection>
+        <ContentBox data={currentItems}></ContentBox>
+      </ContentsSection>
 
       {/* 페이지네이션 버튼 */}
       {/*  Array.from({length: 페이지 수}, (value(안씀), index) => {});  */}
       <PageBtnSection>
+        <div className="leftWrap">
+          <img src={double_left} alt="" onClick={() => setCurrentPage(1)} />
+          <img
+            src={mono_left}
+            alt=""
+            onClick={() => setCurrentPage(currentPage - 1)}
+          />
+        </div>
         {Array.from(
           { length: Math.ceil(data.length / ItemNums) },
           (_, index) => {
             return (
-              <button key={index} onClick={() => handlePageChange(index + 1)}>
+              <PageBtn
+                key={index}
+                onClick={() => handlePageChange(index + 1)}
+                isSelected={index + 1 === currentPage}
+              >
                 {index + 1}
-              </button>
+              </PageBtn>
             );
           }
         )}
+        <div className="rightWrap">
+          <img src={mono_right} alt="" />
+          <img
+            src={double_right}
+            alt=""
+            onClick={() => setCurrentPage(currentPage + 1)}
+          />
+        </div>
       </PageBtnSection>
     </PageNationSection>
   );
@@ -73,10 +88,39 @@ const ContentsSection = styled.section`
 `;
 
 const PageBtnSection = styled.div`
+  width: 100%;
   padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 
-  button {
-    width: 50px;
-    height: 50px;
+  .leftWrap {
+    img {
+      cursor: pointer;
+    }
   }
+
+  .rightWrap {
+    img {
+      cursor: pointer;
+    }
+  }
+`;
+
+const PageBtn = styled.div`
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 50%;
+  background: ${(props) => (props.isSelected ? "var(--green5)" : "none")};
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 150%;
+  color: ${(props) => (props.isSelected ? "var(--white)" : "var(--gray3)")};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 `;

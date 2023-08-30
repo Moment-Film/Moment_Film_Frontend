@@ -1,9 +1,9 @@
-import { React, useEffect, useState } from 'react'
+import { React } from 'react'
 import Post from '../components/customPostPage/Post'
 
 function CustomPostPage() {
   return (
-    <Post></Post>
+    <Post />
   )
 }
 
