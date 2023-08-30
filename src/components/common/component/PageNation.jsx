@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import ContentBox from "./ContentBox";
 
 import double_left from "../../assets/icons/double_left.svg";
@@ -10,7 +9,6 @@ import mono_right from "../../assets/icons/mono_right.svg";
 
 const PaginationComponent = ({ data, ItemNums, category }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [isSelected, setIsSelected] = useState(false);
 
   if (!Array.isArray(data) || data.length === 0) {
     return null; // 또는 유효하지 않은 데이터에 대한 처리나 기본 메시지를 반환할 수 있습니다.
