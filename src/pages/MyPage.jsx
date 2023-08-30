@@ -34,7 +34,7 @@ function MyPage() {
       <MyPageUserData lang={language === 'ko' ? koData : enData} data={data}></MyPageUserData>
       <Contents>
         <MyPageNav isSelected={isSelected} SetIsSelected={SetIsSelected} />
-        <PaginationComponent data={isSelected ? data.postList : data.likePosts } ItemNums={15} />
+        <PaginationComponent data={isSelected ? data.postList : data.likePosts } ItemNums={16} />
       </Contents>
     </MyPageSection>
   );
