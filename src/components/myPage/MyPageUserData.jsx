@@ -78,7 +78,7 @@ const MyPageUserData = ({ lang, data, }) => {
               <>
                 <div className="item-1">
                   <StyledSpan24>{data.username}</StyledSpan24>
-                  <span className="point">+600P</span>
+                  <span className="point">0P</span>
                 </div>
 
                 <div className="item-2">
@@ -189,7 +189,7 @@ const NameSection = styled.div`
     .point {
       padding-top: 10px;
       font-size: 16px;
-      font-weight: bold;
+      font-weight: 700;
       color: var(--green5);
     }
 
@@ -280,7 +280,7 @@ const UserItemResult = styled.div`
   align-items: center;
 
   font-size: 24px;
-  font-weight: bold;
+  font-weight: 700;
   color: var(--green5);
 `;
 

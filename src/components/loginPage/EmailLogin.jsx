@@ -175,7 +175,7 @@ const InputWrap = styled.div`
 export const AddressInput = styled.input`
 
   font-size: 16px;
-  line-height: 18px;
+  line-height: 150%;
   background: none;
   border: none;
 

@@ -7,7 +7,7 @@ import styled from "styled-components";
 export const Span28 = styled.span`
   font-size: 24px;
   color: var(--black);
-  line-height: 30px;
+  line-height: 150%;
   font-family: "Abril Fatface", cursive;
 `;
 export const StyledSpan26 = styled.span`
@@ -57,50 +57,50 @@ export const StyledBoldSpan42 = styled.span`
   font-size: 42px;
   color: ${(props) => props.color};
   line-height: ${(props) => props.lineHeight};
-  font-weight: bold;
+  font-weight: 700;
 `;
 
 export const StyledBoldSpan28 = styled.span`
   font-size: 28px;
   color: ${(props) => props.color};
   line-height: ${(props) => props.lineHeight};
-  font-weight: bold;
+  font-weight: 700;
 `;
 
 export const StyledBoldSpan26 = styled.span`
   font-size: 26px;
   color: ${(props) => props.color};
   line-height: ${(props) => props.lineHeight};
-  font-weight: bold;
+  font-weight: 700;
 `;
 export const StyledBoldSpan24 = styled.span`
   font-size: 24px;
   color: ${(props) => props.color};
   line-height: ${(props) => props.lineHeight};
-  font-weight: bold;
+  font-weight: 700;
 `;
 export const StyledBoldSpan20 = styled.span`
   font-size: 20px;
   color: ${(props) => props.color};
   line-height: ${(props) => props.lineHeight};
-  font-weight: bold;
+  font-weight: 700;
   margin: ${(props) => props.$margin};
 `;
 export const StyledBoldSpan18 = styled.span`
   font-size: 18px;
   color: ${(props) => props.color};
   line-height: ${(props) => props.lineHeight};
-  font-weight: bold;
+  font-weight: 700;
 `;
 export const StyledBoldSpan16 = styled.span`
   font-size: 16px;
   color: ${(props) => props.color};
   line-height: ${(props) => props.lineHeight};
-  font-weight: bold;
+  font-weight: 700;
 `;
 export const StyledBoldSpan14 = styled.span`
   font-size: 14px;
   color: ${(props) => props.color};
   line-height: ${(props) => props.lineHeight};
-  font-weight: bold;
+  font-weight: 700;
 `;

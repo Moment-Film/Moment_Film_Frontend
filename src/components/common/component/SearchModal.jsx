@@ -217,7 +217,7 @@ const RecommendItem = styled.div`
     }
 
     .followerCount {
-      line-height: 28px;
+      line-height: 150%;
       color: var(--green5);
       font-size: 16px;
     }

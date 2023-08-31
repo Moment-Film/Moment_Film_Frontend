@@ -72,7 +72,7 @@ const TextWrap = styled.div`
 
   span {
     font-size: 14px;
-    line-height: 17px;
+    line-height: 150%;
     margin-bottom: 71px;
   }
 `;
@@ -110,7 +110,7 @@ const BtnWrap = styled.div`
     height: 40px;
     color: var(--green6);
     border: 2px solid var(--green5);
-    line-height: 17px;
+    line-height: 150%;
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;

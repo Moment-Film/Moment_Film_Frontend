@@ -15,7 +15,7 @@ const GridContainer = styled.div`
   border-radius: 5px 5px 0;
 
   span {
-    line-height: 17px;
+    line-height: 150%;
     margin: 26px 0 15px;
   }
 `

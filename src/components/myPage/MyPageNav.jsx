@@ -54,7 +54,7 @@ const NavWrap = styled.section`
 const StyledLink = styled(Link)`
   text-decoration: none;
   font-size: 16px;
-  line-height: 19px;
+  line-height: 150%;
   color: var(--lightGray);
   padding: 17px;
   ${({ $type }) =>

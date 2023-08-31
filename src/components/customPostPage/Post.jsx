@@ -151,7 +151,7 @@ const PostNav = styled.div`
     .postTitle{
       margin:auto;
       font-size:28px;
-      font-weight:bold;
+      font-weight: 700;
     }
 
     div{
@@ -174,7 +174,7 @@ const OptionCount = styled.div`
     display:flex;
     gap:5px;
     font-size:12px;
-    font-weight:normal;
+    font-weight: 400;
     margin-left:auto;
 
 `

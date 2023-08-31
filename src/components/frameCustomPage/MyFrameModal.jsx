@@ -80,7 +80,7 @@ const ModalHeaderSection = styled.div`
     height: 25px;
     border-radius: 50%;
     font-size: 14px;
-    line-height: 25px;
+    line-height: 150%;
     margin-bottom: 10px;
     background-color: var(--green1);
     border: 2px solid var(--green4);

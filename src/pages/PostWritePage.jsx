@@ -233,7 +233,7 @@ const InputHead = styled.div`
   margin-bottom: 7px;
   span {
     font-size: 14px;
-    line-height: 18px;
+    line-height: 150%;
     color: var(--gray4);
   }
   .count {
