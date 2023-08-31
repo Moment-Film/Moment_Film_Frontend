@@ -12,9 +12,10 @@ const ModalBg = styled.div`
   z-index: 50;
 `;
 
+// 모달 컨테이너박스
 const ProfileWrap = styled.div`
   width: 730px;
-  height: 455px;
+  height: 442px;
   background-color: var(--white);
   box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.1);
   border-radius: 5px;
@@ -24,8 +25,28 @@ const ProfileWrap = styled.div`
   position: fixed;
   z-index: 51;
   padding: 0 20px 20px 20px;
+
+  @media (max-width: 900px) {
+    width: 80%;
+    height: 70%;
+    margin: 100px 0;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+      box-sizing: border-box;
+      background-color: var(--green1);
+      border: 2px solid var(--green4);
+    }
+    &::-webkit-scrollbar-track {
+      background-color: var(--whiteGray);
+    }
+  }
 `;
 
+// 클로즈버튼
 const CloseSection = styled.section`
   width: 100%;
   display: flex;
@@ -38,6 +59,7 @@ const CloseSection = styled.section`
 `;
 
 const CloseBtn = styled.div`
+  cursor: pointer;
   img {
     width: 20px;
     height: 20px;
@@ -51,6 +73,11 @@ const ProfileSection = styled.section`
   gap: 20px;
   margin-bottom: 20px;
   position: relative;
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const PicSection = styled.section`
@@ -61,6 +88,10 @@ const PicSection = styled.section`
   align-items: center;
   margin-left: 20px;
   padding-top: 25px;
+
+  @media (max-width: 375px) {
+    margin-left: 0;
+  }
 `;
 
 const PicBox = styled.div`
@@ -76,6 +107,8 @@ const PicBox = styled.div`
 `;
 
 const EditBtn = styled.label`
+  cursor: pointer;
+
   img {
     max-width: 36px;
     max-height: 36px;
@@ -96,14 +129,14 @@ const PicInfoSection = styled.section`
 
   span {
     font-size: 24px;
-    line-height: 30px;
+    line-height: 150%;
     color: var(--black);
-    font-weight: bold;
+    font-weight: 700;
   }
 
   div {
     font-size: 14px;
-    line-height: 17px;
+    line-height: 150%;
     color: var(--gray4);
     margin-top: 4px;
     margin-bottom: 8px;
@@ -128,16 +161,14 @@ const InfoSection = styled.section`
     justify-content: space-between;
     padding-right: 5%;
     margin-bottom: 19.5px;
+    img {
+      width: 24px;
+    }
   }
 
   span {
     font-size: 14px;
-    line-height: 17px;
-  }
-
-  img {
-    width: 24px;
-    height: 24px;
+    line-height: 150%;
   }
 
   hr {
@@ -157,7 +188,7 @@ const InfoInput = styled.section`
   input {
     width: 85%;
     font-size: 16px;
-    line-height: 18px;
+    line-height: 150%;
     background: none;
     border: none;
 
@@ -171,6 +202,10 @@ const InfoInput = styled.section`
 const PasswordSection = styled.section`
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 900px) {
+    padding-bottom: 20px;
+  }
 `;
 
 const PasswordWrap = styled.section`
@@ -188,7 +223,7 @@ const PasswordWrap = styled.section`
 
   span {
     font-size: 14px;
-    line-height: 17px;
+    line-height: 150%;
   }
 `;
 
@@ -197,7 +232,7 @@ const SendBtn = styled.div`
   height: 23px;
   color: var(--gray4);
   font-size: 14px;
-  line-height: 17px;
+  line-height: 150%;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box;
@@ -206,6 +241,7 @@ const SendBtn = styled.div`
   align-items: center;
   margin: 5px 0 0 0;
   padding: 3px 5px;
+  cursor: pointer;
 `;
 
 const TestBox = styled.div`
@@ -221,7 +257,7 @@ const TestBox = styled.div`
 
 const TestInput = styled.input`
   font-size: 16px;
-  line-height: 20px;
+  line-height: 150%;
   background: none;
   border: none;
 
@@ -240,16 +276,17 @@ const TestBtn = styled.div`
   height: 17px;
   color: var(--gray4);
   font-size: 14px;
-  line-height: 17px;
+  line-height: 150%;
   border: 1px solid var(--lightGray);
   border-radius: 5px;
   background-color: var(--white);
   padding: 5px 10px;
+  cursor: pointer;
 `;
 
 const Verify = styled.div`
   font-size: 12px;
-  line-height: 14px;
+  line-height: 150%;
   color: ${(props) =>
     props.isVerified ? "var(--green5)" : "var(--warningRed)"};
   margin: 5px 0 0 0;
@@ -260,7 +297,7 @@ const SaveBtn = styled.div`
   width: 49px;
   height: 17px;
   font-size: 14px;
-  line-height: 17px;
+  line-height: 150%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -270,6 +307,7 @@ const SaveBtn = styled.div`
   color: var(--green5);
   padding: 5px 10px;
   margin-top: 13px;
+  cursor: pointer;
 `;
 
 export {

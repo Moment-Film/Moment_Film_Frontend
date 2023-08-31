@@ -6,10 +6,11 @@ import PageButtons from '../../common/component/PageButtons'
 
 const OnSearchResult = ({ searchData, username, navigate, handler, thisPage}) => {
   
+  console.log()
   return (
     <>
     <div className="resultExist">
-      <span>"{username}"</span>에 대한 검색 결과입니다!
+      <span>{`"${username}"`}</span>{`에 대한 검색 결과입니다! (${searchData.pageableDto.totalElements}건)`}
     </div>
     <span className="resultLine" />
     <div>

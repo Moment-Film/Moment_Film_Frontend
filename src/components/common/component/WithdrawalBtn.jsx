@@ -36,6 +36,11 @@ const WithdrawalBox = styled.section`
   text-decoration: underline;
   color: var(--gray4);
   font-size: 12px;
-  line-height: 14px;
+  line-height: 150%;
 	margin-top: 12px;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--warningRed);
+  }
 `;

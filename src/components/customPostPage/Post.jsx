@@ -88,8 +88,12 @@ const PostNav = styled.div`
 
     .postTitle{
       margin:auto;
-      font-weight:300;
-      line-height:36.4px;
+      font-size:28px;
+      font-weight: 700;
+    }
+
+    div{
+      cursor:pointer;
     }
 
 `
@@ -117,4 +121,10 @@ const SortItem = styled.div`
 `;
 
 
-
+const OptionCount = styled.div`
+    display:flex;
+    gap:5px;
+    font-size:12px;
+    font-weight: 400;
+    margin-left:auto; 
+    `

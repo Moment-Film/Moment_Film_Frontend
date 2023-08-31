@@ -35,7 +35,7 @@ export const ContentHeader = styled.div`
 `
 export const HeaderTitle = styled.div`
     text-align: center;
-    line-height: 40px;
+    line-height: 150%;
     font-size: 15px;
     color: var(--green5);
     cursor: pointer;
@@ -81,7 +81,7 @@ export const ListHeader = styled.div`
     justify-content: space-between;
     width: 100%;
     height: 18px;
-    line-height: 18px;
+    line-height: 150%;
     font-size: 15px;
     color: var(--green5);
     padding-bottom: 5px;

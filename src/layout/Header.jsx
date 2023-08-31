@@ -198,14 +198,14 @@ display:flex;
 justify-content:center;
 min-width:70px;
   font-size: 14px;
-  line-height: 18px;
+  line-height: 150%;
   cursor: pointer;
   background-color: none;
   transition: background-color 0.5s;
   color: ${(props) => props.color};
 
   &:hover {
-    background-color: var(--lightGray);
+    color: var(--green5);
   }
 `;
 

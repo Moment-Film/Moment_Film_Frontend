@@ -51,12 +51,12 @@ const ModalContainer = styled.div`
     margin: 0 0 10.5px;
   }
   span {
-    line-height: 24px;
+    line-height: 150%;
     margin: 0 0 5px;
   }
   p {
     font-size: 14px;
-    line-height: 17px;
+    line-height: 150%;
     margin: 0 0 21px;
   }
   button {
