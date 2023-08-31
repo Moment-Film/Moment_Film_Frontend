@@ -1,34 +1,48 @@
 import React from 'react'
 import styled from 'styled-components';
 import useCustomAPI from '../../api/withToken/useCustom';
-
-function MyFrameModal({onClose, data, title, accessToken, refreshToken, onApply}) {
+import { SetImgFile } from '../../redux/modules/FrameInfo';
+import { useDispatch } from 'react-redux';
+function MyFrameModal({ onClose, data, title, accessToken, refreshToken, onApply }) {
   const {
     applyFrame,
     applyFilter
   } = useCustomAPI();
 
+  const dispatch = useDispatch();
   const closeModalHandler = () => {
     onClose();
   }
+  
   const applyThisFrame = (h, s, l, img) => {
-    onApply(h, s, l, img);
+    if (img) {
+      fetch(img)
+        .then(response => response.blob())
+        .then(blob => {
+          dispatch(SetImgFile(blob));
+          onApply(h, s, l, img);
+        })
+        .catch(error => {
+          console.error("Error fetching or processing image:", error);
+        });
+    }
   }
+
   const applyThisFilter = (blur, brightness, saturate, contrast, sepia) => {
     onApply(blur, brightness, saturate, contrast, sepia);
   }
   const ApplyMyFrame = (frameId) => {
-    applyFrame({frameId, accessToken, refreshToken})
-    .then(result =>{
-      console.log(result);
-      applyThisFrame(result.hue, result.saturation, result.lightness, result.image);
-    })
+    applyFrame({ frameId, accessToken, refreshToken })
+      .then(result => {
+        console.log(result);
+        applyThisFrame(result.hue, result.saturation, result.lightness, result.image);
+      })
   }
   const ApplyMyFilter = (filterId) => {
-    applyFilter({filterId, accessToken, refreshToken})
-    .then(result =>{
-      applyThisFilter(result?.blur, result?.brightness, result?.saturate, result?.contrast, result?.sepia);
-    })
+    applyFilter({ filterId, accessToken, refreshToken })
+      .then(result => {
+        applyThisFilter(result?.blur, result?.brightness, result?.saturate, result?.contrast, result?.sepia);
+      })
   }
   return (
     <ModalSection>
@@ -37,12 +51,12 @@ function MyFrameModal({onClose, data, title, accessToken, refreshToken, onApply}
         <button onClick={closeModalHandler}> X </button>
       </ModalHeaderSection>
       <InnerListSection>
-      {
-          data?.map((item)=>{
+        {
+          data?.map((item) => {
             return <ListItem key={item.id}>
-              <span>{item.id} {title==="프레임" ?item.frameName : item.filterName}</span>
-              <button onClick={()=> title==="프레임" ? ApplyMyFrame(item.id) : ApplyMyFilter(item.id)}>사용하기</button>
-              </ListItem>
+              <span>{item.id} {title === "프레임" ? item.frameName : item.filterName}</span>
+              <button onClick={() => title === "프레임" ? ApplyMyFrame(item.id) : ApplyMyFilter(item.id)}>사용하기</button>
+            </ListItem>
           })
         }
       </InnerListSection>
