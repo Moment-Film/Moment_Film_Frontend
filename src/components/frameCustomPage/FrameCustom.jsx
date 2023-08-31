@@ -109,7 +109,7 @@ const FrameCustomMake = () => {
     setOpenModal(false);
   };
 
-  const applyFrameBackground = (h, s, l, img) => {
+  const applyFrameBackground = async(h, s, l, img) => {
     h && s && l && setColor({ h, s, l });
     img ? setFrameImg(img) : setFrameImg(null);
   };
