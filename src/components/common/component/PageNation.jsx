@@ -1,10 +1,10 @@
-
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import ContentBox from './ContentBox';
+import PageButtons from '../component/PageButtons'
 
-const PaginationComponent = ({ data = [] ,ItemNums,category }) => {
+const PaginationComponent = ({ data = [] ,ItemNums, category }) => {
 
     const [currentPage, setCurrentPage] = useState(1);
     
@@ -16,6 +16,7 @@ const PaginationComponent = ({ data = [] ,ItemNums,category }) => {
     const LastIndex = currentPage * ItemNums;
     const FirstIndex = LastIndex - ItemNums;
     const currentItems = data.slice(FirstIndex, LastIndex);
+    const totalPage = Math.ceil(data.length / ItemNums)
 
     // 페이지 변경 이벤트 핸들러
     const handlePageChange = (pageNumber) => {
@@ -32,7 +33,8 @@ const PaginationComponent = ({ data = [] ,ItemNums,category }) => {
 
             {/* 페이지네이션 버튼 */}
             {/*  Array.from({length: 페이지 수}, (value(안씀), index) => {});  */}
-            <PageBtnSection> 
+            <PageButtons handler={handlePageChange} thisPage={currentPage} totalPage={totalPage} />
+            {/* <PageBtnSection> 
                 {Array.from({ length: Math.ceil(data.length / ItemNums) }, (_, index) => {
                     return (
                     <button key={index} onClick={() => handlePageChange(index + 1)}>
@@ -40,7 +42,7 @@ const PaginationComponent = ({ data = [] ,ItemNums,category }) => {
                     </button>
                     );
                 })}
-            </PageBtnSection>
+            </PageBtnSection> */}
         </PageNationSection>
     );
 

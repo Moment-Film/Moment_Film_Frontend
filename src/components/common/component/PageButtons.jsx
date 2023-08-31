@@ -6,14 +6,14 @@ import mono_left from "../../assets/icons/mono_left.svg";
 import double_right from "../../assets/icons/double_right.svg";
 import mono_right from "../../assets/icons/mono_right.svg";
 
-function PageButtons({pageable, handler, thisPage}) {
+function PageButtons({pageable, totalPage, handler, thisPage}) {
 
   const pageCnt = Math.ceil(pageable?.totalElements/6);
-  console.log(pageCnt)
   const changePageHandler = (page) => {
-    if(page <= pageCnt && page > 0)
+    if(page <= pageCnt?pageCnt:totalPage && page > 0)
     handler(page);
   }
+  console.log("pageCnt", pageCnt, "totalPage", totalPage)
   return (
       <PageBtnSection>
         <div className="leftWrap">
@@ -24,7 +24,7 @@ function PageButtons({pageable, handler, thisPage}) {
             onClick={()=>changePageHandler(thisPage - 1)}
           />
         </div>
-        {Array(pageCnt).fill(null).map((_, index) =>{
+        {Array(pageCnt? pageCnt : totalPage).fill(null).map((_, index) =>{
           return <PageBtn key={index} isSelected={index+1 === thisPage} onClick={()=>changePageHandler(index+1)}> {index + 1} </PageBtn>
         })}
         <div className="rightWrap">
@@ -49,6 +49,7 @@ const PageBtnSection = styled.div`
   justify-content: center;
   align-items: center;
   gap: 10px;
+  margin-bottom: 30px;
 
   .leftWrap {
     img {

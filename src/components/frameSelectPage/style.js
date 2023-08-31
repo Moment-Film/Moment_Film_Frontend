@@ -25,6 +25,7 @@ const OptionWrap = styled.div`
   padding-bottom: ${(props) => props.bottom || "50px"};
   position: relative;
   background-image: url(${(props) => props.url});
+  background-position: center;
   background-size: cover;
 
   span {
@@ -64,8 +65,10 @@ const ArrowWrap = styled.div`
   margin-top: 20px;
   margin-bottom: 30px;
   gap: 10px;
-  @media (max-width: 880px) {
+  @media (max-width: 1000px) {
     width: 90%;
+    box-sizing: border-box;
+    padding: 0 5%;
     height: auto;
     margin-bottom: 50px;
   }
@@ -78,7 +81,7 @@ const DiaAlign = styled.div`
   justify-content: space-between;
   margin-top: 45px;
   margin-bottom: 53px;
-  @media (max-width: 880px) {
+  @media (max-width: 1000px) {
     width: 90%;
     margin-top: -52px;
     margin-bottom: -43px;
@@ -91,7 +94,7 @@ const FrameWrap = styled.div`
   justify-content: center;
   align-items: center;
   gap: 27px;
-  @media (max-width: 880px) {
+  @media (max-width: 1000px) {
     flex-wrap: wrap;
     padding: 80px 0;
   }

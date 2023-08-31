@@ -58,9 +58,11 @@ const StyledLink = styled(Link)`
   text-align: center;
   line-height: 150%;
   color: var(--lightGray);
+  font-weight: 400;
   padding: 17px;
   ${({ $type }) =>
     $type && css`
+    font-weight: 500;
     border-bottom: 2px solid var(--green5);
     color: var(--black);
   `};
