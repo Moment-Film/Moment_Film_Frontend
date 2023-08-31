@@ -19,6 +19,7 @@ import {
 } from "react-slider-color-picker";
 import uploadImg from '../components/assets/icons/upload.svg'
 import delImg from '../components/assets/icons/delete.svg'
+import weight from "../components/assets/icons/weight.svg"
 
 import SlideComponent from "./slider/slider";
 
@@ -399,7 +400,7 @@ function DrawPage() {
 										</div>
 										<p className="optionName">굵기</p>
 										<div className="progess">
-											<img src={lightnessImg} />
+											<img src={weight} />
 											<Slider
 												min={1}
 												max={20}
