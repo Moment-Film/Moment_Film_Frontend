@@ -31,7 +31,7 @@ const WhiteBox = styled.div`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   background-color: #fff;
-  border: 2px solid black;
+  border: 2px solid var(--black);
   position: absolute;
   z-index: 0;
   box-sizing: border-box;
@@ -51,7 +51,7 @@ const MainBox = styled.div`
   height: ${(props) => props.height};
   font-size: ${(props) => props.fontSize};
   font-weight: ${(props) => props.fontWeight};
-  border: 2px solid black;
+  border: 2px solid var(--black);
   background-color: var(--lightGreen);
   box-sizing: border-box;
 

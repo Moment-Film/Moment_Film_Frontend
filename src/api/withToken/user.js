@@ -2,13 +2,7 @@ import axios from "axios";
 import useToken from "../../hooks/useToken";
 
 const useUserAPI = () => {
-
-  const {
-    getAccess,
-    getRefresh,
-    saveAccessToken
-  } = useToken();
-
+  const { getAccess, getRefresh, saveAccessToken } = useToken();
 
   //axios 객체
   const userAxios = axios.create();
@@ -36,8 +30,8 @@ const useUserAPI = () => {
 
   userAxios.interceptors.response.use(
     function (response) {
-      console.log(response.headers.accessToken)
-/*       const timestampInSeconds = 1693186240; // 주어진 유닉스 타임스탬프 (초 단위)
+      console.log(response.headers.accessToken);
+      /*       const timestampInSeconds = 1693186240; // 주어진 유닉스 타임스탬프 (초 단위)
       const timestampInMilliseconds = timestampInSeconds * 1000; // 밀리초 단위로 변환
 
       const date = new Date(timestampInMilliseconds);
@@ -46,19 +40,16 @@ const useUserAPI = () => {
       console.log(dateInKoreaTimeZone); */
 
       if (response.headers.accessToken) {
-        alert("변경됨")
+        alert("변경됨");
         const accessToken = response.headers.accesstoken;
-        saveAccessToken(accessToken)
+        saveAccessToken(accessToken);
       }
-       return response;
+      return response;
     },
     function (error) {
       return Promise.reject(error);
     }
   );
-
-
-
 
   //팔로우 요청 및 취소
   const FollowAPI = async (userId) => {
@@ -92,11 +83,9 @@ const useUserAPI = () => {
 
   // 회원정보 수정 api
 
-  const putEditInfo = async ({profileData }) => {
-    const res = await userAxios.put(
-      `/api/user/info`,profileData
-    );
 
+  const putEditInfo = async ({ profileData }) => {
+    const res = await userAxios.put(`/api/user/info`, profileData);
     return res;
   };
 
@@ -133,12 +122,10 @@ const useUserAPI = () => {
       const res = await userAxios.post(`/api/post/${postId}/likes`, null);
       console.log(res);
       return res.data.data;
-
     } catch (error) {
       throw error;
     }
   };
-
 
   return {
     FollowAPI,

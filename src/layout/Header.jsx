@@ -34,6 +34,7 @@ function Header({ onClose }) {
   return (
 
     <HeaderSection onClick={handleHeaderClick}>
+
       <SmallBottomNav>
         <StyledLink to={'/'} className="option">
           <img src={Img.home}></img>
@@ -58,6 +59,7 @@ function Header({ onClose }) {
 
 
         <HeaderTitle>
+
           <div onClick={() => navigate(`/`)}>
             <img src={LOGO} alt="" />
           </div>
@@ -241,7 +243,9 @@ const SmallBottomNav = styled.div`
   
     background-color:var(--white);
 
+
     border-top:1px solid (--gray2);
+
     font-size:20px;
   }
 

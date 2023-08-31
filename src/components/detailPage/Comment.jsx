@@ -204,7 +204,7 @@ const Comment = ({ data }) => {
               </ProfileSection>
               <div className="comment">{comment.content}</div>
               <BottomSection>
-                <span className="date">{comment.createdAt} 2023/08/24 08:47:47</span>
+                <span className="date">{comment.createdAt}</span>
                 {comment.subComments.length>0 &&
                 <span onClick={() => showReplyHandler(comment.id)}>{comment.subComments.length}개의 답글
                 <img src={downArrow} style={{scale: isReplyShow.includes(comment.id)&&"-1"}} alt=""/>
@@ -243,7 +243,7 @@ const Comment = ({ data }) => {
                       <div className="comment">{reply.content}</div>
                     </CommentMain>
                     <BottomSection>
-                      <span className="date">{comment.createdAt} 2023/08/24 08:47:47</span>
+                      <span className="date">{reply.createdAt}</span>
                     </BottomSection>
                   </CommentMain>
                 </CommentContainer>
@@ -414,6 +414,7 @@ const BottomSection = styled.div`
   .date {
     margin-right: auto;
     cursor: default;
+    color: var(--gray4);
   }
   .write {
     margin-left: 20px;

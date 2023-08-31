@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled, { keyframes, css } from "styled-components";
 import StyledButton from "../common/component/StyledButton";
 
+
 import Fir_check from "../assets/home/Fir_check.png";
 import DIA40 from "../assets/home/40DIA.png";
 import DIA_yel from "../assets/home/DIA_YEL.png";
@@ -574,8 +575,6 @@ const CardSection = styled.div`
     
   }
 
-
-`;
 
 
 const Card = styled.div`

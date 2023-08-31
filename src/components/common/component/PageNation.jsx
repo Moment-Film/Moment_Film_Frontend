@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -42,38 +43,62 @@ const PaginationComponent = ({ data = [] ,ItemNums,category }) => {
             </PageBtnSection>
         </PageNationSection>
     );
+
 };
 
 export default PaginationComponent;
 
-
 const PageNationSection = styled.div`
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    width:90%;
-    max-width:1170px;
-    flex-direction:column;
-
-`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  max-width: 1170px;
+  flex-direction: column;
+`;
 
 const ContentsSection = styled.section`
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    //flex-wrap:wrap;
-    gap:2%;
-`
-
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  //flex-wrap:wrap;
+  gap: 2%;
+`;
 
 const PageBtnSection = styled.div`
-    padding:10px;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 
-    button{
-        width:50px;
-        height:50px;
+  .leftWrap {
+    img {
+      cursor: pointer;
     }
-`
+  }
 
+  .rightWrap {
+    img {
+      cursor: pointer;
+    }
+  }
+`;
 
+const PageBtn = styled.div`
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 50%;
+  background: ${(props) => (props.isSelected ? "var(--green5)" : "none")};
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 150%;
+  color: ${(props) => (props.isSelected ? "var(--white)" : "var(--gray3)")};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+`;

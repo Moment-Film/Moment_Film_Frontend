@@ -5,7 +5,6 @@ import Login from './pages/LoginPage'
 import MyPage from './pages/MyPage'
 import CustomPostPage from './pages/CustomPostPage';
 import DetailPage from './pages/DetailPage';
-import SearchPage from './pages/SearchPage'
 import SearchReseultpage from './pages/SearchReseultpage'
 import SignUpPage from './pages/SignUpPage'
 import CameraPage from './pages/CameraPage';
@@ -40,7 +39,6 @@ function App() {
           <Route path='/camera/capture/filter' element={<FilterPage />} />
           <Route path='/camera/capture/frame' element={<CustomMakePage />} />
           <Route path='/camera/capture/finish' element={<CustomFinishPage />} />
-          <Route path="/search" element={<SearchPage />} />
           <Route path="/search/reseult/:id" element={<SearchReseultpage />} />
           <Route path="/signup" element={<SignUpPage />} />
 

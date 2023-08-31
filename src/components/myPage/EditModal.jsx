@@ -31,6 +31,7 @@ import cancel from "../assets/icons/cancelx2.png";
 import lock from "../assets/icons/lock.png";
 import imgEdit from "../assets/icons/imgEdit.png";
 import nullImg from "../assets/images/nullProfile.svg";
+
 import useInputValidation from "../../hooks/useInputValidation";
 import useToken from "../../hooks/useToken";
 import useUserAPI from "../../api/withToken/user";
@@ -136,7 +137,7 @@ function EditModal({ onClose, profileImg }) {
       },
     }
   );
- 
+
   
   const UploadPic = (e) => {
     const input = e.target;

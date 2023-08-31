@@ -11,9 +11,9 @@ export const getProfile = async (userId) => {
       return res.data.data;
 }
 
-export const searchUser = async ({username}) => {
+export const searchUser = async ({currentPage, username}) => {
   try {
-    const res = await axios.get(`/api/user/search?userKeyword=${username}`);
+    const res = await axios.get(`/api/user/search?userKeyword=${username}&page=${currentPage}`);
     return res.data.data;
   } catch (error) {
     console.log("searchUser api error", error.response.data.msg);

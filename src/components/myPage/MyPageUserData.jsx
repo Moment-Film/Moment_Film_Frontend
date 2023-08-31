@@ -158,7 +158,7 @@ const UserProfileSection = styled.section`
   gap: 10px;
   width: 198px;
   height: 250px;
-  border: 3px solid black;
+  border: 2px solid var(--black);
 `;
 
 const FollowBtn = styled.button`
