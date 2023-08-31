@@ -78,7 +78,7 @@ const Search = () => {
   const onCloseHandler = () => {
     setModalOpen(false);
   };
-  
+
   return (
     <SearchInputDiv ref={searchRef}>
       <input
@@ -103,17 +103,20 @@ export default Search;
 
 const SearchInputDiv = styled.div`
   display: flex;
-  align-items: center;
-  max-width: 370px;
+  justify-content:space-around;
+/*   align-items: center; */
+  min-width: 200px;
+  max-width:300px;
+
   width:30%;
 
   height: 40px;
   border-bottom: 2px solid var(--green5);
   border-radius: 5px 5px 0px 0px;
   box-sizing: border-box;
-  margin-left: -185px;
-  position: absolute;
-  left: 50%;
+/*   margin-left: -185px; */
+/*   position: absolute;
+  left: 50%; */
 
   div {
     display: flex;
@@ -135,4 +138,12 @@ const SearchInputDiv = styled.div`
       font-size: 14px;
     }
   }
+
+    input::placeholder {color:var(--gray3)};
+    input::-webkit-input-placeholder {color:var(--gray3)};
+    input:-ms-input-placeholder {color:var(--gray3)};
+ 
+    textarea::placeholder {color:var(--gray3)};
+    textarea::-webkit-input-placeholder {color:var(--gray3)};
+    textarea:-ms-input-placeholder {color:var(--gray3)};
 `;
