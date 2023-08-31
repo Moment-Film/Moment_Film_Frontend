@@ -574,8 +574,7 @@ const CardSection = styled.div`
     }
     
   }
-
-
+`
 
 const Card = styled.div`
 

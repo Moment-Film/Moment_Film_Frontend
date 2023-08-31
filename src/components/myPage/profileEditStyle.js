@@ -9,7 +9,7 @@ const ModalBg = styled.div`
   align-items: center;
   position: fixed;
   top: 0;
-  z-index: 19;
+  z-index: 1900;
 `;
 const WithdrawalBtn = styled.section`
   text-decoration: underline;
@@ -31,7 +31,7 @@ const ProfileWrap = styled.div`
   flex-direction: column;
   justify-content: center;
   position: fixed;
-  z-index: 20;
+  z-index: 1991;
   padding: 0 20px 20px 20px;
 
   @media (max-width: 900px) {

@@ -54,7 +54,7 @@ const ModalBackLayer = styled.div`
   background-color: rgba(0,0,0,0.2);
   align-items: center;
   justify-content: center;
-  z-index: 50;
+  z-index: 2000;
   .close{
     margin-top: 20px;
     margin-right: 10px;
@@ -79,7 +79,7 @@ const ModalContainer = styled.div`
   border-radius: 5px;
   box-sizing: border-box;
   //padding: 30px;
-  z-index: 51;
+  z-index: 2001;
 
   img {
     margin-top: -10px;
