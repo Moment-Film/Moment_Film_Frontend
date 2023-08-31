@@ -48,6 +48,7 @@ export const StyledSpan14 = styled.span`
   font-size: 14px;
   color: ${(props) => props.color};
   line-height: ${(props) => props.lineHeight};
+  
 `;
 
 //----------------------------------------------------------
@@ -65,6 +66,7 @@ export const StyledBoldSpan28 = styled.span`
   color: ${(props) => props.color};
   line-height: ${(props) => props.lineHeight};
   font-weight: 700;
+  font-family: "Abril Fatface", cursive;
 `;
 
 export const StyledBoldSpan26 = styled.span`

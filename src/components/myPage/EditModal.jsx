@@ -236,6 +236,7 @@ function EditModal({ onClose, profileImg }) {
             </EditBtn>
 
             <PicInfoSection>
+          
               <span>{userInfo.username}</span>
               <div>{userInfo.email}</div>
               <WithdrawalBtn />

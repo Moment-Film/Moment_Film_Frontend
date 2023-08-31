@@ -1,71 +1,49 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import ContentBox from "./ContentBox";
 
-import double_left from "../../assets/icons/double_left.svg";
-import mono_left from "../../assets/icons/mono_left.svg";
-import double_right from "../../assets/icons/double_right.svg";
-import mono_right from "../../assets/icons/mono_right.svg";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import ContentBox from './ContentBox';
 
-const PaginationComponent = ({ data, ItemNums, category }) => {
-  const [currentPage, setCurrentPage] = useState(1);
+const PaginationComponent = ({ data = [] ,ItemNums,category }) => {
 
-  if (!Array.isArray(data) || data.length === 0) {
-    return null; // 또는 유효하지 않은 데이터에 대한 처리나 기본 메시지를 반환할 수 있습니다.
-  }
+    const [currentPage, setCurrentPage] = useState(1);
+    
+    if (!Array.isArray(data) || data.length === 0) {
+        return null;  // 또는 유효하지 않은 데이터에 대한 처리나 기본 메시지를 반환할 수 있습니다.
+    }
 
-  // 현재 페이지에 보여줄 데이터 계산
-  const LastIndex = currentPage * ItemNums;
-  const FirstIndex = LastIndex - ItemNums;
-  const currentItems = data.slice(FirstIndex, LastIndex);
+    // 현재 페이지에 보여줄 데이터 계산
+    const LastIndex = currentPage * ItemNums;
+    const FirstIndex = LastIndex - ItemNums;
+    const currentItems = data.slice(FirstIndex, LastIndex);
 
-  // 페이지 변경 이벤트 핸들러
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
+    // 페이지 변경 이벤트 핸들러
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
 
-  return (
-    <PageNationSection>
-      <ContentsSection>
-        <ContentBox data={currentItems}></ContentBox>
-      </ContentsSection>
 
-      {/* 페이지네이션 버튼 */}
-      {/*  Array.from({length: 페이지 수}, (value(안씀), index) => {});  */}
-      <PageBtnSection>
-        <div className="leftWrap">
-          <img src={double_left} alt="" onClick={() => setCurrentPage(1)} />
-          <img
-            src={mono_left}
-            alt=""
-            onClick={() => setCurrentPage(currentPage - 1)}
-          />
-        </div>
-        {Array.from(
-          { length: Math.ceil(data.length / ItemNums) },
-          (_, index) => {
-            return (
-              <PageBtn
-                key={index}
-                onClick={() => handlePageChange(index + 1)}
-                isSelected={index + 1 === currentPage}
-              >
-                {index + 1}
-              </PageBtn>
-            );
-          }
-        )}
-        <div className="rightWrap">
-          <img src={mono_right} alt="" />
-          <img
-            src={double_right}
-            alt=""
-            onClick={() => setCurrentPage(currentPage + 1)}
-          />
-        </div>
-      </PageBtnSection>
-    </PageNationSection>
-  );
+    return (
+        <PageNationSection>
+            <ContentsSection>
+                <ContentBox data={currentItems}></ContentBox>
+            </ContentsSection>
+
+
+            {/* 페이지네이션 버튼 */}
+            {/*  Array.from({length: 페이지 수}, (value(안씀), index) => {});  */}
+            <PageBtnSection> 
+                {Array.from({ length: Math.ceil(data.length / ItemNums) }, (_, index) => {
+                    return (
+                    <button key={index} onClick={() => handlePageChange(index + 1)}>
+                        {index + 1}
+                    </button>
+                    );
+                })}
+            </PageBtnSection>
+        </PageNationSection>
+    );
+
 };
 
 export default PaginationComponent;

@@ -83,6 +83,7 @@ const useUserAPI = () => {
 
   // 회원정보 수정 api
 
+
   const putEditInfo = async ({ profileData }) => {
     const res = await userAxios.put(`/api/user/info`, profileData);
     return res;

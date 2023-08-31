@@ -8,19 +8,12 @@ import Edit from "../assets/icons/Edit.png";
 import out from "../assets/icons/goOut.svg"
 import useUserAPI from "../../api/withToken/user";
 import { Span28, StyledSpan24 } from "../common/styles/StyledSpan";
-// import ProfileEdit from "./ProfileEdit";
 import EditModal from "./EditModal";
 import LogoutBtn from "../common/component/LogoutBtn";
 import nullImg from "../assets/images/nullProfile.svg";
-import { useQuery } from "react-query";
-import { getProfile } from "../../api/nonToken/user";
 
 const MyPageUserData = ({ lang, data, }) => {
   const { FollowAPI } = useUserAPI();
-
-  // const { data:profileData, error, isLoading } = useQuery(['profile', userId], () => getProfile(userId));
-
-
   const userInfo = useSelector((state) => state.UserInfo);
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
@@ -113,8 +106,8 @@ const MyPageUserData = ({ lang, data, }) => {
 
                 <div className="item-2">
                   <div className="option">
-                    <LogoutBtn />
-                    <img src={Edit} alt="" />
+      {/*               <LogoutBtn />
+                    <img src={Edit} alt="" /> */}
                   </div>
                 </div>
               </>
