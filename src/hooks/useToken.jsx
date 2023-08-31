@@ -3,7 +3,7 @@ import { SetAccessToken } from '../redux/modules/AccessToken';
 import { useCookies } from 'react-cookie';
 import { useSelector } from 'react-redux';
 import CryptoJS from 'crypto-js'; 
-import base64 from "base-64";
+import { decode } from 'base-64';
 import { SetUserInfo } from '../redux/modules/User';
 
 const useToken = () => {
@@ -59,10 +59,14 @@ const useToken = () => {
 
     //access 토큰 복호화해서 유저정보 저장하기 
     const saveUserInfo = (accessToken) => {
-        const jwtPayload = accessToken.split(".")[1];        
-        const decodedPayload = JSON.parse(base64.decode(jwtPayload));
-        console.log(decodedPayload);
-        dispatch(SetUserInfo(decodedPayload));
+        const jwtPayload = accessToken.split(".")[1];
+     
+          const base64DecodedPayload = decode(jwtPayload);
+          const utf8DecodedPayload = new TextDecoder().decode(Uint8Array.from(base64DecodedPayload, c => c.charCodeAt(0)));
+          const decodedPayload = JSON.parse(utf8DecodedPayload);
+          console.log(decodedPayload);
+          dispatch(SetUserInfo(decodedPayload)); 
+
     };
 
     return {

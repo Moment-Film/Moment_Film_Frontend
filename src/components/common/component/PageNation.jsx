@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import ContentBox from './ContentBox';
 
-const PaginationComponent = ({ data = [] ,ItemNums }) => {
+const PaginationComponent = ({ data = [] ,ItemNums,category }) => {
 
     const [currentPage, setCurrentPage] = useState(1);
     

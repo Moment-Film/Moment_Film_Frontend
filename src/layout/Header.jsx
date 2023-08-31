@@ -8,7 +8,7 @@ import LOGO from "../components/assets/images/LOGO.svg";
 import Search from "../components/common/component/Search";
 
 import { Link } from "react-router-dom";
-
+import * as Img from '../components/assets/header/Image';
 
 function Header({ onClose }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -34,33 +34,47 @@ function Header({ onClose }) {
   return (
 
     <HeaderSection onClick={handleHeaderClick}>
-       <Small>
-        <StyledLink to={'/'}>홈</StyledLink>
-        <Search />
-        <StyledLink>마이페이지</StyledLink>
-      </Small> 
-      
-      <HeaderTitle>
+      <SmallBottomNav>
+        <StyledLink to={'/'} className="option">
+          <img src={Img.home}></img>
+          <span>홈</span>
+        </StyledLink>
+        <StyledLink to={'/camera/capture'} className="option">
+          <img src={Img.photo}></img>
+          <span>촬영</span>
+        </StyledLink>
+        <StyledLink to={'/postlist/recent'} className="option">
+          <img src={Img.post}></img>
+          <span>조회</span>
+        </StyledLink>
+        <StyledLink to={`/profile/${userInfo.sub}`} className="option">
+          <img src={Img.my}></img>
+          <span>마이페이지</span>
+        </StyledLink>
+        {/*     <Search className="searchBar" /> */}
+      </SmallBottomNav>
+
+      <HeaderWrap>
+
+
+        <HeaderTitle>
           <div onClick={() => navigate(`/`)}>
             <img src={LOGO} alt="" />
           </div>
         </HeaderTitle>
-      <HeaderWrap>
 
-
-
-        <LinkSection>
         <Search
-          className="center"
+          className="searchBar"
           onClick={(e) => {
             e.stopPropagation();
             setIsModalOpen(true);
           }}
-        />{" "}
-          <NavBtn onClick={() => navigate(`/camera/frameSelect`)}>
+        />
+        <LinkSection>
+          <NavBtn className="boldOption" onClick={() => navigate(`/camera/frameSelect`)}>
             촬영하기
           </NavBtn>
-          <NavBtn onClick={() => navigate(`/postlist/recent`)}>
+          <NavBtn className="boldOption" onClick={() => navigate(`/postlist/recent`)}>
             전체글보기
           </NavBtn>
 
@@ -78,7 +92,7 @@ function Header({ onClose }) {
             </>
           ) : (
             <>
-              <NavBtn
+              <NavBtn className="normalOption"
                 onClick={() => {
                   navigate(`/login`);
                 }}
@@ -86,7 +100,7 @@ function Header({ onClose }) {
               >
                 로그인
               </NavBtn>
-              <NavBtn onClick={() => navigate(`/signup`)} color={"#505050"}>
+              <NavBtn className="normalOption" onClick={() => navigate(`/signup`)} color={"#505050"}>
                 회원가입
               </NavBtn>
             </>
@@ -107,7 +121,9 @@ function Header({ onClose }) {
 export default Header;
 
 const HeaderSection = styled.header`
-  height: 84px;
+  min-height:50px;
+  height: 5vw;
+  max-height:84px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -121,10 +137,12 @@ const HeaderSection = styled.header`
 `;
 
 const HeaderWrap = styled.div`
-  width: 100%;
+width:65%;
+gap:5%;
   display: flex;
+  align-items:center;
 
-  justify-content: flex-end;
+  justify-content: space-between;
 
   span {
     width: 1px;
@@ -132,15 +150,15 @@ const HeaderWrap = styled.div`
     background-color: var(--lightGray);
   }
 
-  @media (max-width: 700px) {
-    display:none;
+
+.searchBar{
 
 }
 
 `;
 
 const HeaderTitle = styled.section`
-padding-left:10%;
+
 @media (max-width: 700px) {
     padding:0;
 
@@ -150,19 +168,33 @@ padding-left:10%;
 
 
 const LinkSection = styled.section`
-  min-width: 309px;
+
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 3%;
 
  @media (max-width: 900px) {
     gap: 10px;
 
 }
 
+@media (max-width: 900px) {
+    display:none;
+}
+.boldOption{
+  font-weight:500;
+}
+.normalOption{
+  font-weight:300;
+  color:var(--gray5);
+}
+
 `;
 
 export const NavBtn = styled.div`
+display:flex;
+justify-content:center;
+min-width:70px;
   font-size: 14px;
   line-height: 18px;
   cursor: pointer;
@@ -175,24 +207,41 @@ export const NavBtn = styled.div`
   }
 `;
 
-const Small = styled.div`
+const SmallBottomNav = styled.div`
+  border-top: 1px solid var(--gray2);
+
+.option{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  width:15%;
+  border-radius:50%;
+  img{
+
+  }
+ 
+  span{
+    color:var(--green5);
+    font-size:12px;
+  }
+}
   @media only screen and (min-width: 700px) {
     display:none;
   }
 
-  @media only screen and (max-width: 700px) {
+  @media only screen and (max-width: 900px) {
     display:flex;
     align-items:center;
-    justify-content:center;
-    gap:60%;
+    justify-content:space-around;
+    
     position:fixed;
-    height:50px;
-    width:100vw;
+    height:60px;
+    width:100%;
     bottom:0;
   
     background-color:var(--white);
 
-    border-top:1px solid black;
+    border-top:1px solid (--gray2);
     font-size:20px;
   }
 

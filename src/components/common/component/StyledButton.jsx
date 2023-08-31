@@ -26,7 +26,7 @@ const Outline = styled.div`
   position: relative;
 `;
 const WhiteBox = styled.div`
-  margin-left: 10px;
+  margin-left: 8px;
 
   width: ${(props) => props.width};
   height: ${(props) => props.height};
@@ -42,7 +42,7 @@ const MainBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 8px;
 
   max-width: 133px;
   max-height: 39px;

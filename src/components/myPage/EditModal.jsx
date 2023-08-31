@@ -204,6 +204,10 @@ function EditModal({ onClose, profileImg }) {
   const stopPropagation = (e) => {
     e.stopPropagation();
   };
+
+
+    console.log(userInfo)
+
 console.log(profileImg)
   return (
     <ModalBg onClick={onClose}>
@@ -241,6 +245,7 @@ console.log(profileImg)
             </EditBtn>
 
             <PicInfoSection>
+          
               <span>{userInfo.username}</span>
               <div>{userInfo.email}</div>
               <WithdrawalBtn />

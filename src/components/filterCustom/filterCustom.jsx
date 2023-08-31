@@ -13,9 +13,9 @@ import domtoimage from "dom-to-image";
 import { SetResultImage } from "../../redux/modules/ResultImage";
 import { SetFilter } from "../../redux/modules/Filter";
 import StyledButton from '../common/component/StyledButton'
-import filterImg from '../assets/icons/filter.png'
-import resetImg from '../assets/icons/reset.png';
 import LOGO from '../assets/images/LOGO.svg'
+
+import * as Img from '../assets/filter/Image';
 
 const FilterCustom = () => {
   const picRef = useRef();
@@ -32,6 +32,14 @@ const FilterCustom = () => {
     { key: "saturate", label: "채도", max: 200, unit: "%" },
     { key: "contrast", label: "대비", max: 200, unit: "%" },
     { key: "sepia", label: "세피아", max: 100, unit: "%" },
+  ])
+
+  const [filterImg, setFilterImg] = useState([
+    Img.blur,
+    Img.brightness,
+    Img.saturate,
+    Img.contrast,
+    Img.sepia
   ])
 
   const [filterValue, setFilterValue] = useState(filter);
@@ -97,7 +105,7 @@ const FilterCustom = () => {
               $frameImg={Frame.imageUrl}
               $gap={thisGrid.gap}
             >
-              <img src={LOGO} alt="" style={{filter: Frame.lightness<50 &&"invert(100%)"}}/>
+              <img src={LOGO} alt="" style={{ filter: Frame.lightness < 50 && "invert(100%)" }} />
               <a.InnerImgWrap>
                 {innerImg.map((img, index) => {
                   return (
@@ -111,14 +119,7 @@ const FilterCustom = () => {
                       $contrast={filterValue.contrast}
                       $sepia={filterValue.sepia}
                     >
-                      <img
-                        style={{
-                          width: "100%",
-                          height: "100%",
-                        }}
-                        src={img}
-                        alt=""
-                      />
+                      <img src={img} alt="" />
                     </FilterImage>
                   );
                 })}
@@ -130,38 +131,42 @@ const FilterCustom = () => {
             <OptionSection>
               <div className="optionHeader">
                 <span >필터조정</span>
-                <img onClick={resetFilter} src={resetImg} />
+                <img onClick={resetFilter} src={Img.reset} />
               </div>
 
-              {
-                filterList.map((item) =>
-                  <div key={item.key}>
-                    <p className="optionName">{item.label}</p>
-                    
-                    <div className="progess">
-                      <img src={filterImg} />
-                      <Slider
-                        style={{ width: "223px" }}
-                        min={0}
-                        max={item.max}
-                        step={item.unit === "%" ? 1 : 0.1}
-                        value={filterValue[item.key] || 0}
-                        onChange={(value) => filterValueHandler(item.key, value)}
-                        trackStyle={{ backgroundColor: "rgb( 96, 161, 14)" }}
-                        handleStyle={{
-                          borderColor: "rgb( 96, 161, 14)",
-                          backgroundColor: "white",
-                          border: "3px solid rgb( 96, 161, 14)",
-                          borderRadius: "50%",
-                          width: "13px",
-                          height: "13px",
-                        }}
-                      />
-                    </div>
-                  </div>
-                )
-              }
+              <section className="sliderWrap">
 
+
+                {
+                  filterList.map((item, index) =>
+                    <div key={item.key}>
+                      <p className="optionName">{item.label}</p>
+
+                      <div className="progess">
+                        <img src={filterImg[index]} />
+                        <Slider
+                          className="slider"
+                          style={{ width: "80%" }}
+                          min={0}
+                          max={item.max}
+                          step={item.unit === "%" ? 1 : 0.1}
+                          value={filterValue[item.key] || 0}
+                          onChange={(value) => filterValueHandler(item.key, value)}
+                          trackStyle={{ backgroundColor: "rgb( 96, 161, 14)" }}
+                          handleStyle={{
+                            borderColor: "rgb( 96, 161, 14)",
+                            backgroundColor: "white",
+                            border: "3px solid rgb( 96, 161, 14)",
+                            borderRadius: "50%",
+                            width: "13px",
+                            height: "13px",
+                          }}
+                        />
+                      </div>
+                    </div>
+                  )
+                }
+              </section>
               <div className="doneBtn">
                 <StyledButton
                   func={handleDownload}
@@ -184,6 +189,7 @@ export default FilterCustom;
 
 const OptionSection = styled.section`
   display: flex;
+  width:70%;
   flex-direction: column;
   align-items: center;
   padding-top: 30px;
@@ -198,11 +204,17 @@ const OptionSection = styled.section`
   }
   .progess{
     display:flex;
+    width:80%;
     align-items:center;
     gap:10px;
+
   }
   img{
     width:38px;
+    height:38px;
+  }
+  .sliderWrap{
+    width:100%;
   }
 `;
 
@@ -215,13 +227,17 @@ const FilterImage = styled.div`
     brightness(${(props) => props.$brightness || 1})
     contrast(${(props) => props.$contrast || 100}%)
     sepia(${(props) => props.$sepia || 0}%);
+
+    img{
+      width:100%;
+      height:100%;
+    }
 `;
 
 const BackgroundGray = styled.div`
 	display: flex;
 	justify-content: center;
 	background-color: var(--whiteGray);
-  height:863px;
 `;
 const WhiteContainer = styled.div`
 	width: 1170px;
@@ -231,6 +247,13 @@ const WhiteContainer = styled.div`
 `;
 const DrawSection = styled.div`
 	display: flex;
+
+  @media (max-width: 400px) {
+    flex-direction:column;
+    align-items:center;
+    
+}
+
 `;
 const LeftBox = styled.div`
   height:863px;
@@ -246,12 +269,12 @@ const RightBox = styled.div`
 	justify-content:center;
 	gap:10px;
 	width: 40%;
-  height:863px;
+
 	background-color: white;
 
   .optionHeader{
     display:flex;
-    width:290px;
+    width:100%;
     justify-content:space-between;
     margin-bottom:40px;
     border-bottom:1px solid rgb(217, 217, 217);
@@ -259,6 +282,12 @@ const RightBox = styled.div`
 
     img{
       width:21px;
+      height:21px;
+      cursor:pointer;
+      transition: transform 0.3s ease;
+      &:hover {
+         transform: rotate(-90deg); 
+      }
     }
   }
 `;
