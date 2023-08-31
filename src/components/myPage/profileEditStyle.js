@@ -37,7 +37,8 @@ const ProfileWrap = styled.div`
   @media (max-width: 900px) {
     width: 80%;
     height: 70%;
-    margin: 100px 0;
+    justify-content: flex-start;
+    padding: 20px;
     overflow-y: scroll;
 
     &::-webkit-scrollbar {
@@ -156,6 +157,9 @@ const Info = styled.div`
   height: 377px;
   display: flex;
   flex-direction: column;
+  @media (max-width:540px) {
+    width: 90%;
+  }
 `;
 
 const InfoSection = styled.section`
@@ -175,6 +179,7 @@ const InfoSection = styled.section`
   }
 
   span {
+    width: 80px;
     font-size: 14px;
     line-height: 150%;
   }
@@ -230,8 +235,15 @@ const PasswordWrap = styled.section`
   }
 
   span {
+    width: 70px;
     font-size: 14px;
     line-height: 150%;
+  }
+  
+  @media (max-width:540px) {
+    section {
+      width: 90%;
+    }
   }
 `;
 
@@ -253,7 +265,7 @@ const SendBtn = styled.div`
 `;
 
 const TestBox = styled.div`
-  width: 277px;
+  width: 70%;
   height: 41px;
   background-color: var(--green0);
   border-bottom: 1px solid var(--green5);
@@ -264,6 +276,7 @@ const TestBox = styled.div`
 `;
 
 const TestInput = styled.input`
+  width: 100%;
   font-size: 16px;
   line-height: 150%;
   background: none;
@@ -280,7 +293,7 @@ const TestInput = styled.input`
 `;
 
 const TestBtn = styled.div`
-  width: 25px;
+  width: 30px;
   height: 17px;
   color: var(--gray4);
   font-size: 14px;
@@ -290,6 +303,7 @@ const TestBtn = styled.div`
   background-color: var(--white);
   padding: 5px 10px;
   cursor: pointer;
+  white-space: nowrap;
 `;
 
 const Verify = styled.div`
