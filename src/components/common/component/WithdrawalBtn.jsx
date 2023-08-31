@@ -39,4 +39,12 @@ const Btn = styled.button`
   border: none;
   background-color: var(--gray2_a);
   color: var(--gray4);
-`
+  font-size: 12px;
+  line-height: 150%;
+	margin-top: 12px;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--warningRed);
+  }
+`;

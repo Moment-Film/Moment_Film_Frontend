@@ -91,7 +91,7 @@ const RightBox = styled.div`
 
 const Title = styled.div`
   font-size: 24px;
-  line-height: 32px;
+  line-height: 150%;
   height: 64px;
   margin: 20px 0 12px 0;
   display: flex;

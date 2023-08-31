@@ -469,7 +469,7 @@ const CreateAt = styled.span`
   text-align: center;
   font-size: 14px;
   color: var(--gray4);
-  line-height: 23px;
+  line-height: 150%;
   margin-top: 40px;
 `;
 const OptionModal = styled.div`

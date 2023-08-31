@@ -26,7 +26,7 @@ const ResultSection = styled.section`
     span {
       color: var(--green5);
       background-color: none;
-      font-weight: bold;
+      font-weight: 700;
     }
   }
 
@@ -123,7 +123,7 @@ const InfoBoxWrap = styled.div`
 
     .value {
       font-size: 13px;
-      font-weight: 150%;
+      line-height: 150%;
       color: var(--gray5_a);
     }
 

@@ -36,14 +36,18 @@ const LogoutBtn = () => {
 export default LogoutBtn;
 
 export const NavBtn = styled.div`
+  display:flex;
+  align-items:center;
+  justify-content:center;
   font-size: 14px;
-  line-height: 18px;
+  line-height: 150%;
   cursor: pointer;
   background-color: none; /* 초기 색상 */
   transition: background-color 0.5s;
   color: ${props => props.color};
+  min-width:70px;
 
   &:hover {
-    background-color: var(--lightGray);
-  }
+    color: var(--green5);
+}
 `;

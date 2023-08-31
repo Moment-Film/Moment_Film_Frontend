@@ -17,7 +17,7 @@ import { useRef } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { SetBackgroundImg } from "../../redux/modules/FrameInfo";
-import { StyledSpan14 } from "../common/styles/StyledSpan";
+import { StyledSpan14, StyledSpan12, StyledSpan16 } from "../common/styles/StyledSpan";
 import MyFrameModal from './MyFrameModal'
 import { useQuery } from "react-query";
 import { SetImgFile } from "../../redux/modules/FrameInfo";
@@ -29,6 +29,8 @@ import hueImg from '../assets/icons/hue.png'
 import saturationImg from '../assets/icons/saturation.png';
 import lightnessImg from '../assets/icons/lightness.png';
 import LOGO from '../assets/images/LOGO.svg'
+import * as Img from '../assets/frame/Image';
+
 const FrameCustomMake = () => {
 
   const {
@@ -129,41 +131,20 @@ const FrameCustomMake = () => {
   }
 
   useEffect(() => {
-/*     if(frame){
-      console.log(frame.image)
-      applyFrameBackground(frame.hue, frame.saturation, frame.lightness, frame.image);
-      const file = frame.image;
-      const blob = new Blob([frame.image], { type: file.type });
-     dispatch(SetImgFile(blob));
 
-    }  */
-
-    if(frame){
+    if (frame) {
       fetch(frame.image)
-  .then(response => response.blob())
-  .then(blob => {
-    dispatch(SetImgFile(blob));
-    applyFrameBackground(frame.hue, frame.saturation, frame.lightness, frame.image);
+        .then(response => response.blob())
+        .then(blob => {
+          dispatch(SetImgFile(blob));
+          applyFrameBackground(frame.hue, frame.saturation, frame.lightness, frame.image);
 
-  })
-  .catch(error => {
-    console.error("Error fetching or processing image:", error);
-  });
+        })
+        .catch(error => {
+          console.error("Error fetching or processing image:", error);
+        });
     }
 
-
-
-/*        if(frame.id){
-          const frameId = frame.id;
-          applyFrame({ frameId, accessToken, refreshToken })
-            .then(result => {
-              console.log(result);
-              applyFrameBackground(result.hue, result.saturation, result.lightness, result.image);
-              
-              //요게 문제임 
-              dispatch(SetImgFile(result.image));
-            })
-        }  */
   }, [])
 
   return (
@@ -181,7 +162,7 @@ const FrameCustomMake = () => {
               $frameImg={frameImg}
               gap={thisGrid.gap}
             >
-              <img src={LOGO} alt="" style={{filter: color.l<50 &&"invert(100%)"}}/>
+              <img src={LOGO} alt="" style={{ filter: color.l < 50 && "invert(100%)" }} />
               <a.InnerImgWrap>
                 {innerImg.map((img, index) => {
                   return (
@@ -231,9 +212,9 @@ const FrameCustomMake = () => {
                   refreshToken={refreshToken}
                   onApply={applyFrameBackground}
                 />}
-                
+
               <div className="useMy">
-                <button onClick={openModalHandler}>MY</button>
+                <img src={Img.mycustom} onClick={openModalHandler} />
                 <span>내 커스텀</span>
               </div>
 
@@ -243,7 +224,7 @@ const FrameCustomMake = () => {
                 </div>
                 <p className="optionName">색조</p>
                 <div className="progess">
-                  <img src={hueImg} />
+                  <img src={Img.hue} />
                   <HueSlider
                     handleChangeColor={changeColorHandler}
                     color={color}
@@ -251,7 +232,7 @@ const FrameCustomMake = () => {
                 </div>
                 <p className="optionName">채도</p>
                 <div className="progess">
-                <img src={saturationImg} />
+                  <img src={Img.saturate} />
                   <SaturationSlider
                     handleChangeColor={changeColorHandler}
                     color={color}
@@ -260,7 +241,7 @@ const FrameCustomMake = () => {
                 </div>
                 <p className="optionName">밝기</p>
                 <div className="progess">
-                <img src={lightnessImg} />
+                  <img src={Img.brightness} />
                   <LightnessSlider
                     handleChangeColor={changeColorHandler}
                     color={color}
@@ -309,8 +290,7 @@ const FrameCustomMake = () => {
                       )}
                   </a.UploadLabel>
                 </a.UploadContainer>
-                <StyledSpan14
-                  style={{ margin: '12px 0 35px 0', color: 'var(--lightGray)' }}>
+                <StyledSpan14 className="fileInfo">
                   300px * 447px를 권장합니다.
                 </StyledSpan14>
               </div>
@@ -336,6 +316,7 @@ export default FrameCustomMake;
 
 const OptionSection = styled.section`
   display: flex;
+  width:70%;
   flex-direction: column;
 
   padding-top: 30px;
@@ -354,6 +335,8 @@ const OptionSection = styled.section`
     display:flex;
     align-items:center;
     gap:10px;
+
+
   }
   img{
     width:38px;
@@ -367,27 +350,47 @@ const OptionSection = styled.section`
     margin-left:auto;
     display:flex;
     flex-direction:column;
+    align-items:center;
+    img{
+      width:28px;
+      height:28px;
+    }
   }
 
   .rangeSlider{
+    width:100%;
     padding :41px 0 41px 0;
     border-bottom:1px solid rgb(217, 217, 217);
   }
+
+  .fileInfo{
+    margin: 12px 0 35px 0;
+    color:var(--gray3);
+  }
+
 `;
 const BackgroundGray = styled.div`
 	display: flex;
 	justify-content: center;
-	background-color: var(--whiteGray);
-  height:863px;
+	background-color: var(--gray2);
+
 `;
 const WhiteContainer = styled.div`
 	width: 1170px;
-	height: 100%;
+
 	background-color: white;
 	overflow: hidden;
 `;
 const DrawSection = styled.div`
 	display: flex;
+
+  @media (max-width: 400px) {
+    flex-direction:column;
+    align-items:center;
+    
+}
+
+
 `;
 const LeftBox = styled.div`
   height:863px;
@@ -395,14 +398,14 @@ const LeftBox = styled.div`
   	display: flex;
   	align-items: center;
   	justify-content: center;
-	background: var(--lightGray);
+	background: var(--gray3);
 `;
 const RightBox = styled.div`
 	display:flex;
 	justify-content:center;
 	gap:10px;
 	width: 40%;
-  height:863px;
+
 	background-color: white;
 
   .optionHeader{

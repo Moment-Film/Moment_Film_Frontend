@@ -27,7 +27,8 @@ import {
 } from "./profileEditStyle";
 import * as a from "../frameCustomPage/style";
 import cancel from "../assets/icons/cancelx2.png";
-import lock from "../assets/icons/lock.png";
+import user from "../assets/icons/userName.svg"
+import lock from "../assets/icons/lock.svg"
 import imgEdit from "../assets/icons/imgEdit.png";
 import nullImg from "../assets/images/nullProfile.svg";
 
@@ -40,10 +41,6 @@ import byebye from '../assets/images/byebye.png';
 function EditModal({ onClose, profileImg }) {
   const { sendEmail, putEditInfo, getPrivateInfo, replacePassword } =
     useUserAPI();
-
-  // const { data, isLoading, isError } = useQuery(`User${userId}`, () =>
-  //   getProfile(userId)
-  // );
 
   const { getAccess, getRefresh } = useToken();
 
@@ -75,7 +72,7 @@ function EditModal({ onClose, profileImg }) {
   const accessToken = getAccess();
   const refreshToken = getRefresh();
 
-  const { data, isLoading, isError, isSuccess } = useQuery(
+  const { data, isSuccess } = useQuery(
     `Private${userInfo.sub}`,
     () => getPrivateInfo({ accessToken, refreshToken })
   );
@@ -140,7 +137,6 @@ function EditModal({ onClose, profileImg }) {
     }
   );
 
-  
   const UploadPic = (e) => {
     const input = e.target;
     if (input.files && input.files[0]) {
@@ -165,7 +161,6 @@ function EditModal({ onClose, profileImg }) {
     const editProfileData = { username: editName, phone: editPhone };
 
     if (UploadImage !== null) {
-      // const FrameFile = new File([UploadImage], 'test.jpg', { type: 'image/jpeg' });
       profileData.append("imageFile", UploadImage);
     }
     profileData.append(
@@ -173,7 +168,6 @@ function EditModal({ onClose, profileImg }) {
       new Blob([JSON.stringify(editProfileData)], { type: "application/json" })
     );
 
-    // const editImage = editProfile.image;
     putEditInfo({ accessToken, refreshToken, profileData });
     setIsEdit(false);
     editInfoMutation.mutate({ accessToken, refreshToken, profileData });
@@ -210,7 +204,7 @@ function EditModal({ onClose, profileImg }) {
   const stopPropagation = (e) => {
     e.stopPropagation();
   };
-console.log(profileImg)
+
   return (
     <ModalBg onClick={onClose}>
       {showModal && <Modals imgSrc={byebye} type="bye" text="진짜... 탈퇴하시나요?" onClose={closeModalHandler}/>}
@@ -228,9 +222,9 @@ console.log(profileImg)
                 src={
                   curruntImage
                     ? curruntImage
-                    : (profileImg
+                    : profileImg
                     ? profileImg
-                    : nullImg)
+                    : nullImg
                 }
                 alt="프로필 이미지"
               />
@@ -248,6 +242,7 @@ console.log(profileImg)
             </EditBtn>
 
             <PicInfoSection>
+          
               <span>{userInfo.username}</span>
               <div>{userInfo.email}</div>
               <WithdrawalBtn onClick={()=>setShowModal(true)}>회원탈퇴</WithdrawalBtn>
@@ -256,7 +251,7 @@ console.log(profileImg)
           <Info>
             <InfoSection>
               <div>
-                <img src={lock} alt="" style={{ width: "24px" }} />
+                <img src={user} alt="" />
                 <span>유저이름</span>
                 {!isEdit ? (
                   <InfoInput>
@@ -265,7 +260,7 @@ console.log(profileImg)
                 ) : (
                   <InfoInput>
                     <input
-                      placeholder={userInfo.username}
+                      placeholder={data?.data.data.username}
                       value={editProfile.username || ""}
                       onChange={(e) =>
                         editInputHandler("username", e.target.value)
@@ -275,7 +270,7 @@ console.log(profileImg)
                 )}
               </div>
               <div>
-                <img src={lock} alt="" style={{ width: "24px" }} />
+                <img src={lock} alt="" />
                 <span>전화번호</span>
                 {!isEdit ? (
                   <InfoInput>
@@ -348,21 +343,9 @@ console.log(profileImg)
                 </div>
                 <SaveBtn>
                   {!isEdit && (
-                    <div
-                      onClick={() => setIsEdit(true)}
-                      style={{ display: "flex", justifyContent: "flex-end" }}
-                    >
-                      수정하기
-                    </div>
+                    <div onClick={() => setIsEdit(true)}>수정하기</div>
                   )}
-                  {isEdit && (
-                    <div
-                      onClick={submitEdit}
-                      style={{ display: "flex", justifyContent: "flex-end" }}
-                    >
-                      저장완료
-                    </div>
-                  )}
+                  {isEdit && <div onClick={submitEdit}>저장완료</div>}
                 </SaveBtn>
               </PasswordWrap>
             </PasswordSection>

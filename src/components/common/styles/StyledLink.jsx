@@ -33,13 +33,13 @@ export const StyledBoldLink16 = styled(Link)`
     font-size:16px;
     text-decoration:none;
     text-align:center;
-    font-weight:bold;
+    font-weight: 700;
     color: ${(props)=>props.color};
 `
 export const StyledBoldLink14 = styled(Link)`
     font-size:14px;
     text-decoration:none;
     text-align:center;
-    font-weight:bold;
+    font-weight: 700;
     color: ${(props)=>props.color};
 `

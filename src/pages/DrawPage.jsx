@@ -358,19 +358,20 @@ function DrawPage() {
 						<OptionSection>
 							<div className="modeBtn">
 								<ModeBtn state={!mode} onClick={() => setMode(false)}>그리기</ModeBtn>
-								<ModeBtn state={mode} onClick={() => setMode(true)}>사진 옮기기</ModeBtn>
+								<ModeBtn state={mode} onClick={() => setMode(true)}>스티커</ModeBtn>
 							</div>
-
 
 							{
 								!mode
 
 									? <section className="rangeSlider">
-										
-										<EraserBtn state={eraser} onClick={() => setEraser(!eraser)}>지우개</EraserBtn>
+
+										<EraserBtn state={!eraser} onClick={() => setEraser(!eraser)}>
+											{eraser ? "지우개 on" : "지우개 off"}
+										</EraserBtn>
 
 										<div className="optionHeader">
-											<span >프레임 커스텀</span>
+											<span >펜툴</span>
 										</div>
 										<p className="optionName">색조</p>
 										<div className="progess">
@@ -627,26 +628,6 @@ const StickerSection = styled.div`
 	align-items:center;
   	padding-top: 35.5px;
 
-	.StickerInput{
-		box-sizing:border-box;
-		display:flex;
-		width:100%;
-		height:35px;
-		align-items:center;
-		padding: 0 10px 0  10px;
-		justify-content:space-between;
-		background-color:var(--gray1);
-
-		span{
-			font-size:12px;
-			color:rgb(204, 204, 204)
-		}
-
-		img{
-			width:16px;
-		}
-
-  	}
 `;
 
 const ModeBtn = styled.button`
@@ -654,20 +635,19 @@ const ModeBtn = styled.button`
 	height:27px;
 	border:none;
 	background:none;
-/* 	border-radius:5px; */
+
 	border-bottom: 2.5px solid ${(props) => props.state ? 'var(--green5)' : 'var(--green1)'};
-/* 	background-color:${(props) => props.state ? 'var(--green5)' : 'var(--green1)'};
- */	
 	color:${(props) => props.state ? 'var(--green5)' : 'var(--black)'};
 	z-index:10px;
+	cursor: pointer;
 `;
 
 const EraserBtn = styled.button`
 	width:80px;
 	height:27px;
 
-    color:${(props)=>props.state ? "var(--green5)" : "white"};
-    background-color:${(props)=>props.state ? "rgb(246, 250, 240)" : "green" };
+    color:${(props) => props.state ? "var(--green5)" : "white"};
+    background-color:${(props) => props.state ? "rgb(246, 250, 240)" : "green"};
     border-radius:5px;
     border:1px solid rgb(96, 161, 14);
     padding:0 10px 0 10px;
@@ -751,13 +731,32 @@ const StickerInput = styled.div`
 	border-bottom: 1px solid var(--green5);
   	display:flex;
   	margin-bottom:20px;
-
+	box-sizing:border-box;
+	height:35px;
+	align-items:center;
+	padding: 0 10px 0  10px;
 	justify-content:space-between;
+	background-color:var(--gray1);
+  	position:relative;
+
+
+		span{
+			font-size:12px;
+			color:rgb(204, 204, 204);
+
+		}
+
+		img{
+			width:16px;
+		}
+
 
 	input{
 		position:absolute;
 		opacity:0;
-		background-color: var(--gray1)
+		background-color: var(--gray1);
+		cursor: pointer;
+		width:100%;
 	}
 `
 const SelectedSection = styled.div`

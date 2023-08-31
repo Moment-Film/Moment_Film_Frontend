@@ -114,7 +114,7 @@ const OptionCount = styled.div`
     display:flex;
     gap:5px;
     font-size:12px;
-    font-weight:normal;
+    font-weight: 400;
     margin-left:auto;
 
 `

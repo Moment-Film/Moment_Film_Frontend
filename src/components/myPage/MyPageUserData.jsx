@@ -5,22 +5,15 @@ import { Modal } from "../common/component/Modal";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import Edit from "../assets/icons/Edit.png";
-
+import out from "../assets/icons/goOut.svg"
 import useUserAPI from "../../api/withToken/user";
 import { Span28, StyledSpan24 } from "../common/styles/StyledSpan";
-// import ProfileEdit from "./ProfileEdit";
 import EditModal from "./EditModal";
 import LogoutBtn from "../common/component/LogoutBtn";
 import nullImg from "../assets/images/nullProfile.svg";
-import { useQuery } from "react-query";
-import { getProfile } from "../../api/nonToken/user";
 
 const MyPageUserData = ({ lang, data, }) => {
   const { FollowAPI } = useUserAPI();
-
-  // const { data:profileData, error, isLoading } = useQuery(['profile', userId], () => getProfile(userId));
-
-
   const userInfo = useSelector((state) => state.UserInfo);
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
@@ -78,7 +71,7 @@ const MyPageUserData = ({ lang, data, }) => {
               <>
                 <div className="item-1">
                   <StyledSpan24>{data.username}</StyledSpan24>
-                  <span className="point">+600P</span>
+                  <span className="point">0P</span>
                 </div>
 
                 <div className="item-2">
@@ -88,7 +81,7 @@ const MyPageUserData = ({ lang, data, }) => {
                   </div>
                   <div className="option">
                     <LogoutBtn />
-                    <img src={Edit} alt="" />
+                    <img src={out} alt="" />
                   </div>
                 </div>
               </>
@@ -113,8 +106,8 @@ const MyPageUserData = ({ lang, data, }) => {
 
                 <div className="item-2">
                   <div className="option">
-                    <LogoutBtn />
-                    <img src={Edit} alt="" />
+      {/*               <LogoutBtn />
+                    <img src={Edit} alt="" /> */}
                   </div>
                 </div>
               </>
@@ -189,7 +182,7 @@ const NameSection = styled.div`
     .point {
       padding-top: 10px;
       font-size: 16px;
-      font-weight: bold;
+      font-weight: 700;
       color: var(--green5);
     }
 
@@ -280,7 +273,7 @@ const UserItemResult = styled.div`
   align-items: center;
 
   font-size: 24px;
-  font-weight: bold;
+  font-weight: 700;
   color: var(--green5);
 `;
 

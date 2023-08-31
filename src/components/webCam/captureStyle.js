@@ -263,7 +263,7 @@ export const PreviewImg = styled.div`
       margin: 0;
       padding: 0;
       font-size: 13px;
-      line-height: 22px;
+      line-height: 150%;
     }
   }
 `

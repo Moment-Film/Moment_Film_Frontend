@@ -104,7 +104,7 @@ export const StyledButton = styled.button`
     background-color:#26282d;
     border:none;
     color:aliceblue;
-    font-weight:bold;
+    font-weight: 700;
     font-size:40px;
 
 
