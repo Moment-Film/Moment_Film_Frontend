@@ -235,13 +235,34 @@ function EditModal({ onClose, profileImg }) {
               {isEdit && <img src={imgEdit} alt="" />}
             </EditBtn>
 
+
+
+
+
+
+
+
+
             <PicInfoSection>
           
-              <span>{userInfo.username}</span>
-              <div>{userInfo.email}</div>
+              <span className="username">{userInfo.username}</span>
+              <div className="email">{userInfo.email}</div>
               <WithdrawalBtn />
             </PicInfoSection>
+
           </PicSection>
+
+
+
+
+
+
+
+
+
+
+
+
           <Info>
             <InfoSection>
               <div>

@@ -49,6 +49,7 @@ const ResultUser = styled.div`
   justify-content: space-between;
   margin-bottom: 40px;
   padding: 40px 70px;
+  gap: 10%;
 
   .nullComment {
     width: 100%;
@@ -104,7 +105,7 @@ const InfoBoxWrap = styled.div`
   gap: 10px;
 
   .measure {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
     line-height: 150%;
     color: var(--green5);

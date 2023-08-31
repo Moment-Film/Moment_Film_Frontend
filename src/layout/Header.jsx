@@ -84,7 +84,7 @@ function Header({ onClose }) {
 
           {ACToken ? (
             <>
-              <LogoutBtn />
+              {/* <LogoutBtn /> */}
               <NavBtn
                 onClick={() => navigate(`/profile/${userInfo.sub}`)}
                 color={"#505050"}
@@ -147,6 +147,7 @@ gap:5%;
   justify-content: space-between;
 
   span {
+    display: block;
     width: 1px;
     height: 10px;
     background-color: var(--lightGray);

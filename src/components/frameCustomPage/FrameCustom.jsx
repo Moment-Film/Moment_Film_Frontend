@@ -5,7 +5,7 @@ import GridNav from "../frameSelectPage/GridNav";
 import StyledButton from "../common/component/StyledButton";
 import { SetFrame } from "../../redux/modules/FrameInfo";
 import upload from "../assets/icons/upload.svg";
-import clear from '../assets/images/clear.png';
+import clear from "../assets/images/clear.png";
 import {
   HueSlider,
   SaturationSlider,
@@ -17,40 +17,30 @@ import { useRef } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { SetBackgroundImg } from "../../redux/modules/FrameInfo";
-import { StyledSpan14, StyledSpan12, StyledSpan16 } from "../common/styles/StyledSpan";
-import MyFrameModal from './MyFrameModal'
+import { StyledSpan14 } from "../common/styles/StyledSpan";
+import MyFrameModal from "./MyFrameModal";
 import { useQuery } from "react-query";
 import { SetImgFile } from "../../redux/modules/FrameInfo";
 import useToken from "../../hooks/useToken";
 import usePostAPI from "../../api/withToken/post";
 import { useEffect } from "react";
-import useCustomAPI from '../../api/withToken/useCustom';
-import hueImg from '../assets/icons/hue.png'
-import saturationImg from '../assets/icons/saturation.png';
-import lightnessImg from '../assets/icons/lightness.png';
-import LOGO from '../assets/images/LOGO.svg'
-import * as Img from '../assets/frame/Image';
+import useCustomAPI from "../../api/withToken/useCustom";
+import hueImg from "../assets/icons/hue.png";
+import saturationImg from "../assets/icons/saturation.png";
+import lightnessImg from "../assets/icons/lightness.png";
+import LOGO from "../assets/images/LOGO.svg";
+import * as Img from "../assets/frame/Image";
 
 const FrameCustomMake = () => {
+  const { applyFrame, applyFilter } = useCustomAPI();
 
-  const {
-    applyFrame,
-    applyFilter
-  } = useCustomAPI();
+  const { getMyFrame } = usePostAPI();
 
-  const {
-    getMyFrame
-  } = usePostAPI();
-
-  const {
-    getAccess,
-    getRefresh,
-  } = useToken();
-
+  const { getAccess, getRefresh } = useToken();
 
   const userInfo = useSelector((state) => state.UserInfo);
-  const accessToken = getAccess()
-  const refreshToken = getRefresh()
+  const accessToken = getAccess();
+  const refreshToken = getRefresh();
 
   const { data } = useQuery(`myFrame${userInfo.sub}`, () => getMyFrame());
 
@@ -60,9 +50,9 @@ const FrameCustomMake = () => {
   const [color, setColor] = useState({
     h: frame.hue,
     s: frame.saturation,
-    l: frame.lightness
+    l: frame.lightness,
   });
-  console.log(color.h, color.s, color.l)
+  console.log(color.h, color.s, color.l);
 
   const [frameImg, setFrameImg] = useState(null);
   const [openModal, setOpenModal] = useState(false);
@@ -70,7 +60,6 @@ const FrameCustomMake = () => {
   const frameImgRef = useRef();
 
   const navigate = useNavigate();
-
 
   const dispatch = useDispatch();
 
@@ -97,55 +86,52 @@ const FrameCustomMake = () => {
     }
   };
 
-
-
   const imageDeleteHandler = () => {
     setFrameImg(null);
     setUploadedImg(null);
   };
 
-
   const moveBtnHandler = async () => {
-    const colorData = { hue: color.h, saturation: color.s, lightness: color.l }
+    const colorData = { hue: color.h, saturation: color.s, lightness: color.l };
     await dispatch(SetFrame(colorData));
-    await frameImg && dispatch(SetBackgroundImg(frameImg))
+    (await frameImg) && dispatch(SetBackgroundImg(frameImg));
     navigate("/camera/capture/filter");
   };
 
-
-
   const openModalHandler = () => {
-    if (accessToken) setOpenModal(true)
+    if (accessToken) setOpenModal(true);
     else {
-      window.confirm('로그인이 필요합니다.') && navigate(`../login`);
+      window.confirm("로그인이 필요합니다.") && navigate(`../login`);
     }
-  }
+  };
 
   const closeModal = () => {
     setOpenModal(false);
-  }
+  };
 
   const applyFrameBackground = (h, s, l, img) => {
     h && s && l && setColor({ h, s, l });
     img ? setFrameImg(img) : setFrameImg(null);
-  }
+  };
 
   useEffect(() => {
-
     if (frame) {
       fetch(frame.image)
-        .then(response => response.blob())
-        .then(blob => {
+        .then((response) => response.blob())
+        .then((blob) => {
           dispatch(SetImgFile(blob));
-          applyFrameBackground(frame.hue, frame.saturation, frame.lightness, frame.image);
-
+          applyFrameBackground(
+            frame.hue,
+            frame.saturation,
+            frame.lightness,
+            frame.image
+          );
         })
-        .catch(error => {
+        .catch((error) => {
           console.error("Error fetching or processing image:", error);
         });
     }
-
-  }, [])
+  }, []);
 
   return (
     <BackgroundGray>
@@ -155,14 +141,16 @@ const FrameCustomMake = () => {
           <LeftBox>
             <a.FrameImg
               width={thisGrid.width}
-              $bottomText={
-                thisGrid.id === "narrow" || thisGrid.id === "wide"
-              }
+              $bottomText={thisGrid.id === "narrow" || thisGrid.id === "wide"}
               color={color}
               $frameImg={frameImg}
               gap={thisGrid.gap}
             >
-              <img src={LOGO} alt="" style={{ filter: color.l < 50 && "invert(100%)" }} />
+              <img
+                src={LOGO}
+                alt=""
+                style={{ filter: color.l < 50 && "invert(100%)" }}
+              />
               <a.InnerImgWrap>
                 {innerImg.map((img, index) => {
                   return (
@@ -173,27 +161,25 @@ const FrameCustomMake = () => {
                         height: `${thisGrid.innerHeight}`,
                       }}
                     >
-                      {
-                        img === 'null'
-                          ?
-                          <img
-                            style={{
-                              width: "100%",
-                              height: "100%",
-                            }}
-                            src={clear}
-                            alt=""
-                          />
-                          :
-                          <img
-                            style={{
-                              width: "100%",
-                              height: "100%",
-                            }}
-                            src={img}
-                            alt=""
-                          />
-                      }
+                      {img === "null" ? (
+                        <img
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                          }}
+                          src={clear}
+                          alt=""
+                        />
+                      ) : (
+                        <img
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                          }}
+                          src={img}
+                          alt=""
+                        />
+                      )}
                     </div>
                   );
                 })}
@@ -203,7 +189,7 @@ const FrameCustomMake = () => {
 
           <RightBox>
             <OptionSection>
-              {openModal &&
+              {openModal && (
                 <MyFrameModal
                   onClose={closeModal}
                   data={data.data.data}
@@ -211,7 +197,8 @@ const FrameCustomMake = () => {
                   accessToken={accessToken}
                   refreshToken={refreshToken}
                   onApply={applyFrameBackground}
-                />}
+                />
+              )}
 
               <div className="useMy">
                 <img src={Img.mycustom} onClick={openModalHandler} />
@@ -220,7 +207,7 @@ const FrameCustomMake = () => {
 
               <section className="rangeSlider">
                 <div className="optionHeader">
-                  <span >프레임 커스텀</span>
+                  <span>프레임 커스텀</span>
                 </div>
                 <p className="optionName">색조</p>
                 <div className="progess">
@@ -237,7 +224,6 @@ const FrameCustomMake = () => {
                     handleChangeColor={changeColorHandler}
                     color={color}
                   />
-
                 </div>
                 <p className="optionName">밝기</p>
                 <div className="progess">
@@ -259,35 +245,33 @@ const FrameCustomMake = () => {
                     ref={frameImgRef}
                   />
                   <a.UploadLabel>
-                    {uploadedImg
-                      ? (
-                        <>
-                          <a.UploadedImg color="var(--green5)">
-                            {uploadedImg}
-                          </a.UploadedImg>
-                          <a.ImgDeleteBtn onClick={imageDeleteHandler}>
-                            x
-                          </a.ImgDeleteBtn>
-                        </>
-                      )
-                      : (
-                        <>
-                          <a.UploadedImg color="var(--gray)">
-                            이미지 불러오기
-                          </a.UploadedImg>
-                          <label htmlFor="fileInput">
-                            <img
-                              src={upload}
-                              alt=""
-                              style={{
-                                width: "16px",
-                                opacity: "0.5",
-                                cursor: "pointer",
-                              }}
-                            />
-                          </label>
-                        </>
-                      )}
+                    {uploadedImg ? (
+                      <>
+                        <a.UploadedImg color="var(--green5)">
+                          {uploadedImg}
+                        </a.UploadedImg>
+                        <a.ImgDeleteBtn onClick={imageDeleteHandler}>
+                          x
+                        </a.ImgDeleteBtn>
+                      </>
+                    ) : (
+                      <label htmlFor="fileInput">
+                        <a.UploadedImg color="var(--gray)">
+                          이미지 불러오기
+                        </a.UploadedImg>
+                        <div>
+                          <img
+                            src={upload}
+                            alt=""
+                            style={{
+                              width: "16px",
+                              opacity: "0.5",
+                              cursor: "pointer",
+                            }}
+                          />
+                        </div>
+                      </label>
+                    )}
                   </a.UploadLabel>
                 </a.UploadContainer>
                 <StyledSpan14 className="fileInfo">
@@ -316,108 +300,101 @@ export default FrameCustomMake;
 
 const OptionSection = styled.section`
   display: flex;
-  width:70%;
+  width: 70%;
   flex-direction: column;
 
   padding-top: 30px;
 
-  .doneBtn{
-    margin-top:87px;
-    display:flex;
-    justify-content:center;
+  .doneBtn {
+    margin-top: 87px;
+    display: flex;
+    justify-content: center;
   }
-  .optionName{
-    text-align:right;
-    color:rgb(80, 80, 80);
-    font-size:14px;
+  .optionName {
+    text-align: right;
+    color: rgb(80, 80, 80);
+    font-size: 14px;
   }
-  .progess{
-    display:flex;
-    align-items:center;
-    gap:10px;
-
-
+  .progess {
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
-  img{
-    width:38px;
+  img {
+    width: 38px;
   }
 
-  .inputFile{
-    margin-top:31px;
+  .inputFile {
+    margin-top: 31px;
   }
 
-  .useMy{
-    margin-left:auto;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    img{
-      width:28px;
-      height:28px;
+  .useMy {
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    img {
+      width: 28px;
+      height: 28px;
     }
   }
 
-  .rangeSlider{
-    width:100%;
-    padding :41px 0 41px 0;
-    border-bottom:1px solid rgb(217, 217, 217);
+  .rangeSlider {
+    width: 100%;
+    padding: 41px 0 41px 0;
+    border-bottom: 1px solid rgb(217, 217, 217);
   }
 
-  .fileInfo{
+  .fileInfo {
     margin: 12px 0 35px 0;
-    color:var(--gray3);
+    color: var(--gray3);
   }
-
 `;
 const BackgroundGray = styled.div`
-	display: flex;
-	justify-content: center;
-	background-color: var(--gray2);
-
+  display: flex;
+  justify-content: center;
+  background-color: var(--gray2);
 `;
 const WhiteContainer = styled.div`
-	width: 1170px;
+  width: 1170px;
 
-	background-color: white;
-	overflow: hidden;
+  background-color: white;
+  overflow: hidden;
 `;
 const DrawSection = styled.div`
-	display: flex;
+  display: flex;
 
   @media (max-width: 400px) {
-    flex-direction:column;
-    align-items:center;
-    
-}
-
-
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 const LeftBox = styled.div`
-  height:863px;
-  	width: 60%;
-  	display: flex;
-  	align-items: center;
-  	justify-content: center;
-	background: var(--gray3);
+  height: 863px;
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gray3);
 `;
 const RightBox = styled.div`
-	display:flex;
-	justify-content:center;
-	gap:10px;
-	width: 40%;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 40%;
 
-	background-color: white;
+  background-color: white;
 
-  .optionHeader{
-    display:flex;
-    width:290px;
-    justify-content:space-between;
-    border-bottom:1px solid rgb(217, 217, 217);
-    padding-bottom:9px;
-    font-size:16px;
+  .optionHeader {
+    display: flex;
+    width: 290px;
+    justify-content: space-between;
+    border-bottom: 1px solid rgb(217, 217, 217);
+    padding-bottom: 9px;
+    font-size: 16px;
 
-    img{
-      width:21px;
+    img {
+      width: 21px;
     }
   }
 `;
