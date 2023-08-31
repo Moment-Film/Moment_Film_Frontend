@@ -4,15 +4,29 @@ import FooterLogo from "../components/assets/images/FooterLogo.svg";
 
 function Footer() {
   const navigate = useNavigate();
+
+  const URLs = {
+    GITHUB: "https://github.com/Moment-Film",
+    DISCORD: "https://discord.link.example", 
+    EMAIL: "mailto:example@email.com", 
+    INSTAGRAM: "https://instagram.link.example", 
+  };
+
+  const redirectTo = (url) => {
+    window.location.href = url;
+  };
+
   return (
     <FooterBox>
       <ContentsWrap>
         <section className="align">
           <div>CONTACT</div>
-          <div><span /></div>
-          <div>Discord</div>
-          <div>E-mail</div>
-          <div>Instagram</div>
+          <div>
+            <span />
+          </div>
+          <div onClick={() => redirectTo(URLs.DISCORD)}>Discord</div>
+          <div onClick={() => redirectTo(URLs.EMAIL)}>E-mail</div>
+          <div onClick={() => redirectTo(URLs.INSTAGRAM)}>Instagram</div>
         </section>
 
         <FooterTitle onClick={() => navigate(`/`)}>
@@ -20,7 +34,7 @@ function Footer() {
         </FooterTitle>
 
         <section className="align">
-          <div>@GitHub</div>
+          <div onClick={() => redirectTo(URLs.GITHUB)}>@GitHub</div>
           <div>Team. Broccoli 🥦</div>
         </section>
       </ContentsWrap>
@@ -58,15 +72,13 @@ const ContentsWrap = styled.div`
       display: flex;
       align-items: center;
 
-          span {
-            display: block;
-      width: 1px;
-      height: 10px;
-      background-color: var(--gray3);
+      span {
+        display: block;
+        width: 1px;
+        height: 10px;
+        background-color: var(--gray3);
+      }
     }
-    }
-
-
   }
 `;
 
