@@ -139,6 +139,10 @@ const UploadLabel = styled.div`
     width: 100%;
     display: flex;
     justify-content: space-between;
+    img {
+      width: 24px;
+      height: 24px;;
+    }
   }
 `;
 
@@ -154,6 +158,8 @@ const UploadedImg = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   color: ${(props) => props.color};
+  display: flex;
+  align-items: center;
 `;
 
 const ImgDeleteBtn = styled.div`
