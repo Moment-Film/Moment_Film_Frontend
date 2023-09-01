@@ -265,27 +265,22 @@ const FrameCustomMake = () => {
                         </a.ImgDeleteBtn>
                       </>
                     ) : (
-
-                      <>
+                      <label htmlFor="fileInput">
                         <a.UploadedImg color="var(--gray)">
                           이미지 불러오기
                         </a.UploadedImg>
-                        <label htmlFor="fileInput">
-
+                        <div>
                           <img
                             src={upload}
                             alt=""
                             style={{
-
-                              width: "32px",
+                              width: "16px",
                               opacity: "0.5",
                               cursor: "pointer",
-
                             }}
                           />
-                        </label>
-                      </>
-
+                        </div>
+                      </label>
                     )}
                   </a.UploadLabel>
                 </a.UploadContainer>
