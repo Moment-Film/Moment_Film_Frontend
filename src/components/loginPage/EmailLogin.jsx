@@ -54,7 +54,8 @@ const EmailLogin = () => {
       if (errorMsg && errorMsg.includes("잘못된 로그인 정보입니다.")) {
         setLoginError("존재하지 않는 아이디나 비밀번호입니다.");
       } else {
-        setLoginError("로그인 중 문제가 발생했습니다.");
+        console.log(errorMsg)
+        setLoginError("아이디/비밀번호가 일치하지 않습니다.");
       }
     },
   });
@@ -121,7 +122,7 @@ const EmailLogin = () => {
         />
       </ButtonWrap>
 
-      <FindInfoSection>
+      <FindInfoSection onClick={()=>alert("추후 업데이트 예정")}>
         <span>{"아이디를 잊으셨나요?"}</span>
         <span>|</span>
         <span>{"비밀번호를 잊으셨나요?"}</span>

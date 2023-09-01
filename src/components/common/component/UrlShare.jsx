@@ -4,7 +4,7 @@ import urlShare from '../../assets/images/urlShare.png'
 const UrlShare = ({data}) => {
 
     const handleCopyClipBoard = () => {
-      const text=`http://localhost:3000/post/${data}`;  
+      const text=`https://view-teal.vercel.app/${data}`;  
       try {
           navigator.clipboard.writeText(text);
           alert('클립보드에 복사되었습니다.');

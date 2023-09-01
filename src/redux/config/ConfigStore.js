@@ -10,6 +10,7 @@ import FrameInfo from "../modules/FrameInfo";
 import ResultImage from "../modules/ResultImage";
 import UserInfo from "../modules/User";
 import Filter from "../modules/Filter";
+import persistStore from "redux-persist/es/persistStore";
 
 const persistConfig = {
   key: "root",

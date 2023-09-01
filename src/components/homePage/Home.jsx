@@ -87,7 +87,7 @@ const Homepage = () => {
             <img className="flowImg" src={SPIN_FLOWER} alt="" />
             {/*      </Imgwrap> */}
 
-            <div className="ment">당신의 디자인을 만들어 보세요.</div>
+            <div className="ment">일상을 개성있게 남겨보세요!</div>
             <div className="comment">
               <p>
                 자신만의 작품을 만들어 포토크리에이터로 활동해보아요. 게시글을
@@ -151,9 +151,7 @@ const Homepage = () => {
                 <p className="cardHeader">집밖에 나가기 싫어요!</p>
                 <p className="cardcontent">
                   나는 친구들과 이런것도 하고싶고 이런것도 하고 싶어요 근데
-
                   어쩌고 한데 다들 이렇다고 하라구요 억울해요
-
                 </p>
                 <p className="cardOwner">
                   지존킹님의 고민
@@ -189,12 +187,10 @@ const Homepage = () => {
                 <img src={card2} alt="" />
               </Card>
               <Card className="content">
-
                 <p className="cardHeader">Go Get</p>
                 <p className="cardcontent">
                   모먼트 필름만의 특장점을 직접 사용해 보시고 느껴보세요. 순간을
                   기록하고 추억을 저장해 보세요!
-
                 </p>
                 <StyledButton
                   width={"142px"}
@@ -256,7 +252,6 @@ const Homepage = () => {
               <div className="thirdContent">
                 <span className="bigSpan">Post my design</span>
 
-
                 <div className="fourthMent">게시글 자랑하기</div>
 
                 <div className="comment">
@@ -275,7 +270,9 @@ const Homepage = () => {
               <BoxSection className="box-1" ref={box1Ref} fadeIn={fadeIn[0]}>
                 <img src={photo1}></img>
                 <p className="title">촬영하기</p>
-                <p className="ment">친구들과 함께 찰칵! 영원할 지금의 순간을 남겨보세요!</p>
+                <p className="ment">
+                  친구들과 함께 찰칵! 영원할 지금의 순간을 남겨보세요!
+                </p>
               </BoxSection>
 
               <BoxSection className="box-2" ref={box2Ref} fadeIn={fadeIn[1]}>
@@ -283,7 +280,6 @@ const Homepage = () => {
 
                 <p className="title">커스텀하기</p>
                 <p className="ment">
-
                   특색있는 아이디어로 내 사진 꾸미기! 멋진 필터 멋진 스티커로
                   꾸며볼까요?
                 </p>
@@ -294,7 +290,6 @@ const Homepage = () => {
 
                 <p className="title">게시글로 뽐내기</p>
                 <p className="ment">
-
                   커스텀 작업물을 사람들에게 자랑보아요! 소중한 추억에 대한
                   설명도 적으면 좋겠죠? 인기 크레이터에 등록되어볼까요?
                 </p>
@@ -444,12 +439,10 @@ const LeftSpan = styled.div`
     }
   }
 
-
-  .ment{
-    font-size:18px;
-    font-weight:bold;
+  .ment {
+    font-size: 18px;
+    font-weight: bold;
   }
-
 `;
 
 const spinAnimation = keyframes`
@@ -553,9 +546,7 @@ const CardSection = styled.div`
       color: var(--white);
     }
   }
-
 `;
-
 
 const Card = styled.div`
   display: flex;
@@ -573,7 +564,6 @@ const Card = styled.div`
   .cardHeader {
     font-weight: bold;
     font-size: 24px;
-
   }
   .cardcontent {
     font-size: 16px;
@@ -720,7 +710,7 @@ const ThirdAlign = styled.div`
     width: 50%;
     min-width: 500px;
 
-
+  }
 
   img {
     width: 100%;
@@ -728,7 +718,6 @@ const ThirdAlign = styled.div`
 
 
 `;
-
 
 const fadeInUp = keyframes`
 0% {
@@ -749,7 +738,6 @@ const FourthAlign = styled.div`
   display: flex;
   flex-direction: column;
 
-
   .left {
     width: 80%;
   }
@@ -766,11 +754,10 @@ const FourthAlign = styled.div`
 
     gap: 10%;
 
-    .fourthMent{
-        font-size:20px;
-        font-weight:600;
-      }
-
+    .fourthMent {
+      font-size: 20px;
+      font-weight: 600;
+    }
   }
 
   .boxWrap {
@@ -784,9 +771,7 @@ const FourthAlign = styled.div`
       display: flex;
       flex-direction: column;
 
-      gap:1vw;
-
-
+      gap: 1vw;
     }
   }
 `;
@@ -795,6 +780,8 @@ const BoxSection = styled.div`
   animation: ${(props) => (props.fadeIn ? fadeInUp : "none")} 1s;
 
   .box-1 {
+    width:80%;
+
     img {
       object-fit: cover;
     }
@@ -810,6 +797,7 @@ const BoxSection = styled.div`
   }
 
   .box-2 {
+    width:80%;
     margin-left: auto;
 
     img {
@@ -829,6 +817,7 @@ const BoxSection = styled.div`
   }
 
   .box-3 {
+    width:80%;
     img {
       object-fit: cover;
     }
@@ -841,21 +830,19 @@ const BoxSection = styled.div`
       flex-direction: column;
       align-items: center;
     }
-
   }
 
-  .title{
-    font-size:20px;
-    font-weight:600;
-    margin-bottom:10px;
-    line-height:26px;
+  .title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    line-height: 26px;
   }
 
-  .ment{
-    margin-top:0;
-    margin-bottom:59px;
-    font-size:16px;
-    line-height:24px;
+  .ment {
+    margin-top: 0;
+    margin-bottom: 59px;
+    font-size: 16px;
+    line-height: 24px;
   }
-
 `;

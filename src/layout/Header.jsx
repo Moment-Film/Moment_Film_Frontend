@@ -60,7 +60,7 @@ function Header({ onClose }) {
       </SmallBottomNav>
 
       <HeaderWrap>
-        <HeaderTitle>
+        <HeaderTitle >
           <div onClick={() => navigate(`/`)}>
             <img src={LOGO} alt="" />
           </div>
@@ -147,6 +147,7 @@ const HeaderSection = styled.header`
   position: sticky;
   top: 0px;
   z-index: 1000;
+  
 `;
 
 const HeaderWrap = styled.div`
@@ -169,6 +170,7 @@ const HeaderWrap = styled.div`
 `;
 
 const HeaderTitle = styled.section`
+  cursor:pointer;
   @media (max-width: 700px) {
     padding: 0;
   }

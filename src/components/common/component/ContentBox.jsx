@@ -82,6 +82,8 @@ const ContentsItem = styled.div`
     margin-bottom:43px;
     border-top-right-radius:5px;
     border-top-left-radius:5px;
+
+    cursor:pointer;
 `
 const ImgSection = styled.div`
     width:100%;

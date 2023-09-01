@@ -33,6 +33,15 @@ const useToken = () => {
             removeCookie('refresh')
             const ciphertext = CryptoJS.AES.encrypt(refreshToken, secretKey).toString();
             await setCookie('refresh', ciphertext); 
+
+            setTimeout(() => {
+                alert("5분 뒤 로그아웃됩니다 새로 로그인해주세요")
+            }, 3300 * 1000);
+
+            setTimeout(() => {
+                removeCookie('refresh')
+            }, 3600 * 1000);
+
         }
         else{
             await setCookie('refresh', null); 
