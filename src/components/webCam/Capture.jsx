@@ -156,7 +156,10 @@ function Capture() {
           </S.FootSection>
         </S.WebCamUI>
       </S.Body>
-      <StyledButton width="134px" height="40px" title="완료하기" fontSize="18px" func={() => navigate(`option`)}/>
+      <StyledButton width="134px" height="40px" title="완료하기" fontSize="18px" func={() => {
+        if (capturedImages.length>=4) navigate(`option`)
+        else alert("최소 4컷 이상 촬영해주세요!")
+      }}/>
       <canvas
           ref={canvasRef}
           style={{ display: "none" }}

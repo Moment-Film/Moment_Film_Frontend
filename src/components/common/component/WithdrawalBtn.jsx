@@ -43,8 +43,4 @@ const Btn = styled.button`
   line-height: 150%;
 	/* margin-top: 8px; */
   cursor: pointer;
-
-  &:hover {
-    color: var(--warningRed);
-  }
 `;
