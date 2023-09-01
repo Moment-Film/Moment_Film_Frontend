@@ -117,7 +117,7 @@ const SliderBox = styled.div`
 
 const UploadContainer = styled.div`
   width: 100%;
-  height: 42px;
+  height: 35px;
   color: var(--gray);
   display: flex;
   align-items: center;
@@ -145,7 +145,6 @@ const UploadLabel = styled.div`
 const UploadInput = styled.input`
   display: none;
   height:35px;
-  
 `;
 
 const UploadedImg = styled.div`
