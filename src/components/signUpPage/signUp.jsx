@@ -96,9 +96,8 @@ function SignUp() {
             type="password"
             value={password}
             onChange={handlePasswordChange}
-            placeholder="비밀번호를 입력하세요. ( 6자리 이상 )"
+            placeholder="공백 없이 문자, 숫자 조합 필수 6 ~ 10자"
             label="비밀번호"
-            infoText="· 공백 없이 문자, 숫자 조합 필수 6 ~ 10자"
             error={passwordError}
           />
 
@@ -139,22 +138,27 @@ function SignUp() {
 export default SignUp;
 
 const FormWrap = styled.div`
-  margin-top: 120px;
-  margin-bottom: 200px;
-  max-width: 790px;
+  margin: auto;
+  max-width: 1170px;
+  width: 100%;
   display: flex;
-  margin: 0 auto;
   flex-direction: column;
   align-items: center;
+  background-color: var(--white);
+
+  @media (max-width: 900px) {
+    width: 80%;
+  }
 `;
 
 const FormBox = styled.form`
-  width: 790px;
+  max-width: 790px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-top: 2px solid var(--black);
-  border-bottom: 2px solid var(--black);
+  border-top: 2px solid var(--gray3);
+  border-bottom: 2px solid var(--gray3);
   padding-top: 69px;
   padding-bottom: 77px;
   gap: 20px;
@@ -163,6 +167,8 @@ const FormBox = styled.form`
 
 const SignUpTxt = styled.div`
   font-size: 24px;
+  font-weight: 500;
+  color: var(--black);
   text-align: center;
   padding: 15px 15px 30px 15px;
   margin-top: 112px;

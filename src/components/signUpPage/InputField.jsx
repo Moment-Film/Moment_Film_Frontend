@@ -17,9 +17,9 @@ const InputField = ({
     <ValueWrap>
       <ValueBox>
         {label}
-        <span style={{ color: "red" }}>*</span>
+        <span>*</span>
       </ValueBox>
-      <div style={{ display: "flex", flexDirection: "column" }}>
+      <InputBox>
         <I.StyledMiddleInput
           name={name}
           type={type}
@@ -27,35 +27,8 @@ const InputField = ({
           onChange={onChange}
           placeholder={placeholder}
         />
-        {infoText && (
-          <div
-            style={{
-              fontSize: "14px",
-              paddingLeft: "20px",
-              marginTop: "5px",
-              color:'var(--warningRed)',
-              lineHeight:'17px'
-            }}
-          >
-            {infoText}
-          </div>
-        )}
-        {error && (
-          <div
-            style={{
-              fontSize: "14px",
-              color: "red",
-              paddingLeft: "20px",
-              marginTop: "5px",
-            }}
-          >
-            {error}
-          </div>
-        )}
-      </div>
-{/*       <CheckBtn style={{ visibility: checkBtn ? "visible" : "hidden" }}>
-        중복확인
-      </CheckBtn> */}
+        {error && <div className="errorMessage">{error}</div>}
+      </InputBox>
     </ValueWrap>
   );
 };
@@ -63,9 +36,10 @@ const InputField = ({
 export default InputField;
 
 const ValueWrap = styled.div`
+width: 73%;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 30px;
 `;
 
 const ValueBox = styled.div`
@@ -77,16 +51,21 @@ const ValueBox = styled.div`
   align-items: center;
   align-content: center;
   text-align: center;
+
+  span {
+    color: var(--warningRed);
+  }
 `;
 
-const CheckBtn = styled.div`
-  width: 145px;
-  height: 40px;
+const InputBox = styled.div`
+width: 80%;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  color: var(--green6);
-  border: 2px solid var(--green5);
-  background-color: var(--green1);
-  cursor: pointer;
+  flex-direction: column;
+
+  .errorMessage {
+    font-size: 12px;
+    color: var(--warningRed);
+    padding-left: 20px;
+    margin-top: 5px;
+  }
 `;

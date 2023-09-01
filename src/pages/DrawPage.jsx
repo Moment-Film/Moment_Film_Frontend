@@ -17,8 +17,12 @@ import {
   SaturationSlider,
   LightnessSlider,
 } from "react-slider-color-picker";
+
 import uploadImg from "../components/assets/icons/upload.svg";
 import delImg from "../components/assets/draw/del.svg";
+import weight from "../components/assets/icons/weight.svg"
+
+
 
 import * as Img from "../components/assets/draw/Image";
 
@@ -446,6 +450,7 @@ function DrawPage() {
       </WhiteContainer>
     </BackgroundGray>
   );
+
 }
 
 export default DrawPage;

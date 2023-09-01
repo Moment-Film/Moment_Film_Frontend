@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import Edit from "../assets/icons/Edit.png";
 import out from "../assets/icons/goOut.svg"
 import useUserAPI from "../../api/withToken/user";
-import { Span28, StyledSpan24 } from "../common/styles/StyledSpan";
+import { Span28, StyledSpan24, StyledBoldSpan24 } from "../common/styles/StyledSpan";
 import EditModal from "./EditModal";
 import LogoutBtn from "../common/component/LogoutBtn";
 import nullImg from "../assets/images/nullProfile.svg";
@@ -70,13 +70,13 @@ const MyPageUserData = ({ lang, data, }) => {
             {Number(userInfo.sub) === data.id ? (
               <>
                 <div className="item-1">
-                  <StyledSpan24>{data.username}</StyledSpan24>
+                  <StyledBoldSpan24>{data.username}</StyledBoldSpan24>
                   <span className="point">0P</span>
                 </div>
 
                 <div className="item-2">
                   <div className="option" onClick={editModalHandler}>
-                    <span>개인정보 수정</span>
+                    <button>개인정보 수정</button>
                     <img src={Edit} alt="" />
                   </div>
                   <div className="option">
@@ -115,17 +115,17 @@ const MyPageUserData = ({ lang, data, }) => {
           </NameSection>
           <div className="box-2">
             <div onClick={() => clickHandler("followerList")}>
-              <UserItem>{"팔로우"}</UserItem>
+              <UserItem>팔로우</UserItem>
               <UserItemResult>{data.followerList.length}</UserItemResult>
             </div>
-            <hr />
+            <div><span /></div>
             <div onClick={() => clickHandler("followingList")}>
-              <UserItem>{"팔로잉"}</UserItem>
+              <UserItem>팔로잉</UserItem>
               <UserItemResult>{data.followingList.length}</UserItemResult>
             </div>
-            <hr />
+            <div><span /></div>
             <div>
-              <UserItem>{"게시글 수"}</UserItem>
+              <UserItem>게시글 수</UserItem>
               <UserItemResult>{data.postList.length}</UserItemResult>
             </div>
           </div>
@@ -199,18 +199,31 @@ const NameSection = styled.div`
     }
 
     .option {
+      margin-left: 10px;
+      cursor: pointer;
       display: flex;
       align-items: center;
       padding-bottom: 30px;
       gap: 5px;
+      button {
+        font-size: 14px;
+        border: none;
+        padding: 0;
+        background: none;
+        cursor: pointer;
+        /* &:hover {
+          color: var(--green5);
+          transition: color 0.3s ease;
+        } */
+      }
+      img {
+        width: 24px;
+      }
     }
   }
-
-
   @media (max-width: 700px) {
         align-items:center;
         flex-direction:column;
-
 }
 
 /*   justify-content: space-between;
@@ -237,21 +250,27 @@ const UserDataSection = styled.section`
   flex-wrap: wrap;
   justify-content: space-between;
   .box-2 {
-    padding: 0 20% 0 20%;
+    padding: 0 20%;
     display: flex;
     height: 178px;
     align-items: center;
     justify-content: center;
+    gap: 15%;
     background-color: white;
-    border: 1px solid green;
+    border: 1px solid var(--green5);
     border-radius: 5px;
-    hr {
-      height: 19.2px;
+    box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.05);
+
+    span {
+      display: block;
+      width: 1px;
+      height: 15px;
+      background-color: var(--gray3);
     }
     div {
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 10px;
     }
   }
 `;
@@ -265,6 +284,8 @@ const UserItem = styled.div`
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 16px;
+  font-weight: 400;
+  line-height: 150%;
   color: var(--gray5);
 `;
 const UserItemResult = styled.div`

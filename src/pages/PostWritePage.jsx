@@ -165,12 +165,15 @@ const ViewBody = styled.div`
 const WriteForm = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 1170px;
-  height: 756px;
+  justify-content: center;
+  width: 100%;
   box-sizing: border-box;
-  padding: 54px 200px;
+  gap: 20px;
+  padding: 54px 10%;
   margin-bottom: 70px;
+  @media (max-width: 770px) {
+    flex-direction: column;
+  }
 `;
 const ImgSection = styled.div`
   display: flex;

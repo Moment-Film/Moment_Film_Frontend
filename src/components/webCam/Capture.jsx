@@ -9,6 +9,8 @@ import right_arrow from "../assets/images/right_arrow.svg";
 import undo from '../assets/images/undo.svg'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import Modals from '../common/component/Modals'
+import trashBin from '../assets/images/trashBin.png'
 
 const gridSizes = [
   { id: "down", innerWidth: 257, innerHeight: 356 },
@@ -24,6 +26,7 @@ function Capture() {
   const [capturedImages, setCapturedImages] = useState([]);
   const [currentImgOrder, setCurrentImgOrder] = useState(0);
   const [isCapturing, setIsCapturing] = useState(true);
+  const [deletePics, setDeletePics] = useState(false);
   const slideRef = useRef(null);
   const videoRef = useRef(null);
   const streamRef = useRef(null);
@@ -56,7 +59,7 @@ function Capture() {
 
   useEffect(()=>{
     console.log(isCapturing);
-    capturedImages.length>0 ? setCurrentImgOrder(capturedImages.length)
+    capturedImages.length>=0 && currentImgOrder<7 ? setCurrentImgOrder(capturedImages.length)
     : setCurrentImgOrder(0)
   },[capturedImages])
   useEffect(()=>{
@@ -96,8 +99,18 @@ function Capture() {
     if (currentImgOrder === 0) return;
     setCurrentImgOrder(currentImgOrder - 1);
   };
+  const modalClose = () => {
+    setDeletePics(false);
+  }
+  const deleteAll = () => {
+    Array(8).map((_,index)=>{
+      localStorage.removeItem(`image${index}`);
+    })
+    setCapturedImages([]);
+  }
   return (
     <S.MainBody>
+      {deletePics && <Modals onClose={modalClose} type="delete" imgSrc={trashBin} submitFunc={deleteAll} text="전체 삭제하시겠어요?"/>}
       <GridNav data="photoGraphy" />
       <S.Body>
         <S.ButtonWrap>
@@ -139,11 +152,7 @@ function Capture() {
             <img className='cam' src={captureBtn}
             style={{ visibility : isCapturing ? "visible" : "hidden" }}
             onClick={()=>handleCapture(currentImgOrder)}/>
-            <img src={deleteBtn} onClick={()=>{
-              
-              setCapturedImages([])
-              localStorage.clear();
-            }}/>
+            <img src={deleteBtn} onClick={()=>{setDeletePics(true)}}/>
           </S.FootSection>
         </S.WebCamUI>
       </S.Body>

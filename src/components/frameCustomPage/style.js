@@ -19,6 +19,14 @@ const LeftBox = styled.div`
   justify-content: center;
   align-items: center;
 `;
+export const WithdrawalBtn = styled.section`
+  text-decoration: underline;
+  color: var(--gray4);
+  font-size: 12px;
+  line-height: 14px;
+	margin-top: 12px;
+`;
+
 
 // const FrameImg = styled.div`
 //   width: ${(props) => props.width};
@@ -126,6 +134,10 @@ const UploadLabel = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  label {
+    width: 100%;
+  }
 `;
 
 const UploadInput = styled.input`
@@ -136,7 +148,7 @@ const UploadInput = styled.input`
 
 const UploadedImg = styled.div`
   font-size: 14px;
-  width: 150px;
+  width: 80%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

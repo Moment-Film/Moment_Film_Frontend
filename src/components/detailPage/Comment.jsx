@@ -313,7 +313,7 @@ const CommentInputArea = styled.div`
     span {
       font-size: 16px;
       color: var(--gray4);
-      font-weight: 600;
+      font-weight: 500;
     }
     width: 100%;
     justify-content: flex-end;
@@ -419,7 +419,9 @@ const ProfileSection = styled.div`
     background: none;
     margin-right: 5px;
     color: var(--gray3);
-    &:hover {
+
+    font-size: 14px;
+    &:hover{
       color: var(--warningRed);
     }
   }
@@ -440,10 +442,14 @@ const BottomSection = styled.div`
     margin-right: auto;
     cursor: default;
     color: var(--gray4);
+    font-weight: 300;
   }
   .write {
     margin-left: 20px;
     color: var(--green5);
+    &:hover {
+      font-weight: 500;
+    }
   }
 `;
 const CommentMain = styled.div`
@@ -459,10 +465,13 @@ const CommentMain = styled.div`
     white-space: pre-wrap;
   }
   .replyWrite {
-    border: 1px solid var(--gray4);
-    button {
+
+    border: 1px solid var(--gray3);
+    padding: 0 10px;
+    button{
       color: var(--gray4);
       font-size: 16px;
+      font-weight: 400;
       height: 21px;
       &:hover {
         background-color: var(--gray2);

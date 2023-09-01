@@ -402,6 +402,7 @@ const UseActionsDiv = styled.div`
     border-radius: 5px;
     color: var(--green6);
     font-size: 14px;
+    font-weight: 500;
   }
 `;
 const Action = styled.div`
@@ -413,11 +414,12 @@ const Action = styled.div`
   box-sizing: border-box;
   padding: 0 10px 0 20px;
   height: 38px;
-  border: 2px solid;
+  border: ${({ $bg }) => $bg ? "2px solid" : "1px solid"};
   border-radius: 5px;
   font-size: 14px;
   span {
     color: ${({ $bg }) => ($bg ? "var(--green4)" : "var(--gray3)")};
+    font-weight: ${({ $bg }) => $bg && "500"};
   }
   color: ${({ $bg }) => ($bg ? "var(--green4)" : "var(--gray3)")};
   cursor: pointer;
@@ -432,6 +434,7 @@ const LikeDiv = styled.div`
   span {
     font-size: 14px;
     color: var(--gray5_a);
+    font-weight: 500;
   }
 `;
 const bounce = keyframes`
@@ -471,6 +474,7 @@ const CreateAt = styled.span`
   color: var(--gray4);
   line-height: 150%;
   margin-top: 40px;
+  font-weight: 400;
 `;
 const OptionModal = styled.div`
   display: flex;

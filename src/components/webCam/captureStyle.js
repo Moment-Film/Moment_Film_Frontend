@@ -212,6 +212,7 @@ export const MoveButton = styled.button`
   height: 38px;
   border-radius: 19px;
   border: none;
+  z-index: 200;
   box-shadow: 0 0 30px rgba(0,0,0,0.15);
   cursor: pointer;
 `

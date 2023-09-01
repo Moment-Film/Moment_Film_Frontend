@@ -17,11 +17,13 @@ import { useRef } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { SetBackgroundImg } from "../../redux/modules/FrameInfo";
+
 import {
   StyledSpan14,
   StyledSpan12,
   StyledSpan16,
 } from "../common/styles/StyledSpan";
+
 import MyFrameModal from "./MyFrameModal";
 import { useQuery } from "react-query";
 import { SetImgFile } from "../../redux/modules/FrameInfo";
@@ -263,15 +265,18 @@ const FrameCustomMake = () => {
                         </a.ImgDeleteBtn>
                       </>
                     ) : (
+
                       <>
                         <a.UploadedImg color="var(--gray)">
                           이미지 불러오기
                         </a.UploadedImg>
                         <label htmlFor="fileInput">
+
                           <img
                             src={upload}
                             alt=""
                             style={{
+
                               width: "32px",
                               opacity: "0.5",
                               cursor: "pointer",
@@ -280,6 +285,7 @@ const FrameCustomMake = () => {
                           />
                         </label>
                       </>
+
                     )}
                   </a.UploadLabel>
                 </a.UploadContainer>
@@ -318,6 +324,7 @@ const OptionSection = styled.section`
     margin-top: 87px;
     display: flex;
     justify-content: center;
+
   }
   .optionName {
     text-align: right;
@@ -332,6 +339,7 @@ const OptionSection = styled.section`
     display: flex;
     align-items: center;
     gap: 10px;
+
   }
 
   .inputFile {
@@ -354,6 +362,7 @@ const OptionSection = styled.section`
       font-size: 12px;
       color: var(--green5);
       font-weight: 600;
+
     }
   }
 
@@ -411,6 +420,7 @@ const RightBox = styled.div`
     padding-bottom: 9px;
     font-size: 16px;
     font-weight: 500;
+
 
     img {
       width: 21px;

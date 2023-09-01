@@ -44,7 +44,7 @@ const NavSection = styled.section`
 
 const NavWrap = styled.section`
   display: flex;
-  width: 40%;
+  //width: 40%;
   align-items: center;
   hr {
     height: 10px;
@@ -54,11 +54,15 @@ const NavWrap = styled.section`
 const StyledLink = styled(Link)`
   text-decoration: none;
   font-size: 16px;
+  width: 120px;
+  text-align: center;
   line-height: 150%;
   color: var(--lightGray);
+  font-weight: 400;
   padding: 17px;
   ${({ $type }) =>
     $type && css`
+    font-weight: 500;
     border-bottom: 2px solid var(--green5);
     color: var(--black);
   `};
