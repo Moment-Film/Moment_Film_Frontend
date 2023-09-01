@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import resizeNull from '../../assets/images/resizeNull.png'
+import listHeart from '../../assets/icons/listHeart.svg'
+import listView from '../../assets/icons/listView.svg'
 
 const ContentBox = ({ data, type }) => {
     const navigate = useNavigate();
@@ -12,13 +15,13 @@ const ContentBox = ({ data, type }) => {
                 </ImgSection>
                 <ItemInfo>
                     <InfoHeader>
-                        <Circle></Circle>
+                        <Circle src={item.userImage?item.userImage:resizeNull}></Circle>
                         <span className='UserName'>{item.username}</span>
                         { type==="postList" &&
                         <OptionCount>
-                            <img src={null} alt='' />
+                            <img src={listHeart} alt='' />
                             <span className='option'>{item.likeCount}</span>
-                            <img src={null} alt='' />
+                            <img src={listView} alt='' />
                             <span className='option'>{item.viewCount}</span>
                         </OptionCount>
                         }
@@ -130,7 +133,7 @@ const OptionCount = styled.div`
         height: 20px;
     }
 `
-const Circle = styled.div`
+const Circle = styled.img`
     width: 30px;
     height: 30px;
     background-color: rgb(217, 217, 217);

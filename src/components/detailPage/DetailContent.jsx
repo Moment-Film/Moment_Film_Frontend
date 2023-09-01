@@ -20,8 +20,7 @@ import view from "../assets/icons/view.svg";
 import dots from "../assets/icons/dots.svg";
 import selectTrue from "../assets/images/selectTrue.svg";
 import selectFalse from "../assets/images/selectFalse.svg";
-// import heartOff from '../assets/images/heartOff.svg'
-// import heartOn from '../assets/images/heartOn.svg'
+import resizeNull from '../assets/images/resizeNull.png'
 import { ReactComponent as HeartOff } from "../assets/icons/svgHeartOff.svg";
 import { ReactComponent as HeartOn } from "../assets/icons/svgHeartOn.svg";
 
@@ -193,7 +192,7 @@ const DetailContent = ({ data }) => {
               </button>
             </div>
             <div className="writer" onClick={()=>navigate(`/profile/${data.userId}`)}>
-              <img src={null} alt="" />
+              <img src={data.userImage?data.userImage:resizeNull} alt="" />
               <span>{data.username}</span>
             </div>
             <div className="title">

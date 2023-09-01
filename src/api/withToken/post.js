@@ -54,8 +54,13 @@ const usePostAPI = () => {
     }
   );
     const deletePost = async (postId) => {
+      try{
         const res = await postAxios.delete(`/api/post/${postId}`);
         alert(res.data.msg);
+      }
+      catch(error) {
+        alert("error", error);
+      }
     }
 
   const addPost = async (formData) => {
