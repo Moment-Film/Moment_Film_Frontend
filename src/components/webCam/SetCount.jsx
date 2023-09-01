@@ -121,11 +121,14 @@ const SetCount = () => {
     }
   }
   const finishButtonHandler = () => {
-    Array(8).map((_,index)=>{
+    if (setImage===4){
+      Array(8).fill(null).map((_,index)=>{
       localStorage.removeItem(`image${index}`)
-    })
-    boardImages.map((item,index)=> localStorage.setItem(`image${index}`,item));
-    navigate(`../camera/capture/frame`);
+      })
+      boardImages.map((item,index)=> localStorage.setItem(`image${index}`,item));
+      navigate(`../camera/capture/frame`);
+    }
+    else alert("프레임을 빈 칸 없이 채워주세요!");
   }
 
   const [boardImages, setBoardImages] = useState(Array(4).fill(null));
@@ -173,7 +176,10 @@ const SetCount = () => {
       </C.Body>
       <StyledButton func={finishButtonHandler} title={"완료하기"} width={'130px'} height={'49px'} fontSize={'16px'} />
       <S.StyledSpan16 style={{lineHeight: "16px", margin:"0", }}
-        onClick={()=>setBoardImages(Array(4).fill(null))}>전체 다시 선택</S.StyledSpan16>
+        onClick={()=>{
+          setBoardImages(Array(4).fill(null))
+          setSetImage(0);
+        }}>전체 다시 선택</S.StyledSpan16>
       </C.MainBody>
         
     </DndProvider>
