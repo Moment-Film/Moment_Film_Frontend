@@ -9,7 +9,15 @@ const ModalBg = styled.div`
   align-items: center;
   position: fixed;
   top: 0;
-  z-index: 50;
+  z-index: 1900;
+`;
+const WithdrawalBtn = styled.section`
+  text-decoration: underline;
+  color: var(--gray4);
+  font-size: 12px;
+  line-height: 14px;
+	margin-top: 12px;
+  cursor: pointer;
 `;
 
 // 모달 컨테이너박스
@@ -23,13 +31,14 @@ const ProfileWrap = styled.div`
   flex-direction: column;
   justify-content: center;
   position: fixed;
-  z-index: 51;
+  z-index: 1991;
   padding: 0 20px 20px 20px;
 
   @media (max-width: 900px) {
     width: 80%;
     height: 70%;
-    margin: 100px 0;
+    justify-content: flex-start;
+    padding: 20px;
     overflow-y: scroll;
 
     &::-webkit-scrollbar {
@@ -149,7 +158,9 @@ const Info = styled.div`
   height: 377px;
   display: flex;
   flex-direction: column;
-
+  @media (max-width:540px) {
+    width: 90%;
+  }
   span {
     font-size: 14px;
     line-height: 150%;
@@ -172,7 +183,11 @@ const InfoSection = styled.section`
       width: 24px;
     }
   }
-
+  span {
+    width: 80px;
+    font-size: 14px;
+    line-height: 150%;
+  }
   hr {
     width: 99.5%;
     border: 1px solid var(--lightGray);
@@ -222,6 +237,17 @@ const PasswordWrap = styled.section`
     align-items: center;
     justify-content: space-between;
   }
+  span {
+    width: 70px;
+    font-size: 14px;
+    line-height: 150%;
+  }
+  
+  @media (max-width:540px) {
+    section {
+      width: 90%;
+    }
+  }
 `;
 
 const SendBtn = styled.div`
@@ -242,7 +268,7 @@ const SendBtn = styled.div`
 `;
 
 const TestBox = styled.div`
-  width: 277px;
+  width: 70%;
   height: 41px;
   background-color: var(--green0);
   border-bottom: 1px solid var(--green5);
@@ -253,6 +279,7 @@ const TestBox = styled.div`
 `;
 
 const TestInput = styled.input`
+  width: 100%;
   font-size: 16px;
   line-height: 150%;
   background: none;
@@ -269,7 +296,7 @@ const TestInput = styled.input`
 `;
 
 const TestBtn = styled.div`
-  width: 25px;
+  width: 30px;
   height: 17px;
   color: var(--gray4);
   font-size: 14px;
@@ -279,6 +306,7 @@ const TestBtn = styled.div`
   background-color: var(--white);
   padding: 5px 10px;
   cursor: pointer;
+  white-space: nowrap;
 `;
 
 const Verify = styled.div`
@@ -324,6 +352,7 @@ export {
   PicBox,
   EditBtn,
   PicInfoSection,
+  WithdrawalBtn,
   Info,
   InfoSection,
   InfoInput,

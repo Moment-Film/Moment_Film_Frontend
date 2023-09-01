@@ -61,19 +61,17 @@ const TextWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
-  margin-top: 21.5px;
-
+  margin-top: 31.5px;
   div {
     font-size: 52px;
-    line-height: 68px;
+    line-height: 150%;
     font-family: "Abril Fatface", cursive;
   }
-
   span {
     font-size: 14px;
     line-height: 150%;
-    margin-bottom: 71px;
+    margin-top: 0px;
+    margin-bottom: 50px;
   }
 `;
 
@@ -94,7 +92,7 @@ const Point = styled.img`
 const CustomImg = styled.div`
   height: 446px;
   border-radius: 5px;
-  margin-bottom: 32px;
+  margin-bottom: 42px;
   box-shadow: 0 0 40px rgba(0,0,0,0.1);
 `;
 

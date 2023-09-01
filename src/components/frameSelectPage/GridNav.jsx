@@ -33,7 +33,7 @@ const GridNav = ({ data, autoShowModal = false }) => {
         <SelectStep>
           <ProccessLine />
           {steps.map((step, index) =>
-            <TitleCont proceeded={ index <= steps.findIndex(i=>i.name===data) } key={step.name}>
+            <TitleCont proceeded={ index <= steps.findIndex(i=>i.name===data)} select={step.name===data} key={step.name}>
               <StyledSpan15 select={step.name===data}>{step.text}</StyledSpan15>
               {step.name===data && <StepTitle
                 src={mini_flower}
@@ -42,19 +42,12 @@ const GridNav = ({ data, autoShowModal = false }) => {
             </TitleCont>
           )}
         </SelectStep>
-        <div
+        <GuideBtn
           onClick={modalHideHandler}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            height: "20px",
-            cursor: "pointer",
-            gap: "11px",
-          }}
         >
           촬영가이드
           <img src={info} alt="info" />
-        </div>
+        </GuideBtn>
       </StepWrap>
     </>
   );
@@ -72,13 +65,9 @@ const StepWrap = styled.div`
   justify-content: space-between;
   @media (max-width : 870px) {
     flex-direction: column-reverse;
-    justify-content: flex-end;
-    align-items: end;
+    justify-content: center;
+    align-items: center;
     padding: 16px 0 0 0;
-    font-size: 13px;
-    span{
-      font-size: 13px;
-    }
   }
 `;
 const ProccessLine = styled.div`
@@ -87,9 +76,6 @@ const ProccessLine = styled.div`
   border-bottom: 2px solid var(--green5);
   @media (max-width : 970px) {
     display: none;
-  }
-  @media (max-width : 870px) {
-    display: block;
   }
 `
 const SelectStep = styled.div`
@@ -106,9 +92,22 @@ const TitleCont = styled.div`
     `};
   height: 18px;
   padding: 15px;
+  @media (max-width : 870px) {
+    display : ${({select})=> select? "block" : "none"};
+    border: none;
+  }
 `;
 const StepTitle = styled.img`
   position: absolute;
   margin-top: -10px;
   height: 18px;
 `;
+const GuideBtn = styled.div`
+  display: flex;
+  align-items: center;
+  height: 20px;
+  cursor: pointer;
+  gap: 11px;
+  margin-left: auto;
+  margin-right: 15px;
+`

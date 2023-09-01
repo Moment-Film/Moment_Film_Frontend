@@ -1,10 +1,12 @@
 import React from "react";
 import useToken from "../../../hooks/useToken";
 import { WithdrawalAPI } from "../../../api/nonToken/auth";
-import { styled } from "styled-components";
 import useAuthAPI from '../../../api/nonToken/auth';
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const WithdrawalBtn = () => {
+    const navigate = useNavigate();
 
     const {
         WithdrawalAPI
@@ -25,15 +27,17 @@ const refreshToken = getRefresh();
     saveAccessToken(null);
     saveRefreshToken(null);
     alert("탈퇴되었습니다.");
+    navigate('/');
   };
 
-  return <WithdrawalBox onClick={Withdrawal}>회원탈퇴</WithdrawalBox>;
+  return <Btn onClick={Withdrawal}>떠날래요</Btn>;
 };
 
 export default WithdrawalBtn;
 
-const WithdrawalBox = styled.section`
-  text-decoration: underline;
+const Btn = styled.button`
+  border: none;
+  background-color: var(--gray2_a);
   color: var(--gray4);
   font-size: 12px;
   line-height: 150%;

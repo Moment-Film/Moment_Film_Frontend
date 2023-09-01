@@ -81,7 +81,7 @@ const InfiniteScroll = ({ sort }) => {
     return (
         <div>
         {/* {dataList.length} */}
-            {dataList?.length > 0 && <ContentBox data={dataList}></ContentBox>}
+            {dataList?.length > 0 && <ContentBox data={dataList} type="postList"></ContentBox>}
         </div>
     );
 };

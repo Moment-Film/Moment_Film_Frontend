@@ -1,25 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-const ContentBox = ({ data }) => {
+const ContentBox = ({ data, type }) => {
     const navigate = useNavigate();
     const Card = ({ item }) => {
         return (
             <ContentsItem onClick={() => navigate(`/post/${item.id}`)}>
                 <ImgSection>
-                    <img src={item.image}/>
+                    <img src={item.image} alt=''/>
                 </ImgSection>
                 <ItemInfo>
                     <InfoHeader>
                         <Circle></Circle>
                         <span className='UserName'>{item.username}</span>
+                        { type==="postList" &&
                         <OptionCount>
-                            <IconImg></IconImg>
+                            <img src={null} alt='' />
                             <span className='option'>{item.likeCount}</span>
-                            <IconImg></IconImg>
+                            <img src={null} alt='' />
                             <span className='option'>{item.viewCount}</span>
                         </OptionCount>
+                        }
+                        
                     </InfoHeader>
                     <span className='Title'>{item.title}</span>
                 </ItemInfo>
@@ -98,46 +101,44 @@ const ItemInfo = styled.div`
 
     .UserName{
         font-size:14px;
+        font-weight: 400;
+        margin-right: auto;
     }
     .option{
         font-size:12px;
+        color: var(--gray4);
     }
 
     .Title{
-        margin-top:10px;
         font-size:16px;
+        font-weight: 500;
     }
 
 `
 
 const OptionCount = styled.div`
     display:flex;
+    align-items: center;
     gap:5px;
     font-size:12px;
     font-weight: 400;
     margin-left:auto;
 
+    img {
+        margin-left: 2px;
+        width: 20px;
+        height: 20px;
+    }
 `
-
 const Circle = styled.div`
-width: 30px;
-height: 30px;
-border: 10px solid rgb(217, 217, 217);
-background-color: rgb(217, 217, 217);
-border-radius: 50%;
-
+    width: 30px;
+    height: 30px;
+    background-color: rgb(217, 217, 217);
+    border-radius: 50%;
 `
 const InfoHeader = styled.div`
-display:flex;
-align-items:center;
-gap:10px;
-
-`
-
-const IconImg = styled.div`
-width: 15px;
-height: 15px;
-border: 1px solid rgb(217, 217, 217);
-background-color: rgb(217, 217, 217);
-border-radius: 25%;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom: 10px;
 `

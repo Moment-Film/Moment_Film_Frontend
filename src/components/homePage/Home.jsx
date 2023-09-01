@@ -535,9 +535,7 @@ const CardSection = styled.div`
       color: var(--white);
     }
   }
-`;
-
-
+`
 const Card = styled.div`
   display: flex;
   flex-direction: column;

@@ -17,6 +17,7 @@ import {
   InfoInput,
   PasswordSection,
   PasswordWrap,
+  WithdrawalBtn,
   SendBtn,
   TestBox,
   TestInput,
@@ -25,8 +26,6 @@ import {
   SaveBtn,
 } from "./profileEditStyle";
 import * as a from "../frameCustomPage/style";
-
-import WithdrawalBtn from "../common/component/WithdrawalBtn";
 import cancel from "../assets/icons/cancelx2.png";
 import user from "../assets/icons/userName.svg"
 import lock from "../assets/icons/lock.svg"
@@ -36,6 +35,8 @@ import nullImg from "../assets/images/nullProfile.svg";
 import useInputValidation from "../../hooks/useInputValidation";
 import useToken from "../../hooks/useToken";
 import useUserAPI from "../../api/withToken/user";
+import Modals from "../common/component/Modals";
+import byebye from '../assets/images/byebye.png';
 
 function EditModal({ onClose, profileImg }) {
   const { sendEmail, putEditInfo, getPrivateInfo, replacePassword } =
@@ -51,6 +52,7 @@ function EditModal({ onClose, profileImg }) {
     username: "",
     phone: "",
   });
+  const [showModal, setShowModal] = useState(false);
 
   // 비밀번호 재설정 state
   const [newPassword, setNewPassword] = useState("");
@@ -195,6 +197,9 @@ function EditModal({ onClose, profileImg }) {
       alert("인증 코드가 올바르지 않습니다.");
     }
   };
+  const closeModalHandler = () => {
+    setShowModal(false);
+  }
 
   const stopPropagation = (e) => {
     e.stopPropagation();
@@ -202,6 +207,7 @@ function EditModal({ onClose, profileImg }) {
 
   return (
     <ModalBg onClick={onClose}>
+      {showModal && <Modals imgSrc={byebye} type="bye" text="진짜... 탈퇴하시나요?" onClose={closeModalHandler}/>}
       <ProfileWrap onClick={stopPropagation}>
         <CloseSection>
           <section></section>
@@ -235,33 +241,14 @@ function EditModal({ onClose, profileImg }) {
               {isEdit && <img src={imgEdit} alt="" />}
             </EditBtn>
 
-
-
-
-
-
-
-
-
             <PicInfoSection>
-          
               <span className="username">{userInfo.username}</span>
               <div className="email">{userInfo.email}</div>
+              <WithdrawalBtn onClick={()=>setShowModal(true)}>회원탈퇴</WithdrawalBtn>
               <WithdrawalBtn />
             </PicInfoSection>
 
           </PicSection>
-
-
-
-
-
-
-
-
-
-
-
 
           <Info>
             <InfoSection>

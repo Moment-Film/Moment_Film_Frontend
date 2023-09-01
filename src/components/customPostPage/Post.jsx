@@ -84,7 +84,7 @@ const PostNav = styled.div`
     gap:30px;
     width:90%;
     max-width:1170px;
-    border-bottom:1px solid var(--black);
+    border-bottom:1px solid var(--gray2);
 
     .postTitle{
       margin:auto;
@@ -106,16 +106,19 @@ const SortItem = styled.div`
 
     .recent{
       color : ${(props)=>props.state==='recent' ? "var(--black)" : "var(--gray3)"};
+      font-weight : ${(props)=>props.state==='recent' && 500};
       cursor:pointer;
     }
 
     .likes{
       color : ${(props)=>props.state==='likes' ? "var(--black)" : "var(--gray3)"};
+      font-weight : ${(props)=>props.state==='likes' && 500};
       cursor:pointer;
     }
 
     .view{
       color : ${(props)=>props.state==='view' ? "var(--black)" : "var(--gray3)"};
+      font-weight : ${(props)=>props.state==='view' && 500};
       cursor:pointer;
     }
 `;
