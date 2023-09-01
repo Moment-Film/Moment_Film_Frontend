@@ -151,7 +151,9 @@ const Homepage = () => {
                 <p className="cardHeader">집밖에 나가기 싫어요!</p>
                 <p className="cardcontent">
                   나는 친구들과 이런것도 하고싶고 이런것도 하고 싶어요 근데
-                  어쩌고 한데 다들 이렇다고 하라구요
+
+                  어쩌고 한데 다들 이렇다고 하라구요 억울해요
+
                 </p>
                 <p className="cardOwner">
                   지존킹님의 고민
@@ -187,15 +189,18 @@ const Homepage = () => {
                 <img src={card2} alt="" />
               </Card>
               <Card className="content">
-                <p className="cardHeader">집밖에 싫어요!</p>
+
+                <p className="cardHeader">Go Get</p>
                 <p className="cardcontent">
                   모먼트 필름만의 특장점을 직접 사용해 보시고 느껴보세요. 순간을
                   기록하고 추억을 저장해 보세요!
+
                 </p>
-                <p className="cardOwner">
-                  김헛둘님의 고민
-                  <img src={profile} />
-                </p>
+                <StyledButton
+                  width={"142px"}
+                  height={"39px"}
+                  title={"나도 할래!"}
+                ></StyledButton>
               </Card>
             </div>
           </CardSection>
@@ -251,7 +256,9 @@ const Homepage = () => {
               <div className="thirdContent">
                 <span className="bigSpan">Post my design</span>
 
-                <div className="ment">게시글 자랑하기</div>
+
+                <div className="fourthMent">게시글 자랑하기</div>
+
                 <div className="comment">
                   <p>
                     나의 소중한 추억과 순간을 게시글을 통해 기록해 보아요!
@@ -267,14 +274,16 @@ const Homepage = () => {
             <BoxSection className="boxSection">
               <BoxSection className="box-1" ref={box1Ref} fadeIn={fadeIn[0]}>
                 <img src={photo1}></img>
-                <p>촬영하기</p>
-                <p>친구들과 함께 찰칵! 영원할 지금의 순간을 남겨보세요!</p>
+                <p className="title">촬영하기</p>
+                <p className="ment">친구들과 함께 찰칵! 영원할 지금의 순간을 남겨보세요!</p>
               </BoxSection>
 
               <BoxSection className="box-2" ref={box2Ref} fadeIn={fadeIn[1]}>
                 <img src={photo2}></img>
-                <p>커스텀하기</p>
-                <p>
+
+                <p className="title">커스텀하기</p>
+                <p className="ment">
+
                   특색있는 아이디어로 내 사진 꾸미기! 멋진 필터 멋진 스티커로
                   꾸며볼까요?
                 </p>
@@ -282,8 +291,10 @@ const Homepage = () => {
 
               <BoxSection className="box-3" ref={box3Ref} fadeIn={fadeIn[2]}>
                 <img src={photo3}></img>
-                <p>게시글로 뽐내기</p>
-                <p>
+
+                <p className="title">게시글로 뽐내기</p>
+                <p className="ment">
+
                   커스텀 작업물을 사람들에게 자랑보아요! 소중한 추억에 대한
                   설명도 적으면 좋겠죠? 인기 크레이터에 등록되어볼까요?
                 </p>
@@ -432,6 +443,13 @@ const LeftSpan = styled.div`
       font-size: 38px;
     }
   }
+
+
+  .ment{
+    font-size:18px;
+    font-weight:bold;
+  }
+
 `;
 
 const spinAnimation = keyframes`
@@ -535,7 +553,10 @@ const CardSection = styled.div`
       color: var(--white);
     }
   }
-`
+
+`;
+
+
 const Card = styled.div`
   display: flex;
   flex-direction: column;
@@ -551,6 +572,8 @@ const Card = styled.div`
   }
   .cardHeader {
     font-weight: bold;
+    font-size: 24px;
+
   }
   .cardcontent {
     font-size: 16px;
@@ -649,6 +672,7 @@ const ThirdAlign = styled.div`
     @media (max-width: 1000px) {
       width: 100%;
     }
+
   }
 
   .comment {
@@ -662,11 +686,19 @@ const ThirdAlign = styled.div`
     width: 80%;
     gap: 10%;
 
+    .thirdContent{
+      .ment{
+        font-size:18px;
+      }
+    }
+
     @media (max-width: 1000px) {
       flex-direction: column;
       gap: 5%;
     }
   }
+
+
   .right {
     height: 80%;
     display: flex;
@@ -678,13 +710,25 @@ const ThirdAlign = styled.div`
       flex-direction: column;
 
       min-width: 300px;
+
     }
   }
+  .right {
+    height: 80%;
+    display: flex;
+    align-items: end;
+    width: 50%;
+    min-width: 500px;
+
+
 
   img {
     width: 100%;
   }
+
+
 `;
+
 
 const fadeInUp = keyframes`
 0% {
@@ -705,6 +749,7 @@ const FourthAlign = styled.div`
   display: flex;
   flex-direction: column;
 
+
   .left {
     width: 80%;
   }
@@ -720,6 +765,12 @@ const FourthAlign = styled.div`
     align-items: center;
 
     gap: 10%;
+
+    .fourthMent{
+        font-size:20px;
+        font-weight:600;
+      }
+
   }
 
   .boxWrap {
@@ -733,7 +784,9 @@ const FourthAlign = styled.div`
       display: flex;
       flex-direction: column;
 
-      gap: 1vw;
+      gap:1vw;
+
+
     }
   }
 `;
@@ -788,5 +841,21 @@ const BoxSection = styled.div`
       flex-direction: column;
       align-items: center;
     }
+
   }
+
+  .title{
+    font-size:20px;
+    font-weight:600;
+    margin-bottom:10px;
+    line-height:26px;
+  }
+
+  .ment{
+    margin-top:0;
+    margin-bottom:59px;
+    font-size:16px;
+    line-height:24px;
+  }
+
 `;

@@ -17,7 +17,13 @@ import { useRef } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { SetBackgroundImg } from "../../redux/modules/FrameInfo";
-import { StyledSpan14 } from "../common/styles/StyledSpan";
+
+import {
+  StyledSpan14,
+  StyledSpan12,
+  StyledSpan16,
+} from "../common/styles/StyledSpan";
+
 import MyFrameModal from "./MyFrameModal";
 import { useQuery } from "react-query";
 import { SetImgFile } from "../../redux/modules/FrameInfo";
@@ -109,7 +115,7 @@ const FrameCustomMake = () => {
     setOpenModal(false);
   };
 
-  const applyFrameBackground = async(h, s, l, img) => {
+  const applyFrameBackground = async (h, s, l, img) => {
     h && s && l && setColor({ h, s, l });
     img ? setFrameImg(img) : setFrameImg(null);
   };
@@ -201,7 +207,11 @@ const FrameCustomMake = () => {
               )}
 
               <div className="useMy">
-                <img src={Img.mycustom} onClick={openModalHandler} />
+                <img
+                  className="myfile"
+                  src={Img.mycustom}
+                  onClick={openModalHandler}
+                />
                 <span>내 커스텀</span>
               </div>
 
@@ -255,22 +265,27 @@ const FrameCustomMake = () => {
                         </a.ImgDeleteBtn>
                       </>
                     ) : (
-                      <label htmlFor="fileInput">
+
+                      <>
                         <a.UploadedImg color="var(--gray)">
                           이미지 불러오기
                         </a.UploadedImg>
-                        <div>
+                        <label htmlFor="fileInput">
+
                           <img
                             src={upload}
                             alt=""
                             style={{
-                              width: "16px",
+
+                              width: "32px",
                               opacity: "0.5",
                               cursor: "pointer",
+
                             }}
                           />
-                        </div>
-                      </label>
+                        </label>
+                      </>
+
                     )}
                   </a.UploadLabel>
                 </a.UploadContainer>
@@ -309,19 +324,22 @@ const OptionSection = styled.section`
     margin-top: 87px;
     display: flex;
     justify-content: center;
+
   }
   .optionName {
     text-align: right;
     color: rgb(80, 80, 80);
     font-size: 14px;
+
+    img {
+      width: 38px;
+    }
   }
   .progess {
     display: flex;
     align-items: center;
     gap: 10px;
-  }
-  img {
-    width: 38px;
+
   }
 
   .inputFile {
@@ -333,9 +351,18 @@ const OptionSection = styled.section`
     display: flex;
     flex-direction: column;
     align-items: center;
-    img {
-      width: 28px;
-      height: 28px;
+
+    .myfile {
+      width: 36px;
+      height: 36px;
+      object-fit: cover;
+    }
+
+    span {
+      font-size: 12px;
+      color: var(--green5);
+      font-weight: 600;
+
     }
   }
 
@@ -392,6 +419,8 @@ const RightBox = styled.div`
     border-bottom: 1px solid rgb(217, 217, 217);
     padding-bottom: 9px;
     font-size: 16px;
+    font-weight: 500;
+
 
     img {
       width: 21px;

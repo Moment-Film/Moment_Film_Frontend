@@ -31,6 +31,8 @@ body{
     --green1: #f6faf0;
     --green0: #FBFCF9;
 
+    
+
 }
 
 

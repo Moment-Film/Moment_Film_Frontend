@@ -204,7 +204,6 @@ const OptionSection = styled.section`
   }
   .progess{
     display:flex;
-    width:80%;
     align-items:center;
     gap:10px;
 
@@ -279,7 +278,12 @@ const RightBox = styled.div`
     margin-bottom:40px;
     border-bottom:1px solid rgb(217, 217, 217);
     padding-bottom:9px;
+  
 
+    span{
+      font-weight:500;
+      font-size:16px;
+    }
     img{
       width:21px;
       height:21px;

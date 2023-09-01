@@ -10,13 +10,11 @@ import right_arrow from "../assets/images/right_arrow.png";
 import inputDelete from "../assets/icons/inputDelete.svg";
 import useToken from "../../hooks/useToken";
 import useAuthAPI from "../../api/nonToken/auth";
-
+import passwordImg from "../assets/login/password.svg";
+import IdImg from "../assets/login/ID.svg";
 
 const EmailLogin = () => {
-  
-  const {
-    ELogin
-  } = useAuthAPI()
+  const { ELogin } = useAuthAPI();
 
   const [loginError, setLoginError] = useState(null);
   const navigate = useNavigate();
@@ -32,11 +30,7 @@ const EmailLogin = () => {
     handlePasswordChange,
   } = useInputValidation();
 
-  const {
-    saveAccessToken,
-    saveRefreshToken,
-    saveUserInfo
-  }=useToken();
+  const { saveAccessToken, saveRefreshToken, saveUserInfo } = useToken();
 
   const mutation = useMutation(ELogin, {
     onSuccess: async (response) => {
@@ -47,7 +41,7 @@ const EmailLogin = () => {
         //토큰 저장
         await saveAccessToken(ACToken);
         await saveRefreshToken(response.headers.refreshtoken);
-        //토큰에서 유저정보 가져오기 
+        //토큰에서 유저정보 가져오기
         await saveUserInfo(ACToken);
 
         setLoginError(null);
@@ -89,6 +83,7 @@ const EmailLogin = () => {
         </LinkBox>
 
         <InputWrap>
+          <img src={IdImg}></img>
           <AddressInput
             placeholder={"아이디(이메일)"}
             value={email}
@@ -99,6 +94,7 @@ const EmailLogin = () => {
         </InputWrap>
 
         <InputWrap>
+          <img src={passwordImg}></img>
           <AddressInput
             placeholder={"비밀번호"}
             value={password}
@@ -109,27 +105,26 @@ const EmailLogin = () => {
           <img onClick={passwordDeleteHandler} src={inputDelete} alt="" />
         </InputWrap>
       </InputSection>
-      <div
-        style={{
-          width: "70%",
-          marginBottom: "25px",
-        }}
-      >
-        {loginError && <ValidateResult>{loginError}</ValidateResult>}
-      </div>
-      <ButtonWrap  style={{ width: "370px", marginBottom: "41px" }}>
+
+      <ValidateSection>
+        {loginError ? <ValidateResult>{loginError}</ValidateResult> : ""}
+      </ValidateSection>
+
+      <ButtonWrap style={{ width: "370px", marginBottom: "41px" }}>
         <StyledButton
           func={LoginHandler}
           title={"로그인"}
-          width={"128px"}
-          height={"39px"}
+          width={"90px"}
+          height={"34px"}
+          fontSize={"16px"}
+          fontWeight={"600"}
         />
       </ButtonWrap>
 
       <FindInfoSection>
-        <div>{"아이디를 잊으셨나요?"}</div>
-        <div>|</div>
-        <div>{"비밀번호를 잊으셨나요?"}</div>
+        <span>{"아이디를 잊으셨나요?"}</span>
+        <span>|</span>
+        <span>{"비밀번호를 잊으셨나요?"}</span>
       </FindInfoSection>
     </StyledForm>
   );
@@ -140,12 +135,11 @@ export default EmailLogin;
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
-  align-items: center;
   width: 100%;
 `;
 
 const InputSection = styled.section`
-  width: 70%;
+  width: 100%;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -155,29 +149,30 @@ const InputSection = styled.section`
 
 const LinkBox = styled.div`
   margin-left: auto;
-  margin-bottom: 34.6px;
+  margin-bottom: 14.6px;
 `;
 
 const InputWrap = styled.div`
   width: 100%;
-  height: 60px;
+  height: 48px;
   font-size: 20px;
-  background-color: rgb(251, 252, 249);
+  background-color: var(--green1);
   border: none;
   border-bottom: 2px solid var(--green5);
   outline: none;
   display: flex;
   justify-content: space-between;
   box-sizing: border-box;
-  padding: 19px 18px;
+  margin-top: 20px;
 `;
 
 export const AddressInput = styled.input`
-
   font-size: 16px;
   line-height: 150%;
+  width: 100%;
   background: none;
   border: none;
+  padding-left:14px;
 
   &:focus {
     outline: none;
@@ -186,13 +181,14 @@ export const AddressInput = styled.input`
 `;
 const FindInfoSection = styled.section`
   display: flex;
+  justify-content: center;
   gap: 15px;
   text-decoration: none;
-  height:64px;
-  div {
-    font-size: 16px;
+
+  span {
+    font-size: 14px;
     text-align: center;
-    color: var(--gray4);
+    color: var(--gray3);
   }
 `;
 
@@ -202,6 +198,10 @@ const ValidateResult = styled.div`
 `;
 
 const ButtonWrap = styled.div`
-  display:flex;
-  justify-content:center;
+  display: flex;
+  justify-content: center;
+`;
+
+const ValidateSection = styled.div`
+  height: 50px;
 `;
