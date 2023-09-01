@@ -528,6 +528,13 @@ const StickerSection = styled.div`
   flex-direction: column;
   align-items: center;
   padding-top: 35.5px;
+
+  .optionHeader {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 150%;
+    color: var(--black);
+  }
 `;
 
 const ModeBtn = styled.button`
@@ -643,6 +650,7 @@ const StickerInput = styled.div`
 
   img {
     width: 22px;
+    opacity: 0.5;
   }
 
   input {
