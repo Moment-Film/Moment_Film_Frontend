@@ -2,19 +2,29 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { useMutation, useQueryClient } from "react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useToken from "../../hooks/useToken";
 import usePostAPI from "../../api/withToken/post";
-import commentImg from "../assets/images/comment.png";
-import dots from "../assets/icons/dots.svg";
-import downArrow from "../assets/images/downArrow.svg";
-import cloud from "../assets/images/cloud.svg";
+import commentImg from '../assets/images/comment.png';
+import dots from '../assets/icons/dots.svg'
+import downArrow from '../assets/images/downArrow.svg'
+import cloud from '../assets/images/cloud.svg'
+import resizeNull from '../assets/images/resizeNull.png'
 
 //input 태그를 따로 빼면 컴포넌트의 필요없는 랜더링을 줄일 수 있다
 const Comment = ({ data }) => {
-  const { addComment, addReply, delComment, delReply } = usePostAPI();
+  const navigate = useNavigate();
+  const{
+    addComment,
+    addReply,
+    delComment,
+    delReply
+  }=usePostAPI();
 
-  const { getAccess, getRefresh } = useToken();
+  const {
+    getAccess,
+    getRefresh,
+  }=useToken();
 
   //변수 선언부
   const param = useParams();
@@ -185,65 +195,53 @@ const Comment = ({ data }) => {
       {commentList?.length > 0 ? (
         commentList.map((comment) => (
           <CommentBorderGreen key={comment.id}>
-            <CommentContainer>
-              <CommentMain>
-                <ProfileSection>
-                  <img
-                    className="profilePic"
-                    src="https://pbs.twimg.com/media/Fi3MBQvaMAAMymZ.jpg"
-                    alt=""
-                  />
-                  <span>{comment.username}</span>
-                  {comment.userId === Number(userInfo.sub) && (
-                    <button onClick={() => DeleteComment(comment.id)}>
-                      삭제
-                    </button>
-                  )}
-                </ProfileSection>
-                <div className="comment">{comment.content}</div>
-                <BottomSection>
-                  <span className="date">{comment.createdAt}</span>
-                  {comment.subComments.length > 0 && (
-                    <span onClick={() => showReplyHandler(comment.id)}>
-                      {comment.subComments.length}개의 답글
-                      <img
-                        src={downArrow}
-                        style={{
-                          scale: isReplyShow.includes(comment.id) && "-1",
-                        }}
-                        alt=""
-                      />
-                    </span>
-                  )}
-                  <span
-                    className="write"
-                    onClick={() => writeReplyHandler(comment.id)}
-                  >
-                    답글 작성
-                    <img src={cloud} alt="" />{" "}
-                  </span>
-                </BottomSection>
-                {isReplyWrite.includes(comment.id) && (
-                  <CommentInputDiv className="replyWrite">
-                    <textarea
-                      placeholder="대댓글 작성"
-                      rows={1}
-                      value={recomment[comment.id]}
-                      onChange={(e) => InputReply(e, comment.id)}
-                    />
-                    <button onClick={() => AddReply(comment.id)}>
-                      답글 등록
-                    </button>
-                  </CommentInputDiv>
-                )}
-              </CommentMain>
-            </CommentContainer>
+          <CommentContainer>
+            <CommentMain>
+              <ProfileSection onClick={()=>navigate(`/profile/${comment.userId}`)}>
+                <img className="profilePic"
+                  src={comment.userImage?comment.userImage:resizeNull}
+                  alt=""
+                />
+                <span>{comment.username}</span>
+                {comment.userId === Number(userInfo.sub) &&
+                  <button onClick={() => DeleteComment(comment.id)}>삭제</button>}
+              </ProfileSection>
+              <div className="comment">{comment.content}</div>
+              <BottomSection>
+                <span className="date">{comment.createdAt}</span>
+                {comment.subComments.length>0 &&
+                <span onClick={() => showReplyHandler(comment.id)}>{comment.subComments.length}개의 답글
+                <img src={downArrow} style={{scale: isReplyShow.includes(comment.id)&&"-1"}} alt=""/>
+                </span>}
+                <span className="write" onClick={()=>writeReplyHandler(comment.id)}>답글 작성<img src={cloud} alt=""/> </span>
+              </BottomSection>
+              {isReplyWrite.includes(comment.id) && <CommentInputDiv className="replyWrite">
+                <textarea
+                  placeholder="대댓글 작성"
+                  rows={1}
+                  value={recomment[comment.id]}
+                  onChange={(e) => InputReply(e, comment.id)}
+                />
+                <button onClick={() => AddReply(comment.id)}>답글 등록</button>
+              </CommentInputDiv>}
+            </CommentMain>
+          </CommentContainer>
             {isReplyShow.includes(comment.id) &&
               comment.subComments
                 .slice()
                 .reverse()
                 .map((reply) => (
-                  <CommentContainer className="recomment" key={reply.id}>
+                <CommentContainer className="recomment" key={reply.id}>
+                  <CommentMain>
+                    <ProfileSection onClick={()=>navigate(`/profile/${reply.userId}`)}>
+                      <img className="profilePic"
+                        src={reply.userImage?reply.userImage:resizeNull}
+                        alt=""
+                      />
+                      <span>{reply.username}</span>
+                      {reply.userId === Number(userInfo.sub) &&
+                        <button onClick={() => DeleteReply(comment.id, reply.id)}>삭제</button>}
+                    </ProfileSection>
                     <CommentMain>
                       <ProfileSection>
                         <img

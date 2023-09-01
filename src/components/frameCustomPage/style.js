@@ -137,6 +137,8 @@ const UploadLabel = styled.div`
 
   label {
     width: 100%;
+    display: flex;
+    justify-content: space-between;
   }
 `;
 

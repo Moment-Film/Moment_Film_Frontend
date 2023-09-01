@@ -20,7 +20,7 @@ const PaginationComponent = ({ data = [] ,ItemNums, category }) => {
 
     // 페이지 변경 이벤트 핸들러
     const handlePageChange = (pageNumber) => {
-        setCurrentPage(pageNumber);
+      if(pageNumber>0 && pageNumber<=totalPage) setCurrentPage(pageNumber);
     };
 
 
