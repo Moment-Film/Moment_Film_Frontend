@@ -38,8 +38,8 @@ const useInputValidation = () => {
         if (!input) {
           setPasswordError('비밀번호를 입력해주세요.');
         } 
-        else if (input.length < 5) {
-          setPasswordError('비밀번호는 최소 5자 이상이어야 합니다.');
+        else if (input.length < 6) {
+          setPasswordError('비밀번호는 최소 6자 이상이어야 합니다.');
         } 
         else {
           setPasswordError('');
