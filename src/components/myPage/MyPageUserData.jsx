@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import Edit from "../assets/icons/Edit.png";
 import out from "../assets/icons/goOut.svg"
 import useUserAPI from "../../api/withToken/user";
-import { Span28, StyledSpan24 } from "../common/styles/StyledSpan";
+import { Span28, StyledSpan24, StyledBoldSpan24 } from "../common/styles/StyledSpan";
 import EditModal from "./EditModal";
 import LogoutBtn from "../common/component/LogoutBtn";
 import nullImg from "../assets/images/nullProfile.svg";
@@ -70,13 +70,13 @@ const MyPageUserData = ({ lang, data, }) => {
             {Number(userInfo.sub) === data.id ? (
               <>
                 <div className="item-1">
-                  <StyledSpan24>{data.username}</StyledSpan24>
+                  <StyledBoldSpan24>{data.username}</StyledBoldSpan24>
                   <span className="point">0P</span>
                 </div>
 
                 <div className="item-2">
                   <div className="option" onClick={editModalHandler}>
-                    <span>개인정보 수정</span>
+                    <button>개인정보 수정</button>
                     <img src={Edit} alt="" />
                   </div>
                   <div className="option">
@@ -199,18 +199,31 @@ const NameSection = styled.div`
     }
 
     .option {
+      margin-left: 10px;
+      cursor: pointer;
       display: flex;
       align-items: center;
       padding-bottom: 30px;
       gap: 5px;
+      button {
+        font-size: 14px;
+        border: none;
+        padding: 0;
+        background: none;
+        cursor: pointer;
+        /* &:hover {
+          color: var(--green5);
+          transition: color 0.3s ease;
+        } */
+      }
+      img {
+        width: 24px;
+      }
     }
   }
-
-
   @media (max-width: 700px) {
         align-items:center;
         flex-direction:column;
-
 }
 
 /*   justify-content: space-between;

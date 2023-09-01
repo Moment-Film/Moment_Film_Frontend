@@ -30,24 +30,24 @@ const LogoutBtn = () => {
     }
   };
 
-  return <NavBtn onClick={LogOut} color={"#505050"}>로그아웃</NavBtn>;
+  return <button onClick={LogOut} color={"#505050"}>로그아웃</button>;
 };
 
 export default LogoutBtn;
 
-export const NavBtn = styled.div`
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size: 14px;
-  line-height: 150%;
-  cursor: pointer;
-  background-color: none; /* 초기 색상 */
-  transition: background-color 0.5s;
-  color: ${props => props.color};
-  min-width:70px;
+// export const NavBtn = styled.div`
+//   display:flex;
+//   align-items:center;
+//   justify-content:center;
+//   font-size: 14px;
+//   line-height: 150%;
+//   cursor: pointer;
+//   background-color: none; /* 초기 색상 */
+//   transition: background-color 0.5s;
+//   color: ${props => props.color};
+//   min-width:70px;
 
-  &:hover {
-    color: var(--green5);
-}
-`;
+//   &:hover {
+//     color: var(--green5);
+// }
+// `;
