@@ -29,7 +29,7 @@ const ProfileWrap = styled.div`
   border-radius: 5px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
   position: fixed;
   z-index: 1991;
   padding: 0 20px 20px 20px;
@@ -161,6 +161,7 @@ const Info = styled.div`
   @media (max-width:540px) {
     width: 90%;
   }
+  
   span {
     font-size: 14px;
     line-height: 150%;
@@ -180,7 +181,7 @@ const InfoSection = styled.section`
     padding-right: 5%;
     margin-bottom: 19.5px;
     img {
-      width: 24px;
+      width: 20px;
     }
   }
   span {
@@ -208,6 +209,7 @@ const InfoInput = styled.section`
     line-height: 150%;
     background: none;
     border: none;
+    color: var(--gray4);
 
     &:focus {
       outline: none;
@@ -220,6 +222,7 @@ const PasswordSection = styled.section`
   display: flex;
   flex-direction: column;
 
+  
   @media (max-width: 900px) {
     padding-bottom: 20px;
   }
@@ -237,6 +240,7 @@ const PasswordWrap = styled.section`
     align-items: center;
     justify-content: space-between;
   }
+  
   span {
     width: 70px;
     font-size: 14px;
@@ -268,7 +272,7 @@ const SendBtn = styled.div`
 `;
 
 const TestBox = styled.div`
-  width: 70%;
+  width: 280px;
   height: 41px;
   background-color: var(--green0);
   border-bottom: 1px solid var(--green5);
@@ -284,6 +288,7 @@ const TestInput = styled.input`
   line-height: 150%;
   background: none;
   border: none;
+  color: var(--gray4);
 
   &:focus {
     outline: none;
@@ -307,6 +312,7 @@ const TestBtn = styled.div`
   padding: 5px 10px;
   cursor: pointer;
   white-space: nowrap;
+  visibility: ${props => props.isClicked ? "visible" : "hidden"};
 `;
 
 const Verify = styled.div`
@@ -314,8 +320,8 @@ const Verify = styled.div`
   line-height: 150%;
   color: ${(props) =>
     props.isVerified ? "var(--green5)" : "var(--warningRed)"};
-  margin: 5px 0 0 0;
-  margin-bottom: ${(props) => props.marginBottom};
+  /* margin: 5px 0 0 0; */
+  /* margin-bottom: ${(props) => props.marginBottom}; */
 `;
 
 const SaveBtn = styled.div`

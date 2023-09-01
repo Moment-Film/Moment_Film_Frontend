@@ -5,12 +5,13 @@ import { Modal } from "../common/component/Modal";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import Edit from "../assets/icons/Edit.png";
-import out from "../assets/icons/goOut.svg"
+// import out from "../assets/icons/goOut.svg"
 import useUserAPI from "../../api/withToken/user";
 import { Span28, StyledSpan24, StyledBoldSpan24 } from "../common/styles/StyledSpan";
 import EditModal from "./EditModal";
 import LogoutBtn from "../common/component/LogoutBtn";
 import nullImg from "../assets/images/nullProfile.svg";
+import logoutIcon from "../assets/icons/LogOut.svg"
 
 const MyPageUserData = ({ lang, data, }) => {
   const { FollowAPI } = useUserAPI();
@@ -81,7 +82,7 @@ const MyPageUserData = ({ lang, data, }) => {
                   </div>
                   <div className="option">
                     <LogoutBtn />
-                    <img src={out} alt="" />
+                    <img src={logoutIcon} alt="" />
                   </div>
                 </div>
               </>

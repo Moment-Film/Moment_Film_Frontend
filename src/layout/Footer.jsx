@@ -8,7 +8,7 @@ function Footer() {
   const URLs = {
     GITHUB: "https://github.com/Moment-Film",
     DISCORD: "https://discord.link.example", 
-    EMAIL: "mailto:example@email.com", 
+    EMAIL: "mailto:momentfilm7@naver.com", 
     INSTAGRAM: "https://instagram.link.example", 
   };
 

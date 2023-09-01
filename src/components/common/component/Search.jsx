@@ -87,7 +87,7 @@ const Search = () => {
         onClick={() => setModalOpen(true)}
         onChange={searchTermHandler}
         onKeyPress={handleKeyPress}
-        placeholder="검색어를 입력해 주세요."
+        placeholder="크리에이터를 검색해 보세요!"
       />
       <div onClick={searchBtnHandler}>
         <img src={search} alt="" className="img" />
