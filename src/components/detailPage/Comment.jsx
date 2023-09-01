@@ -242,6 +242,7 @@ const Comment = ({ data }) => {
                       {reply.userId === Number(userInfo.sub) &&
                         <button onClick={() => DeleteReply(comment.id, reply.id)}>삭제</button>}
                     </ProfileSection>
+                    </CommentMain>
                     <CommentMain>
                       <ProfileSection>
                         <img
