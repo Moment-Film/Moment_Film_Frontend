@@ -242,12 +242,14 @@ function EditModal({ onClose, profileImg }) {
             </EditBtn>
 
             <PicInfoSection>
-          
-              <span>{userInfo.username}</span>
-              <div>{userInfo.email}</div>
+              <span className="username">{userInfo.username}</span>
+              <div className="email">{userInfo.email}</div>
               <WithdrawalBtn onClick={()=>setShowModal(true)}>회원탈퇴</WithdrawalBtn>
+              <WithdrawalBtn />
             </PicInfoSection>
+
           </PicSection>
+
           <Info>
             <InfoSection>
               <div>

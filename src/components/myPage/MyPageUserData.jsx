@@ -115,17 +115,17 @@ const MyPageUserData = ({ lang, data, }) => {
           </NameSection>
           <div className="box-2">
             <div onClick={() => clickHandler("followerList")}>
-              <UserItem>{"팔로우"}</UserItem>
+              <UserItem>팔로우</UserItem>
               <UserItemResult>{data.followerList.length}</UserItemResult>
             </div>
-            <hr />
+            <div><span /></div>
             <div onClick={() => clickHandler("followingList")}>
-              <UserItem>{"팔로잉"}</UserItem>
+              <UserItem>팔로잉</UserItem>
               <UserItemResult>{data.followingList.length}</UserItemResult>
             </div>
-            <hr />
+            <div><span /></div>
             <div>
-              <UserItem>{"게시글 수"}</UserItem>
+              <UserItem>게시글 수</UserItem>
               <UserItemResult>{data.postList.length}</UserItemResult>
             </div>
           </div>
@@ -250,21 +250,27 @@ const UserDataSection = styled.section`
   flex-wrap: wrap;
   justify-content: space-between;
   .box-2 {
-    padding: 0 20% 0 20%;
+    padding: 0 20%;
     display: flex;
     height: 178px;
     align-items: center;
     justify-content: center;
+    gap: 15%;
     background-color: white;
-    border: 1px solid green;
+    border: 1px solid var(--green5);
     border-radius: 5px;
-    hr {
-      height: 19.2px;
+    box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.05);
+
+    span {
+      display: block;
+      width: 1px;
+      height: 15px;
+      background-color: var(--gray3);
     }
     div {
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 10px;
     }
   }
 `;
@@ -278,6 +284,8 @@ const UserItem = styled.div`
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 16px;
+  font-weight: 400;
+  line-height: 150%;
   color: var(--gray5);
 `;
 const UserItemResult = styled.div`

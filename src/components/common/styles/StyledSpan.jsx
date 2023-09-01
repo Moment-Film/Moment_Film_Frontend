@@ -18,6 +18,7 @@ export const StyledSpan26 = styled.span`
 export const StyledSpan24 = styled.span`
   font-size: 24px;
   color: ${(props) => props.color};
+  font-weight: ${props => props.fontWeight};
   line-height: ${(props) => props.lineHeight};
 `;
 export const StyledSpan20 = styled.span`

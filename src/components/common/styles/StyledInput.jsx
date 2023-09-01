@@ -8,14 +8,20 @@ export const StyledLongInput = styled.input`
   background-color: var(--whiteGray);
 `
 export const StyledMiddleInput = styled.input`
-  width: 461px;
+  /* max-width: 460px; */
+  width: 100%;
   height: 50px;
+  font-size: 16px;
+
   border: none;
   border-bottom: 2px solid var(--green5);
   background-color: #FBFCF9;
   padding-left: 20px;
   outline: none;
 
+  &::placeholder {
+    color: var(--gray3);
+  }
 `
 export const StyledShortInput = styled.input`
 width:100%;

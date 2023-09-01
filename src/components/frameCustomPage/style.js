@@ -134,6 +134,10 @@ const UploadLabel = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  label {
+    width: 100%;
+  }
 `;
 
 const UploadInput = styled.input`
@@ -143,7 +147,7 @@ const UploadInput = styled.input`
 
 const UploadedImg = styled.div`
   font-size: 14px;
-  width: 150px;
+  width: 80%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

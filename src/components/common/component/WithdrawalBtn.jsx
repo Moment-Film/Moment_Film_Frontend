@@ -41,7 +41,7 @@ const Btn = styled.button`
   color: var(--gray4);
   font-size: 12px;
   line-height: 150%;
-	margin-top: 12px;
+	/* margin-top: 8px; */
   cursor: pointer;
 
   &:hover {

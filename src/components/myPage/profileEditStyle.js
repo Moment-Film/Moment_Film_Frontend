@@ -134,21 +134,22 @@ const PicInfoSection = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 30px;
 
   span {
     font-size: 24px;
     line-height: 150%;
     color: var(--black);
     font-weight: 700;
+    margin-top: 14px;
   }
 
   div {
     font-size: 14px;
+    font-weight: 300;
     line-height: 150%;
     color: var(--gray4);
-    margin-top: 4px;
-    margin-bottom: 8px;
+    /* margin-top: 2px; */
+    margin-bottom: px;
   }
 `;
 
@@ -159,6 +160,11 @@ const Info = styled.div`
   flex-direction: column;
   @media (max-width:540px) {
     width: 90%;
+  }
+  span {
+    font-size: 14px;
+    line-height: 150%;
+    color: var(--gray5);
   }
 `;
 
@@ -177,13 +183,11 @@ const InfoSection = styled.section`
       width: 24px;
     }
   }
-
   span {
     width: 80px;
     font-size: 14px;
     line-height: 150%;
   }
-
   hr {
     width: 99.5%;
     border: 1px solid var(--lightGray);
@@ -233,7 +237,6 @@ const PasswordWrap = styled.section`
     align-items: center;
     justify-content: space-between;
   }
-
   span {
     width: 70px;
     font-size: 14px;
@@ -330,6 +333,13 @@ const SaveBtn = styled.div`
   padding: 5px 10px;
   margin-top: 13px;
   cursor: pointer;
+
+  div {
+    font-size: 14px;
+font-weight: 500;
+line-height: 150%;
+color: var(--green5);
+  }
 `;
 
 export {
