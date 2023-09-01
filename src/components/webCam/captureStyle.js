@@ -9,6 +9,12 @@ export const MainBody = styled.div`
   width: 1170px;
   overflow: hidden;
   padding-bottom: 121px;
+  span {
+    cursor: pointer;
+    &:hover {
+      color: var(--warningRed);
+    }
+  }
 `
 export const Body = styled.div`
   display: flex;
