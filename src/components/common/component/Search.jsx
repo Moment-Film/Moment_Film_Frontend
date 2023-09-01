@@ -105,7 +105,7 @@ const SearchInputDiv = styled.div`
   display: flex;
   justify-content:space-around;
 /*   align-items: center; */
-  min-width: 200px;
+/*   min-width: 200px; */
   max-width:300px;
 
   width:30%;

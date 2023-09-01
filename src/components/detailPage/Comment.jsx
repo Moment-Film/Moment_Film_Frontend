@@ -5,25 +5,16 @@ import { useMutation, useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
 import useToken from "../../hooks/useToken";
 import usePostAPI from "../../api/withToken/post";
-import commentImg from '../assets/images/comment.png';
-import dots from '../assets/icons/dots.svg'
-import downArrow from '../assets/images/downArrow.svg'
-import cloud from '../assets/images/cloud.svg'
+import commentImg from "../assets/images/comment.png";
+import dots from "../assets/icons/dots.svg";
+import downArrow from "../assets/images/downArrow.svg";
+import cloud from "../assets/images/cloud.svg";
 
 //input 태그를 따로 빼면 컴포넌트의 필요없는 랜더링을 줄일 수 있다
 const Comment = ({ data }) => {
+  const { addComment, addReply, delComment, delReply } = usePostAPI();
 
-  const{
-    addComment,
-    addReply,
-    delComment,
-    delReply
-  }=usePostAPI();
-
-  const {
-    getAccess,
-    getRefresh,
-  }=useToken();
+  const { getAccess, getRefresh } = useToken();
 
   //변수 선언부
   const param = useParams();
@@ -34,7 +25,6 @@ const Comment = ({ data }) => {
   const [commentList, setCommentList] = useState(data);
   const [isReplyShow, setIsReplyShow] = useState([null]);
   const [isReplyWrite, setIsReplyWrite] = useState([null]);
-
 
   useEffect(() => {
     setCommentList(data);
@@ -126,7 +116,7 @@ const Comment = ({ data }) => {
   const handleKeyPress = (e) => {
     if (e.key === "Enter" || e.keyCode === 13) {
       const postId = param.id;
-      CommentMutation.mutate({ postId,comment });
+      CommentMutation.mutate({ postId, comment });
       setComment("");
     }
   };
@@ -142,22 +132,27 @@ const Comment = ({ data }) => {
   };
 
   const DeleteComment = (commentId) => {
-    const deleteSure = window.confirm('댓글을 삭제하시겠습니까?');
-    if(deleteSure){
+    const deleteSure = window.confirm("댓글을 삭제하시겠습니까?");
+    if (deleteSure) {
       const accessToken = getAccess();
       const refreshToken = getRefresh();
 
       const postId = param.id;
-      DelCommentMutation.mutate({ commentId, accessToken, refreshToken, postId });
+      DelCommentMutation.mutate({
+        commentId,
+        accessToken,
+        refreshToken,
+        postId,
+      });
     }
   };
 
   const DeleteReply = (commentId, replyId) => {
-    const deleteSure = window.confirm('댓글을 삭제하시겠습니까?');
-    if(deleteSure){
+    const deleteSure = window.confirm("댓글을 삭제하시겠습니까?");
+    if (deleteSure) {
       const accessToken = getAccess();
       const refreshToken = getRefresh();
-      
+
       const postId = param.id;
       DelReplyMutation.mutate({
         commentId,
@@ -167,7 +162,6 @@ const Comment = ({ data }) => {
         replyId,
       });
     }
-    
   };
   const userInfo = useSelector((state) => state.UserInfo);
 
@@ -188,69 +182,100 @@ const Comment = ({ data }) => {
           <button onClick={AddComment}>등록</button>
         </CommentInputDiv>
       </CommentInputArea>
-      {commentList?.length>0 ?
+      {commentList?.length > 0 ? (
         commentList.map((comment) => (
           <CommentBorderGreen key={comment.id}>
-          <CommentContainer>
-            <CommentMain>
-              <ProfileSection>
-                <img className="profilePic"
-                  src="https://pbs.twimg.com/media/Fi3MBQvaMAAMymZ.jpg"
-                  alt=""
-                />
-                <span>{comment.username}</span>
-                {comment.userId === Number(userInfo.sub) &&
-                  <button onClick={() => DeleteComment(comment.id)}>삭제</button>}
-              </ProfileSection>
-              <div className="comment">{comment.content}</div>
-              <BottomSection>
-                <span className="date">{comment.createdAt}</span>
-                {comment.subComments.length>0 &&
-                <span onClick={() => showReplyHandler(comment.id)}>{comment.subComments.length}개의 답글
-                <img src={downArrow} style={{scale: isReplyShow.includes(comment.id)&&"-1"}} alt=""/>
-                </span>}
-                <span className="write" onClick={()=>writeReplyHandler(comment.id)}>답글 작성<img src={cloud} alt=""/> </span>
-              </BottomSection>
-              {isReplyWrite.includes(comment.id) && <CommentInputDiv className="replyWrite">
-                <textarea
-                  placeholder="대댓글 작성"
-                  rows={1}
-                  value={recomment[comment.id]}
-                  onChange={(e) => InputReply(e, comment.id)}
-                />
-                <button onClick={() => AddReply(comment.id)}>답글 등록</button>
-              </CommentInputDiv>}
-
-            </CommentMain>
-          </CommentContainer>
+            <CommentContainer>
+              <CommentMain>
+                <ProfileSection>
+                  <img
+                    className="profilePic"
+                    src="https://pbs.twimg.com/media/Fi3MBQvaMAAMymZ.jpg"
+                    alt=""
+                  />
+                  <span>{comment.username}</span>
+                  {comment.userId === Number(userInfo.sub) && (
+                    <button onClick={() => DeleteComment(comment.id)}>
+                      삭제
+                    </button>
+                  )}
+                </ProfileSection>
+                <div className="comment">{comment.content}</div>
+                <BottomSection>
+                  <span className="date">{comment.createdAt}</span>
+                  {comment.subComments.length > 0 && (
+                    <span onClick={() => showReplyHandler(comment.id)}>
+                      {comment.subComments.length}개의 답글
+                      <img
+                        src={downArrow}
+                        style={{
+                          scale: isReplyShow.includes(comment.id) && "-1",
+                        }}
+                        alt=""
+                      />
+                    </span>
+                  )}
+                  <span
+                    className="write"
+                    onClick={() => writeReplyHandler(comment.id)}
+                  >
+                    답글 작성
+                    <img src={cloud} alt="" />{" "}
+                  </span>
+                </BottomSection>
+                {isReplyWrite.includes(comment.id) && (
+                  <CommentInputDiv className="replyWrite">
+                    <textarea
+                      placeholder="대댓글 작성"
+                      rows={1}
+                      value={recomment[comment.id]}
+                      onChange={(e) => InputReply(e, comment.id)}
+                    />
+                    <button onClick={() => AddReply(comment.id)}>
+                      답글 등록
+                    </button>
+                  </CommentInputDiv>
+                )}
+              </CommentMain>
+            </CommentContainer>
             {isReplyShow.includes(comment.id) &&
               comment.subComments
                 .slice()
                 .reverse()
                 .map((reply) => (
-                <CommentContainer className="recomment" key={reply.id}>
-                  <CommentMain>
-                    <ProfileSection>
-                      <img className="profilePic"
-                        src="https://pbs.twimg.com/media/Fi3MBQvaMAAMymZ.jpg"
-                        alt=""
-                      />
-                      <span>{reply.username}</span>
-                      {reply.userId === Number(userInfo.sub) &&
-                        <button onClick={() => DeleteReply(comment.id, reply.id)}>삭제</button>}
-                    </ProfileSection>
+                  <CommentContainer className="recomment" key={reply.id}>
                     <CommentMain>
-                      <div className="comment">{reply.content}</div>
+                      <ProfileSection>
+                        <img
+                          className="profilePic"
+                          src="https://pbs.twimg.com/media/Fi3MBQvaMAAMymZ.jpg"
+                          alt=""
+                        />
+                        <span>{reply.username}</span>
+                        {reply.userId === Number(userInfo.sub) && (
+                          <button
+                            onClick={() => DeleteReply(comment.id, reply.id)}
+                          >
+                            삭제
+                          </button>
+                        )}
+                      </ProfileSection>
+                      <CommentMain>
+                        <div className="comment">{reply.content}</div>
+                      </CommentMain>
+                      <BottomSection>
+                        <span className="date">{reply.createdAt}</span>
+                      </BottomSection>
                     </CommentMain>
-                    <BottomSection>
-                      <span className="date">{reply.createdAt}</span>
-                    </BottomSection>
-                  </CommentMain>
-                </CommentContainer>
+                  </CommentContainer>
                 ))}
-              </CommentBorderGreen>
+          </CommentBorderGreen>
         ))
-      : <span className="noComment">아직 작성된 댓글이 없습니다. 첫 댓글을 남겨보세요!</span>}
+      ) : (
+        <span className="noComment">
+          아직 작성된 댓글이 없습니다. 첫 댓글을 남겨보세요!
+        </span>
+      )}
     </CommentSection>
   );
 };
@@ -285,7 +310,7 @@ const CommentInputArea = styled.div`
   .comment-count {
     margin-top: 34px;
     display: flex;
-    span{
+    span {
       font-size: 16px;
       color: var(--gray4);
       font-weight: 600;
@@ -294,7 +319,7 @@ const CommentInputArea = styled.div`
     justify-content: flex-end;
     align-items: center;
     gap: 10px;
-    img{
+    img {
       width: 24px;
     }
   }
@@ -303,7 +328,7 @@ const CommentBorderGreen = styled.div`
   width: 100%;
   //border-top: 1px solid var(--green4);
   border-bottom: 2px solid var(--green5);
-`
+`;
 const CommentInputDiv = styled.div`
   display: flex;
   flex-direction: row;
@@ -330,15 +355,15 @@ const CommentInputDiv = styled.div`
     outline: none;
     font-size: 14px;
     margin-right: 10px;
-    &::-webkit-scrollbar{
+    &::-webkit-scrollbar {
       width: 10px;
     }
-    &::-webkit-scrollbar-thumb{
+    &::-webkit-scrollbar-thumb {
       box-sizing: border-box;
       background-color: var(--green1);
       border: 2px solid var(--green4);
     }
-    &::-webkit-scrollbar-track{
+    &::-webkit-scrollbar-track {
       background-color: var(--whiteGray);
     }
   }
@@ -355,7 +380,7 @@ const CommentInputDiv = styled.div`
     color: var(--green5);
     font-size: 16px;
     font-weight: 600;
-    &:hover{
+    &:hover {
       background-color: var(--green2);
       transition: background-color 0.5s ease;
     }
@@ -394,7 +419,7 @@ const ProfileSection = styled.div`
     background: none;
     margin-right: 5px;
     color: var(--gray3);
-    &:hover{
+    &:hover {
       color: var(--warningRed);
     }
   }
@@ -404,7 +429,7 @@ const BottomSection = styled.div`
   align-items: center;
   font-size: 14px;
   color: var(--gray4);
-  span{
+  span {
     cursor: pointer;
   }
   img {
@@ -420,7 +445,7 @@ const BottomSection = styled.div`
     margin-left: 20px;
     color: var(--green5);
   }
-`
+`;
 const CommentMain = styled.div`
   display: flex;
   width: 100%;
@@ -435,11 +460,11 @@ const CommentMain = styled.div`
   }
   .replyWrite {
     border: 1px solid var(--gray4);
-    button{
+    button {
       color: var(--gray4);
       font-size: 16px;
       height: 21px;
-      &:hover{
+      &:hover {
         background-color: var(--gray2);
       }
     }

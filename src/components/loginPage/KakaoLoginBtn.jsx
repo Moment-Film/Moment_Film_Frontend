@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-
+import kakoImg from '../assets/login/kakao.svg'
 
 ///안전한 폴더에서 모아서 관리 해보자 
 const Rest_api_key ='2e877086c066dea8246d1b0796d4c68f'
@@ -21,18 +21,19 @@ const KakaoLoginBtn = ({width, height}) => {
     }
 
     return (
-            <KakaoBtn onClick={handleLogin} >{'카카오로 바로시작'}</KakaoBtn>
+            <KakaoBtn onClick={handleLogin} >
+                <img src={kakoImg} alt="" />
+            </KakaoBtn>
     );
 };
 
 export default KakaoLoginBtn;
 
 
-const KakaoBtn = styled.button`
-    background-color: yellow;
-    color : black;
+const KakaoBtn = styled.div`
     width: 320px;
     height: 52px;
-    border :1px solid gray;
-    border-radius: 5px;
+    img{
+        width:100%;
+    }
 `

@@ -11,9 +11,9 @@ const Login = () => {
   return (
       <LoginSection>
         <Wrap>
-          <S.StyledBoldSpan20 $margin={"50px 0 58px 0"}>
+          <span className="title">
             {"로그인"}
-          </S.StyledBoldSpan20>
+          </span>
           <EmailLogin />
         </Wrap>
 
@@ -40,19 +40,24 @@ const LoginSection = styled.section`
   padding-top: 50px;
   padding-bottom: 75px;
 
-  gap: 20px;
 `;
 
 const Wrap = styled.div`
   width: 370px;
-  height: 522px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 67px;
 
+  padding:50px 35px 50px 35px; 
   background-color: #ffff;
   border-radius: 10px;
+  border :1px solid var(--gray3);
+
+  .title{
+    font-size:24px;
+    font-weight:600;
+  }
   
 `;
 
