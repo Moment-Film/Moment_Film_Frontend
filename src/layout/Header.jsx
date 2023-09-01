@@ -156,7 +156,7 @@ const HeaderWrap = styled.div`
   display: flex;
   align-items: center;
 
-  justify-content: center;
+  justify-content: space-between;
 
   span {
     display: block;

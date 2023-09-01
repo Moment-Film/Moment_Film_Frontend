@@ -105,6 +105,7 @@ function DrawPage() {
   }, [thisbackGround]);
 
   const startDrawing = (e) => {
+    
     setIsDrawing(true);
     setLastX(e.nativeEvent.offsetX);
     setLastY(e.nativeEvent.offsetY);

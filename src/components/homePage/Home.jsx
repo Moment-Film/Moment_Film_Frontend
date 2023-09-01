@@ -148,10 +148,10 @@ const Homepage = () => {
               </Card>
 
               <Card className="content">
-                <p className="cardHeader">집밖에 나가기 싫어요!</p>
+                <p className="cardHeader">명절에 특별한 이벤트가 필요해요!</p>
                 <p className="cardcontent">
-                  나는 친구들과 이런것도 하고싶고 이런것도 하고 싶어요 근데
-                  어쩌고 한데 다들 이렇다고 하라구요 억울해요
+                  친척들과 집에서 할 만한 무언가가 있었으면 좋겠어요
+                  거동이 불편한 사람도 다같이 특별한 사진을 찍고 싶어요 
                 </p>
                 <p className="cardOwner">
                   지존킹님의 고민
@@ -419,7 +419,7 @@ const LeftSpan = styled.div`
 
   .smallSpan {
     font-size: 3vw;
-    line-height: 150%;
+    // line-height: 150%;
     font-family: "Abril Fatface", cursive;
 
     @media (max-width: 900px) {
@@ -605,13 +605,14 @@ const SecondAlign = styled.div`
     grid-row-gap: 40px; /* 아이템 사이의 간격 설정 */
     grid-template-rows: 1fr 1fr; /* 3개의 행을 생성 */
 
-    @media (max-width: 1200px) {
+    @media (max-width: 1700px) {
       grid-template-columns: repeat(3, 1fr);
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 1200px) {
       grid-template-columns: repeat(2, 1fr);
     }
+
 
     @media (max-width: 600px) {
       grid-template-columns: repeat(1, 1fr);
@@ -622,8 +623,8 @@ const SecondAlign = styled.div`
 const SecondContent = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 1170px;
-  width: 100%;
+/*   max-width: 1170px; */
+  width: 75%;
   gap: 20px;
 
   .secondTitle {
@@ -646,35 +647,31 @@ const SecondContent = styled.div`
 `;
 
 const ThirdAlign = styled.div`
-  height: 100vh;
+  min-height: 100vh;
+  height:100%;
   display: flex;
   background-image: url(${thirdBack});
   background-size: cover;
   background-position: center;
   justify-content: center;
 
-  @media (max-width: 1000px) {
-    align-items: center;
-  }
-
   .left {
     width: 30%;
+    margin-bottom:20%;
     @media (max-width: 1000px) {
       width: 100%;
+      margin-bottom:0;
+      margin-top:20%;
     }
 
   }
 
-  .comment {
-    padding-bottom: 5vw;
-  }
-
   .thirdWrap {
     display: flex;
-
-    align-items: center;
+    justify-content:center;
+    align-items:center;
     width: 80%;
-    gap: 10%;
+    gap: 3%;
 
     .thirdContent{
       .ment{
@@ -684,7 +681,8 @@ const ThirdAlign = styled.div`
 
     @media (max-width: 1000px) {
       flex-direction: column;
-      gap: 5%;
+      align-items: center;
+
     }
   }
 
@@ -698,22 +696,16 @@ const ThirdAlign = styled.div`
 
     @media (max-width: 1000px) {
       flex-direction: column;
-
       min-width: 300px;
+      align-items: center;
+      padding-bottom:10%;
 
     }
-  }
-  .right {
-    height: 80%;
-    display: flex;
-    align-items: end;
-    width: 50%;
-    min-width: 500px;
-
   }
 
   img {
     width: 100%;
+    min-width:500px;
   }
 
 

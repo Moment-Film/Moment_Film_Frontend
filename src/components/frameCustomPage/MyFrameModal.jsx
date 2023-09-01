@@ -15,7 +15,8 @@ function MyFrameModal({ onClose, data, title, accessToken, refreshToken, onApply
   }
   
   const applyThisFrame = (h, s, l, img) => {
-    if (img) {
+    onApply(h, s, l, img);
+/*     if (img) {
       fetch(img)
         .then(response => response.blob())
         .then(blob => {
@@ -25,7 +26,7 @@ function MyFrameModal({ onClose, data, title, accessToken, refreshToken, onApply
         .catch(error => {
           console.error("Error fetching or processing image:", error);
         });
-    }
+    } */
   }
 
   const applyThisFilter = (blur, brightness, saturate, contrast, sepia) => {
