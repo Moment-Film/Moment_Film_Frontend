@@ -2,17 +2,18 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { useMutation, useQueryClient } from "react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useToken from "../../hooks/useToken";
 import usePostAPI from "../../api/withToken/post";
 import commentImg from '../assets/images/comment.png';
 import dots from '../assets/icons/dots.svg'
 import downArrow from '../assets/images/downArrow.svg'
 import cloud from '../assets/images/cloud.svg'
+import resizeNull from '../assets/images/resizeNull.png'
 
 //input 태그를 따로 빼면 컴포넌트의 필요없는 랜더링을 줄일 수 있다
 const Comment = ({ data }) => {
-
+  const navigate = useNavigate();
   const{
     addComment,
     addReply,
@@ -193,9 +194,9 @@ const Comment = ({ data }) => {
           <CommentBorderGreen key={comment.id}>
           <CommentContainer>
             <CommentMain>
-              <ProfileSection>
+              <ProfileSection onClick={()=>navigate(`/profile/${comment.userId}`)}>
                 <img className="profilePic"
-                  src="https://pbs.twimg.com/media/Fi3MBQvaMAAMymZ.jpg"
+                  src={comment.userImage?comment.userImage:resizeNull}
                   alt=""
                 />
                 <span>{comment.username}</span>
@@ -230,9 +231,9 @@ const Comment = ({ data }) => {
                 .map((reply) => (
                 <CommentContainer className="recomment" key={reply.id}>
                   <CommentMain>
-                    <ProfileSection>
+                    <ProfileSection onClick={()=>navigate(`/profile/${reply.userId}`)}>
                       <img className="profilePic"
-                        src="https://pbs.twimg.com/media/Fi3MBQvaMAAMymZ.jpg"
+                        src={reply.userImage?reply.userImage:resizeNull}
                         alt=""
                       />
                       <span>{reply.username}</span>
