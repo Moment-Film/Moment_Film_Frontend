@@ -241,6 +241,7 @@ const Comment = ({ data }) => {
                       <span>{reply.username}</span>
                       {reply.userId === Number(userInfo.sub) &&
                         <button onClick={() => DeleteReply(comment.id, reply.id)}>삭제</button>}
+
                     </ProfileSection>
                     </CommentMain>
                     <CommentMain>
@@ -258,10 +259,9 @@ const Comment = ({ data }) => {
                             삭제
                           </button>
                         )}
+
                       </ProfileSection>
-                      <CommentMain>
-                        <div className="comment">{reply.content}</div>
-                      </CommentMain>
+                      <div className="comment">{reply.content}</div>
                       <BottomSection>
                         <span className="date">{reply.createdAt}</span>
                       </BottomSection>
