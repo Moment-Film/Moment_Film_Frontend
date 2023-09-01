@@ -60,12 +60,26 @@ const PostHeaderSection = styled.div`
   justify-content:center;
   align-items:center;
   width:100%;
+
   background-color:var(--gray1);
   
   img{
     width:100%;
     height:100%;
+    min-height:400px;
     object-fit:cover;
+
+    @media (max-width: 800px) {
+      min-height:350px;
+}
+
+@media (max-width: 800px) {
+      min-height:300px;
+}
+
+@media (max-width: 550px) {
+      min-height:300px;
+}
   }
 `
 

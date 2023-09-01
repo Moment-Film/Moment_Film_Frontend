@@ -8,11 +8,10 @@ import LOGO from "../components/assets/images/LOGO.svg";
 import Search from "../components/common/component/Search";
 
 import { Link } from "react-router-dom";
-import * as Img from '../components/assets/header/Image';
+import * as Img from "../components/assets/header/Image";
 
 function Header({ onClose }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
 
   const navigate = useNavigate();
   // const dispatch = useDispatch();
@@ -22,7 +21,6 @@ function Header({ onClose }) {
   const ACToken = useSelector((state) => state.AccessToken.accessToken);
 
   const handleHeaderClick = (e) => {
-
     if (isModalOpen && !e.target.closest(".center")) {
       setIsModalOpen(false);
       if (onClose) {
@@ -32,34 +30,37 @@ function Header({ onClose }) {
   };
 
   return (
-
     <HeaderSection onClick={handleHeaderClick}>
-
       <SmallBottomNav>
-        <StyledLink to={'/'} className="option">
+        <StyledLink to={"/"} className="option">
           <img src={Img.home}></img>
           <span>홈</span>
         </StyledLink>
-        <StyledLink to={'/camera/capture'} className="option">
+        <StyledLink to={"/camera/capture"} className="option">
           <img src={Img.photo}></img>
           <span>촬영</span>
         </StyledLink>
-        <StyledLink to={'/postlist/recent'} className="option">
+        <StyledLink to={"/postlist/recent"} className="option">
           <img src={Img.post}></img>
           <span>조회</span>
         </StyledLink>
-        <StyledLink to={`/profile/${userInfo.sub}`} className="option">
-          <img src={Img.my}></img>
-          <span>마이페이지</span>
-        </StyledLink>
-        {/*     <Search className="searchBar" /> */}
+
+        {ACToken ? (
+          <StyledLink to={`/profile/${userInfo.sub}`} className="option">
+            <img src={Img.my}></img>
+            <span>마이페이지</span>
+          </StyledLink>
+        ) : (
+          <StyledLink to={`/login`} className="option">
+            <img src={Img.my}></img>
+            <span>로그인/가입</span>
+          </StyledLink>
+        )}
+
       </SmallBottomNav>
 
       <HeaderWrap>
-
-
         <HeaderTitle>
-
           <div onClick={() => navigate(`/`)}>
             <img src={LOGO} alt="" />
           </div>
@@ -73,10 +74,16 @@ function Header({ onClose }) {
           }}
         />
         <LinkSection>
-          <NavBtn className="boldOption" onClick={() => navigate(`/camera/frameSelect`)}>
+          <NavBtn
+            className="boldOption"
+            onClick={() => navigate(`/camera/frameSelect`)}
+          >
             촬영하기
           </NavBtn>
-          <NavBtn className="boldOption" onClick={() => navigate(`/postlist/recent`)}>
+          <NavBtn
+            className="boldOption"
+            onClick={() => navigate(`/postlist/recent`)}
+          >
             전체글보기
           </NavBtn>
 
@@ -94,7 +101,8 @@ function Header({ onClose }) {
             </>
           ) : (
             <>
-              <NavBtn className="normalOption"
+              <NavBtn
+                className="normalOption"
                 onClick={() => {
                   navigate(`/login`);
                 }}
@@ -102,7 +110,11 @@ function Header({ onClose }) {
               >
                 로그인
               </NavBtn>
-              <NavBtn className="normalOption" onClick={() => navigate(`/signup`)} color={"#505050"}>
+              <NavBtn
+                className="normalOption"
+                onClick={() => navigate(`/signup`)}
+                color={"#505050"}
+              >
                 회원가입
               </NavBtn>
             </>
@@ -114,7 +126,6 @@ function Header({ onClose }) {
         >
           Language
         </Btn> */}
-
         </LinkSection>
       </HeaderWrap>
     </HeaderSection>
@@ -123,9 +134,9 @@ function Header({ onClose }) {
 export default Header;
 
 const HeaderSection = styled.header`
-  min-height:50px;
+  min-height: 50px;
   height: 5vw;
-  max-height:84px;
+  max-height: 84px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -139,12 +150,12 @@ const HeaderSection = styled.header`
 `;
 
 const HeaderWrap = styled.div`
-width:65%;
-gap:5%;
+  width: 65%;
+  gap: 5%;
   display: flex;
-  align-items:center;
+  align-items: center;
 
-  justify-content: space-between;
+  justify-content: center;
 
   span {
     display: block;
@@ -153,51 +164,37 @@ gap:5%;
     background-color: var(--lightGray);
   }
 
-
-.searchBar{
-
-}
-
+  .searchBar {
+  }
 `;
 
 const HeaderTitle = styled.section`
-
-@media (max-width: 700px) {
-    padding:0;
-
-}
-
-`
-
+  @media (max-width: 700px) {
+    padding: 0;
+  }
+`;
 
 const LinkSection = styled.section`
-
   display: flex;
   align-items: center;
   gap: 3%;
 
- @media (max-width: 900px) {
-    gap: 10px;
-
-}
-
-@media (max-width: 900px) {
-    display:none;
-}
-.boldOption{
-  font-weight:500;
-}
-.normalOption{
-  font-weight:300;
-  color:var(--gray5);
-}
-
+  @media (max-width: 900px) {
+    display: none;
+  }
+  .boldOption {
+    font-weight: 500;
+  }
+  .normalOption {
+    font-weight: 300;
+    color: var(--gray5);
+  }
 `;
 
 export const NavBtn = styled.div`
-display:flex;
-justify-content:center;
-min-width:70px;
+  display: flex;
+  justify-content: center;
+  min-width: 70px;
   font-size: 14px;
   line-height: 150%;
   cursor: pointer;
@@ -213,45 +210,42 @@ min-width:70px;
 const SmallBottomNav = styled.div`
   border-top: 1px solid var(--gray2);
 
-.option{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  width:15%;
-  border-radius:50%;
-  img{
+  .option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 15%;
+    border-radius: 50%;
+    img {
+    }
 
+    span {
+      color: var(--green5);
+      font-size: 12px;
+    }
   }
- 
-  span{
-    color:var(--green5);
-    font-size:12px;
-  }
-}
   @media only screen and (min-width: 700px) {
-    display:none;
+    display: none;
   }
 
   @media only screen and (max-width: 900px) {
-    display:flex;
-    align-items:center;
-    justify-content:space-around;
-    
-    position:fixed;
-    height:60px;
-    width:100%;
-    bottom:0;
-  
-    background-color:var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 
+    position: fixed;
+    height: 60px;
+    width: 100%;
+    bottom: 0;
 
-    border-top:1px solid (--gray2);
+    background-color: var(--white);
 
-    font-size:20px;
+    border-top: 1px solid (--gray2);
+
+    font-size: 20px;
   }
-
-`
+`;
 
 const StyledLink = styled(Link)`
-  text-decoration:none;
-`
+  text-decoration: none;
+`;
