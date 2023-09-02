@@ -5,15 +5,14 @@ import { Modal } from "../common/component/Modal";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import Edit from "../assets/icons/Edit.png";
-// import out from "../assets/icons/goOut.svg"
 import useUserAPI from "../../api/withToken/user";
-import { Span28, StyledSpan24, StyledBoldSpan24 } from "../common/styles/StyledSpan";
+import { StyledBoldSpan24 } from "../common/styles/StyledSpan";
 import EditModal from "./EditModal";
 import LogoutBtn from "../common/component/LogoutBtn";
 import nullImg from "../assets/images/nullProfile.svg";
-import logoutIcon from "../assets/icons/LogOut.svg"
+import logoutIcon from "../assets/icons/LogOut.svg";
 
-const MyPageUserData = ({ lang, data, }) => {
+const MyPageUserData = ({ lang, data }) => {
   const { FollowAPI } = useUserAPI();
   const userInfo = useSelector((state) => state.UserInfo);
   const navigate = useNavigate();
@@ -49,7 +48,9 @@ const MyPageUserData = ({ lang, data, }) => {
 
   return (
     <div>
-      {onModal && <EditModal onClose={editModalHandler} profileImg={data.image} />}
+      {onModal && (
+        <EditModal onClose={editModalHandler} profileImg={data.image} />
+      )}
       {showModal && (
         <Modal
           onClose={hideModalHandler}
@@ -63,7 +64,7 @@ const MyPageUserData = ({ lang, data, }) => {
 
       <UserInfoSection>
         <UserProfileSection>
-        <Img src={data.image ? data.image : nullImg} />
+          <Img src={data.image ? data.image : nullImg} />
         </UserProfileSection>
 
         <UserDataSection>
@@ -89,7 +90,7 @@ const MyPageUserData = ({ lang, data, }) => {
             ) : (
               <>
                 <div className="item-1">
-                  <StyledSpan24>{data.username}</StyledSpan24>
+                  <StyledBoldSpan24>{data.username}</StyledBoldSpan24>
                   <span className="subSpan">{" 님의 프로필"}</span>
 
                   {data.followerList.some(
@@ -107,7 +108,7 @@ const MyPageUserData = ({ lang, data, }) => {
 
                 <div className="item-2">
                   <div className="option">
-      {/*               <LogoutBtn />
+                    {/*               <LogoutBtn />
                     <img src={Edit} alt="" /> */}
                   </div>
                 </div>
@@ -117,17 +118,27 @@ const MyPageUserData = ({ lang, data, }) => {
           <div className="box-2">
             <div onClick={() => clickHandler("followerList")}>
               <UserItem cursor={"pointer"}>팔로우</UserItem>
-              <UserItemResult cursor={"pointer"}>{data.followerList.length}</UserItemResult>
+              <UserItemResult cursor={"pointer"}>
+                {data.followerList.length}
+              </UserItemResult>
             </div>
-            <div><span /></div>
+            <div>
+              <span />
+            </div>
             <div onClick={() => clickHandler("followingList")}>
               <UserItem cursor={"pointer"}>팔로잉</UserItem>
-              <UserItemResult cursor={"pointer"}>{data.followingList.length}</UserItemResult>
+              <UserItemResult cursor={"pointer"}>
+                {data.followingList.length}
+              </UserItemResult>
             </div>
-            <div><span /></div>
+            <div>
+              <span />
+            </div>
             <div>
               <UserItem cursor={"default"}>게시글 수</UserItem>
-              <UserItemResult cursor={"default"}>{data.postList.length}</UserItemResult>
+              <UserItemResult cursor={"default"}>
+                {data.postList.length}
+              </UserItemResult>
             </div>
           </div>
         </UserDataSection>
@@ -170,7 +181,7 @@ const FollowBtn = styled.button`
   font-size: 14px;
   font-weight: 500;
   line-height: 150%;
-    color: ${(props) => (props.state ? "var(--green5)" : "white")};
+  color: ${(props) => (props.state ? "var(--green5)" : "white")};
   cursor: pointer;
 `;
 
@@ -214,10 +225,6 @@ const NameSection = styled.div`
         padding: 0;
         background: none;
         cursor: pointer;
-        /* &:hover {
-          color: var(--green5);
-          transition: color 0.3s ease;
-        } */
       }
       img {
         width: 24px;
@@ -225,24 +232,9 @@ const NameSection = styled.div`
     }
   }
   @media (max-width: 700px) {
-        align-items:center;
-        flex-direction:column;
-}
-
-/*   justify-content: space-between;
-
-  image{
-    width:20px;
+    align-items: center;
+    flex-direction: column;
   }
-  .leftOptions{
-    display:flex;
-    gap:20px;
-  }
-  .box-1{
-    display:flex;
-    width:126px;
-    height:37px;
-  } */
 `;
 
 const UserDataSection = styled.section`
@@ -290,8 +282,9 @@ const UserItem = styled.div`
   font-weight: 400;
   line-height: 150%;
   color: var(--gray5);
-  cursor: ${props => props.cursor};
+  cursor: ${(props) => props.cursor};
 `;
+
 const UserItemResult = styled.div`
   display: flex;
   justify-content: center;
@@ -300,7 +293,7 @@ const UserItemResult = styled.div`
   font-size: 24px;
   font-weight: 700;
   color: var(--green5);
-  cursor: ${props => props.cursor};
+  cursor: ${(props) => props.cursor};
 `;
 
 const Img = styled.img`
