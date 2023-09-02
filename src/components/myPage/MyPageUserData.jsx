@@ -116,18 +116,18 @@ const MyPageUserData = ({ lang, data, }) => {
           </NameSection>
           <div className="box-2">
             <div onClick={() => clickHandler("followerList")}>
-              <UserItem>팔로우</UserItem>
-              <UserItemResult>{data.followerList.length}</UserItemResult>
+              <UserItem cursor={"pointer"}>팔로우</UserItem>
+              <UserItemResult cursor={"pointer"}>{data.followerList.length}</UserItemResult>
             </div>
             <div><span /></div>
             <div onClick={() => clickHandler("followingList")}>
-              <UserItem>팔로잉</UserItem>
-              <UserItemResult>{data.followingList.length}</UserItemResult>
+              <UserItem cursor={"pointer"}>팔로잉</UserItem>
+              <UserItemResult cursor={"pointer"}>{data.followingList.length}</UserItemResult>
             </div>
             <div><span /></div>
             <div>
-              <UserItem>게시글 수</UserItem>
-              <UserItemResult>{data.postList.length}</UserItemResult>
+              <UserItem cursor={"default"}>게시글 수</UserItem>
+              <UserItemResult cursor={"default"}>{data.postList.length}</UserItemResult>
             </div>
           </div>
         </UserDataSection>
@@ -163,13 +163,15 @@ const UserProfileSection = styled.section`
 `;
 
 const FollowBtn = styled.button`
-  background-color: rgb(96, 161, 14);
-  color: ${(props) => (props.state ? "var(--green5)" : "white")};
   background-color: ${(props) =>
-    props.state ? "rgb(246, 250, 240)" : "green"};
+    props.state ? "var(--green1)" : "var(--green5)"};
   border-radius: 5px;
-  border: 1px solid rgb(96, 161, 14);
-  padding: 0 10px 0 10px;
+  border: 1px solid var(--green5);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 150%;
+    color: ${(props) => (props.state ? "var(--green5)" : "white")};
+  cursor: pointer;
 `;
 
 const NameSection = styled.div`
@@ -288,6 +290,7 @@ const UserItem = styled.div`
   font-weight: 400;
   line-height: 150%;
   color: var(--gray5);
+  cursor: ${props => props.cursor};
 `;
 const UserItemResult = styled.div`
   display: flex;
@@ -297,6 +300,7 @@ const UserItemResult = styled.div`
   font-size: 24px;
   font-weight: 700;
   color: var(--green5);
+  cursor: ${props => props.cursor};
 `;
 
 const Img = styled.img`
