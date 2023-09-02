@@ -45,8 +45,7 @@ export default MyPage
 const MyPageSection = styled.section`
  display:flex;
  flex-direction:column;
- justify-content:center;
- 
+  min-height:1080px;
  gap:50px;
 
 `
