@@ -162,7 +162,12 @@ function EditModal({ onClose, profileImg }) {
   };
 
   const submitEditHandler = () => {
-    if (isPasswordChangeAttempted) {
+
+/*     if (isPasswordChangeAttempted) {
+
+      if (newPassword.length < 6) {
+        alert("먼저 인증코드를 확인하세요.");
+      }
       if (!code) {
         alert("비밀번호를 변경하려면 인증 코드를 입력해 주세요.");
         return;
@@ -172,7 +177,7 @@ function EditModal({ onClose, profileImg }) {
         alert("비밀번호 변경을 위한 인증이 확인되지 않았습니다.");
         return;
       }
-    }
+    } */
 
     const profileData = new FormData();
 
@@ -208,11 +213,9 @@ function EditModal({ onClose, profileImg }) {
 
     if (isVerified) {
       setNewPassword(e.target.value);
-      handlePasswordChange(e);
+      newPasswordChangeHandler(e);
       // validatePasswod(newPassword);
-    } else if (newPassword.length < 6) {
-      alert("먼저 인증코드를 확인하세요.");
-    }
+    } 
   };
 
   const handleVerifyCode = () => {

@@ -197,12 +197,13 @@ const Comment = ({ data }) => {
           <CommentBorderGreen key={comment.id}>
           <CommentContainer>
             <CommentMain>
-              <ProfileSection onClick={()=>navigate(`/profile/${comment.userId}`)}>
+              <ProfileSection >
                 <img className="profilePic"
+                onClick={()=>navigate(`/profile/${comment.userId}`)}
                   src={comment.userImage?comment.userImage:resizeNull}
                   alt=""
                 />
-                <span>{comment.username}</span>
+                <span onClick={()=>navigate(`/profile/${comment.userId}`)}>{comment.username}</span>
                 {comment.userId === Number(userInfo.sub) &&
                   <button onClick={() => DeleteComment(comment.id)}>삭제</button>}
               </ProfileSection>
