@@ -16,7 +16,7 @@ const WithdrawalBtn = styled.section`
   color: var(--gray4);
   font-size: 12px;
   line-height: 14px;
-	margin-top: 12px;
+  margin-top: 12px;
   cursor: pointer;
 `;
 
@@ -29,7 +29,7 @@ const ProfileWrap = styled.div`
   border-radius: 5px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
   position: fixed;
   z-index: 1991;
   padding: 0 20px 20px 20px;
@@ -158,9 +158,10 @@ const Info = styled.div`
   height: 377px;
   display: flex;
   flex-direction: column;
-  @media (max-width:540px) {
+  @media (max-width: 540px) {
     width: 90%;
   }
+
   span {
     font-size: 14px;
     line-height: 150%;
@@ -180,7 +181,7 @@ const InfoSection = styled.section`
     padding-right: 5%;
     margin-bottom: 19.5px;
     img {
-      width: 24px;
+      width: 20px;
     }
   }
   span {
@@ -208,6 +209,7 @@ const InfoInput = styled.section`
     line-height: 150%;
     background: none;
     border: none;
+    color: var(--gray4);
 
     &:focus {
       outline: none;
@@ -236,14 +238,19 @@ const PasswordWrap = styled.section`
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    .verify {
+      height: 35px;
+    }
   }
+
   span {
     width: 70px;
     font-size: 14px;
     line-height: 150%;
   }
-  
-  @media (max-width:540px) {
+
+  @media (max-width: 540px) {
     section {
       width: 90%;
     }
@@ -268,7 +275,7 @@ const SendBtn = styled.div`
 `;
 
 const TestBox = styled.div`
-  width: 70%;
+  width: 280px;
   height: 41px;
   background-color: var(--green0);
   border-bottom: 1px solid var(--green5);
@@ -284,6 +291,7 @@ const TestInput = styled.input`
   line-height: 150%;
   background: none;
   border: none;
+  color: var(--gray4);
 
   &:focus {
     outline: none;
@@ -310,12 +318,13 @@ const TestBtn = styled.div`
 `;
 
 const Verify = styled.div`
-  font-size: 12px;
-  line-height: 150%;
-  color: ${(props) =>
-    props.isVerified ? "var(--green5)" : "var(--warningRed)"};
-  margin: 5px 0 0 0;
-  margin-bottom: ${(props) => props.marginBottom};
+  span {
+    font-size: 12px;
+    line-height: 150%;
+    color: ${(props) =>
+      props.isVerified ? "var(--green5)" : "var(--warningRed)"};
+    visibility: ${(props) => (props.visible ? "visible" : "hidden")};
+  }
 `;
 
 const SaveBtn = styled.div`
@@ -336,9 +345,9 @@ const SaveBtn = styled.div`
 
   div {
     font-size: 14px;
-font-weight: 500;
-line-height: 150%;
-color: var(--green5);
+    font-weight: 500;
+    line-height: 150%;
+    color: var(--green5);
   }
 `;
 

@@ -82,40 +82,38 @@ const useUserAPI = () => {
   };
 
   // 회원정보 수정 api
-
-
   const putEditInfo = async ({ profileData }) => {
     const res = await userAxios.put(`/api/user/info`, profileData);
     return res;
   };
 
   // 회원 이메일로 인증 코드 전송 api
-  const sendEmail = async ({ accessToken, refreshToken }) => {
+  const sendEmail = async () => {
     const res = await userAxios.post(`/api/user/email`, null);
     return res.data.msg;
   };
 
   // 회원 비밀번호 수정 api
-  const replacePassword = async ({
-    accessToken,
-    refreshToken,
-    newPassword,
-    code,
-  }) => {
-    const res = await userAxios.put(
-      `/api/user/password-reset?code=${code}`,
-      {
-        password: newPassword,
-      },
-      {
-        headers: {
-          accessToken: accessToken,
-          refreshToken: refreshToken,
-        },
-      }
-    );
-    return res;
-  };
+  // const replacePassword = async ({
+  //   accessToken,
+  //   refreshToken,
+  //   newPassword,
+  //   code,
+  // }) => {
+  //   const res = await userAxios.put(
+  //     `/api/user/password-reset?code=${code}`,
+  //     {
+  //       password: newPassword,
+  //     },
+  //     {
+  //       headers: {
+  //         accessToken: accessToken,
+  //         refreshToken: refreshToken,
+  //       },
+  //     }
+  //   );
+  //   return res;
+  // };
 
   const likePost = async ({ postId }) => {
     try {
@@ -132,7 +130,7 @@ const useUserAPI = () => {
     getPrivateInfo,
     putEditInfo,
     sendEmail,
-    replacePassword,
+    // replacePassword,
     likePost,
   };
 };

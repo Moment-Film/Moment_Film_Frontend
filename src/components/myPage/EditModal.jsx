@@ -27,8 +27,8 @@ import {
 } from "./profileEditStyle";
 import * as a from "../frameCustomPage/style";
 import cancel from "../assets/icons/cancelx2.png";
-import user from "../assets/icons/userName.svg"
-import lock from "../assets/icons/lock.svg"
+import user from "../assets/icons/userName.svg";
+import lock from "../assets/icons/lock.svg";
 import imgEdit from "../assets/icons/imgEdit.png";
 import nullImg from "../assets/images/nullProfile.svg";
 
@@ -36,16 +36,25 @@ import useInputValidation from "../../hooks/useInputValidation";
 import useToken from "../../hooks/useToken";
 import useUserAPI from "../../api/withToken/user";
 import Modals from "../common/component/Modals";
-import byebye from '../assets/images/byebye.png';
+import byebye from "../assets/images/byebye.png";
 
 function EditModal({ onClose, profileImg }) {
-  const { sendEmail, putEditInfo, getPrivateInfo, replacePassword } =
-    useUserAPI();
+  const {
+    sendEmail,
+    putEditInfo,
+    getPrivateInfo,
+    // replacePassword
+  } = useUserAPI();
 
   const { getAccess, getRefresh } = useToken();
 
   // 프로필 수정 state
-  const [isEdit, setIsEdit] = useState(false);
+  // 개인정보 수정 모달창 open => 모든 input box 입력 가능한 상태(활성화)
+  // 프로필 변경 api 요청 시 비밀번호를 변경하는 경우에만 조건(인증코드가 일치해야함) || 일치하지 않은 경우에는 저장완료를 눌렀을 때 error alert
+
+  // 현재 프로필 변경 API 요청 시 모든 데이터를 서버로 전달해주어야 하는데 비밀번호 변경을 희망하지 않는 경우 비밀번호 값을 제외하고 서버로 요청을 보낼 수 있는지?
+  // 또는 비밀번호 변경을 희망하지 않을 경우 기존 비밀번호를 그대로 불러와서 서버에 보내줄 수 있는지?
+  // const [isEdit, setIsEdit] = useState(false);
   const [curruntImage, setCurruntImage] = useState();
   const [UploadImage, setUploadImage] = useState(null);
   const [editProfile, setEditProfile] = useState({
@@ -60,9 +69,16 @@ function EditModal({ onClose, profileImg }) {
   const [isVerified, setIsVerified] = useState(false);
   const [serverCode, setServerCode] = useState("");
   const [isClicked, setIsClicked] = useState(false);
+  const [isVerifiedClicked, setIsVerifiedClicked] = useState(false);
+  // const [checkCode, setCheckCode] = useState(false);
+  const [isCodeVerified, setIsCodeVerified] = useState(false);
+  const [isPasswordChangeAttempted, setPasswordChangeAttempted] =
+    useState(false);
 
   // 비밀번호 재설정 유효성 검사
-  const { handlePasswordChange } = useInputValidation();
+  // const [passwordError, setPasswordError] = useState("");
+
+  const { handlePasswordChange, passwordError } = useInputValidation();
 
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -72,9 +88,8 @@ function EditModal({ onClose, profileImg }) {
   const accessToken = getAccess();
   const refreshToken = getRefresh();
 
-  const { data, isSuccess } = useQuery(
-    `Private${userInfo.sub}`,
-    () => getPrivateInfo({ accessToken, refreshToken })
+  const { data, isSuccess } = useQuery(`Private${userInfo.sub}`, () =>
+    getPrivateInfo({ accessToken, refreshToken })
   );
 
   useEffect(() => {
@@ -86,17 +101,27 @@ function EditModal({ onClose, profileImg }) {
     }
   }, [data]);
 
+  console.log(passwordError);
+
   const editInfoMutation = useMutation(putEditInfo, {
     onSuccess: (data) => {
       console.log(data);
+      if (passwordError !== "") {
+        alert(passwordError);
+        return;
+      }
       if (data) {
         alert("수정이 완료됐습니다.", data);
         queryClient.invalidateQueries(`Private${userInfo.sub}`);
+        setIsVerified(false);
+        setIsClicked(false);
+        setCode("");
+        navigate(`/profile/${userInfo.sub}`);
       }
     },
     onError: (error) => {
-      alert("수정이 실패했습니다.", error);
-      console.log(error);
+      console.log("수정이 실패했습니다.", error);
+      console.log("비밀번호 변경에 실패했습니다.", error);
     },
   });
 
@@ -109,29 +134,6 @@ function EditModal({ onClose, profileImg }) {
       },
       onError: (error) => {
         alert("이메일 전송에 실패했습니다.");
-        console.log(error);
-      },
-    }
-  );
-
-  const replacePasswordMutation = useMutation(
-    () =>
-      replacePassword({
-        accessToken,
-        refreshToken,
-        newPassword,
-        code,
-      }),
-    {
-      onSuccess: () => {
-        setIsVerified(false);
-        setIsClicked(false);
-        setCode("");
-        alert("비밀번호가 변경되었습니다.");
-        navigate(`/profile/${userInfo.sub}`);
-      },
-      onError: (error) => {
-        alert("비밀번호 변경에 실패했습니다.");
         console.log(error);
       },
     }
@@ -153,12 +155,30 @@ function EditModal({ onClose, profileImg }) {
   };
 
   const submitEdit = () => {
+    // if (passwordError !== "") return alert("인증 코드를 확인하세요.")
+    if (isPasswordChangeAttempted) {
+      if (!code) {
+        alert("비밀번호를 변경하려면 인증 코드를 입력해 주세요.");
+        return;
+      }
+
+      if (!isVerified) {
+        alert("비밀번호 변경을 위한 인증이 확인되지 않았습니다.");
+        return;
+      }
+    }
+
     const profileData = new FormData();
 
     const editName = editProfile.username;
     const editPhone = editProfile.phone;
+    const editPassword = editProfile.password;
 
-    const editProfileData = { username: editName, phone: editPhone };
+    const editProfileData = {
+      username: editName,
+      phone: editPhone,
+      password: editPassword,
+    };
 
     if (UploadImage !== null) {
       profileData.append("imageFile", UploadImage);
@@ -168,9 +188,8 @@ function EditModal({ onClose, profileImg }) {
       new Blob([JSON.stringify(editProfileData)], { type: "application/json" })
     );
 
-    putEditInfo({ accessToken, refreshToken, profileData });
-    setIsEdit(false);
     editInfoMutation.mutate({ accessToken, refreshToken, profileData });
+    setNewPassword("");
   };
 
   const handleSendEmail = () => {
@@ -178,28 +197,35 @@ function EditModal({ onClose, profileImg }) {
     setIsClicked(true);
   };
 
-  const handlePasswordReset = () => {
-    replacePasswordMutation.mutate();
-    setNewPassword("");
-  };
-
   const newPasswordChangeHandler = (e) => {
-    setNewPassword(e.target.value);
-    handlePasswordChange(e);
+    setPasswordChangeAttempted(true); // 여기서 변경 시도 상태를 업데이트
+
+    if (isVerified) {
+      setNewPassword(e.target.value);
+      handlePasswordChange(e);
+      // validatePasswod(newPassword);
+    } else if (newPassword.length < 6) {
+      alert("먼저 인증코드를 확인하세요.");
+    }
   };
 
   const handleVerifyCode = () => {
+    setIsVerifiedClicked(true); // 확인 버튼을 클릭한 상태로 설정
+
     if (code === serverCode) {
-      setIsVerified(true);
+      setIsVerified(true); // 인증 코드가 일치하면 isVerified 상태를 true로 설정
+      setIsCodeVerified(true); // 인증 코드가 일치하면 isCodeVerified 상태도 true로 설정
       alert("인증이 완료되었습니다.");
     } else {
-      setIsVerified(false);
+      setIsVerified(false); // 인증 코드가 불일치하면 isVerified 상태를 false로 설정
+      setIsCodeVerified(false); // 인증 코드가 불일치하면 isCodeVerified 상태도 false로 설정
       alert("인증 코드가 올바르지 않습니다.");
     }
   };
+
   const closeModalHandler = () => {
     setShowModal(false);
-  }
+  };
 
   const stopPropagation = (e) => {
     e.stopPropagation();
@@ -207,7 +233,14 @@ function EditModal({ onClose, profileImg }) {
 
   return (
     <ModalBg onClick={onClose}>
-      {showModal && <Modals imgSrc={byebye} type="bye" text="진짜... 탈퇴하시나요?" onClose={closeModalHandler}/>}
+      {showModal && (
+        <Modals
+          imgSrc={byebye}
+          type="bye"
+          text="진짜... 탈퇴하시나요?"
+          onClose={closeModalHandler}
+        />
+      )}
       <ProfileWrap onClick={stopPropagation}>
         <CloseSection>
           <section></section>
@@ -238,62 +271,49 @@ function EditModal({ onClose, profileImg }) {
               onChange={UploadPic}
             />
             <EditBtn htmlFor="fileInput">
-              {isEdit && <img src={imgEdit} alt="" />}
+              <img src={imgEdit} alt="" />
             </EditBtn>
 
             <PicInfoSection>
               <span className="username">{userInfo.username}</span>
               <div className="email">{userInfo.email}</div>
-              <WithdrawalBtn onClick={()=>setShowModal(true)}>회원탈퇴</WithdrawalBtn>
+              <WithdrawalBtn onClick={() => setShowModal(true)}>
+                회원탈퇴
+              </WithdrawalBtn>
               <WithdrawalBtn />
             </PicInfoSection>
-
           </PicSection>
 
           <Info>
             <InfoSection>
-              <div>
+              <div style={{ display: "flex", alignItems: "center" }}>
                 <img src={user} alt="" />
                 <span>유저이름</span>
-                {!isEdit ? (
-                  <InfoInput>
-                    <span>{data?.data.data.username}</span>
-                  </InfoInput>
-                ) : (
-                  <InfoInput>
-                    <input
-                      placeholder={data?.data.data.username}
-                      value={editProfile.username || ""}
-                      onChange={(e) =>
-                        editInputHandler("username", e.target.value)
-                      }
-                    />
-                  </InfoInput>
-                )}
+                <InfoInput>
+                  <input
+                    placeholder={data?.data.data.username}
+                    value={editProfile.username || ""}
+                    onChange={(e) =>
+                      editInputHandler("username", e.target.value)
+                    }
+                  />
+                </InfoInput>
               </div>
-              <div>
+              <div style={{ display: "flex", alignItems: "center" }}>
                 <img src={lock} alt="" />
                 <span>전화번호</span>
-                {!isEdit ? (
-                  <InfoInput>
-                    <span>{data?.data.data.phone}</span>
-                  </InfoInput>
-                ) : (
-                  <InfoInput>
-                    <input
-                      placeholder={data?.data.data.phone}
-                      value={editProfile.phone || ""}
-                      onChange={(e) =>
-                        editInputHandler("phone", e.target.value)
-                      }
-                    />
-                  </InfoInput>
-                )}
+                <InfoInput>
+                  <input
+                    placeholder={data?.data.data.phone}
+                    value={editProfile.phone || ""}
+                    onChange={(e) => editInputHandler("phone", e.target.value)}
+                  />
+                </InfoInput>
               </div>
               <hr />
             </InfoSection>
             <PasswordSection>
-              <div>비밀번호 변경</div>
+              <div className="change">비밀번호 변경</div>
               <PasswordWrap>
                 <section>
                   <span>인증코드</span>
@@ -303,7 +323,9 @@ function EditModal({ onClose, profileImg }) {
                       value={code}
                       onChange={(e) => setCode(e.target.value)}
                     />
-                    <TestBtn onClick={handleVerifyCode}>확인</TestBtn>
+                    {isClicked && (
+                      <TestBtn onClick={handleVerifyCode}>확인</TestBtn>
+                    )}
                   </TestBox>
                 </section>
                 <div>
@@ -311,15 +333,19 @@ function EditModal({ onClose, profileImg }) {
                     {isClicked ? "인증코드 재전송" : "인증코드 전송"}
                   </SendBtn>
                 </div>
-                <div>
-                  {!isVerified ? (
-                    <Verify isVerified={false} marginBottom={"19px"}>
-                      인증코드 불일치
-                    </Verify>
-                  ) : (
-                    <Verify isVerified={true}>인증 확인되었습니다.</Verify>
-                  )}
+                <div className="verify">
+                  <Verify
+                    visible={isVerifiedClicked}
+                    isVerified={isCodeVerified}
+                  >
+                    {isCodeVerified ? (
+                      <span>인증 확인되었습니다.</span>
+                    ) : (
+                      <span>인증코드가 일치하지 않습니다.</span>
+                    )}
+                  </Verify>
                 </div>
+
                 <section>
                   <span>새비밀번호</span>
                   <TestBox>
@@ -329,25 +355,22 @@ function EditModal({ onClose, profileImg }) {
                       type="password"
                       onChange={newPasswordChangeHandler}
                     />
-                    <TestBtn onClick={handlePasswordReset}>변경</TestBtn>
+                    {/* <TestBtn onClick={handlePasswordReset}>변경</TestBtn> */}
                   </TestBox>
                 </section>
-                <div>
-                  {!isVerified ? (
-                    <Verify isVerified={false}>
-                      · 공백 없이 문자, 숫자 조합 필수 6 ~ 10자
+                <div className="pwChange">
+                  {passwordError ? (
+                    <Verify isVerified={false} visible={isVerifiedClicked}>
+                      <span>{passwordError}</span>
                     </Verify>
                   ) : (
                     <Verify isVerified={true}>
-                      비밀번호가 변경되었습니다.
+                      <span>비밀번호가 변경되었습니다.</span>
                     </Verify>
                   )}
                 </div>
                 <SaveBtn>
-                  {!isEdit && (
-                    <div onClick={() => setIsEdit(true)}>수정하기</div>
-                  )}
-                  {isEdit && <div onClick={submitEdit}>저장완료</div>}
+                  <div onClick={submitEdit}>저장완료</div>
                 </SaveBtn>
               </PasswordWrap>
             </PasswordSection>

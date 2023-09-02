@@ -7,10 +7,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 * {
   color: var(--black);
   font-family: "Pretendard Variable";
 }
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -18,7 +20,7 @@ code {
 
 
     ::-webkit-scrollbar{
-      width: 10px;
+      width: 12px;
     }
     ::-webkit-scrollbar-thumb{
       box-sizing: border-box;
@@ -26,7 +28,7 @@ code {
       border: 2px solid var(--green4);
     }
     ::-webkit-scrollbar-track{
-      background-color: var(--whiteGray);
+      background-color: var(--gray2_a);
     }
 
 
