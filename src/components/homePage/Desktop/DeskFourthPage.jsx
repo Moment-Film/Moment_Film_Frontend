@@ -105,7 +105,7 @@ const DeskFourthPage = () => {
 export default DeskFourthPage;
 
 const PageSection = styled.div`
-  min-width: 1024px;
+  min-width: 1366px;
   max-width: 1920px;
   height: 1920px;
   display: flex;
@@ -118,7 +118,7 @@ const PageSection = styled.div`
 `;
 
 const PageWrap = styled.div`
-  max-width: 1024px;
+  width: 1366px;
   display: flex;
   justify-content: center;
 `;
@@ -127,7 +127,7 @@ const PageWrap = styled.div`
 const ContentBox = styled.div`
   display: flex;
 
-  width: 1024px;
+  width: 1170px;
   padding-top: 177px;
 `;
 
