@@ -56,12 +56,12 @@ const useToken = () => {
 
       setTimeout(() => {
         alert("5분 뒤 로그아웃됩니다 다시 로그인해주세요");
-      }, decodedPayload.exp - currentUnixTimestamp - 300);
+      }, (decodedPayload.exp - currentUnixTimestamp - 300)*1000);
 
       setTimeout(async() => {
         await removeCookie("refresh");
         await dispatch(SetAccessToken(null));
-      }, decodedPayload.exp - currentUnixTimestamp);
+      }, (decodedPayload.exp - currentUnixTimestamp)*1000);
       
     } else {
       await setCookie("refresh", null);
