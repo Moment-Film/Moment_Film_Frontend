@@ -75,8 +75,6 @@ function EditModal({ onClose, profileImg }) {
   const [isPasswordChangeAttempted, setPasswordChangeAttempted] =
     useState(false);
 
-  // 비밀번호 재설정 유효성 검사
-  // const [passwordError, setPasswordError] = useState("");
 
   const { handlePasswordChange, passwordError } = useInputValidation();
 
@@ -110,13 +108,17 @@ function EditModal({ onClose, profileImg }) {
         alert(passwordError);
         return;
       }
+
       if (data) {
+        console.log(data);
+
         alert("수정이 완료됐습니다.", data);
         queryClient.invalidateQueries(`Private${userInfo.sub}`);
         setIsVerified(false);
         setIsClicked(false);
         setCode("");
         navigate(`/profile/${userInfo.sub}`);
+        onClose();
       }
     },
     onError: (error) => {
@@ -146,6 +148,9 @@ function EditModal({ onClose, profileImg }) {
       setUploadImage(input.files[0]);
       // curruntImage - 이미지 src용 url / uploadImage - file객체
     }
+    // else {
+
+    // }
   };
 
   const editInputHandler = (key, value) => {
@@ -154,8 +159,7 @@ function EditModal({ onClose, profileImg }) {
     setEditProfile(newInfo);
   };
 
-  const submitEdit = () => {
-    // if (passwordError !== "") return alert("인증 코드를 확인하세요.")
+  const submitEditHandler = () => {
     if (isPasswordChangeAttempted) {
       if (!code) {
         alert("비밀번호를 변경하려면 인증 코드를 입력해 주세요.");
@@ -370,7 +374,7 @@ function EditModal({ onClose, profileImg }) {
                   )}
                 </div>
                 <SaveBtn>
-                  <div onClick={submitEdit}>저장완료</div>
+                  <div onClick={submitEditHandler}>저장완료</div>
                 </SaveBtn>
               </PasswordWrap>
             </PasswordSection>
