@@ -58,9 +58,11 @@ const useToken = () => {
         alert("5분 뒤 로그아웃됩니다 다시 로그인해주세요");
       }, decodedPayload.exp - currentUnixTimestamp - 300);
 
-      setTimeout(() => {
-        removeCookie("refresh");
+      setTimeout(async() => {
+        await removeCookie("refresh");
+        await dispatch(SetAccessToken(null));
       }, decodedPayload.exp - currentUnixTimestamp);
+      
     } else {
       await setCookie("refresh", null);
     }
