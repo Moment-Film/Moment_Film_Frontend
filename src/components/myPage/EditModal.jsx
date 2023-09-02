@@ -328,6 +328,7 @@ function EditModal({ onClose, profileImg }) {
                       placeholder="인증코드를 입력해 주세요"
                       value={code}
                       onChange={(e) => setCode(e.target.value)}
+                      autocomplete="off"
                     />
                     {isClicked && (
                       <TestBtn onClick={handleVerifyCode}>확인</TestBtn>
@@ -360,6 +361,7 @@ function EditModal({ onClose, profileImg }) {
                       value={newPassword}
                       type="password"
                       onChange={newPasswordChangeHandler}
+                      autocomplete="off"
                     />
                     {/* <TestBtn onClick={handlePasswordReset}>변경</TestBtn> */}
                   </TestBox>
