@@ -243,24 +243,6 @@ const Comment = ({ data }) => {
                         <button onClick={() => DeleteReply(comment.id, reply.id)}>삭제</button>}
 
                     </ProfileSection>
-                    </CommentMain>
-                    <CommentMain>
-                      <ProfileSection>
-                        <img
-                          className="profilePic"
-                          src="https://pbs.twimg.com/media/Fi3MBQvaMAAMymZ.jpg"
-                          alt=""
-                        />
-                        <span>{reply.username}</span>
-                        {reply.userId === Number(userInfo.sub) && (
-                          <button
-                            onClick={() => DeleteReply(comment.id, reply.id)}
-                          >
-                            삭제
-                          </button>
-                        )}
-
-                      </ProfileSection>
                       <div className="comment">{reply.content}</div>
                       <BottomSection>
                         <span className="date">{reply.createdAt}</span>
