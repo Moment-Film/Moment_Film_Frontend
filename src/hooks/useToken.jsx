@@ -12,7 +12,7 @@ const useToken = () => {
     const AccsessToken = useSelector((state) => state.AccessToken.accessToken);
 
     //env 폴더로 이동시킬예정 
-    const secretKey = 'u4v9TvHDCECamunpCEqv';
+    const secretKey = process.env.REACT_APP_SECRET_KEY;
 
     // access 토큰 저장  
     const saveAccessToken = async (accessToken) => {

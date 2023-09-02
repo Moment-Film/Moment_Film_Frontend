@@ -171,7 +171,7 @@ const HeaderWrap = styled.div`
 
 const HeaderTitle = styled.section`
   cursor:pointer;
-  @media (max-width: 700px) {
+  @media (max-width: 1024px) {
     padding: 0;
   }
 `;
@@ -181,7 +181,7 @@ const LinkSection = styled.section`
   align-items: center;
   gap: 3%;
 
-  @media (max-width: 900px) {
+  @media (max-width: 1024px) {
     display: none;
   }
   .boldOption {
@@ -226,11 +226,11 @@ const SmallBottomNav = styled.div`
       font-size: 12px;
     }
   }
-  @media only screen and (min-width: 700px) {
+  @media only screen and (min-width: 1024px) {
     display: none;
   }
 
-  @media only screen and (max-width: 900px) {
+  @media only screen and (max-width: 1024px) {
     display: flex;
     align-items: center;
     justify-content: space-around;
