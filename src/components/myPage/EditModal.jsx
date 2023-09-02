@@ -76,9 +76,9 @@ function EditModal({ onClose, profileImg }) {
     useState(false);
 
   // 비밀번호 재설정 유효성 검사
-  const [passwordError, setPasswordError] = useState("");
+  // const [passwordError, setPasswordError] = useState("");
 
-  const { handlePasswordChange } = useInputValidation();
+  const { handlePasswordChange, passwordError } = useInputValidation();
 
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -101,9 +101,15 @@ function EditModal({ onClose, profileImg }) {
     }
   }, [data]);
 
+  console.log(passwordError);
+
   const editInfoMutation = useMutation(putEditInfo, {
     onSuccess: (data) => {
       console.log(data);
+      if (passwordError !== "") {
+        alert(passwordError);
+        return;
+      }
       if (data) {
         alert("수정이 완료됐습니다.", data);
         queryClient.invalidateQueries(`Private${userInfo.sub}`);
@@ -149,6 +155,7 @@ function EditModal({ onClose, profileImg }) {
   };
 
   const submitEdit = () => {
+    // if (passwordError !== "") return alert("인증 코드를 확인하세요.")
     if (isPasswordChangeAttempted) {
       if (!code) {
         alert("비밀번호를 변경하려면 인증 코드를 입력해 주세요.");
@@ -196,7 +203,8 @@ function EditModal({ onClose, profileImg }) {
     if (isVerified) {
       setNewPassword(e.target.value);
       handlePasswordChange(e);
-    } else {
+      // validatePasswod(newPassword);
+    } else if (newPassword.length < 6) {
       alert("먼저 인증코드를 확인하세요.");
     }
   };
@@ -352,7 +360,7 @@ function EditModal({ onClose, profileImg }) {
                 </section>
                 <div className="pwChange">
                   {passwordError ? (
-                    <Verify isVerified={false}>
+                    <Verify isVerified={false} visible={isVerifiedClicked}>
                       <span>{passwordError}</span>
                     </Verify>
                   ) : (
