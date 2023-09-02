@@ -128,7 +128,7 @@ const PageSection = styled.div`
 `;
 
 const PageWrap = styled.div`
-  max-width: 1366px;
+  width: 1366px;
   display: flex;
   justify-content: center;
 `;
@@ -136,7 +136,7 @@ const PageWrap = styled.div`
 //1이랑 패딩만달라짐
 const ContentBox = styled.div`
   display: flex;
-
+  justify-content:center;
   width: 1366px;
   padding-top: 186px;
 `;
@@ -145,13 +145,6 @@ const FontContentBox = styled.div`
   display: flex;
   flex-direction: column;
 
-  /*   .title {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    padding-bottom: 35px;
-  } */
-
   //첫번째는 컬럼임
   .titleWrap {
     display: flex;
@@ -159,11 +152,6 @@ const FontContentBox = styled.div`
     height: 136px;
   }
 
-  .middleSpan {
-    font-size: 36px;
-    line-height: 150%;
-    font-family: "Abril Fatface", cursive;
-  }
 
   .bigSpan {
     font-size: 52px;
@@ -171,70 +159,11 @@ const FontContentBox = styled.div`
     font-family: "Abril Fatface", cursive;
   }
 
-  .smallSpan {
-    font-size: 16px;
-    line-height: 150%;
-    margin: 0;
-  }
-
-  .subTitleSpan {
-    font-size: 20px;
-    line-height: 150%;
-    font-weight: 600;
-  }
-
-  .starImg {
-    left: 93%;
-    position: absolute;
-  }
-
-  .smallstar {
-    margin-left: -30px;
-    width: 40px;
-    height: 40px;
-  }
-
-  .bigstar {
-    width: 56px;
-    height: 56px;
-  }
-
-  .mainBox {
-    width: 370px;
-    height: 443px;
-    border: 1px solid var(--black);
-    border-radius: 5px;
-    box-sizing: border-box;
-    z-index: 10;
-    background-color: var(--white);
-  }
-
-  .boxTitleBox {
-    display: flex;
-    height: 66px;
-    justify-content: center;
-    align-items: center;
-    border-bottom: 1px solid black;
-  }
-
   .ment {
     font-size: 18px;
     font-weight: bold;
   }
 
-  .boxContent {
-    display: flex;
-    flex-direction: column;
-
-    gap: 20px;
-    height: 236px;
-    padding: 20px 30px 40px 30px;
-  }
-
-  .buttonWrap {
-    display: flex;
-    justify-content: center;
-  }
 `;
 
 const bounce = keyframes`
@@ -246,26 +175,6 @@ const bounce = keyframes`
   }
 `;
 
-const OtherImageWrap = styled.div`
-  .obj {
-    width: auto;
-    position: absolute;
-    left: 0;
-    z-index: -1;
-  }
-
-  .girl {
-    margin-top: 150px;
-    width: auto;
-    z-index: 4;
-    cursor: pointer;
-
-    &:hover {
-      fill: var(--warningRed);
-      animation: ${bounce} 0.6s;
-    }
-  }
-`;
 
 const CardSection = styled.div`
   margin-top: 26px;

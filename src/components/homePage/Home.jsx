@@ -8,11 +8,11 @@ import DeskFourthPage from "./Desktop/DeskFourthPage";
 import Homepage from "./non/Nonhome";
 //태블릿 부터 13인치 노트북까지 동일한 UI
 const Desktop = ({ children }) => {
-  const isDesktop = useMediaQuery({ minWidth: 1024 });
+  const isDesktop = useMediaQuery({ minWidth: 1366 });
   return isDesktop ? children : null;
 };
  const Tablet = ({ children }) => {
-  const isTablet = useMediaQuery({ /* minWidth: 768, */ maxWidth: 1023 });
+  const isTablet = useMediaQuery({ /* minWidth: 768, */ maxWidth: 1366 });
   return isTablet ? children : null;
 };
 
