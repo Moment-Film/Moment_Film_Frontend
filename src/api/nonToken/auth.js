@@ -9,7 +9,7 @@ const useAuthAPI = () => {
   const {
     saveAccessToken,
     saveRefreshToken,
-    saveUserInfo
+    saveUserInfo,
   } = useToken();
 
 
@@ -79,7 +79,8 @@ const useAuthAPI = () => {
 
   const LogOutAPI = async (ACToken, REToken) => {
     console.log(ACToken, REToken)
-    const response = await axios.post('/api/user/logout', null
+    try {
+      const response = await axios.post('/api/user/logout', null
       ,
       {
         headers: {
@@ -88,14 +89,19 @@ const useAuthAPI = () => {
         },
       }
     );
+      
+    } catch (error) {
+      return error
+    }
+  }
 
-    //성공이면 로그인 화면 or 홈화면을 보내버리자
+/*     //성공이면 로그인 화면 or 홈화면을 보내버리자
     if (response.status === 200) {
       return response;
     }
     else
       alert("로그인 실패한 이유")
-  }
+  } */
 
   const WithdrawalAPI = async (ACToken, REToken) => {
     try {
