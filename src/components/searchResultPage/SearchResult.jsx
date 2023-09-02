@@ -5,7 +5,7 @@ import { useState } from "react";
 import { popularUser, searchUser } from "../../api/nonToken/user";
 import * as a from "./component/ResultStyle";
 import NonSearchResult from "./component/NonSearchResult";
-import OnSearchResult from "./component/OnSearchResult";
+import OnSearchResult from "./component/onSearchResult";
 
 const SearchReseult = () => {
   const [currentPage, setCurrentpage] = useState(1);

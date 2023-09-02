@@ -36,7 +36,7 @@ function Header({ onClose }) {
           <img src={Img.home}></img>
           <span>홈</span>
         </StyledLink>
-        <StyledLink to={"/camera/capture"} className="option">
+        <StyledLink to={"/camera/frameSelect"} className="option">
           <img src={Img.photo}></img>
           <span>촬영</span>
         </StyledLink>

@@ -755,8 +755,6 @@ const BoxSection = styled.div`
   animation: ${(props) => (props.fadeIn ? fadeInUp : "none")} 1s;
 
   .box-1 {
-    width:80%;
-
     img {
       object-fit: cover;
     }
@@ -772,7 +770,6 @@ const BoxSection = styled.div`
   }
 
   .box-2 {
-    width:80%;
     margin-left: auto;
 
     img {
@@ -792,7 +789,6 @@ const BoxSection = styled.div`
   }
 
   .box-3 {
-    width:80%;
     img {
       object-fit: cover;
     }
