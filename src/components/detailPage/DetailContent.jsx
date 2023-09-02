@@ -402,6 +402,7 @@ const UseActionsDiv = styled.div`
     color: var(--green6);
     font-size: 14px;
     font-weight: 500;
+    cursor:pointer;
   }
 `;
 const Action = styled.div`

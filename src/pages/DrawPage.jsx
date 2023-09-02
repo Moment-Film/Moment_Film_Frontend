@@ -20,9 +20,7 @@ import {
 
 import uploadImg from "../components/assets/icons/upload.svg";
 import delImg from "../components/assets/draw/del.svg";
-import weight from "../components/assets/icons/weight.svg"
-
-
+import weight from "../components/assets/icons/weight.svg";
 
 import * as Img from "../components/assets/draw/Image";
 
@@ -39,7 +37,6 @@ function DrawPage() {
   };
 
   const canvasRef = useRef(null);
-  
 
   const [isDrawing, setIsDrawing] = useState(false);
   const [lastX, setLastX] = useState(0);
@@ -62,6 +59,35 @@ function DrawPage() {
   const drawingCanvasRef = useRef(null); // 그림을 그리는 캔버스
   const imageCanvasRef = useRef(null); // 이미지를 넣는 캔버스
 
+  /////////////////////////////////////////////////////////////
+  const [isScrollLocked, setIsScrollLocked] = useState(false);
+  // 스크롤 이벤트 핸들러
+  const handleScroll = (e) => {
+    if (isScrollLocked) {
+      e.preventDefault();
+    }
+  };
+
+  // 컴포넌트가 마운트될 때 스크롤 이벤트 리스너 추가
+  useEffect(() => {
+    if (isScrollLocked) {
+      document.body.style.overflow = "hidden"; // 스크롤을 숨김
+    } else {
+      document.body.style.overflow = "auto"; // 스크롤을 다시 표시
+    }
+
+    window.addEventListener("scroll", handleScroll);
+
+    // 컴포넌트가 언마운트될 때 스크롤 이벤트 리스너 제거
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [isScrollLocked]);
+
+  const toggleScrollLock = () => {
+    setIsScrollLocked(!isScrollLocked);
+  };
+  ///////////////////////////////////////////////////////////////
   useEffect(() => {
     const canvas = imageCanvasRef.current;
     const ctx = canvas.getContext("2d");
@@ -104,19 +130,19 @@ function DrawPage() {
     };
   }, [thisbackGround]);
 
-  const startDrawing = (e) => {
+  const startDrawing = (x, y) => {
     setIsDrawing(true);
-    setLastX(e.nativeEvent.offsetX);
-    setLastY(e.nativeEvent.offsetY);
+    setLastX(x);
+    setLastY(y);
   };
 
-  const startMoving = (e) => {
+  const startMoving = (x, y) => {
     setIsDrawing(true);
-    setImgLastX(e.nativeEvent.offsetX);
-    setImgLastY(e.nativeEvent.offsetY);
+    setImgLastX(x);
+    setImgLastY(y);
   };
 
-  const draw = (e) => {
+  const draw = (x, y) => {
     if (!isDrawing) return;
     const canvas = drawingCanvasRef.current;
     const ctx = canvas.getContext("2d");
@@ -138,14 +164,18 @@ function DrawPage() {
 
     ctx.beginPath();
     ctx.moveTo(lastX, lastY);
-    ctx.lineTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
+    ctx.lineTo(x, y);
     ctx.stroke();
-    setLastX(e.nativeEvent.offsetX);
-    setLastY(e.nativeEvent.offsetY);
+    setLastX(x);
+    setLastY(y);
   };
 
   const endDrawing = () => {
     setIsDrawing(false);
+  };
+
+  const handleMouseDraw = (e) => {
+    draw(e.clientX, e.clientY);
   };
 
   const removeImage = (index) => {
@@ -187,20 +217,20 @@ function DrawPage() {
     }
   };
 
-  const handleImageMove = (e) => {
+  const handleImageMove = (x, y) => {
     if (isDrawing) {
       const updatedImageData = imageData.map((item, i) =>
         i === selectedImage
           ? {
               ...item,
-              x: item.x + e.nativeEvent.offsetX - imglastX,
-              y: item.y + e.nativeEvent.offsetY - imglastY,
+              x: item.x + x - imglastX,
+              y: item.y + y - imglastY,
             }
           : item
       );
       setImageData(updatedImageData);
-      setImgLastX(e.nativeEvent.offsetX);
-      setImgLastY(e.nativeEvent.offsetY);
+      setImgLastX(x);
+      setImgLastY(y);
     }
   };
 
@@ -220,6 +250,44 @@ function DrawPage() {
     }
   };
 
+  const handleTouchDraw = (e) => {
+    e.preventDefault();
+    if (e.touches.length === 1) {
+      const touch = e.touches[0];
+      const canvas = canvasRef.current;
+      const canvasRect = canvas.getBoundingClientRect();
+      const touchX = touch.clientX - canvasRect.left;
+      const touchY = touch.clientY - canvasRect.top;
+
+      if (e.type === "touchstart") {
+        startDrawing(touchX, touchY);
+      } else if (e.type === "touchmove") {
+        draw(touchX, touchY);
+      } else if (e.type === "touchend" || e.type === "touchcancel") {
+        endDrawing();
+      }
+    }
+  };
+
+  const handleTouchMove = (e) => {
+    e.preventDefault();
+    if (e.touches.length === 1) {
+      const touch = e.touches[0];
+      const canvas = canvasRef.current;
+      const canvasRect = canvas.getBoundingClientRect();
+      const touchX = touch.clientX - canvasRect.left;
+      const touchY = touch.clientY - canvasRect.top;
+
+      if (e.type === "touchstart") {
+        startMoving(touchX, touchY);
+      } else if (e.type === "touchmove") {
+        handleImageMove(touchX, touchY);
+      } else if (e.type === "touchend" || e.type === "touchcancel") {
+        endDrawing();
+      }
+    }
+  };
+
   return (
     <BackgroundGray>
       <WhiteContainer>
@@ -235,11 +303,31 @@ function DrawPage() {
                 ref={drawingCanvasRef}
                 width={FrameSize.width}
                 height={FrameSize.height}
-                onMouseDown={mode ? startMoving : startDrawing}
-                onMouseMove={mode ? (e) => handleImageMove(e, 0) : draw}
+                onMouseDown={
+                  mode
+                    ? (e) =>
+                        startMoving(
+                          e.nativeEvent.offsetX,
+                          e.nativeEvent.offsetY
+                        )
+                    : (e) =>
+                        startDrawing(
+                          e.nativeEvent.offsetX,
+                          e.nativeEvent.offsetY
+                        )
+                }
+                onMouseMove={
+                  mode
+                    ? (e) =>
+                        handleImageMove(
+                          e.nativeEvent.offsetX,
+                          e.nativeEvent.offsetY
+                        )
+                    : (e) => draw(e.nativeEvent.offsetX, e.nativeEvent.offsetY)
+                }
                 onMouseUp={endDrawing}
-                onTouchStart={mode ? startMoving : startDrawing}
-                onTouchMove={mode ? handleImageMove : draw}
+                onTouchStart={mode ? handleTouchMove : handleTouchDraw}
+                onTouchMove={mode ? handleTouchMove : handleTouchDraw}
                 onTouchEnd={endDrawing}
                 style={{
                   cursor: mode ? "move" : "auto",
@@ -252,11 +340,31 @@ function DrawPage() {
                 ref={imageCanvasRef}
                 width={FrameSize.width}
                 height={FrameSize.height}
-                onMouseDown={mode ? startMoving : startDrawing}
-                onMouseMove={mode ? (e) => handleImageMove(e, 0) : draw}
+                onMouseDown={
+                  mode
+                    ? (e) =>
+                        startMoving(
+                          e.nativeEvent.offsetX,
+                          e.nativeEvent.offsetY
+                        )
+                    : (e) =>
+                        startDrawing(
+                          e.nativeEvent.offsetX,
+                          e.nativeEvent.offsetY
+                        )
+                }
+                onMouseMove={
+                  mode
+                    ? (e) =>
+                        handleImageMove(
+                          e.nativeEvent.offsetX,
+                          e.nativeEvent.offsetY
+                        )
+                    : (e) => draw(e.nativeEvent.offsetX, e.nativeEvent.offsetY)
+                }
                 onMouseUp={endDrawing}
-                onTouchStart={mode ? startMoving : startDrawing}
-                onTouchMove={mode ? handleImageMove : draw}
+                onTouchStart={mode ? handleTouchMove : handleTouchDraw}
+                onTouchMove={mode ? handleTouchMove : handleTouchDraw}
                 onTouchEnd={endDrawing}
                 style={{
                   cursor: mode ? "move" : "auto",
@@ -282,9 +390,16 @@ function DrawPage() {
 
               {!mode ? (
                 <section className="rangeSlider">
-                  <EraserBtn state={!eraser} onClick={() => setEraser(!eraser)}>
-                    {eraser ? "지우개 on" : "지우개 off"}
-                  </EraserBtn>
+                  
+                  <OptionBtnSection >
+                    <EraserBtn state={!eraser} onClick={() => setEraser(!eraser)}>
+                      {eraser ? "지우개 on" : "지우개 off"}
+                    </EraserBtn>
+
+                    <EraserBtn state={!isScrollLocked} onClick={toggleScrollLock}>
+                      {isScrollLocked ? "스크롤 off" : "스크롤 on"}
+                    </EraserBtn>
+                  </OptionBtnSection>
 
                   <div className="optionHeader">
                     <span>펜툴</span>
@@ -342,6 +457,11 @@ function DrawPage() {
                 </section>
               ) : (
                 <StickerSection>
+
+                  <EraserBtn state={!isScrollLocked} onClick={toggleScrollLock}>
+                      {isScrollLocked ? "스크롤 on" : "스크롤 off"}
+                  </EraserBtn>
+
                   <StickerInput className="StickerInput">
                     <span>이미지 불러오기 </span>
                     <input type="file" onChange={handleImageChange} />
@@ -450,7 +570,6 @@ function DrawPage() {
       </WhiteContainer>
     </BackgroundGray>
   );
-
 }
 
 export default DrawPage;
@@ -506,7 +625,10 @@ const OptionSection = styled.section`
     padding-top: 23.5px;
     display: flex;
     flex-direction: column;
+
   }
+
+
 
   .modeBtn {
     display: flex;
@@ -521,6 +643,11 @@ const OptionSection = styled.section`
     justify-content: center;
     margin-top: 30%;
   }
+`;
+
+
+const OptionBtnSection = styled.section`
+  margin-left:auto;
 `;
 
 const StickerSection = styled.div`
@@ -706,21 +833,20 @@ const Stickerbox = styled.div`
     display: flex;
     margin-left: auto;
     justify-content: flex-end;
-  
+
     .removeBtn {
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       position: absolute;
       border-radius: 50%;
-      border:none;
+      border: none;
       width: 35px;
       height: 35px;
 
       img {
         width: 100%;
       }
- 
     }
   }
 `;

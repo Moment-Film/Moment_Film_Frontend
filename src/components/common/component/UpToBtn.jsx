@@ -24,8 +24,8 @@ top:80%;
 right:3%;
 position:fixed;
 
-width:2vw;
-height:2vw;
+width:30px;
+height:30px;
 
 max-width:80px;
 max-height:80px;

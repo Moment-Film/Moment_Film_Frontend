@@ -3,10 +3,6 @@ import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import kakoImg from '../assets/login/kakao.svg'
 
-///안전한 폴더에서 모아서 관리 해보자 
-const Rest_api_key ='2e877086c066dea8246d1b0796d4c68f'
-const redirect_uri='https://view-teal.vercel.app/user/kakao/callback'
-const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`
 
 const KakaoLoginBtn = ({width, height}) => {
 
@@ -17,7 +13,7 @@ const KakaoLoginBtn = ({width, height}) => {
     const keyword=searchParams.get('code')
 
     const handleLogin =()=>{
-        window.location.href=kakaoURL;
+        window.location.href=process.env.REACT_APP_KAKAO_URI;
     }
 
     return (
