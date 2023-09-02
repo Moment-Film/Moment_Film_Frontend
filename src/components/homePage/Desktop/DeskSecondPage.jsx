@@ -91,7 +91,7 @@ const DeskSecondPage = () => {
                   <img src={Img.card2} alt="" />
                 </Card>
                 <Card className="content">
-                  <p className="cardHeader">Go Get</p>
+                  <p className="goHeader">Go Get</p>
                   <p className="cardcontent">
                     모먼트 필름만의 특장점을 직접 사용해 보시고 느껴보세요.
                     순간을 기록하고 추억을 저장해 보세요!
@@ -115,7 +115,7 @@ const DeskSecondPage = () => {
 export default DeskSecondPage;
 
 const PageSection = styled.div`
-  min-width: 1024px;
+  min-width: 1366px;
   max-width: 1920px;
   height: 1080px;
   display: flex;
@@ -128,7 +128,7 @@ const PageSection = styled.div`
 `;
 
 const PageWrap = styled.div`
-  max-width: 1024px;
+  max-width: 1366px;
   display: flex;
   justify-content: center;
 `;
@@ -137,7 +137,7 @@ const PageWrap = styled.div`
 const ContentBox = styled.div`
   display: flex;
 
-  width: 1024px;
+  width: 1366px;
   padding-top: 186px;
 `;
 
@@ -274,7 +274,7 @@ const CardSection = styled.div`
   .grid-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* 4개의 열을 생성 */
-    grid-gap: 29px; /* 아이템 사이의 간격 설정 */
+    grid-gap: 30px; /* 아이템 사이의 간격 설정 */
     grid-row-gap: 40px; /* 아이템 사이의 간격 설정 */
     grid-template-rows: 1fr 1fr; /* 3개의 행을 생성 */
   }
@@ -298,8 +298,8 @@ const Card = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  width: 233px;
-  height: 340px;
+  width: 270px;
+  height: 342px;
   box-sizing: border-box;
 
   padding: 0 30px 0 30px;
@@ -313,6 +313,12 @@ const Card = styled.div`
   .cardcontent {
     font-size: 16px;
     line-height: 24px;
+  }
+
+  .goHeader{
+    font-weight: bold;
+    font-size: 24px;
+    font-family: "Abril Fatface", cursive;
   }
 
   .cardOwner {

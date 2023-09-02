@@ -49,8 +49,8 @@ const MainBox = styled.div`
 
   width: ${(props) => props.width};
   height: ${(props) => props.height};
-  font-size: ${(props) => props.fontSize};
-  font-weight: ${(props) => props.fontWeight};
+  font-size: 16px;
+  font-weight: 500;
   border: 2px solid var(--black);
   background-color: var(--lightGreen);
   box-sizing: border-box;

@@ -74,7 +74,7 @@ const FirstPage = () => {
 export default FirstPage;
 
 const PageSection = styled.div`
-  min-width: 1024px;
+  min-width: 1366px;
   max-width:1920px;
   display:flex;
   justify-content:center;
@@ -87,15 +87,15 @@ const PageSection = styled.div`
 `;
 
 const PageWrap = styled.div`
-  max-width: 1024px;
+  max-width: 1366px;
   display:flex;
   justify-content:center;
 `;
 
 const ContentBox = styled.div`
   display: flex;
-
-  width: 1024px;
+  justify-content:center;
+  width: 1366px;
   padding-top: 93px;
 `;
 
