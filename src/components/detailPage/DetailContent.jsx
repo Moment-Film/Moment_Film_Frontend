@@ -44,7 +44,7 @@ const DetailContent = ({ data }) => {
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
 
-  console.log(data);
+  //console.log(data);
 
   const navigate = useNavigate();
   const [selectFrame, setSelectFrame] = useState(false);
@@ -76,7 +76,7 @@ const DetailContent = ({ data }) => {
   const getDetailMutation = useMutation(likePost, {
     onSuccess: (response) => {
       setIsLiked(!isLiked);
-      console.log(response);
+      //console.log(response);
       {
         queryClient.invalidateQueries(`Detail${param.id}`);
       }
@@ -128,8 +128,10 @@ const DetailContent = ({ data }) => {
       if (selectFilter) {
         const filterId = data.filterId;
         applyFilter({ filterId, accessToken, refreshToken }).then((filter) => {
-          console.log(filter);
-          dispatch(SetFilter(filter));
+          //console.log(filter);
+          const {id,...other}=filter;
+          console.log(other);
+           dispatch(SetFilter(other));
         });
       }
 
@@ -138,7 +140,7 @@ const DetailContent = ({ data }) => {
         const frameId = data.frameId;
         applyFrame({ frameId, accessToken, refreshToken }).then(
           async (frame) => {
-            console.log(frame);
+            //console.log(frame);
             dispatch(SetFrame(frame));
 /*             handleDownload(frame.image, 'test') 
  */          }

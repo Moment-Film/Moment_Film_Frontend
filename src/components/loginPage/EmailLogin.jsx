@@ -35,7 +35,7 @@ const EmailLogin = () => {
   const mutation = useMutation(ELogin, {
     onSuccess: async (response) => {
       if (response.status === 200) {
-        console.log(response);
+        //console.log(response);
         const ACToken = response.headers.accesstoken;
 
         //토큰 저장
@@ -54,7 +54,7 @@ const EmailLogin = () => {
       if (errorMsg && errorMsg.includes("잘못된 로그인 정보입니다.")) {
         setLoginError("존재하지 않는 아이디나 비밀번호입니다.");
       } else {
-        console.log(errorMsg)
+        //console.log(errorMsg)
         setLoginError("아이디/비밀번호가 일치하지 않습니다.");
       }
     },

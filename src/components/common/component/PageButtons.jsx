@@ -13,7 +13,7 @@ function PageButtons({pageable, totalPage, handler, thisPage}) {
     if(page <= pageCnt?pageCnt:totalPage && page > 0)
     handler(page);
   }
-  console.log("pageCnt", pageCnt, "totalPage", totalPage)
+  //console.log("pageCnt", pageCnt, "totalPage", totalPage)
   return (
       <PageBtnSection>
         <div className="leftWrap">

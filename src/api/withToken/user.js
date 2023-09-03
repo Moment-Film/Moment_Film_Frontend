@@ -13,9 +13,9 @@ const useUserAPI = () => {
       const refreshToken = getRefresh();
       const accessToken = getAccess();
 
-      console.log(accessToken);
+      //console.log(accessToken);
 
-      console.log(refreshToken);
+      //console.log(refreshToken);
 
       if (refreshToken) {
         config.headers.refreshToken = refreshToken;
@@ -30,14 +30,14 @@ const useUserAPI = () => {
 
   userAxios.interceptors.response.use(
     function (response) {
-      console.log(response.headers.accessToken);
+      //console.log(response.headers.accessToken);
       /*       const timestampInSeconds = 1693186240; // 주어진 유닉스 타임스탬프 (초 단위)
       const timestampInMilliseconds = timestampInSeconds * 1000; // 밀리초 단위로 변환
 
       const date = new Date(timestampInMilliseconds);
       const dateInKoreaTimeZone = new Date(date.getTime() + (9 * 60 * 60 * 1000)); // 한국 표준시로 변환 (GMT+0900)
 
-      console.log(dateInKoreaTimeZone); */
+      //console.log(dateInKoreaTimeZone); */
 
       if (response.headers.accessToken) {
         alert("변경됨");
@@ -53,7 +53,7 @@ const useUserAPI = () => {
 
   //팔로우 요청 및 취소
   const FollowAPI = async (userId) => {
-    console.log(userId);
+    //console.log(userId);
     try {
       //팔로우가 되어있지않아서 팔로우할때
       const response = await userAxios.post(`/api/follow/${userId}`, null);
@@ -77,7 +77,7 @@ const useUserAPI = () => {
   // 회원정보 조회 api
   const getPrivateInfo = async () => {
     const res = await userAxios.get(`/api/user/info`);
-    console.log(res);
+    //console.log(res);
     return res;
   };
 
@@ -118,7 +118,7 @@ const useUserAPI = () => {
   const likePost = async ({ postId }) => {
     try {
       const res = await userAxios.post(`/api/post/${postId}/likes`, null);
-      console.log(res);
+      //console.log(res);
       return res.data.data;
     } catch (error) {
       throw error;

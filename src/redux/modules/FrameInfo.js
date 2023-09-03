@@ -16,17 +16,17 @@ const FrameSlice = createSlice({
   initialState,
   reducers: {
     SetFrame: (state, action) => {
-      console.log(action.payload);
+      //console.log(action.payload);
       return { ...state, ...action.payload }
     },
 
     SetBackgroundImg: (state, action) => {
-      console.log(action.payload);
+      //console.log(action.payload);
       return { ...state, imageUrl: action.payload }
     },
 
     SetImgFile: (state, action) => {
-      console.log(action.payload);
+      //console.log(action.payload);
       return { ...state, image: action.payload }
     },
 

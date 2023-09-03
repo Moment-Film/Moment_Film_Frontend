@@ -24,7 +24,7 @@ const LogoutBtn = () => {
 
       await dispatch(SetAccessToken(null));
       await dispatch(SetUserInfo(null));
-      console.log(accessToken);
+      //console.log(accessToken);
       alert("로그아웃되었습니다");
       navigate("/");
     }

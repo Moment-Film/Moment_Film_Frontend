@@ -66,7 +66,7 @@ const Comment = ({ data }) => {
   // mutatin 함수 선언 부
   const CommentMutation = useMutation(addComment, {
     onSuccess: (response) => {
-      console.log(response);
+      //console.log(response);
       {
         queryClient.invalidateQueries(`Detail${param.id}`);
       }
@@ -91,7 +91,7 @@ const Comment = ({ data }) => {
 
   const DelCommentMutation = useMutation(delComment, {
     onSuccess: (response) => {
-      console.log(response);
+      //console.log(response);
       {
         queryClient.invalidateQueries(`Detail${param.id}`);
       }
@@ -103,7 +103,7 @@ const Comment = ({ data }) => {
 
   const DelReplyMutation = useMutation(delReply, {
     onSuccess: (response) => {
-      console.log(response);
+      //console.log(response);
       {
         queryClient.invalidateQueries(`Detail${param.id}`);
       }
@@ -230,16 +230,16 @@ const Comment = ({ data }) => {
             {isReplyShow.includes(comment.id) &&
               comment.subComments
                 .slice()
-                .reverse()
                 .map((reply) => (
                 <CommentContainer className="recomment" key={reply.id}>
                   <CommentMain>
-                    <ProfileSection onClick={()=>navigate(`/profile/${reply.userId}`)}>
+                    <ProfileSection >
                       <img className="profilePic"
+                      onClick={()=>navigate(`/profile/${reply.userId}`)}
                         src={reply.userImage?reply.userImage:resizeNull}
                         alt=""
                       />
-                      <span>{reply.username}</span>
+                      <span onClick={()=>navigate(`/profile/${reply.userId}`)}>{reply.username}</span>
                       {reply.userId === Number(userInfo.sub) &&
                         <button onClick={() => DeleteReply(comment.id, reply.id)}>삭제</button>}
 

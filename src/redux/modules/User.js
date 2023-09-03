@@ -24,7 +24,7 @@ const UserSlice = createSlice({
         }
       }
       else{
-        console.log(action.payload)
+        //console.log(action.payload)
         return {...state ,...action.payload }
       }
     },

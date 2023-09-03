@@ -19,8 +19,8 @@ const InfiniteScroll = ({ sort }) => {
         [`post${sort}${page}`],
         () => getAllPosts({ sort, page })
     );
-    console.log(data);
-    console.log(isLast)
+    //console.log(data);
+    //console.log(isLast)
 
 
     // 무한 스크롤 이벤트 처리 함수를 스로틀링하여 0.5초마다 한 번씩 실행되도록 설정

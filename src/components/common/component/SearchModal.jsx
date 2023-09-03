@@ -27,7 +27,7 @@ const SearchModal = ({ onClose, username }) => {
   }, []);
 
   const removeTermHandler = (e, term) => {
-    console.log("Removing term:", term);
+    //console.log("Removing term:", term);
     e.stopPropagation();
     const newTerm = recentSearches.filter((item) => item !== term);
     setRecentSearches(newTerm);
@@ -39,7 +39,7 @@ const SearchModal = ({ onClose, username }) => {
   }, [recentSearches]);
 
   useEffect(() => {
-    console.log("Updated recent searches:", recentSearches);
+    //console.log("Updated recent searches:", recentSearches);
   }, [recentSearches]);
 
   return (
@@ -136,7 +136,7 @@ const ModalWrap = styled.div`
   gap: 130px;
   position: fixed;
   z-index: 50;
-  top: 85px;
+  top: 60px;
   left: 0px;
 `;
 

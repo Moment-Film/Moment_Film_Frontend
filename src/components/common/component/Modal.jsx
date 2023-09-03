@@ -44,7 +44,7 @@ export const Modal = ({onClose, onToggle, data, title, id, me}) => {
             <S.Modalsection >
                 <S.Contents>
                     <S.ContentHeader data={title}>
-                        <S.HeaderTitle onClick={onToggle} $type={title==="followerList"}>팔로우</S.HeaderTitle>
+                        <S.HeaderTitle onClick={onToggle} $type={title==="followerList"}>팔로워</S.HeaderTitle>
                         <S.HeaderTitle onClick={onToggle} $type={title==="followingList"}>팔로잉</S.HeaderTitle>
                     </S.ContentHeader>
                     <S.SearchSection>
@@ -57,7 +57,7 @@ export const Modal = ({onClose, onToggle, data, title, id, me}) => {
                         :<img src={searchIcon} alt=""/>}
                     </S.SearchSection>
                     <S.ListHeader>
-                        <span>모든 {title==="followerList" ? "팔로우" : "팔로잉" }</span>
+                        <span>모든 {title==="followerList" ? "팔로워" : "팔로잉" }</span>
                         <span>{data.length} 명</span>
 
                     </S.ListHeader>

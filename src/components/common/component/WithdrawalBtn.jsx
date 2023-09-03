@@ -23,7 +23,7 @@ const refreshToken = getRefresh();
   const accessToken = getAccess();
   const Withdrawal = async () => {
     const res = await WithdrawalAPI(accessToken, refreshToken);
-    console.log(res);
+    //console.log(res);
     saveAccessToken(null);
     saveRefreshToken(null);
     alert("탈퇴되었습니다.");

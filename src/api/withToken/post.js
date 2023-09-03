@@ -33,14 +33,14 @@ const usePostAPI = () => {
 
   postAxios.interceptors.response.use(
     function (response) {
-      console.log(response.headers.accessToken)
+      //console.log(response.headers.accessToken)
 /*       const timestampInSeconds = 1693186240; // 주어진 유닉스 타임스탬프 (초 단위)
       const timestampInMilliseconds = timestampInSeconds * 1000; // 밀리초 단위로 변환
 
       const date = new Date(timestampInMilliseconds);
       const dateInKoreaTimeZone = new Date(date.getTime() + (9 * 60 * 60 * 1000)); // 한국 표준시로 변환 (GMT+0900)
 
-      console.log(dateInKoreaTimeZone); */
+      //console.log(dateInKoreaTimeZone); */
 
       if (response.headers.accessToken) {
         alert("변경됨")
@@ -112,11 +112,11 @@ const usePostAPI = () => {
     refreshToken,
     comment,
   }) => {
-    console.log(postId, comment);
+    //console.log(postId, comment);
     try {
       const res = await postAxios.post(`/api/post/${postId}/comment`, { content: comment });
 
-      console.log(res);
+      //console.log(res);
       return res.data.data;
     } catch (error) {
       console.error("addComment api error", error);
@@ -128,13 +128,13 @@ const usePostAPI = () => {
     commentId,
     replay,
   }) => {
-    console.log(commentId, replay);
+    //console.log(commentId, replay);
     try {
       const res = await postAxios.post(
         `/api/post/{postId}/comment/${commentId}/subcomment`,
         { content: replay });
 
-      console.log(res);
+      //console.log(res);
       return res;
     } catch (error) {
       alert(error)
@@ -149,7 +149,7 @@ const usePostAPI = () => {
     refreshToken,
     postId,
   }) => {
-    console.log(commentId, postId);
+    //console.log(commentId, postId);
     try {
       const res = await postAxios.delete(`/api/post/${postId}/comment/${commentId}`, {
         headers: {
@@ -158,7 +158,7 @@ const usePostAPI = () => {
         },
       });
 
-      console.log(res);
+      //console.log(res);
       return res.data;
     } catch (error) {
       console.error("addComment api error", error);
@@ -173,7 +173,7 @@ const usePostAPI = () => {
     postId,
     replyId,
   }) => {
-    console.log(commentId, postId, replyId);
+    //console.log(commentId, postId, replyId);
     try {
       const res = await postAxios.delete(
         `/api/post/${postId}/comment/${commentId}/subcomment/${replyId}`,
@@ -185,7 +185,7 @@ const usePostAPI = () => {
         }
       );
 
-      console.log(res);
+      //console.log(res);
       return res.data;
     } catch (error) {
       console.error("addComment api error", error);

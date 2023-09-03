@@ -65,7 +65,7 @@ const useInputValidation = () => {
   ////////////////// 변경 함수//////////////////////
 
   const handleEmailChange = (e) => {
-    console.log(email);
+    //console.log(email);
     setEmail(e.target.value);
     validateEmail(e.target.value);
   };
