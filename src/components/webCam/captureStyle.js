@@ -280,10 +280,12 @@ export const FootSection = styled.section`
   height: 68px;
   display: flex;
   justify-content: space-between;
+  gap: 10px;
   align-items: center;
   cursor: pointer;
   .cam {
     visibility: ${props=>props.view ? "hidden" : "block"};
     margin-left: -24px;
+    margin-right: auto;
   }
 `

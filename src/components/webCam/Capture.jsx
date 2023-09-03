@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Modals from '../common/component/Modals'
 import trashBin from '../assets/images/trashBin.png'
+import flip from '../assets/icons/flip.svg'
 
 const gridSizes = [
   { id: "down", innerWidth: 257, innerHeight: 356 },
@@ -27,6 +28,8 @@ function Capture() {
   const [currentImgOrder, setCurrentImgOrder] = useState(0);
   const [isCapturing, setIsCapturing] = useState(true);
   const [deletePics, setDeletePics] = useState(false);
+  const [cameraFlip, setCameraFlip] = useState(true);
+  const [isFliped, setIsFliped] = useState(true);
   const slideRef = useRef(null);
   const videoRef = useRef(null);
   const streamRef = useRef(null);
@@ -58,7 +61,6 @@ function Capture() {
   }, []);
 
   useEffect(()=>{
-    console.log(isCapturing);
     capturedImages.length>=0 && currentImgOrder<7 ? setCurrentImgOrder(capturedImages.length)
     : setCurrentImgOrder(0)
   },[capturedImages])
@@ -71,7 +73,15 @@ function Capture() {
   const handleCapture = (index) => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
+    if(cameraFlip === isFliped){
+      context.translate(canvas.width, 0);
+      context.scale(-1, 1);
+      console.log( cameraFlip, isFliped, "flip!");
+      setIsFliped(!isFliped);
+    }
     context.drawImage(videoRef.current, 0, 0, thisGrid.innerWidth, thisGrid.innerHeight);
+    
+    console.log(cameraFlip, isFliped);
     localStorage.setItem(
       `image${index}`,
       canvas.toDataURL("image/png")
@@ -124,7 +134,7 @@ function Capture() {
             <img src={onAir} />
           </S.HeadSection>
           <S.VideoSection gridId={thisGrid.id}>
-            <S.Video show={isCapturing} width={thisGrid.innerWidth} height={thisGrid.innerHeight} ref={videoRef} autoPlay />
+            <S.Video style={{transform: cameraFlip && "scaleX(-1)"}} show={isCapturing} width={thisGrid.innerWidth} height={thisGrid.innerHeight} ref={videoRef} autoPlay />
             {!isCapturing && <img src={capturedImages[currentImgOrder]} alt=''/>}
           </S.VideoSection>
           <S.PreviewSection>
@@ -152,6 +162,7 @@ function Capture() {
             <img className='cam' src={captureBtn}
             style={{ visibility : isCapturing ? "visible" : "hidden" }}
             onClick={()=>handleCapture(currentImgOrder)}/>
+            <img src={flip} onClick={()=>setCameraFlip(!cameraFlip)}/>
             <img src={deleteBtn} onClick={()=>{setDeletePics(true)}}/>
           </S.FootSection>
         </S.WebCamUI>
