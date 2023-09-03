@@ -142,14 +142,19 @@ function EditModal({ onClose, profileImg }) {
 
   const UploadPic = (e) => {
     const input = e.target;
-    if (input.files && input.files[0]) {
-      setCurruntImage(URL.createObjectURL(input.files[0]));
-      setUploadImage(input.files[0]);
-      // curruntImage - 이미지 src용 url / uploadImage - file객체
-    }
-    // else {
+    const validExtensions = [".jpeg", ".jpg", ".png"];
 
-    // }
+    if (input.files && input.files[0]) {
+      if (validExtensions.includes(input.files[0].type)) {
+        setCurruntImage(URL.createObjectURL(input.files[0]));
+        setUploadImage(input.files[0]);
+        // curruntImage - 이미지 src용 url / uploadImage - file객체
+      } else {
+        alert(
+          "유효하지 않은 파일 형식입니다. JPG, JPEG 또는 PNG 파일만 업로드해주세요."
+        );
+      }
+    }
   };
 
   const editInputHandler = (key, value) => {
@@ -269,7 +274,7 @@ function EditModal({ onClose, profileImg }) {
             <a.UploadInput
               id="fileInput"
               type="file"
-              accept="image/*"
+              accept=".jpeg,.jpg,.png"
               ref={profilePicRef}
               onChange={UploadPic}
             />
