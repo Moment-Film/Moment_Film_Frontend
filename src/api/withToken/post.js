@@ -41,7 +41,6 @@ const usePostAPI = () => {
       const dateInKoreaTimeZone = new Date(date.getTime() + (9 * 60 * 60 * 1000)); // 한국 표준시로 변환 (GMT+0900)
 
       //console.log(dateInKoreaTimeZone); */
-
       if (response.headers.accessToken) {
         alert("변경됨")
         const accessToken = response.headers.accesstoken;

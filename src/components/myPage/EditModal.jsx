@@ -142,10 +142,13 @@ function EditModal({ onClose, profileImg }) {
 
   const UploadPic = (e) => {
     const input = e.target;
-    const validExtensions = [".jpeg", ".jpg", ".png"];
+    const validExtensions = ["jpeg", "jpg", "png"];
 
     if (input.files && input.files[0]) {
-      if (validExtensions.includes(input.files[0].type)) {
+      const file = input.files[0];
+      const fileExtension = file.name.split('.').pop().toLowerCase();
+
+      if (validExtensions.includes(fileExtension)) {
         setCurruntImage(URL.createObjectURL(input.files[0]));
         setUploadImage(input.files[0]);
         // curruntImage - 이미지 src용 url / uploadImage - file객체
@@ -207,14 +210,16 @@ function EditModal({ onClose, profileImg }) {
 
   const newPasswordChangeHandler = (e) => {
     setPasswordChangeAttempted(true); // 여기서 변경 시도 상태를 업데이트
-
+    setNewPassword(e.target.value);
+    handlePasswordChange(e);
+/* 
     if (isVerified) {
       setNewPassword(e.target.value);
       handlePasswordChange(e);
       // validatePasswod(newPassword);
     } else if (newPassword.length < 6) {
       alert("먼저 인증코드를 확인하세요.");
-    }
+    } */
   };
 
   const handleVerifyCode = () => {
@@ -357,18 +362,25 @@ function EditModal({ onClose, profileImg }) {
                   </Verify>
                 </div>
 
-                <section>
+                
+                {
+                  isVerified &&(
+                  <section>
+                
                   <span>새비밀번호</span>
                   <TestBox>
-                    <TestInput
-                      placeholder="새 비밀번호를 입력해 주세요"
-                      value={newPassword}
-                      type="password"
-                      onChange={newPasswordChangeHandler}
-                    />
+                        <TestInput
+                        placeholder="새 비밀번호를 입력해 주세요"
+                        value={newPassword}
+                        type="password"
+                        onChange={newPasswordChangeHandler}
+                      />
+
                     {/* <TestBtn onClick={handlePasswordReset}>변경</TestBtn> */}
                   </TestBox>
                 </section>
+                  )
+                }
                 <div className="pwChange">
                   {passwordError ? (
                     <Verify isVerified={false} visible={isVerifiedClicked}>

@@ -58,6 +58,10 @@ const Wrap = styled.div`
     font-size:24px;
     font-weight:600;
   }
+
+  @media (max-width: 400px) {
+    width:80%;
+}
   
 `;
 
