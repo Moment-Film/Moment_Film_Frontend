@@ -19,8 +19,8 @@ const useAuthAPI = () => {
       // 응답에서 토큰 추출하여 처리
       const accessToken = response.headers.accesstoken;
       const refreshToken = response.headers.refreshtoken
-      console.log("ac",accessToken);
-      console.log("rc",refreshToken);
+      //console.log("ac",accessToken);
+      //console.log("rc",refreshToken);
 
       saveAccessToken(accessToken)
       saveRefreshToken(refreshToken)
@@ -58,7 +58,7 @@ const useAuthAPI = () => {
 
     //성공이면 로그인 화면 or 홈화면을 보내버리자
     if (response.status === 200) {
-      console.log(response);
+      //console.log(response);
       return response;
     }
     else
@@ -78,7 +78,7 @@ const useAuthAPI = () => {
   }
 
   const LogOutAPI = async (ACToken, REToken) => {
-    console.log(ACToken, REToken)
+    //console.log(ACToken, REToken)
     try {
       const response = await axios.post('/api/user/logout', null
       ,

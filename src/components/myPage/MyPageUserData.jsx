@@ -117,7 +117,7 @@ const MyPageUserData = ({ lang, data }) => {
           </NameSection>
           <div className="box-2">
             <div onClick={() => clickHandler("followerList")}>
-              <UserItem cursor={"pointer"}>팔로우</UserItem>
+              <UserItem cursor={"pointer"}>팔로워</UserItem>
               <UserItemResult cursor={"pointer"}>
                 {data.followerList.length}
               </UserItemResult>

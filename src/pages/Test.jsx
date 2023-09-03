@@ -44,13 +44,13 @@ const Test = () => {
 
                     
                     if (aaaRef.current) {
-                        console.log(1)
+                        //console.log(1)
                         aaaRef.current.style.opacity = `${opacity}`;
                         const translateY = (1 - opacity) * 1000; 
                         aaaRef.current.style.transform = `translateY(-${translateY}px)`;
                     }
                     if (aaaRef1.current) {
-                        console.log(1)
+                        //console.log(1)
                         aaaRef1.current.style.opacity = `${opacity1}`;
                         const translateY = (1 - opacity1) * 400; 
                         aaaRef1.current.style.transform = `translateY(-${translateY}px)`;
@@ -61,13 +61,13 @@ const Test = () => {
                         aaaRef2.current.style.transform = `translateY(-${translateY}px)`;
                     }
                     if (aaaRef3.current) {
-                        console.log(1)
+                        //console.log(1)
                         aaaRef3.current.style.opacity = `${opacity3}`;
                         const translateY = (1 - opacity3) * 1000; 
                         aaaRef3.current.style.transform = `translateY(-${translateY}px)`;
                     }
                     if (aaaRef4.current) {
-                        console.log(1)
+                        //console.log(1)
                         aaaRef4.current.style.opacity = `${opacity4}`;
                         const translateY = (1 - opacity4) * 400; 
                         aaaRef4.current.style.transform = `translateY(-${translateY}px)`;

@@ -41,7 +41,7 @@ const RedirectPage = () => {
 
     useEffect(()=>{
         if(isSuccess){
-            console.log(data);
+            //console.log(data);
             saveToken()
             navigate('/'); 
         }

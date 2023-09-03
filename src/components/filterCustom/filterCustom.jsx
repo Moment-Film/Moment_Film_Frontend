@@ -68,7 +68,7 @@ const FilterCustom = () => {
       domtoimage.toBlob(card).then((imageFile) => {
         dispatch(SetResultImage(imageFile));
         dispatch(SetFilter(filterValue));
-        console.log(imageFile);
+        //console.log(imageFile);
         /*    navigate("/camera/capture/finish"); */
         navigate(`/DrawPage`);
       });
@@ -79,11 +79,11 @@ const FilterCustom = () => {
 
   const resetFilter = () => {
     setFilterValue({
-      blur: 0,
-      brightness: 0,
-      saturate: 0,
-      contrast: 0,
-      sepia: 0
+      blur: "0",
+      brightness: "0",
+      saturate: "0",
+      contrast: "0",
+      sepia: "0"
     })
   }
 

@@ -10,7 +10,7 @@ const useDownLoad = () => {
 
       if(imageUrl===undefined) return 1;
       setIsDownloading(true);
-      console.log(imageUrl)
+      //console.log(imageUrl)
       const response = await fetch(imageUrl);
       const blob = await response.blob();
 

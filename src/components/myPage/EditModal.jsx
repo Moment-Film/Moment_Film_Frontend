@@ -98,16 +98,18 @@ function EditModal({ onClose, profileImg }) {
     }
   }, [data]);
 
+  //console.log(passwordError);
+
   const editInfoMutation = useMutation(putEditInfo, {
     onSuccess: (data) => {
-      console.log(data);
+      //console.log(data);
       if (passwordError !== "") {
         alert(passwordError);
         return;
       }
 
       if (data) {
-        console.log(data);
+        //console.log(data);
 
         alert("수정이 완료됐습니다.", data);
         queryClient.invalidateQueries(`Private${userInfo.sub}`);
@@ -119,8 +121,8 @@ function EditModal({ onClose, profileImg }) {
       }
     },
     onError: (error) => {
-      console.log("수정이 실패했습니다.", error);
-      console.log("비밀번호 변경에 실패했습니다.", error);
+      //console.log("수정이 실패했습니다.", error);
+      //console.log("비밀번호 변경에 실패했습니다.", error);
     },
   });
 
@@ -133,26 +135,21 @@ function EditModal({ onClose, profileImg }) {
       },
       onError: (error) => {
         alert("이메일 전송에 실패했습니다.");
-        console.log(error);
+        //console.log(error);
       },
     }
   );
 
   const UploadPic = (e) => {
     const input = e.target;
-    const validExtensions = ["image/jpeg", "image/jpg", "image/png"];
-
     if (input.files && input.files[0]) {
-      if (validExtensions.includes(input.files[0].type)) {
-        setCurruntImage(URL.createObjectURL(input.files[0]));
-        setUploadImage(input.files[0]);
-        // curruntImage - 이미지 src용 url / uploadImage - file객체
-      } else {
-        alert(
-          "유효하지 않은 파일 형식입니다. JPG, JPEG 또는 PNG 파일만 업로드해주세요."
-        );
-      }
+      setCurruntImage(URL.createObjectURL(input.files[0]));
+      setUploadImage(input.files[0]);
+      // curruntImage - 이미지 src용 url / uploadImage - file객체
     }
+    // else {
+
+    // }
   };
 
   const editInputHandler = (key, value) => {
@@ -162,12 +159,7 @@ function EditModal({ onClose, profileImg }) {
   };
 
   const submitEditHandler = () => {
-
-/*     if (isPasswordChangeAttempted) {
-
-      if (newPassword.length < 6) {
-        alert("먼저 인증코드를 확인하세요.");
-      }
+    if (isPasswordChangeAttempted) {
       if (!code) {
         alert("비밀번호를 변경하려면 인증 코드를 입력해 주세요.");
         return;
@@ -177,7 +169,7 @@ function EditModal({ onClose, profileImg }) {
         alert("비밀번호 변경을 위한 인증이 확인되지 않았습니다.");
         return;
       }
-    } */
+    }
 
     const profileData = new FormData();
 
@@ -213,9 +205,11 @@ function EditModal({ onClose, profileImg }) {
 
     if (isVerified) {
       setNewPassword(e.target.value);
-      newPasswordChangeHandler(e);
+      handlePasswordChange(e);
       // validatePasswod(newPassword);
-    } 
+    } else if (newPassword.length < 6) {
+      alert("먼저 인증코드를 확인하세요.");
+    }
   };
 
   const handleVerifyCode = () => {
@@ -275,7 +269,7 @@ function EditModal({ onClose, profileImg }) {
             <a.UploadInput
               id="fileInput"
               type="file"
-              accept=".jpg, .jpeg, .png"
+              accept="image/*"
               ref={profilePicRef}
               onChange={UploadPic}
             />
@@ -327,12 +321,14 @@ function EditModal({ onClose, profileImg }) {
                 <section>
                   <span>인증코드</span>
                   <TestBox>
-                    <TestInput
-                      placeholder="인증코드를 입력해 주세요"
-                      value={code}
-                      onChange={(e) => setCode(e.target.value)}
-                      autocomplete="off"
-                    />
+                    {isClicked && (
+                      <TestInput
+                        placeholder="인증코드를 입력해 주세요"
+                        value={code}
+                        onChange={(e) => setCode(e.target.value)}
+                      />
+                    )}
+
                     {isClicked && (
                       <TestBtn onClick={handleVerifyCode}>확인</TestBtn>
                     )}
@@ -364,7 +360,6 @@ function EditModal({ onClose, profileImg }) {
                       value={newPassword}
                       type="password"
                       onChange={newPasswordChangeHandler}
-                      autocomplete="off"
                     />
                     {/* <TestBtn onClick={handlePasswordReset}>변경</TestBtn> */}
                   </TestBox>

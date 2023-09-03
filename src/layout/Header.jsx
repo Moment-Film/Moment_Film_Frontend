@@ -135,7 +135,7 @@ export default Header;
 
 const HeaderSection = styled.header`
   min-height: 50px;
-  height: 5vw;
+  height: 60px;
   max-height: 84px;
   display: flex;
   justify-content: center;

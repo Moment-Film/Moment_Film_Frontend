@@ -8,7 +8,7 @@ const ResultImageSlice = createSlice({
   initialState:{},
   reducers:{
     SetResultImage: (state,action)=>{
-        console.log(action.payload)
+        //console.log(action.payload)
         return state=action.payload
     },
   }
