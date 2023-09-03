@@ -58,7 +58,7 @@ const FrameCustomMake = () => {
     s: frame.saturation,
     l: frame.lightness,
   });
-  console.log(color.h, color.s, color.l);
+  //console.log(color.h, color.s, color.l);
 
   const [frameImg, setFrameImg] = useState(null);
   const [openModal, setOpenModal] = useState(false);
@@ -286,7 +286,7 @@ const FrameCustomMake = () => {
                   </a.UploadLabel>
                 </a.UploadContainer>
                 <StyledSpan14 className="fileInfo">
-                  300px * 447px를 권장합니다.
+                  10MB 미만의 이미지를 적용해주세요.
                 </StyledSpan14>
               </div>
 

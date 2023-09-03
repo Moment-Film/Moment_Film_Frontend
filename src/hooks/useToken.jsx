@@ -16,7 +16,7 @@ const useToken = () => {
 
   // access 토큰 저장
   const saveAccessToken = async (accessToken) => {
-    console.log(accessToken);
+    //console.log(accessToken);
     if (accessToken) {
       const ciphertext = CryptoJS.AES.encrypt(
         accessToken,
@@ -45,23 +45,27 @@ const useToken = () => {
         Uint8Array.from(base64DecodedPayload, (c) => c.charCodeAt(0))
       );
       const decodedPayload = JSON.parse(utf8DecodedPayload);
-      console.log(decodedPayload.exp); // 만료시간
+      //console.log(decodedPayload.exp); // 만료시간
 
       // 현재 시간을 밀리초로 얻어옵니다.
       const currentMilliseconds = new Date().getTime();
 
       // 밀리초를 초로 변환합니다.
       const currentUnixTimestamp = Math.floor(currentMilliseconds / 1000);
-      console.log(decodedPayload.exp - currentUnixTimestamp - 300);
+      //console.log(decodedPayload.exp - currentUnixTimestamp - 300);
+
+      const time = parseInt((decodedPayload.exp - currentUnixTimestamp)*1000) 
+      console.log( time)
 
       setTimeout(() => {
         alert("5분 뒤 로그아웃됩니다 다시 로그인해주세요");
-      }, (decodedPayload.exp - currentUnixTimestamp - 300)*1000);
+      }, time-300);
 
       setTimeout(async() => {
+        alert("로그아웃 되었습니다 다시 로그인 해주세요");
         await removeCookie("refresh");
         await dispatch(SetAccessToken(null));
-      }, (decodedPayload.exp - currentUnixTimestamp)*1000);
+      }, time);
       
     } else {
       await setCookie("refresh", null);
@@ -70,7 +74,7 @@ const useToken = () => {
 
   // access 토큰 가져오기
   const getAccess = () => {
-    console.log(AccsessToken);
+    //console.log(AccsessToken);
     if (!AccsessToken) return null;
     const bytes = CryptoJS.AES.decrypt(AccsessToken, secretKey);
     const originalText = bytes.toString(CryptoJS.enc.Utf8);
@@ -94,7 +98,7 @@ const useToken = () => {
       Uint8Array.from(base64DecodedPayload, (c) => c.charCodeAt(0))
     );
     const decodedPayload = JSON.parse(utf8DecodedPayload);
-    console.log(decodedPayload);
+    //console.log(decodedPayload);
     dispatch(SetUserInfo(decodedPayload));
   };
 

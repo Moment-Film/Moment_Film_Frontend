@@ -10,7 +10,7 @@ const AccessTokenSlice = createSlice({
   initialState,
   reducers:{
     SetAccessToken: (state,action)=>{
-        console.log(action.payload)
+        //console.log(action.payload)
         const accessToken = action.payload
         state.accessToken=accessToken;
 

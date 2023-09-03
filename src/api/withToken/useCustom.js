@@ -30,14 +30,14 @@ const useCustomAPI = () => {
 
   customAxios.interceptors.response.use(
     function (response) {
-      console.log(response.headers.accessToken)
+      //console.log(response.headers.accessToken)
       /*       const timestampInSeconds = 1693186240; // 주어진 유닉스 타임스탬프 (초 단위)
           const timestampInMilliseconds = timestampInSeconds * 1000; // 밀리초 단위로 변환
       
           const date = new Date(timestampInMilliseconds);
           const dateInKoreaTimeZone = new Date(date.getTime() + (9 * 60 * 60 * 1000)); // 한국 표준시로 변환 (GMT+0900)
       
-          console.log(dateInKoreaTimeZone); */
+          //console.log(dateInKoreaTimeZone); */
 
       if (response.headers.accessToken) {
         alert("변경됨")
@@ -65,7 +65,7 @@ const useCustomAPI = () => {
       const response = await customAxios.post(`/api/frame/${frameId}`, null)
       return response.data.data;
     } catch (error) {
-      console.log("error", error.response.data);
+      //console.log("error", error.response.data);
     }
   }
 
@@ -74,7 +74,7 @@ const useCustomAPI = () => {
       const response = await customAxios.post(`/api/filter/${filterId}`, null)
       return response.data.data;
     } catch (error) {
-      console.log("error", error.response.data);
+      //console.log("error", error.response.data);
     }
   }
 

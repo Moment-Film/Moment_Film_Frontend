@@ -50,7 +50,7 @@ function SignUp() {
 
       if (errorMsg) {
         alert(`${errorMsg}`);
-        console.log(error);
+        //console.log(error);
       }
     },
   });

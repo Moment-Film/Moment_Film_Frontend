@@ -30,8 +30,8 @@ function PostWritePage() {
 
   const objectUrl = URL.createObjectURL(resultImg);
 
-  console.log(typeof(resultImg));
-  console.log((resultImg));
+  //console.log(typeof(resultImg));
+  //console.log((resultImg));
   const filterInfo =useSelector((state)=>state.Filter)  
   console.log(filterInfo)
 
@@ -62,6 +62,7 @@ function PostWritePage() {
 
     const filterId = await addFilter(filterInfo);
     const frameId = await addFrame(FrameForm);
+    console.log(FrameData);
     console.log(filterId)
     console.log(frameId)
 

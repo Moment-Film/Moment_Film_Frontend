@@ -27,8 +27,8 @@ import * as Img from "../components/assets/draw/Image";
 function DrawPage() {
   const thisbackGround = useSelector((state) => state.ResultImage);
   const FrameSize = useSelector((state) => state.image.images);
-  console.log(FrameSize.width);
-  console.log(FrameSize.height);
+  //console.log(FrameSize.width);
+  //console.log(FrameSize.height);
 
   const [color, setColor] = useState({ h: 180, s: 100, l: 100 });
 
@@ -109,7 +109,7 @@ function DrawPage() {
       img.src = URL.createObjectURL(image);
 
       img.onload = () => {
-        console.log(item);
+        //console.log(item);
         ctx.drawImage(img, x, y + index * 70, width, height);
       };
     });
@@ -146,7 +146,7 @@ function DrawPage() {
     if (!isDrawing) return;
     const canvas = drawingCanvasRef.current;
     const ctx = canvas.getContext("2d");
-    console.log(eraser);
+    //console.log(eraser);
     ctx.strokeStyle = `hsl(${color.h}, ${color.s}%, ${color.l}%)`;
     ctx.lineJoin = "round";
     ctx.lineCap = "round";
@@ -188,9 +188,9 @@ function DrawPage() {
   };
 
   const handleImageChange = (e) => {
-    console.log(1);
+    //console.log(1);
     if (e.target.files.length > 0) {
-      console.log(imageData.length);
+      //console.log(imageData.length);
       const newImages = Array.from(e.target.files);
       const newImageData = newImages.map((image) => ({
         image,
@@ -235,14 +235,14 @@ function DrawPage() {
   };
 
   const handleSave = async () => {
-    console.log(1);
+    //console.log(1);
     if (!canvasRef.current) return;
 
     try {
       const card = canvasRef.current;
       domtoimage.toBlob(card).then((imageFile) => {
         dispatch(SetResultImage(imageFile));
-        console.log(imageFile);
+        //console.log(imageFile);
         navigate("/camera/capture/finish");
       });
     } catch (error) {
@@ -502,6 +502,7 @@ function DrawPage() {
                   </SelectedSection>
 
                   <div className="optionHeader">
+                  <span className="small">사진을 선택하셔야 개별조정이 가능합니다</span>
                     <span>크기 조정</span>
                   </div>
 
@@ -509,8 +510,8 @@ function DrawPage() {
                     <div className="sizeProgress">
                       <span>가로</span>
                       <Slider
-                        min={50}
-                        max={200}
+                        min={10}
+                        max={500}
                         step={1}
                         value={imageData[selectedImage]?.width}
                         onChange={(value) => handleStickerSize(value, "x")}
@@ -532,8 +533,8 @@ function DrawPage() {
                     <div className="sizeProgress">
                       <span>세로</span>
                       <Slider
-                        min={50}
-                        max={100}
+                        min={10}
+                        max={500}
                         step={1}
                         value={imageData[selectedImage]?.height}
                         onChange={(value) => handleStickerSize(value, "y")}
@@ -657,6 +658,15 @@ const StickerSection = styled.div`
   padding-top: 35.5px;
 
   .optionHeader {
+    display:flex;
+    flex-direction:column;
+    .small{
+      margin:auto;
+      font-size:12px;
+      color:var(--green5);
+      font-weight:500;
+    }
+
     font-size: 16px;
     font-weight: 500;
     line-height: 150%;

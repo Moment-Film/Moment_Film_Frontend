@@ -16,11 +16,11 @@ function DetailPage() {
 
   const param = useParams();
   const navigate = useNavigate();
-  console.log(param.id)
+  //console.log(param.id)
   const [dataComment, setDataComment] = useState(null);
   //리액트 쿼리
   const { data, isLoading, isError, isSuccess } = useQuery(`Detail${param.id}`, () => getPostDetail(param.id));
-  console.log(data);
+  //console.log(data);
   useEffect(()=>{
     isSuccess && setDataComment(data.commentList.reverse());
   },[isSuccess,data]);

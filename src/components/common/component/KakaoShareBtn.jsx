@@ -6,7 +6,7 @@ const { Kakao } = window;
 
 const KakaoShareBtn = ({data,path}) => {
     // 배포한 자신의 사이트
-    const realUrl = `https://view-teal.vercel.app/${path}`
+    const realUrl = `https://www.momentfilm7.com//${path}`
     // 로컬 주소 (localhost 3000 같은거)
     const resultUrl = window.location.href;
 
@@ -17,7 +17,7 @@ const KakaoShareBtn = ({data,path}) => {
         // 자신의 js 키를 넣어준다.
         Kakao.init('53ae173c0b8adc5a69682122ddcc74d2');
         // 잘 적용되면 true 를 뱉는다.
-        console.log(Kakao.isInitialized());
+        //console.log(Kakao.isInitialized());
     }, []);
 
     const shareKakao = () => {

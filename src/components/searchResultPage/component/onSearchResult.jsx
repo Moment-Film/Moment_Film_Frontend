@@ -6,7 +6,7 @@ import PageButtons from '../../common/component/PageButtons'
 
 const OnSearchResult = ({ searchData, username, navigate, handler, thisPage}) => {
   
-  console.log()
+  //console.log()
   return (
     <>
     <div className="resultExist">

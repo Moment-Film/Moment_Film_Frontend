@@ -24,7 +24,7 @@ const DeskFourthPage = () => {
         return isBoxVisible;
       });
 
-      console.log(updatedFadeIn);
+      //console.log(updatedFadeIn);
       setTimeout(() => {
         setFadeIn(updatedFadeIn);
       }, 300);

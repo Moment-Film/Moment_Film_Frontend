@@ -58,7 +58,7 @@ function Capture() {
   }, []);
 
   useEffect(()=>{
-    console.log(isCapturing);
+    //console.log(isCapturing);
     capturedImages.length>=0 && currentImgOrder<7 ? setCurrentImgOrder(capturedImages.length)
     : setCurrentImgOrder(0)
   },[capturedImages])
