@@ -1,5 +1,4 @@
 import searchIcon from '../assets/icons/searchIcon.svg'
-import { FollowAPI } from '../../api/withToken/user';
 import * as S from '../common/component/modalStyle'
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -22,8 +21,8 @@ export const Modal = ({onClose, onToggle, data, title, id, me}) => {
         getRefresh
       }=useToken();
     
-    const refreshToken = getRefresh();
-    const accessToken = getAccess();
+    //const refreshToken = getRefresh();
+    //const accessToken = getAccess();
     const deleteFollower = (id) => {
         FollowAPI(id);
     }
