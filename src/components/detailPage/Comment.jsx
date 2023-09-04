@@ -379,6 +379,7 @@ const ProfileSection = styled.div`
   align-items: center;
   width: 100%;
   margin-bottom: 12px;
+  cursor: pointer;
   .profilePic {
     width: 30px;
     height: 30px;
