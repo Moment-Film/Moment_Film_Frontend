@@ -36,7 +36,7 @@ const useToken = () => {
         refreshToken,
         secretKey
       ).toString();
-      await setCookie("refresh", ciphertext);
+      await setCookie("refresh", ciphertext,{ expires: 0 });
 
       const jwtPayload = refreshToken.split(".")[1];
 
@@ -68,7 +68,7 @@ const useToken = () => {
       }, time);
       
     } else {
-      await setCookie("refresh", null);
+      await setCookie("refresh", null,{ expires: 0 });
     }
   };
 
