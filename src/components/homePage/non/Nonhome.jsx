@@ -684,11 +684,18 @@ const ThirdAlign = styled.div`
       padding-bottom:10%;
 
     }
+
+
   }
 
   img {
     width: 100%;
     min-width:500px;
+
+    @media (max-width: 500px) {
+      min-width:300px;
+
+    }
   }
 
 

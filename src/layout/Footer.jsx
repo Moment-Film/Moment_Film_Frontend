@@ -44,6 +44,7 @@ function Footer() {
 
 export default Footer;
 const FooterBox = styled.footer`
+overflow:hidden;
   height: 65px;
   width: 100%;
   background-color: var(--gray1);
