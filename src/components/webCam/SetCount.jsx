@@ -70,7 +70,7 @@ const GridInner = ({ onDrop, imageSrc, width, height, boardIndex, clickFunc }) =
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        cursor: "pointer"
+        cursor: imageSrc===null ? "default":"pointer"
       }}
     >
       {imageSrc && <img style={{width:width}}src={imageSrc} alt="" />}
