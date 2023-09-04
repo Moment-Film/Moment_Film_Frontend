@@ -7,20 +7,12 @@ import useToken from "../hooks/useToken";
 import usePostAPI from "../api/withToken/post";
 
 function PostWritePage() {
+  const { addPost, addFrame, addFilter } = usePostAPI();
 
-  const {
-    addPost,
-    addFrame,
-    addFilter
-  }=usePostAPI();
+  const { getAccess, getRefresh } = useToken();
 
-  const {
-    getAccess,
-    getRefresh,
-  }=useToken();
-
-  const refreshToken = getRefresh()
-  const accessToken = getAccess()
+  const refreshToken = getRefresh();
+  const accessToken = getAccess();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const navigate = useNavigate();
@@ -32,124 +24,128 @@ function PostWritePage() {
 
   //console.log(typeof(resultImg));
   //console.log((resultImg));
-  const filterInfo =useSelector((state)=>state.Filter)  
-  console.log(filterInfo)
+  const filterInfo = useSelector((state) => state.Filter);
+  console.log(filterInfo);
 
-
-  const onSubmitHandler = async() => {
-
+  const onSubmitHandler = async () => {
     ////////////////////////////////////////////////////
     //프레임 등록을 위한 폼데이터 생성
     const FrameForm = new FormData();
     const FrameData = {
       frameName: "good",
-      hue:Frame.hue,
-      saturation:Frame.saturation,
-      lightness:Frame.lightness
+      hue: Frame.hue,
+      saturation: Frame.saturation,
+      lightness: Frame.lightness,
     };
-    console.log(Frame.image)
+    console.log(Frame.image);
 
     // 이슈 블롭객체를 전송하려다 에러가 발생 서버에서는 파일객체를 지정했었음 타입을 잘 blob과 파일 객체에 대한 이해 필요
-    if(Frame.image!==null){
-      const FrameFile = new File([Frame.image], 'test.jpg', { type: 'image/jpeg' });
+    if (Frame.image !== null) {
+      const FrameFile = new File([Frame.image], "test.jpg", {
+        type: "image/jpeg",
+      });
       FrameForm.append("imageFile", FrameFile);
     }
 
-    FrameForm.append("data", new Blob([JSON.stringify(FrameData)], { type: "application/json" }))
+    FrameForm.append(
+      "data",
+      new Blob([JSON.stringify(FrameData)], { type: "application/json" })
+    );
 
-    console.log(FrameForm)
+    console.log(FrameForm);
     ////////////////////////////////////////////////////
 
     const filterId = await addFilter(filterInfo);
     const frameId = await addFrame(FrameForm);
     console.log(FrameData);
-    console.log(filterId)
-    console.log(frameId)
+    console.log(filterId);
+    console.log(frameId);
 
     ////////////////////////////////////////////////////
     // 게시글등록을 위한 폼데이터 생성
     const PostForm = new FormData();
 
     const PostData = {
-      title : title,
-      contents : content,
+      title: title,
+      contents: content,
       filterId,
-      frameId
+      frameId,
     };
 
     // 이슈 블롭객체를 전송하려다 에러가 발생 서버에서는 파일객체를 지정했었음 타입을 잘 blob과 파일 객체에 대한 이해 필요
     const PostFile = new File([resultImg], "test.jpg", { type: "image/jpeg" });
     PostForm.append("imageFile", PostFile);
-    console.log(PostFile)
-    PostForm.append("data", new Blob([JSON.stringify(PostData)], { type: "application/json" }))
- 
+    console.log(PostFile);
+    PostForm.append(
+      "data",
+      new Blob([JSON.stringify(PostData)], { type: "application/json" })
+    );
+
     ////////////////////////////////////////////////////
 
-    
     //게시글 등록
     await addPost(PostForm);
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    /*     setShowModal(true); */
+    alert("게시글이 등록되었습니다!");
     
-//////////////////////////////////////////////////////////////////////////////////////////////
-
-
-/*     setShowModal(true); */
-  alert("게시글이 등록되었습니다!")
-  navigate("/postlist/recent")
-}
-
+    navigate("/postlist/recent");
+  };
 
   return (
     <ViewBody>
-        <WriteForm>
-          <ImgSection>
-            <img src={objectUrl} alt="ResultImage" />
-          </ImgSection>
-          <InputSection>
-            <section>
-              <InputHead>
-                <span>제목</span>
-                <span className="count"
-                  style={{
-                    color:
-                      title.length === 45
-                        ? "var(--warningRed)"
-                        : "var(--gray)",
-                  }}
-                >
-                  {title.length}/45
-                </span>
-              </InputHead>
-              <TitleInput
-                value={title}
-                maxLength={44}
-                placeholder="제목을 입력하세요."
-                onChange={(e) => setTitle(e.target.value)}
-              />
-            </section>
-            <section>
-              <InputHead>
-                <span>본문</span>
-                <span className="count"
-                  style={{
-                    color:
+      <WriteForm>
+        <ImgSection>
+          <img src={objectUrl} alt="ResultImage" />
+        </ImgSection>
+        <InputSection>
+          <section>
+            <InputHead>
+              <span>제목</span>
+              <span
+                className="count"
+                style={{
+                  color:
+                    title.length === 45 ? "var(--warningRed)" : "var(--gray)",
+                }}
+              >
+                {title.length}/45
+              </span>
+            </InputHead>
+            <TitleInput
+              value={title}
+              maxLength={44}
+              placeholder="제목을 입력하세요."
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </section>
+          <section>
+            <InputHead>
+              <span>본문</span>
+              <span
+                className="count"
+                style={{
+                  color:
                     content.length === 500
-                        ? "var(--warningRed)"
-                        : "var(--gray)",
-                  }}
-                >
-                  {content.length}/500
-                </span>
-              </InputHead>
-              <ContentInput
-                value={content}
-                maxLength={500}
-                placeholder="내용을 입력해보세요."
-                onChange={(e) => setContent(e.target.value)}
-              />
-            </section>
-            <SubmitButton onClick={onSubmitHandler}>저장하기</SubmitButton>
-          </InputSection>
-        </WriteForm>
+                      ? "var(--warningRed)"
+                      : "var(--gray)",
+                }}
+              >
+                {content.length}/500
+              </span>
+            </InputHead>
+            <ContentInput
+              value={content}
+              maxLength={500}
+              placeholder="내용을 입력해보세요."
+              onChange={(e) => setContent(e.target.value)}
+            />
+          </section>
+          <SubmitButton onClick={onSubmitHandler}>저장하기</SubmitButton>
+        </InputSection>
+      </WriteForm>
       {/* { showModal && <PointModal />} */}
     </ViewBody>
   );
@@ -215,15 +211,15 @@ const InputSection = styled.div`
       &::placeholder {
         color: var(--gray4);
       }
-      &::-webkit-scrollbar{
+      &::-webkit-scrollbar {
         width: 10px;
       }
-      &::-webkit-scrollbar-thumb{
+      &::-webkit-scrollbar-thumb {
         box-sizing: border-box;
         background-color: var(--green1);
         border: 2px solid var(--green4);
       }
-      &::-webkit-scrollbar-track{
+      &::-webkit-scrollbar-track {
         background-color: var(--whiteGray);
       }
     }
@@ -241,7 +237,7 @@ const InputHead = styled.div`
     color: var(--gray4);
   }
   .count {
-    color: var(--gray)
+    color: var(--gray);
   }
 `;
 const TitleInput = styled.textarea`

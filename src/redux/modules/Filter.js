@@ -3,11 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 // 초기값 설정
 const initialState = {
     filterName: "test",
-    blur:'0',
-    brightness:'0',
-    saturate:'0',
-    contrast:'0',
-    sepia:'0',
+    blur:0,
+    brightness:0,
+    saturate:0,
+    contrast:0,
+    sepia:0,
 };
 
 const FilterSlice = createSlice({

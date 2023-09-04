@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as s from "../frameSelectPage/style";
 // import KakaoShareBtn from '../common/component/KakaoShareBtn'
 import GridNav from "./../frameSelectPage/GridNav";
@@ -17,6 +17,7 @@ const CustomFinish = () => {
   const save=()=>{
       saveAs(reusultImg, "drawing.png")
   }
+
   return (
     <>
       <s.Wrap>

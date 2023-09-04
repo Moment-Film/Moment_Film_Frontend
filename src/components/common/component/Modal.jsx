@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import useToken from '../../../hooks/useToken';
 import useUserAPI from '../../../api/withToken/user';
+import resizeNull from '../../assets/images/resizeNull.png'
 
 export const Modal = ({onClose, onToggle, data, title, id, me}) => {
     const{
@@ -68,7 +69,7 @@ export const Modal = ({onClose, onToggle, data, title, id, me}) => {
                                 <div onClick={()=>{
                                     navigate(`/profile/${follow.id}`)
                                     onClose()}}>
-                                    <img src={null} alt=""/>
+                                    <img src={follow.image ?follow.image :resizeNull} alt=""/>
                                     <span>{follow.username}</span>
                                 </div>
                                 <div>
