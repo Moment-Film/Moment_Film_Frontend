@@ -1,11 +1,11 @@
-import searchIcon from '../../assets/icons/searchIcon.svg'
-import { FollowAPI } from '../../../api/withToken/user';
-import * as S from './modalStyle'
+import searchIcon from '../assets/icons/searchIcon.svg'
+import { FollowAPI } from '../../api/withToken/user';
+import * as S from '../common/component/modalStyle'
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import useToken from '../../../hooks/useToken';
-import useUserAPI from '../../../api/withToken/user';
-import resizeNull from '../../assets/images/resizeNull.png'
+import useToken from '../../hooks/useToken';
+import useUserAPI from '../../api/withToken/user';
+import resizeNull from '../assets/images/resizeNull.png'
 
 export const Modal = ({onClose, onToggle, data, title, id, me}) => {
     const{
@@ -33,7 +33,7 @@ export const Modal = ({onClose, onToggle, data, title, id, me}) => {
     useEffect(()=>{
         if(searchWord.length>0) {
             setIsSearch(true);
-            setThisData(thisData.filter((item)=>item.username.includes(searchWord)));
+            setThisData(thisData.filter((item)=>item.username.toLowerCase().includes(searchWord.toLowerCase())));
         }
         else{
             setIsSearch(false);
