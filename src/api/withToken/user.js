@@ -77,7 +77,6 @@ const useUserAPI = () => {
   // 회원정보 조회 api
   const getPrivateInfo = async () => {
     const res = await userAxios.get(`/api/user/info`);
-    //console.log(res);
     return res;
   };
 
