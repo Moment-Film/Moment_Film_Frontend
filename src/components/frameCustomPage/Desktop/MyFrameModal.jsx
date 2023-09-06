@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
-import useCustomAPI from '../../api/withToken/useCustom';
-import { SetImgFile } from '../../redux/modules/FrameInfo';
+import useCustomAPI from '../../../api/withToken/useCustom';
+import { SetImgFile } from '../../../redux/modules/FrameInfo';
 import { useDispatch } from 'react-redux';
 function MyFrameModal({ onClose, data, title, accessToken, refreshToken, onApply }) {
   const {

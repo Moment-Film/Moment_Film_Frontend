@@ -25,7 +25,7 @@ import {
   Verify,
   SaveBtn,
 } from "./profileEditStyle";
-import * as a from "../frameCustomPage/style";
+import * as a from "../frameCustomPage/Desktop/style";
 import cancel from "../assets/icons/cancelx2.png";
 import user from "../assets/icons/userName.svg";
 import lock from "../assets/icons/lock.svg";

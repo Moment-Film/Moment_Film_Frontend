@@ -264,7 +264,6 @@ const DrawSection = styled.div`
 `;
 const LeftBox = styled.div`
   height: 863px;
-  width: 60%;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -1,21 +1,21 @@
 import React, { useEffect } from "react";
-import * as a from "./style";
+import * as a from  './style';
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 
-import GridNav from "../frameSelectPage/GridNav";
+import GridNav from "../../frameSelectPage/GridNav";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import domtoimage from "dom-to-image";
-import { SetResultImage } from "../../redux/modules/ResultImage";
-import { SetFilter } from "../../redux/modules/Filter";
-import StyledButton from "../common/component/StyledButton";
-import LOGO from "../assets/images/LOGO.svg";
+import { SetResultImage } from "../../../redux/modules/ResultImage";
+import { SetFilter } from "../../../redux/modules/Filter";
+import StyledButton from "../../common/component/StyledButton";
+import LOGO from "../../assets/images/LOGO.svg";
 
-import * as Img from "../assets/filter/Image";
+import * as Img from "../../assets/filter/Image";
 
 const FilterCustom = () => {
   const picRef = useRef();

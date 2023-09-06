@@ -13,7 +13,7 @@ import FrameSelectPage from './pages/FrameSelectPage';
 import FilterPage from './pages/FilterPage';
 import { Route, Routes } from 'react-router-dom';
 import Globalstyles from './globalStyle/GlobalStyle';
-import CustomMakePage from './pages/CustomMakePage';
+import FrameCustomPage from './pages/FrameCustomPage';
 import CustomFinishPage from './pages/CustomFinishPage';
 import PostWritePage from './pages/PostWritePage';
 import PrivateRoute from './layout/PrivateRoute'
@@ -37,7 +37,7 @@ function App() {
           <Route path='/camera/capture' element={<CameraPage />} />
           <Route path='/camera/capture/option' element={<CameraOptionPage />} />
           <Route path='/camera/capture/filter' element={<FilterPage />} />
-          <Route path='/camera/capture/frame' element={<CustomMakePage />} />
+          <Route path='/camera/capture/frame' element={<FrameCustomPage />} />
           <Route path='/camera/capture/finish' element={<CustomFinishPage />} />
           <Route path="/search/reseult/:id" element={<SearchReseultpage />} />
           <Route path="/signup" element={<SignUpPage />} />

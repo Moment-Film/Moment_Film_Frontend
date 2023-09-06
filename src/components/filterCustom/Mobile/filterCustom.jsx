@@ -1,21 +1,21 @@
 import React, { useEffect } from "react";
-import * as a from  '../Desktop/style';
+import * as a from  './style';
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 
-import GridNav from "../frameSelectPage/GridNav";
+import GridNav from "../../frameSelectPage/GridNav";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import domtoimage from "dom-to-image";
-import { SetResultImage } from "../../redux/modules/ResultImage";
-import { SetFilter } from "../../redux/modules/Filter";
-import StyledButton from "../common/component/StyledButton";
-import LOGO from "../assets/images/LOGO.svg";
+import { SetResultImage } from "../../../redux/modules/ResultImage";
+import { SetFilter } from "../../../redux/modules/Filter";
+import StyledButton from "../../common/component/StyledButton";
+import LOGO from "../../assets/images/LOGO.svg";
 
-import * as Img from "../assets/filter/Image";
+import * as Img from "../../assets/filter/Image";
 
 const FilterCustom = () => {
   const picRef = useRef();
@@ -257,25 +257,24 @@ const WhiteContainer = styled.div`
 const DrawSection = styled.div`
   display: flex;
 
-  @media (max-width: 400px) {
+  @media (max-width: 500px) {
     flex-direction: column;
     align-items: center;
   }
 `;
 const LeftBox = styled.div`
-  height: 863px;
-  width: 60%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--lightGray);
+  margin-top:20px;
+  margin-bottom:20px;
 `;
 const RightBox = styled.div`
   display: flex;
-  padding-top: 81.5px;
+  padding-top: 30px;
   justify-content: center;
   gap: 10px;
-  width: 40%;
+  width: 100%;
 
   background-color: white;
 

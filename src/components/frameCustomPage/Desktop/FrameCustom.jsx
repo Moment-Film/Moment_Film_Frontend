@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import * as a from "./style";
-import GridNav from "../frameSelectPage/GridNav";
-import StyledButton from "../common/component/StyledButton";
-import { SetFrame } from "../../redux/modules/FrameInfo";
-import upload from "../assets/icons/upload.svg";
-import clear from "../assets/images/clear.png";
+import GridNav from "../../frameSelectPage/GridNav";
+import StyledButton from "../../common/component/StyledButton";
+import { SetFrame } from "../../../redux/modules/FrameInfo";
+import upload from "../../assets/icons/upload.svg";
+import clear from "../../assets/images/clear.png";
 import {
   HueSlider,
   SaturationSlider,
@@ -16,26 +16,23 @@ import { useState } from "react";
 import { useRef } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { SetBackgroundImg } from "../../redux/modules/FrameInfo";
+import { SetBackgroundImg } from "../../../redux/modules/FrameInfo";
 
 import {
   StyledSpan14,
   StyledSpan12,
   StyledSpan16,
-} from "../common/styles/StyledSpan";
+} from "../../common/styles/StyledSpan";
 
 import MyFrameModal from "./MyFrameModal";
 import { useQuery } from "react-query";
-import { SetImgFile } from "../../redux/modules/FrameInfo";
-import useToken from "../../hooks/useToken";
-import usePostAPI from "../../api/withToken/post";
+import { SetImgFile } from "../../../redux/modules/FrameInfo";
+import useToken from "../../../hooks/useToken";
+import usePostAPI from "../../../api/withToken/post";
 import { useEffect } from "react";
-import useCustomAPI from "../../api/withToken/useCustom";
-import hueImg from "../assets/icons/hue.png";
-import saturationImg from "../assets/icons/saturation.png";
-import lightnessImg from "../assets/icons/lightness.png";
-import LOGO from "../assets/images/LOGO.svg";
-import * as Img from "../assets/frame/Image";
+import useCustomAPI from "../../../api/withToken/useCustom";
+import LOGO from "../../assets/images/LOGO.svg";
+import * as Img from "../../assets/frame/Image";
 
 const FrameCustomMake = () => {
   const { applyFrame, applyFilter } = useCustomAPI();
@@ -384,10 +381,7 @@ const WhiteContainer = styled.div`
 const DrawSection = styled.div`
   display: flex;
 
-  @media (max-width: 400px) {
-    flex-direction: column;
-    align-items: center;
-  }
+
 `;
 const LeftBox = styled.div`
   height: 863px;
