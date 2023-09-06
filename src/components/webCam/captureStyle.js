@@ -56,7 +56,7 @@ export const VideoSection = styled.section`
   width: 100%;
   height: 356px;
   background-color: var(--gray4);
-  @media (max-width: 770px) {
+  @media (max-width: 870px) {
     ${({gridId})=>gridId==='wide'&&css`
       img{
         width: 100%;
@@ -71,14 +71,14 @@ export const VideoSection = styled.section`
     `}
   }
   @media (max-width: 302px) {
-    ${({gridId})=>gridId==='down'&&css`
+    ${({gridId})=>gridId==='up'&&css`
       img{
         width: 100%;
       }
     `}
   }
   @media (max-width: 285px) {
-    ${({gridId})=>gridId==='up'&&css`
+    ${({gridId})=>gridId==='down'&&css`
       img{
         width: 100%;
       }

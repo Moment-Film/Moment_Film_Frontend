@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { Modal } from "../common/component/Modal";
+import { Modal } from "./Modal";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import Edit from "../assets/icons/Edit.png";
