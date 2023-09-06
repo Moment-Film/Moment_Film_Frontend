@@ -73,7 +73,7 @@ const MyPageUserData = ({ lang, data }) => {
               <>
                 <div className="item-1">
                   <StyledBoldSpan24>{data.username}</StyledBoldSpan24>
-                  <span className="point">0P</span>
+                  {/* <span className="point">0P</span> */}
                 </div>
 
                 <div className="item-2">
@@ -83,7 +83,6 @@ const MyPageUserData = ({ lang, data }) => {
                   </div>
                   <div className="option">
                     <LogoutBtn />
-                    <img src={logoutIcon} alt="" />
                   </div>
                 </div>
               </>
