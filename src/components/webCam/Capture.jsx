@@ -80,8 +80,6 @@ function Capture() {
       setIsFliped(!isFliped);
     }
     context.drawImage(videoRef.current, 0, 0, thisGrid.innerWidth, thisGrid.innerHeight);
-    
-    console.log(cameraFlip, isFliped);
     localStorage.setItem(
       `image${index}`,
       canvas.toDataURL("image/png")
