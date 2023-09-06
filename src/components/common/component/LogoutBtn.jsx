@@ -6,6 +6,7 @@ import { styled } from "styled-components";
 import useToken from "../../../hooks/useToken";
 import useAuthAPI from "../../../api/nonToken/auth";
 import { SetUserInfo } from "../../../redux/modules/User";
+import goOut from '../../assets/icons/goOut.svg';
 
 const LogoutBtn = () => {
   const { LogOutAPI } = useAuthAPI();
@@ -29,7 +30,7 @@ const LogoutBtn = () => {
       navigate("/");
     }
   };
-  return <button onClick={LogOut} color={"#505050"}>로그아웃</button>;
+  return <button style={{display:"flex", alignItems: "center", gap: "5px"}} onClick={LogOut} color={"#505050"}>로그아웃<img src={goOut} alt=""/></button>;
 };
 
 export default LogoutBtn;

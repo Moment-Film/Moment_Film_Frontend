@@ -83,7 +83,6 @@ const MyPageUserData = ({ lang, data }) => {
                   </div>
                   <div className="option">
                     <LogoutBtn />
-                    <img src={logoutIcon} alt="" />
                   </div>
                 </div>
               </>
