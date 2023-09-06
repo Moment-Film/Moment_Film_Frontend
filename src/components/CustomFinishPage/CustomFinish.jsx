@@ -36,7 +36,7 @@ const CustomFinish = () => {
                 <BtnWrap>
                   <button className="down" onClick={save}>이미지 다운로드</button>
                   <button className="up" onClick={()=>navigate('write')}>게시글 등록</button>
-                  <Point src={point} alt="point"></Point>
+                  {/* <Point src={point} alt="point"></Point> */}
                 </BtnWrap>
               </ImgWrap>
             </ContentWrap>

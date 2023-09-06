@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { Modal } from "../common/component/Modal";
+import { Modal } from "./Modal";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import Edit from "../assets/icons/Edit.png";
@@ -73,7 +73,7 @@ const MyPageUserData = ({ lang, data }) => {
               <>
                 <div className="item-1">
                   <StyledBoldSpan24>{data.username}</StyledBoldSpan24>
-                  <span className="point">0P</span>
+                  {/* <span className="point">0P</span> */}
                 </div>
 
                 <div className="item-2">
@@ -83,7 +83,6 @@ const MyPageUserData = ({ lang, data }) => {
                   </div>
                   <div className="option">
                     <LogoutBtn />
-                    <img src={logoutIcon} alt="" />
                   </div>
                 </div>
               </>

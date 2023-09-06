@@ -16,7 +16,7 @@ import * as C from './captureStyle';
 import { useSelector } from 'react-redux';
 import LOGO from '../assets/images/LOGO.svg'
 
-const ImagePiece = ({ imageSrc, onDrop, isPlaced, width, height }) => {
+const ImagePiece = ({ imageSrc, onDrop, isPlaced, clickFunc , index}) => {
   const [{ isDragging }, dragRef] = useDrag({
     type: 'imagePiece',
     item: { imageSrc },
@@ -29,6 +29,7 @@ const ImagePiece = ({ imageSrc, onDrop, isPlaced, width, height }) => {
     <div
       ref={dragRef}
       alt=""
+      onClick={()=>clickFunc(index)}
       style={{
         cursor: "pointer",
         width: "153.2px",
@@ -46,7 +47,7 @@ const ImagePiece = ({ imageSrc, onDrop, isPlaced, width, height }) => {
   );
 };
 
-const GridInner = ({ onDrop, imageSrc, width, height }) => {
+const GridInner = ({ onDrop, imageSrc, width, height, boardIndex, clickFunc }) => {
   const [{ canDrop, isOver }, dropRef] = useDrop({
     accept: 'imagePiece',
     drop: (item, monitor) => {
@@ -61,6 +62,7 @@ const GridInner = ({ onDrop, imageSrc, width, height }) => {
   return (
     <div
       ref={dropRef}
+      onClick={()=>clickFunc(boardIndex)}
       style={{
         width: width,
         height: height,
@@ -68,6 +70,7 @@ const GridInner = ({ onDrop, imageSrc, width, height }) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        cursor: imageSrc===null ? "default":"pointer"
       }}
     >
       {imageSrc && <img style={{width:width}}src={imageSrc} alt="" />}
@@ -140,6 +143,23 @@ const SetCount = () => {
     setBoardImages(newBoardImages);
   };
 
+  const setImageClick = (imageIndex) => {
+    if(setImage<4){
+      let currentBoard = [...boardImages];
+      currentBoard[setImage] = capturedImages[imageIndex];
+      setBoardImages(currentBoard);
+      setSetImage(setImage+1);
+    }
+  }
+  const resetImageClick = (index) => {
+    if(boardImages[index]!==null){
+      let currentBoard = [...boardImages];
+      currentBoard[index] = null;
+      setBoardImages(currentBoard);
+      setSetImage(setImage-1);
+    }
+  }
+
   return (
     <DndProvider backend={isTouchDevice ? TouchBackend : HTML5Backend}>
       <C.MainBody>
@@ -156,6 +176,8 @@ const SetCount = () => {
           {boardImages.map((imageSrc, index) => (
             <GridInner
               key={index}
+              clickFunc={resetImageClick}
+              boardIndex={index}
               onDrop={(imgSrc) => handleDrop(imgSrc, index)}
               imageSrc={imageSrc}
               width={thisGrid.innerWidth}
@@ -168,7 +190,7 @@ const SetCount = () => {
             <C.PreviewSlider style={{padding:0, margin:0}}ref={slideRef}>
               {capturedImages.map((item,index)=>{
                 return (
-                  <ImagePiece key={index} width={thisGrid.innerWidth} height={thisGrid.innerHeight} imageSrc={item} isPlaced={boardImages.includes(item)}/>
+                  <ImagePiece clickFunc={setImageClick} key={index} index={index} imageSrc={item} isPlaced={boardImages.includes(item)}/>
               )})}
             </C.PreviewSlider>
           </C.PreviewSection>
