@@ -183,6 +183,7 @@ const RecommendItem = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0 20px 0 10px;
+  cursor: pointer;
 
   .popularWrap {
     display: flex;
@@ -247,6 +248,7 @@ const RecentTerm = styled.div`
   border-radius: 30px;
   padding: 5px 10px;
   margin-bottom: 20px;
+  cursor: pointer;
 
   img {
     width: 10px;
