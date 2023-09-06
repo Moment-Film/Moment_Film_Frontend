@@ -84,6 +84,8 @@ const ContentsWrap = styled.div`
 `;
 
 const FooterTitle = styled.section`
+cursor: pointer;
+
   @media (max-width: 700px) {
     padding: 0;
   }
