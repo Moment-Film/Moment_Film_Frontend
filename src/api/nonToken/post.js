@@ -23,6 +23,6 @@ export const getAllPosts = async ({sort,page}) => {
 
   export const getPostDetail = async (postId) => {
     const response = await axios.get(`/api/post/${postId}`);
-    //console.log(response.data)
+    console.log(response.data)
     return response.data.data;
   }

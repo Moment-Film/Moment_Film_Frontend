@@ -7,6 +7,7 @@ import listView from '../../assets/icons/listView.svg'
 
 const ContentBox = ({ data, type }) => {
     const navigate = useNavigate();
+    console.log(data);
     const Card = ({ item }) => {
         return (
             <ContentsItem onClick={() => navigate(`/post/${item.id}`)}>
