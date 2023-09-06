@@ -21,6 +21,12 @@ function Footer() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  const handleMouseDown = (event) => {
+    if (event.button === 1) {
+      window.open('https://www.momentfilm7.com/', '_blank');
+    }
+  };
+
   return (
     <FooterBox>
       <ContentsWrap>
@@ -34,7 +40,7 @@ function Footer() {
           <div onClick={() => alert("준비 중인 기능입니다.")}>Instagram</div>
         </section>
 
-        <FooterTitle onClick={navigateToMainHandler}>
+        <FooterTitle onClick={navigateToMainHandler} onMouseDown={handleMouseDown}>
           <img src={FooterLogo} alt="" />
         </FooterTitle>
 
