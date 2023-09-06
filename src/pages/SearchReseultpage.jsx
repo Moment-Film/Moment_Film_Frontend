@@ -1,9 +1,11 @@
-import React from 'react'
+import React from "react";
+import SearchReseult from "../components/searchResultPage/SearchResult";
 
 function SearchReseultpage() {
+
   return (
-    <div>SearchReseultpage</div>
-  )
+    <SearchReseult />
+  );
 }
 
-export default SearchReseultpage
+export default SearchReseultpage;

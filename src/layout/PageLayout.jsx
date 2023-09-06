@@ -1,8 +1,16 @@
 import React from 'react'
-
+import { Outlet } from 'react-router-dom'
+import Header from './Header';
+import Footer from './Footer';
+import UpToBtn from '../components/common/component/UpToBtn';
 function PageLayout() {
   return (
-    <div>PageLayout</div>
+    <>
+    <Header />
+    <Outlet />
+    <UpToBtn></UpToBtn>
+    <Footer />
+    </>
   )
 }
 
