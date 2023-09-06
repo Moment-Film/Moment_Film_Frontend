@@ -24,9 +24,9 @@ function Footer() {
           <div>
             <span />
           </div>
-          <div onClick={() => redirectTo(URLs.DISCORD)}>Discord</div>
+          <div onClick={() => alert("준비 중인 기능입니다.")}>Discord</div>
           <div onClick={() => redirectTo(URLs.EMAIL)}>E-mail</div>
-          <div onClick={() => redirectTo(URLs.INSTAGRAM)}>Instagram</div>
+          <div onClick={() => alert("준비 중인 기능입니다.")}>Instagram</div>
         </section>
 
         <FooterTitle onClick={() => navigate(`/`)}>
