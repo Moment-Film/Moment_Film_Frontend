@@ -123,6 +123,7 @@ const SearchInputDiv = styled.div`
     align-items: center;
     .img {
       width: 19px;
+      cursor: pointer;
     }
   }
   input {

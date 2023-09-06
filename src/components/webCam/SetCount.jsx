@@ -197,7 +197,7 @@ const SetCount = () => {
       </GridContainer>
       </C.Body>
       <StyledButton func={finishButtonHandler} title={"완료하기"} width={'130px'} height={'49px'} fontSize={'16px'} />
-      <S.StyledSpan16 style={{lineHeight: "16px", margin:"0", }}
+      <S.StyledSpan16 className="reset"
         onClick={()=>{
           setBoardImages(Array(4).fill(null))
           setSetImage(0);

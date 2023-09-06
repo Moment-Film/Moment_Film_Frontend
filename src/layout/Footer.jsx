@@ -16,6 +16,11 @@ function Footer() {
     window.location.href = url;
   };
 
+  const navigateToMainHandler = () => {
+    navigate(`/`);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   return (
     <FooterBox>
       <ContentsWrap>
@@ -29,7 +34,7 @@ function Footer() {
           <div onClick={() => alert("준비 중인 기능입니다.")}>Instagram</div>
         </section>
 
-        <FooterTitle onClick={() => navigate(`/`)}>
+        <FooterTitle onClick={navigateToMainHandler}>
           <img src={FooterLogo} alt="" />
         </FooterTitle>
 
@@ -84,6 +89,8 @@ const ContentsWrap = styled.div`
 `;
 
 const FooterTitle = styled.section`
+cursor: pointer;
+
   @media (max-width: 700px) {
     padding: 0;
   }
