@@ -9,7 +9,7 @@ export const MainBody = styled.div`
   width: 1170px;
   overflow: hidden;
   padding-bottom: 121px;
-  span {
+  .reset {
     cursor: pointer;
     &:hover {
       color: var(--warningRed);

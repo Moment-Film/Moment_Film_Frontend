@@ -187,6 +187,7 @@ const FollowBtn = styled.button`
 const NameSection = styled.div`
   display: flex;
   justify-content: space-between;
+
   .item-1 {
     display: flex;
     gap: 10px;
@@ -218,6 +219,7 @@ const NameSection = styled.div`
       align-items: center;
       padding-bottom: 30px;
       gap: 5px;
+      
       button {
         font-size: 14px;
         border: none;
