@@ -183,7 +183,6 @@ const RecommendItem = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0 20px 0 10px;
-  cursor: pointer;
 
   .popularWrap {
     display: flex;
@@ -203,6 +202,7 @@ const RecommendItem = styled.div`
       font-weight: 500;
       display: flex;
       gap: 5px;
+      cursor: pointer;
     }
   }
 
