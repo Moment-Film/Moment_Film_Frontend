@@ -21,6 +21,7 @@ import RedirectPage from './pages/RedirectPage';
 
 import DrawPage from './pages/DrawPage';
 import Test from './pages/Test';
+
 function App() {
   return (
     <>

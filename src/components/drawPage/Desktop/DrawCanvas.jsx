@@ -49,7 +49,7 @@ const DrawCanvas = ({width,height,color,eraser,penWeight,mode}) => {
 
 
   const handleTouchDraw = (e) => {
-    e.preventDefault();
+   
     if (e.touches.length === 1) {
       const touch = e.touches[0];
       const canvas = drawingCanvasRef.current;

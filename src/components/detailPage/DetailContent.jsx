@@ -20,14 +20,14 @@ import view from "../assets/icons/view.svg";
 import dots from "../assets/icons/dots.svg";
 import selectTrue from "../assets/images/selectTrue.svg";
 import selectFalse from "../assets/images/selectFalse.svg";
-import resizeNull from '../assets/images/resizeNull.png'
+import resizeNull from "../assets/images/resizeNull.png";
 import { ReactComponent as HeartOff } from "../assets/icons/svgHeartOff.svg";
 import { ReactComponent as HeartOn } from "../assets/icons/svgHeartOn.svg";
+import { SetBackgroundImg } from "../../redux/modules/FrameInfo";
+import { SetImgFile } from "../../redux/modules/FrameInfo";
 
 const DetailContent = ({ data }) => {
-    const {
-    handleDownload
-  } = useDownLoad()
+  const { handleDownload } = useDownLoad();
 
   const { applyFrame, applyFilter } = useCustomAPI();
 
@@ -67,7 +67,7 @@ const DetailContent = ({ data }) => {
 
   const deleteHandler = async () => {
     const deleteSure = window.confirm("게시글을 삭제하시겠습니까?");
-    if (deleteSure){   
+    if (deleteSure) {
       await deletePost(data.id);
       navigate(-1);
     }
@@ -87,14 +87,12 @@ const DetailContent = ({ data }) => {
     },
   });
 
-
-/*   useEffect(() => {
+  /*   useEffect(() => {
     if (selectFrame)
       alert(
         "프레임 이미지는 사용하기 시 이미지가 다운로드됩니다.\n프레임을 첨부해서 사용해주세요.\n (자동 사용은 업데이트 예정)"
       );
   }, [selectFrame]); */
-
 
   // api 동작이 들어있는 함수
   // const postLikeHandler = () => {
@@ -119,36 +117,43 @@ const DetailContent = ({ data }) => {
 
     if (!(selectFrame || selectFilter)) {
       alert("사용해 볼 커스텀이 선택되지 않았습니다.");
-    }
-    else if (accessToken === null) {
+    } else if (accessToken === null) {
       alert("로그인이 필요합니다.");
       navigate("/login");
     } else {
-
       if (selectFilter) {
         const filterId = data.filterId;
         applyFilter({ filterId, accessToken, refreshToken }).then((filter) => {
           //console.log(filter);
-          const {id,...other}=filter;
+          const { id, ...other } = filter;
           console.log(other);
-           dispatch(SetFilter(other));
+          dispatch(SetFilter(other));
         });
       }
-
 
       if (selectFrame) {
         const frameId = data.frameId;
         applyFrame({ frameId, accessToken, refreshToken }).then(
           async (frame) => {
-            //console.log(frame);
+            console.log(frame);
             dispatch(SetFrame(frame));
-/*             handleDownload(frame.image, 'test') 
- */          }
+
+            if (frame.image) {
+              fetch(frame.image)
+                .then((response) => response.blob())
+                .then((blob) => {
+                  dispatch(SetBackgroundImg(URL.createObjectURL(blob)));
+                  dispatch(SetImgFile(blob));
+                })
+                .catch((error) => {
+                  console.error("Error fetching or processing image:", error);
+                });
+            }
+          }
         );
       }
 
-
-       navigate("/camera/frameSelect"); 
+       navigate("/camera/frameSelect");
     }
   };
   const [modalOpen, setModalOpen] = useState(false);
@@ -165,11 +170,11 @@ const DetailContent = ({ data }) => {
           {modalOpen && (
             <OptionModal>
               {Number(userInfo.sub) === data.userId && (
-                <span onClick={deleteHandler} className="delete">게시글 삭제</span>
+                <span onClick={deleteHandler} className="delete">
+                  게시글 삭제
+                </span>
               )}
-              <div>
-                
-              </div>
+              <div></div>
               <span>공유하기</span>
               <div>
                 <KakaoShareBtn path={path} data={data}></KakaoShareBtn>
@@ -193,8 +198,11 @@ const DetailContent = ({ data }) => {
                 <img src={dots} alt="" />
               </button>
             </div>
-            <div className="writer" onClick={()=>navigate(`/profile/${data.userId}`)}>
-              <img src={data.userImage?data.userImage:resizeNull} alt="" />
+            <div
+              className="writer"
+              onClick={() => navigate(`/profile/${data.userId}`)}
+            >
+              <img src={data.userImage ? data.userImage : resizeNull} alt="" />
               <span>{data.username}</span>
             </div>
             <div className="title">
@@ -256,7 +264,7 @@ const DetailContents = styled.div`
   background-color: var(--whiteGray);
   border-top: 2px solid var(--lightGray);
   border-bottom: 2px solid var(--lightGray);
-  
+
   @media (max-width: 770px) {
     height: 1400px;
   }
@@ -367,7 +375,7 @@ const TextDiv = styled.div`
     width: 100%;
     height: 126px;
     margin-bottom: 24px;
-    span{
+    span {
       font-size: 15px;
       color: var(--gray5);
       white-space: pre-wrap;
@@ -404,7 +412,7 @@ const UseActionsDiv = styled.div`
     color: var(--green6);
     font-size: 14px;
     font-weight: 500;
-    cursor:pointer;
+    cursor: pointer;
   }
 `;
 const Action = styled.div`
@@ -416,7 +424,7 @@ const Action = styled.div`
   box-sizing: border-box;
   padding: 0 10px 0 20px;
   height: 38px;
-  border: ${({ $bg }) => $bg ? "2px solid" : "1px solid"};
+  border: ${({ $bg }) => ($bg ? "2px solid" : "1px solid")};
   border-radius: 5px;
   font-size: 14px;
   span {

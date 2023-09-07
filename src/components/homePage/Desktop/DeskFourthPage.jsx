@@ -106,7 +106,6 @@ export default DeskFourthPage;
 
 const PageSection = styled.div`
   min-width: 1366px;
-  max-width: 1920px;
   height: 1920px;
   display: flex;
   justify-content: center;

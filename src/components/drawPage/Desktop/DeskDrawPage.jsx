@@ -46,8 +46,8 @@ function DrawPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const objectUrl = URL.createObjectURL(thisbackGround);
-
+  /*   const objectUrl = URL.createObjectURL(thisbackGround);
+   */
   /////////////////////////////////////////////////////////////
   const [isScrollLocked, setIsScrollLocked] = useState(false);
 
@@ -116,7 +116,9 @@ function DrawPage() {
     try {
       const card = canvasRef.current;
       domtoimage.toBlob(card).then((imageFile) => {
-        dispatch(SetResultImage(imageFile));
+        var objectURL = URL.createObjectURL(imageFile);
+
+        dispatch(SetResultImage(objectURL));
         //console.log(imageFile);
         navigate("/camera/capture/finish");
       });
@@ -135,7 +137,9 @@ function DrawPage() {
               style={{ display: "flex", position: "relative" }}
               ref={canvasRef}
             >
-              <img src={objectUrl} style={{ border: "1px blue" }} />
+              {thisbackGround && (
+                <img src={thisbackGround} style={{ border: "1px blue" }} />
+              )}
 
               <DrawCanvas
                 width={FrameSize.width}

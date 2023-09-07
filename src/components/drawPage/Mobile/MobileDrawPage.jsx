@@ -46,7 +46,7 @@ function DrawPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const objectUrl = URL.createObjectURL(thisbackGround);
+  /*   const objectUrl = URL.createObjectURL(thisbackGround); */
 
   /////////////////////////////////////////////////////////////
   const [isScrollLocked, setIsScrollLocked] = useState(false);
@@ -143,7 +143,9 @@ function DrawPage() {
               style={{ display: "flex", position: "relative" }}
               ref={canvasRef}
             >
-              <img src={objectUrl} style={{ border: "1px blue" }} />
+              {thisbackGround && (
+                <img src={thisbackGround} style={{ border: "1px blue" }} />
+              )}
 
               <DrawCanvas
                 width={FrameSize.width}
@@ -373,7 +375,7 @@ export default DrawPage;
 
 export const DrawSection = styled.div`
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
 `;
 
 export const LeftBox = styled.div`

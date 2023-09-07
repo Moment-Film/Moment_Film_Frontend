@@ -73,8 +73,18 @@ const FrameCustomMake = () => {
     localStorage.getItem(`image3`),
   ]);
 
-  const changeColorHandler = (newColor) => {
-    setColor(newColor);
+  const changeColorHandler = async (newColor) => {
+    await setColor(newColor);
+    // setColor 함수의 콜백 함수 내에서 colorData를 업데이트합니다.
+    setColor((prevColor) => {
+      const colorData = {
+        hue: prevColor.h,
+        saturation: prevColor.s,
+        lightness: prevColor.l,
+      };
+      dispatch(SetFrame(colorData));
+      return prevColor;
+    });
   };
 
   const imageChangeHandler = async (e) => {
@@ -83,6 +93,7 @@ const FrameCustomMake = () => {
       const file = input.files[0];
       const blob = new Blob([file], { type: file.type });
 
+      dispatch(SetBackgroundImg(URL.createObjectURL(blob)));
       setFrameImg(URL.createObjectURL(blob));
       setUploadedImg(file.name);
       await dispatch(SetImgFile(blob));
@@ -97,8 +108,8 @@ const FrameCustomMake = () => {
   const moveBtnHandler = async () => {
     const colorData = { hue: color.h, saturation: color.s, lightness: color.l };
     await dispatch(SetFrame(colorData));
-    (await frameImg) && dispatch(SetBackgroundImg(frameImg));
-    navigate("/camera/capture/filter");
+    /*     (await frameImg) && dispatch(SetBackgroundImg(frameImg));
+     */ navigate("/camera/capture/filter");
   };
 
   const openModalHandler = () => {
@@ -118,22 +129,24 @@ const FrameCustomMake = () => {
   };
 
   useEffect(() => {
-    if (frame) {
-      fetch(frame.image)
+    if (frame.imageUrl) {
+      fetch(frame.imageUrl)
         .then((response) => response.blob())
         .then((blob) => {
+          dispatch(SetBackgroundImg(URL.createObjectURL(blob)));
           dispatch(SetImgFile(blob));
-          applyFrameBackground(
-            frame.hue,
-            frame.saturation,
-            frame.lightness,
-            frame.image
-          );
         })
         .catch((error) => {
           console.error("Error fetching or processing image:", error);
         });
     }
+
+    applyFrameBackground(
+      frame.hue,
+      frame.saturation,
+      frame.lightness,
+      frame.image
+    );
   }, []);
 
   return (
@@ -146,7 +159,7 @@ const FrameCustomMake = () => {
               width={thisGrid.width}
               $bottomText={thisGrid.id === "narrow" || thisGrid.id === "wide"}
               color={color}
-              $frameImg={frameImg}
+              $frameImg={frame.imageUrl}
               gap={thisGrid.gap}
             >
               <img
@@ -262,7 +275,6 @@ const FrameCustomMake = () => {
                         </a.ImgDeleteBtn>
                       </>
                     ) : (
-
                       <label htmlFor="fileInput">
                         <a.UploadedImg color="var(--gray)">
                           이미지 불러오기
@@ -380,8 +392,6 @@ const WhiteContainer = styled.div`
 `;
 const DrawSection = styled.div`
   display: flex;
-
-
 `;
 const LeftBox = styled.div`
   height: 863px;

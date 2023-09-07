@@ -7,16 +7,16 @@ import point from "../assets/images/point.svg";
 import { useSelector } from "react-redux";
 import { redirect, useNavigate } from "react-router";
 import { saveAs } from "file-saver";
-import finishBG from '../assets/images/finishBG.jpg'
+import finishBG from "../assets/images/finishBG.jpg";
 
 const CustomFinish = () => {
   const navigate = useNavigate();
   const reusultImg = useSelector((state) => state.ResultImage);
-  var objectURL = window.URL.createObjectURL(reusultImg);
+  /*   var objectURL = window.URL.createObjectURL(reusultImg); */
 
-  const save=()=>{
-      saveAs(reusultImg, "drawing.png")
-  }
+  const save = () => {
+    saveAs(reusultImg, "drawing.png");
+  };
 
   return (
     <>
@@ -32,10 +32,18 @@ const CustomFinish = () => {
                 </span>
               </TextWrap>
               <ImgWrap>
-                <CustomImg><img src={objectURL} alt="" /></CustomImg>
+                <CustomImg>
+                  {reusultImg && (
+                    <img src={reusultImg} style={{ border: "1px blue" }} />
+                  )}
+                </CustomImg>
                 <BtnWrap>
-                  <button className="down" onClick={save}>이미지 다운로드</button>
-                  <button className="up" onClick={()=>navigate('write')}>게시글 등록</button>
+                  <button className="down" onClick={save}>
+                    이미지 다운로드
+                  </button>
+                  <button className="up" onClick={() => navigate("write")}>
+                    게시글 등록
+                  </button>
                   {/* <Point src={point} alt="point"></Point> */}
                 </BtnWrap>
               </ImgWrap>
@@ -94,7 +102,7 @@ const CustomImg = styled.div`
   height: 446px;
   border-radius: 5px;
   margin-bottom: 42px;
-  box-shadow: 0 0 40px rgba(0,0,0,0.1);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
 `;
 
 const BtnWrap = styled.div`
@@ -118,6 +126,6 @@ const BtnWrap = styled.div`
     background-color: var(--green1);
   }
   .up {
-    background-color: #CBE7A1;
+    background-color: #cbe7a1;
   }
 `;

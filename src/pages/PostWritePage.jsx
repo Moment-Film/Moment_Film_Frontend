@@ -5,9 +5,12 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import useToken from "../hooks/useToken";
 import usePostAPI from "../api/withToken/post";
+import { useMutation } from "react-query";
+import { useQueryClient } from "react-query";
 
 function PostWritePage() {
   const { addPost, addFrame, addFilter } = usePostAPI();
+  const queryClient = useQueryClient();
 
   const { getAccess, getRefresh } = useToken();
 
@@ -20,12 +23,18 @@ function PostWritePage() {
   const resultImg = useSelector((state) => state.ResultImage);
   const Frame = useSelector((state) => state.FrameInfo);
 
-  const objectUrl = URL.createObjectURL(resultImg);
-
-  //console.log(typeof(resultImg));
-  //console.log((resultImg));
   const filterInfo = useSelector((state) => state.Filter);
-  console.log(filterInfo);
+
+  const AddPostMutation = useMutation(addPost, {
+    onSuccess: (response) => {
+      {
+        queryClient.invalidateQueries([`postrecent1`]);
+      }
+    },
+    onError: (error) => {
+      alert("에러");
+    },
+  });
 
   const onSubmitHandler = async () => {
     ////////////////////////////////////////////////////
@@ -62,6 +71,8 @@ function PostWritePage() {
     console.log(frameId);
 
     ////////////////////////////////////////////////////
+      //게시글 등록
+
     // 게시글등록을 위한 폼데이터 생성
     const PostForm = new FormData();
 
@@ -73,33 +84,50 @@ function PostWritePage() {
     };
 
     // 이슈 블롭객체를 전송하려다 에러가 발생 서버에서는 파일객체를 지정했었음 타입을 잘 blob과 파일 객체에 대한 이해 필요
-    const PostFile = new File([resultImg], "test.jpg", { type: "image/jpeg" });
-    PostForm.append("imageFile", PostFile);
-    console.log(PostFile);
-    PostForm.append(
-      "data",
-      new Blob([JSON.stringify(PostData)], { type: "application/json" })
-    );
+    // blob객체와 blobURL은 다름 
+    
+    // Blob URL을 Blob 객체로 변환하는 함수
+    async function blobUrlToBlob(blobUrl) {
+      const response = await fetch(blobUrl); // Blob URL에서 데이터를 가져옵니다.
+      const blob = await response.blob(); // 가져온 데이터를 Blob으로 변환합니다.
+      return blob;
+    }
+
+    // 사용 예시
+    const blobURL = resultImg;
+
+    blobUrlToBlob(blobURL).then((blob) => {
+      // 변환된 Blob 객체를 사용할 수 있습니다.
+      console.log("Blob 객체:", blob);
+      const PostFile = new File([blob], "test.jpg", { type: "image/jpeg" });
+      PostForm.append("imageFile", PostFile);
+      /*    console.log(PostFile); */
+      PostForm.append(
+        "data",
+        new Blob([JSON.stringify(PostData)], { type: "application/json" })
+      );
+
+      AddPostMutation.mutate(PostForm);
+
+    });
+
+ 
 
     ////////////////////////////////////////////////////
 
-    //게시글 등록
-    await addPost(PostForm);
+  
+  
 
     //////////////////////////////////////////////////////////////////////////////////////////////
 
-    /*     setShowModal(true); */
     alert("게시글이 등록되었습니다!");
-    
-    navigate("/postlist/recent");
+    window.location.href = '/postlist/recent';
   };
 
   return (
     <ViewBody>
       <WriteForm>
-        <ImgSection>
-          <img src={objectUrl} alt="ResultImage" />
-        </ImgSection>
+        <ImgSection>{resultImg && <img src={resultImg} />}</ImgSection>
         <InputSection>
           <section>
             <InputHead>
