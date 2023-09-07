@@ -29,6 +29,12 @@ function Header({ onClose }) {
     }
   };
 
+  const handleMouseDown = (event) => {
+    if (event.button === 1) {
+      window.open('https://www.momentfilm7.com/', '_blank');
+    }
+  };
+
   return (
     <HeaderSection onClick={handleHeaderClick}>
       <SmallBottomNav>
@@ -61,7 +67,7 @@ function Header({ onClose }) {
 
       <HeaderWrap>
         <HeaderTitle >
-          <div onClick={() => navigate(`/`)}>
+          <div onClick={() => navigate(`/`)} onMouseDown={handleMouseDown}>
             <img src={LOGO} alt="" />
           </div>
         </HeaderTitle>

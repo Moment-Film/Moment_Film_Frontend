@@ -6,7 +6,9 @@ import SearchModal from "./SearchModal";
 import { useSelector } from "react-redux";
 
 const Search = () => {
-  const [isModalOpen, setModalOpen] = useState(false);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [username, setUsername] = useState("");
   const navigate = useNavigate();
   const searchRef = useRef(null);
@@ -16,7 +18,7 @@ const Search = () => {
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (searchRef.current && !searchRef.current.contains(event.target)) {
-        setModalOpen(false);
+        setIsModalOpen(false);
       }
     };
 
@@ -51,13 +53,12 @@ const Search = () => {
   };
 
   const searchBtnHandler = () => {
-
     if (username.trim() === "") {
       alert("공백 문자열은 검색할 수 없습니다.");
     } else {
       navigate(`/search/reseult/${username}`);
       saveSearchTermToLocalStorage(username);
-      setModalOpen(false);
+      setIsModalOpen(false);
       setUsername("");
     }
   };
@@ -69,14 +70,20 @@ const Search = () => {
       } else {
         navigate(`/search/reseult/${username}`);
         saveSearchTermToLocalStorage(username);
-        setModalOpen(false);
+        setIsModalOpen(false);
         setUsername("");
       }
     }
   };
 
-  const onCloseHandler = () => {
-    setModalOpen(false);
+  const openModalHandler = () => {
+    setIsModalOpen(true);
+    window.addEventListener("scroll", closeModalHandler);
+  };
+
+  const closeModalHandler = () => {
+    setIsModalOpen(false);
+    window.removeEventListener("scroll", closeModalHandler);
   };
 
   return (
@@ -84,7 +91,7 @@ const Search = () => {
       <input
         type="text"
         value={username}
-        onClick={() => setModalOpen(true)}
+        onClick={openModalHandler}
         onChange={searchTermHandler}
         onKeyPress={handleKeyPress}
         placeholder="크리에이터를 검색해 보세요!"
@@ -93,7 +100,7 @@ const Search = () => {
         <img src={search} alt="" className="img" />
       </div>
       {isModalOpen && (
-        <SearchModal onClose={onCloseHandler} username={userInfo.username} />
+        <SearchModal onClose={closeModalHandler} username={userInfo.username} />
       )}
     </SearchInputDiv>
   );
@@ -103,20 +110,15 @@ export default Search;
 
 const SearchInputDiv = styled.div`
   display: flex;
-  justify-content:space-around;
-/*   align-items: center; */
-/*   min-width: 200px; */
-  max-width:300px;
+  justify-content: space-around;
+  max-width: 300px;
 
-  width:30%;
+  width: 30%;
 
   height: 40px;
   border-bottom: 2px solid var(--green5);
   border-radius: 5px 5px 0px 0px;
   box-sizing: border-box;
-/*   margin-left: -185px; */
-/*   position: absolute;
-  left: 50%; */
 
   div {
     display: flex;
@@ -126,6 +128,7 @@ const SearchInputDiv = styled.div`
       cursor: pointer;
     }
   }
+
   input {
     width: 100%;
     border: none;
@@ -140,11 +143,23 @@ const SearchInputDiv = styled.div`
     }
   }
 
-    input::placeholder {color:var(--gray3)};
-    input::-webkit-input-placeholder {color:var(--gray3)};
-    input:-ms-input-placeholder {color:var(--gray3)};
- 
-    textarea::placeholder {color:var(--gray3)};
-    textarea::-webkit-input-placeholder {color:var(--gray3)};
-    textarea:-ms-input-placeholder {color:var(--gray3)};
+  input::placeholder {
+    color: var(--gray3);
+  }
+  input::-webkit-input-placeholder {
+    color: var(--gray3);
+  }
+  input:-ms-input-placeholder {
+    color: var(--gray3);
+  }
+
+  textarea::placeholder {
+    color: var(--gray3);
+  }
+  textarea::-webkit-input-placeholder {
+    color: var(--gray3);
+  }
+  textarea:-ms-input-placeholder {
+    color: var(--gray3);
+  }
 `;

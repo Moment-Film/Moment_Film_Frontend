@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import store from './redux/config/ConfigStore'
 import persistStore from "redux-persist/es/persistStore";
 import { PersistGate } from "redux-persist/integration/react";
+import ScrollToTop from './components/common/component/ScrollToTop';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -20,6 +21,7 @@ root.render(
         <PersistGate loading={null} persistor={persistor}>
             <QueryClientProvider client={queryClient}>
                 <BrowserRouter>
+                    <ScrollToTop />
                     <App />
                 </BrowserRouter>
             </QueryClientProvider>

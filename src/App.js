@@ -21,18 +21,18 @@ import RedirectPage from './pages/RedirectPage';
 
 import DrawPage from './pages/DrawPage';
 import Test from './pages/Test';
+import NotFound from "./pages/NOTFOUND";
 
 function App() {
   return (
     <>
       <Globalstyles />
       <Routes>
-        {/* 안스르륵 */}
-        <Route path='/' element={<PageLayout />}>
+        <Route path="/" element={<PageLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path='/postlist/:id' element={<CustomPostPage />} />
-          <Route path='/post/:id' element={<DetailPage />} />
+          <Route path="/postlist/:id" element={<CustomPostPage />} />
+          <Route path="/post/:id" element={<DetailPage />} />
           <Route path="/profile/:id" element={<MyPage />} />
           <Route path='/camera/frameSelect' element={<FrameSelectPage />} />
           <Route path='/camera/capture' element={<CameraPage />} />
@@ -40,6 +40,7 @@ function App() {
           <Route path='/camera/capture/filter' element={<FilterPage />} />
           <Route path='/camera/capture/frame' element={<FrameCustomPage />} />
           <Route path='/camera/capture/finish' element={<CustomFinishPage />} />
+
           <Route path="/search/reseult/:id" element={<SearchReseultpage />} />
           <Route path="/signup" element={<SignUpPage />} />
 
@@ -47,16 +48,18 @@ function App() {
           <Route path="/user/google/callback" element={<RedirectPage />} />
           <Route path="/test" element={<Test />} />
           <Route path="/DrawPage" element={<DrawPage />} />
-          
+
           {/* private Router */}
           <Route element={<PrivateRoute />}>
-            <Route path='/camera/capture/finish/write' element={<PostWritePage />} />
+            <Route
+              path="/camera/capture/finish/write"
+              element={<PostWritePage />}
+            />
           </Route>
         </Route>
 
-        {/* 스르륵 */}
-
-
+        {/* 404 Not Found */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );
