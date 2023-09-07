@@ -22,8 +22,12 @@ const Mobile = ({ children }) => {
 const DrawPage = () => {
   return (
     <div>
+
+<DeskDraw />
+
+{/* 
       <Desktop>
-        <DeskDraw />
+       
       </Desktop>
 
       <Tablet>
@@ -32,7 +36,7 @@ const DrawPage = () => {
 
       <Mobile>
         <MobileDrawPage />
-      </Mobile>
+      </Mobile> */}
 
       {/*  <Default>Not mobile (desktop or laptop or tablet)</Default>  */}
     </div>

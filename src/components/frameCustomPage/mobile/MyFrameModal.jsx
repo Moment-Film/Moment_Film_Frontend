@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
-import useCustomAPI from '../../api/withToken/useCustom';
-import { SetImgFile } from '../../redux/modules/FrameInfo';
+import useCustomAPI from '../../../api/withToken/useCustom';
+import { SetImgFile,SetBackgroundImg } from '../../../redux/modules/FrameInfo';
 import { useDispatch } from 'react-redux';
 function MyFrameModal({ onClose, data, title, accessToken, refreshToken, onApply }) {
   const {
@@ -20,12 +20,15 @@ function MyFrameModal({ onClose, data, title, accessToken, refreshToken, onApply
         .then(response => response.blob())
         .then(blob => {
           dispatch(SetImgFile(blob));
-          onApply(h, s, l, img);
+          dispatch(SetBackgroundImg(URL.createObjectURL(blob)))
+
         })
         .catch(error => {
           console.error("Error fetching or processing image:", error);
         });
     }
+
+    onApply(h, s, l, img);
   }
 
   const applyThisFilter = (blur, brightness, saturate, contrast, sepia) => {
@@ -68,11 +71,11 @@ export default MyFrameModal
 
 const ModalSection = styled.div`
   background-color: white;
-  width: 400px;
-  height: 420px;
+  width: 300px;
+  height: 320px;
   display: flex;
   flex-direction: column;
-  position: fixed;
+
   border-radius: 5px;
   box-sizing: border-box;
   padding: 25px;

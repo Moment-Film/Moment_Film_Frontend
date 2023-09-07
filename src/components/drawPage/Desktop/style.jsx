@@ -135,6 +135,11 @@ export const WhiteContainer = styled.div`
 `;
 export const DrawSection = styled.div`
   display: flex;
+
+  @media (max-width: 500px) {
+    flex-direction:column;
+    align-items:center;
+}
 `;
 export const LeftBox = styled.div`
   width: 69%;
@@ -155,6 +160,9 @@ export const RightBox = styled.div`
   gap: 10px;
 
   width: 31%;
+  @media (max-width: 500px) {
+    width:100%;
+}
   max-width: 370px;
   max-height: 863px;
   height: 863px;

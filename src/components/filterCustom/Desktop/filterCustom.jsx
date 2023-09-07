@@ -1,21 +1,21 @@
 import React, { useEffect } from "react";
-import * as a from "./style";
+import * as a from  './style';
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 
-import GridNav from "../frameSelectPage/GridNav";
+import GridNav from "../../frameSelectPage/GridNav";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import domtoimage from "dom-to-image";
-import { SetResultImage } from "../../redux/modules/ResultImage";
-import { SetFilter } from "../../redux/modules/Filter";
-import StyledButton from "../common/component/StyledButton";
-import LOGO from "../assets/images/LOGO.svg";
+import { SetResultImage } from "../../../redux/modules/ResultImage";
+import { SetFilter } from "../../../redux/modules/Filter";
+import StyledButton from "../../common/component/StyledButton";
+import LOGO from "../../assets/images/LOGO.svg";
 
-import * as Img from "../assets/filter/Image";
+import * as Img from "../../assets/filter/Image";
 
 const FilterCustom = () => {
   const picRef = useRef();
@@ -64,23 +64,28 @@ const FilterCustom = () => {
   ]);
 
 
-  const filterValueHandler = (key, value) => {
-    console.log(filterValue);
-    console.log(key);
-    console.log(value);
-    const newValue = { ...filterValue, [key]: value };
-    setFilterValue(newValue);
+  const filterValueHandler = async (key, value) => {
+    // 상태 업데이트와 리덕스 저장을 한 번에 처리
+    await setFilterValue((prevValue) => {
+      const newValue = { ...prevValue, [key]: value };
+      // 리덕스에 변경된 값을 저장
+      dispatch(SetFilter(newValue));
+      return newValue;
+    });
   };
 
   const handleDownload = async () => {
+    
     if (!picRef.current) return;
 
     try {
       const card = picRef.current;
       domtoimage.toBlob(card).then((imageFile) => {
-        dispatch(SetResultImage(imageFile));
+        var objectURL = URL.createObjectURL(imageFile);
+
+        dispatch(SetResultImage(objectURL));
         dispatch(SetFilter(filterValue));
-        //console.log(imageFile);
+        console.log(imageFile);
         /*    navigate("/camera/capture/finish"); */
         navigate(`/DrawPage`);
       });

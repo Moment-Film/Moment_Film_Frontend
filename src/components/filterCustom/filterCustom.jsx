@@ -64,12 +64,17 @@ const FilterCustom = () => {
   ]);
 
 
-  const filterValueHandler = (key, value) => {
-    console.log(filterValue);
-    console.log(key);
-    console.log(value);
-    const newValue = { ...filterValue, [key]: value };
-    setFilterValue(newValue);
+
+  const filterValueHandler = async (key, value) => {
+    // 상태 업데이트와 리덕스 저장을 한 번에 처리
+    await setFilterValue((prevValue) => {
+      const newValue = { ...prevValue, [key]: value };
+      
+      // 리덕스에 변경된 값을 저장
+      dispatch(SetFilter(newValue));
+  
+      return newValue;
+    });
   };
 
   const handleDownload = async () => {
@@ -78,6 +83,7 @@ const FilterCustom = () => {
     try {
       const card = picRef.current;
       domtoimage.toBlob(card).then((imageFile) => {
+        console.log(typeof(imageFile))
         dispatch(SetResultImage(imageFile));
         dispatch(SetFilter(filterValue));
         //console.log(imageFile);
@@ -264,7 +270,6 @@ const DrawSection = styled.div`
 `;
 const LeftBox = styled.div`
   height: 863px;
-  width: 60%;
   display: flex;
   align-items: center;
   justify-content: center;

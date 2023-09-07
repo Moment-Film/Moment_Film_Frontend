@@ -46,18 +46,12 @@ function DrawPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const objectUrl = URL.createObjectURL(thisbackGround);
-
+  /*   const objectUrl = URL.createObjectURL(thisbackGround);
+   */
   /////////////////////////////////////////////////////////////
   const [isScrollLocked, setIsScrollLocked] = useState(false);
-  // 스크롤 이벤트 핸들러
-  const handleScroll = (e) => {
-    if (isScrollLocked) {
-      e.preventDefault();
-    }
-  };
 
-  // 컴포넌트가 마운트될 때 스크롤 이벤트 리스너 추가
+  // 스크롤 제어
   useEffect(() => {
     if (isScrollLocked) {
       document.body.style.overflow = "hidden"; // 스크롤을 숨김
@@ -65,11 +59,9 @@ function DrawPage() {
       document.body.style.overflow = "auto"; // 스크롤을 다시 표시
     }
 
-    window.addEventListener("scroll", handleScroll);
-
-    // 컴포넌트가 언마운트될 때 스크롤 이벤트 리스너 제거
+    // 컴포넌트가 언마운트될 때 스크롤 초기화
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      document.body.style.overflow = "auto"; // 스크롤을 다시 표시
     };
   }, [isScrollLocked]);
 
@@ -124,7 +116,9 @@ function DrawPage() {
     try {
       const card = canvasRef.current;
       domtoimage.toBlob(card).then((imageFile) => {
-        dispatch(SetResultImage(imageFile));
+        var objectURL = URL.createObjectURL(imageFile);
+
+        dispatch(SetResultImage(objectURL));
         //console.log(imageFile);
         navigate("/camera/capture/finish");
       });
@@ -143,7 +137,9 @@ function DrawPage() {
               style={{ display: "flex", position: "relative" }}
               ref={canvasRef}
             >
-              <img src={objectUrl} style={{ border: "1px blue" }} />
+              {thisbackGround && (
+                <img src={thisbackGround} style={{ border: "1px blue" }} />
+              )}
 
               <DrawCanvas
                 width={FrameSize.width}
