@@ -41,7 +41,7 @@ function App() {
           <Route path='/camera/capture/frame' element={<FrameCustomPage />} />
           <Route path='/camera/capture/finish' element={<CustomFinishPage />} />
 
-          <Route path="/search/reseult/:id" element={<SearchReseultpage />} />
+          <Route path="/search/result/:id" element={<SearchReseultpage />} />
           <Route path="/signup" element={<SignUpPage />} />
 
           <Route path="/user/kakao/callback" element={<RedirectPage />} />
