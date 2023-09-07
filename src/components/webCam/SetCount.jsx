@@ -16,7 +16,7 @@ import * as C from './captureStyle';
 import { useSelector } from 'react-redux';
 import LOGO from '../assets/images/LOGO.svg'
 
-const ImagePiece = ({ imageSrc, onDrop, isPlaced, clickFunc , index}) => {
+const ImagePiece = ({ imageSrc, isPlaced, clickFunc , index}) => {
   const [{ isDragging }, dragRef] = useDrag({
     type: 'imagePiece',
     item: { imageSrc },
@@ -50,7 +50,7 @@ const ImagePiece = ({ imageSrc, onDrop, isPlaced, clickFunc , index}) => {
 const GridInner = ({ onDrop, imageSrc, width, height, boardIndex, clickFunc }) => {
   const [{ canDrop, isOver }, dropRef] = useDrop({
     accept: 'imagePiece',
-    drop: (item, monitor) => {
+    drop: (item) => {
       onDrop(item.imageSrc);
     },
     collect: (monitor) => ({
@@ -146,7 +146,7 @@ const SetCount = () => {
   const setImageClick = (imageIndex) => {
     if(setImage<4){
       let currentBoard = [...boardImages];
-      currentBoard[setImage] = capturedImages[imageIndex];
+      currentBoard[currentBoard.indexOf(null)]=capturedImages[imageIndex];
       setBoardImages(currentBoard);
       setSetImage(setImage+1);
     }
@@ -188,7 +188,7 @@ const SetCount = () => {
         </GridBackground>
           <C.PreviewSection>
             <C.PreviewSlider style={{padding:0, margin:0}}ref={slideRef}>
-              {capturedImages.map((item,index)=>{
+              {capturedImages?.map((item,index)=>{
                 return (
                   <ImagePiece clickFunc={setImageClick} key={index} index={index} imageSrc={item} isPlaced={boardImages.includes(item)}/>
               )})}

@@ -30,6 +30,7 @@ function Capture() {
   const [deletePics, setDeletePics] = useState(false);
   const [cameraFlip, setCameraFlip] = useState(true);
   const [isFliped, setIsFliped] = useState(true);
+  const [throttle, setThrottle] = useState(false);
   const slideRef = useRef(null);
   const videoRef = useRef(null);
   const streamRef = useRef(null);
@@ -37,8 +38,8 @@ function Capture() {
   useEffect(() => {
     const constraints = {
       video: {
-        width: {ideal:thisGrid.innerWidth*2},
-        height: {ideal:thisGrid.innerHeight*2},
+        width: {ideal:thisGrid.innerWidth},
+        height: {ideal:thisGrid.innerHeight},
       }
     }
     const enableWebcam = async () => {
@@ -79,15 +80,21 @@ function Capture() {
       console.log( cameraFlip, isFliped, "flip!");
       setIsFliped(!isFliped);
     }
-    context.drawImage(videoRef.current, 0, 0, thisGrid.innerWidth, thisGrid.innerHeight);
-    localStorage.setItem(
-      `image${index}`,
-      canvas.toDataURL("image/png")
-    );
-    setCapturedImages((prevImages) => [
-      ...prevImages,
-      prevImages[index] = canvas.toDataURL("image/png"),
-    ]);
+    if (!throttle){
+      context.drawImage(videoRef.current, 0, 0, thisGrid.innerWidth, thisGrid.innerHeight);
+      localStorage.setItem(
+        `image${index}`,
+        canvas.toDataURL("image/png")
+      );
+      setCapturedImages((prevImages) => [
+        ...prevImages,
+        prevImages[index] = canvas.toDataURL("image/png"),
+      ]);
+    }
+    setThrottle(true)
+    setTimeout(async () => {
+      setThrottle(false);
+    }, 300)
   };
   const MoveSlider = () => {
     if (slideRef.current !== null) { //즉시할당이 안될수있어서 그냥 옵셔널체이닝 느낌
@@ -111,7 +118,7 @@ function Capture() {
     setDeletePics(false);
   }
   const deleteAll = () => {
-    Array(8).map((_,index)=>{
+    Array(8).fill(null).map((_,index)=>{
       localStorage.removeItem(`image${index}`);
     })
     setCapturedImages([]);
