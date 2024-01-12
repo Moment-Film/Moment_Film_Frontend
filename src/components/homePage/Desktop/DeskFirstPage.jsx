@@ -25,6 +25,7 @@ const FirstPage = () => {
                 </span>
               </div>
 
+
               <div className="starImg">
                 <img className="smallstar" src={Img.DIA40} alt="" />
                 <img className="bigstar" src={Img.DIA_yel} alt="" />
@@ -36,6 +37,7 @@ const FirstPage = () => {
                 <span className="subTitleSpan">
                   일상을 개성있게 남겨보세요!
                 </span>
+                <img className="flowImg" src={Img.SPIN_FLOWER} alt="" />
               </div>
               <div className="boxContent">
                 <p className="smallSpan">
@@ -97,6 +99,16 @@ const ContentBox = styled.div`
   width: 1366px;
   padding-top: 93px;
 `;
+
+const spinAnimation = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
 
 const FontContentBox = styled.div`
   width: 50%;
@@ -163,6 +175,7 @@ const FontContentBox = styled.div`
     z-index:10;
     background-color:var(--white);
   }
+  
 
   .boxTitleBox {
     display: flex;
@@ -170,6 +183,19 @@ const FontContentBox = styled.div`
     justify-content: center;
     align-items: center;
     border-bottom: 1px solid black;
+
+    .flowImg {
+    position: absolute;
+    margin-left:370px;
+    margin-top:-60px;
+    width: 3vw;
+    height: 3vw;
+    max-width: 50px;
+    max-height: 50px;
+    animation: ${spinAnimation} 10s linear infinite;
+
+  }
+
   }
 
   .ment {

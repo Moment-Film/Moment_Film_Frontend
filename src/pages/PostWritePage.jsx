@@ -209,6 +209,7 @@ const ImgSection = styled.div`
   img {
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 5px;
+    width:100%;
   }
 `;
 const InputSection = styled.div`

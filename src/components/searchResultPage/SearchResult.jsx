@@ -13,7 +13,7 @@ const SearchReseult = () => {
   const params = useParams();
   const username = params.id;
 
-  const { data: searchUserData } = useQuery(
+  const { data: searchUserData ,isLoading, isError } = useQuery(
     ["searchUser", username, currentPage],
     () => searchUser({ username, currentPage }),
     {
@@ -27,6 +27,14 @@ const SearchReseult = () => {
   const changePageHandler = (page) => {
     setCurrentpage(page);
   };
+
+  if(isLoading){
+    return <div>로딩중 ... </div>
+  }
+
+  if(isError){
+    return <div>에러! ... </div>
+  }
 
   return (
     <a.ResultWrap>
