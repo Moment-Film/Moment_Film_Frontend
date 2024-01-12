@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { SetResultImage } from "../../../redux/modules/ResultImage";
 import { useNavigate } from "react-router-dom";
 import domtoimage from "dom-to-image";
+import html2canvas from "html2canvas";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import GridNav from "../../frameSelectPage/GridNav";
@@ -48,6 +49,8 @@ function DrawPage() {
 
   /*   const objectUrl = URL.createObjectURL(thisbackGround);
    */
+
+  console.log(thisbackGround);
   /////////////////////////////////////////////////////////////
   const [isScrollLocked, setIsScrollLocked] = useState(false);
 
@@ -110,22 +113,26 @@ function DrawPage() {
   };
 
   const handleSave = async () => {
-    //console.log(1);
     if (!canvasRef.current) return;
-
+  
     try {
       const card = canvasRef.current;
-      domtoimage.toBlob(card).then((imageFile) => {
-        var objectURL = URL.createObjectURL(imageFile);
 
+      // Convert the HTML content to a canvas using html2canvas
+      const canvas = await html2canvas(card);
+  
+      // Convert the canvas to a Blob
+      canvas.toBlob((imageFile) => {
+        var objectURL = URL.createObjectURL(imageFile);
+  
         dispatch(SetResultImage(objectURL));
-        //console.log(imageFile);
         navigate("/camera/capture/finish");
       });
     } catch (error) {
       console.error("저장에러:", error);
     }
   };
+  
 
   return (
     <S.BackgroundGray>
@@ -134,7 +141,7 @@ function DrawPage() {
         <S.DrawSection>
           <S.LeftBox>
             <div
-              style={{ display: "flex", position: "relative" }}
+              style={{ display: "flex", position: "relative",width:`${FrameSize.width}`,height:`${FrameSize.height}` }}
               ref={canvasRef}
             >
               {thisbackGround && (

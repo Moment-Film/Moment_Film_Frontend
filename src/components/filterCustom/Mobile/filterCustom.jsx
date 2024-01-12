@@ -68,23 +68,24 @@ const FilterCustom = () => {
     // 상태 업데이트와 리덕스 저장을 한 번에 처리
     await setFilterValue((prevValue) => {
       const newValue = { ...prevValue, [key]: value };
-      
       // 리덕스에 변경된 값을 저장
       dispatch(SetFilter(newValue));
-  
       return newValue;
     });
   };
 
   const handleDownload = async () => {
+    
     if (!picRef.current) return;
 
     try {
       const card = picRef.current;
       domtoimage.toBlob(card).then((imageFile) => {
-        dispatch(SetResultImage(imageFile));
+        var objectURL = URL.createObjectURL(imageFile);
+
+        dispatch(SetResultImage(objectURL));
         dispatch(SetFilter(filterValue));
-        //console.log(imageFile);
+        console.log(imageFile);
         /*    navigate("/camera/capture/finish"); */
         navigate(`/DrawPage`);
       });
@@ -261,21 +262,21 @@ const WhiteContainer = styled.div`
 const DrawSection = styled.div`
   display: flex;
 
-  @media (max-width: 500px) {
+  @media (max-width: 400px) {
     flex-direction: column;
     align-items: center;
   }
 `;
 const LeftBox = styled.div`
+  height: 863px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top:20px;
-  margin-bottom:20px;
+  background: var(--lightGray);
 `;
 const RightBox = styled.div`
   display: flex;
-  padding-top: 30px;
+  padding-top: 81.5px;
   justify-content: center;
   gap: 10px;
   width: 100%;
@@ -305,3 +306,4 @@ const RightBox = styled.div`
     }
   }
 `;
+ 

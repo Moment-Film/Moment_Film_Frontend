@@ -12,6 +12,7 @@ import finishBG from "../assets/images/finishBG.jpg";
 const CustomFinish = () => {
   const navigate = useNavigate();
   const reusultImg = useSelector((state) => state.ResultImage);
+  const FrameSize = useSelector((state) => state.image.images);
   /*   var objectURL = window.URL.createObjectURL(reusultImg); */
 
   const save = () => {
@@ -32,7 +33,7 @@ const CustomFinish = () => {
                 </span>
               </TextWrap>
               <ImgWrap>
-                <CustomImg>
+                <CustomImg width={FrameSize.width} height={FrameSize.height}>
                   {reusultImg && (
                     <img src={reusultImg} style={{ border: "1px blue" }} />
                   )}
@@ -99,10 +100,14 @@ const Point = styled.img`
 `;
 
 const CustomImg = styled.div`
+  width:${(props)=>props.width}px;
   height: 446px;
   border-radius: 5px;
   margin-bottom: 42px;
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+  img{
+    width:100%;
+  }
 `;
 
 const BtnWrap = styled.div`

@@ -27,7 +27,7 @@ function DetailPage() {
 
   //리액트 쿼리 상태 처리 부분 
   if (isLoading) {
-    return <div>aa</div>
+    return <div>로딩중...</div>
   }
 
   if (isError) {
